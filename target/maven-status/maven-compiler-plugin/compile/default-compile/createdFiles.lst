@@ -1,0 +1,13 @@
+tw/com/ispan/eeit48/repository/ProductRepository.class
+tw/com/ispan/eeit48/repository/CustomerRepository.class
+tw/com/ispan/eeit48/ServletInitializer.class
+tw/com/ispan/eeit48/controller/ProductApiController.class
+tw/com/ispan/eeit48/controller/LoginController.class
+tw/com/ispan/eeit48/LabwebRestApplication.class
+tw/com/ispan/eeit48/domain/CustomerBean.class
+tw/com/ispan/eeit48/SpringMvcJavaConfig.class
+tw/com/ispan/eeit48/domain/ProductBean.class
+tw/com/ispan/eeit48/controller/RoutingController.class
+tw/com/ispan/eeit48/controller/ProductController.class
+tw/com/ispan/eeit48/service/ProductService.class
+tw/com/ispan/eeit48/service/CustomerService.class

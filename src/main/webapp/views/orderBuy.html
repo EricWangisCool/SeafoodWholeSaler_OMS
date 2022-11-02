@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pagecontent</title>
+
+    <!-- Material Design -->
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+    <!-- ICON CSS -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+
+    <!-- globalstyle -->
+    <link rel="stylesheet" href="../css/globalstyle.css">
+    <!-- globalattributes -->
+    <link rel="stylesheet" href="../css/globalattributes.css">
+    <!-- 加入頁簽小圖 -->
+    <link rel="shortcut icon" href="https://upload.cc/i1/2022/10/18/wJdKCL.png" type="image/x-icon">
+
+    <!-- 複數頁面使用CSS效果 -->
+    <link rel="stylesheet" href="/css/pluralpagestyle.css">
+
+    <style>
+        /* 建立叫貨單按鈕------------ */
+        .buySet {
+            float: right;
+        }
+
+
+        /* 表格 --------------------------------------------------------- */
+
+        .orderBuytable {
+            table-layout: fixed;
+            text-align: center;
+
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 0.3rem;
+            border: 1px solid var(--color-border);
+        }
+
+        .orderBuytable th {
+            height: var(--table-thheight);
+
+            color: var(--color-secfont);
+            font-weight: var(--font-weight-contenttitle);
+            background-color: var(--color-sectablefirst);
+        }
+
+        .orderBuytable td {
+            /* height: var(--table-tdheight); */
+            padding-top: 18px;
+            padding-bottom: 18px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .orderBuytable tr:nth-child(2n+2) td {
+            /* background-color: red; */
+            padding-top: 0px;
+            padding-bottom: 0px;
+            border: none;
+        }
+
+        #failContent {
+            background-color: var(--color-antiquewhite);
+            text-align: left;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+
+        /* .orderBuytable tr:nth-child(2n+2) {} */
+
+        /* 子table外的容器 */
+        .childTableHidden {
+            height: 0px;
+            overflow: hidden;
+
+            transition-duration: .35s;
+            transition-timing-function: ease;
+            background-color: var(--color-whitesmoke);
+            /* background-color:red;  */
+        }
+
+        .childTableHidden table {
+            /* display: none; */
+            margin-left: auto;
+            margin-right: auto;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 0.3rem;
+            border: 1px solid var(--color-border);
+        }
+
+        .childTableHidden table thead {
+            height: var(--table-thheight);
+
+            color: var(--color-secfont);
+            font-weight: var(--font-weight-contenttitle);
+            background-color: var(--color-sectablefirst);
+        }
+
+        .childTableHidden table tbody td {
+            height: var(--table-thheight);
+            border-top: 1px solid var(--color-border);
+            background-color: var(--color-white);
+        }
+
+
+
+        /* RWD---------------------------------------- */
+
+        @media screen and (max-width: 1000px) {
+            table {
+                border: 0;
+            }
+
+            table thead {
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+
+            table tr {
+                border-bottom: 3px solid var(--color-antiquewhite);
+                display: block;
+                font-size: 16px;
+            }
+
+            table td {
+                border-bottom: 1px solid var(--color-antiquewhite);
+                display: block;
+                text-align: right;
+
+            }
+
+            table td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: var(--color-sunorange);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="col-11 mt-4 px-0">
+
+                <!-- 分頁大標 -->
+                <h1 class="fs-2 fw-bold mb-4"><span class="text-black">叫貨管理</span>
+                    <button class="buySet mt-2 mdc-button mdc-button--raised" onclick="callStaticBackdrop(2)">
+                        <span class="mdc-button__label fs-5 fw-normal">建立叫貨單</span>
+                    </button>
+                </h1>
+
+
+                <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto mb-4">
+
+                    <!-- 這裡是內容的框架，可直接改掉框架 -->
+
+                    <div class="h-auto d-flex justify-content-start fs-5 fw-normal">
+                        <a class="opA active">全部</a>
+                        <a class="opA">待確認</a>
+                        <a class="opA">待出貨</a>
+                        <a class="opA">待收貨</a>
+                        <a class="opA">完成</a>
+                        <a class="opA">不成立</a>
+                    </div>
+
+                    <div class="borderLine"></div>
+
+                    <hr class="hr-color mt-0 mb-4">
+
+                    <table class="orderBuytable fs-5 fw-normal w-100">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%;">叫貨編號</th>
+                                <th style="width: 15%;">供應商</th>
+                                <th colspan="2">當前狀態</th>
+                                <th style="width: 10%;">總價</th>
+                                <th style="width: 10%;">付款方式</th>
+                                <th style="width: 15%;">操作</th>
+                            </tr>
+                        </thead>
+
+                        <!-- 項目內容 -->
+
+                        <tr class="hiddenRowControll"></tr>
+                        <tr class="childRow"></tr>
+                        <tr class="hiddenRowControll"></tr>
+                        <tr class="childRow"></tr>
+                        <tr class="hiddenRowControll"></tr>
+                        <tr class="childRow"></tr>
+                        <tr class="hiddenRowControll"></tr>
+                        <tr class="childRow"></tr>
+                        <tr class="hiddenRowControll"></tr>
+                        <tr class="childRow"></tr>
+                    </table>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- 購買彈窗 -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">商品清單</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="height: 700px;">
+                    <iframe id="ifrm" style="width: 100%; flex: 1; height: 700px;" src="./goods.html"></iframe>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/javascript/materialdesigninit.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+
+    <script src="/javascript/ajaxconnect.js"></script>
+    <script src="/javascript/orderstatus.js"></script>
+    <script src="/javascript/tools.js"></script>
+
+    <script>
+
+        // 呼叫子類別的方法----------------------------------------------------------------------------------------------------------
+        function callStaticBackdrop(showcontent) {
+            $("#staticBackdrop").modal("show");
+            $("#ifrm").get(0).contentWindow.parentCall(showcontent);
+        }
+
+        // iframe內部的子類會呼叫這個方法：建立叫貨單------------------------------------------------------------------------------
+        function closeComponent(data) {
+            // data不會接到值
+            $("#staticBackdrop").modal("hide");
+            // 重新整理頁面(取代init)
+            window.location.replace(location.href);
+        }
+
+
+        // 最上方按鈕點擊時，按鈕狀態改變，下方底線移動。
+        $(".opA").on("click", async function () {
+            await downloadData();
+            $(".opA").removeClass('active');
+            $(this).addClass('active');
+
+            switch ($(this).index()) {
+                case 0:
+                    $(".borderLine").css({ "transform": "translateX(0px)", "width": "70px" });
+                    $(".hiddenRowControll").show();
+                    break;
+                case 1:
+                    $(".borderLine").css({ "transform": "translateX(70px)", "width": "90px" });
+                    $(".hiddenRowControll").hide();
+
+                    for (let i = 0; i < $(".hiddenRowControll").length; i++) {
+                        if ($($(".hiddenRowControll")[i]).attr("data-state") == 2) {
+                            $($(".hiddenRowControll")[i]).show();
+                        }
+                    }
+                    break;
+                case 2:
+                    $(".borderLine").css({ "transform": "translateX(158px)", "width": "90px" });
+                    $(".hiddenRowControll").hide();
+
+                    for (let i = 0; i < $(".hiddenRowControll").length; i++) {
+                        if ($($(".hiddenRowControll")[i]).attr("data-state") == 3) {
+                            $($(".hiddenRowControll")[i]).show();
+                        }
+                    }
+                    break;
+                case 3:
+                    $(".borderLine").css({ "transform": "translateX(245px)", "width": "90px" });
+                    $(".hiddenRowControll").hide();
+
+                    for (let i = 0; i < $(".hiddenRowControll").length; i++) {
+                        if ($($(".hiddenRowControll")[i]).attr("data-state") == 4 || $($(".hiddenRowControll")[i]).attr("data-state") == 5) {
+                            $($(".hiddenRowControll")[i]).show();
+                        }
+                    }
+                    break;
+                case 4:
+                    $(".borderLine").css({ "transform": "translateX(338px)", "width": "70px" });
+                    $(".hiddenRowControll").hide();
+
+                    for (let i = 0; i < $(".hiddenRowControll").length; i++) {
+                        if ($($(".hiddenRowControll")[i]).attr("data-state") == 6) {
+                            $($(".hiddenRowControll")[i]).show();
+                        }
+                    }
+                    break;
+                case 5:
+                    $(".borderLine").css({ "transform": "translateX(408px)", "width": "90px" });
+                    $(".hiddenRowControll").hide();
+
+                    for (let i = 0; i < $(".hiddenRowControll").length; i++) {
+                        if ($($(".hiddenRowControll")[i]).attr("data-state") == 7) {
+                            $($(".hiddenRowControll")[i]).show();
+                        }
+                    }
+                    break;
+                default:
+                    console.log("borderLine error");
+                    break;
+            }
+
+        })
+
+
+        // JSON假資料  ----------------------------------------------------------------------------------------------------------------------
+        // OrderId(叫貨編號)、CompanyName(供應商)、OrderTime(叫貨時間)、OrderStatus(交易狀態)、?total(大總價)、PaymentTerms(付款方式)
+        // ProductNameSpec(品名規格)、OrderQty(叫貨數量)、OrderQty(到貨數量)、UnitSellPrice(成本單價)、?detailTotal(明細總價)
+        // 時間軸：Status(狀態)、訂單時間：OrderTime(訂單送出時間)、AcceptOrderTime(訂單接受時間)、ExportTime(訂單出貨時間)、SellerEstimatedArriveTime(賣家預計到貨時間)、ArriveOrderTime(貨物送達時間)、CompleteOrderTime(訂單完成時間)、CancelOrderTime(訂單不完成時間)
+
+        // OrderStatus(交易狀態)：1是尚未送出叫貨單_還沒送出訂單、2是待確認_訂單送出、3是待出貨_訂單成立、4是出貨中、5是待收貨_待收貨入庫、6是訂單完成_入庫完成、7是訂單不成立_賣家或買家取消
+
+        var allBuyList =
+            [
+                {
+                    acceptordertime: "null",
+                    arriveordertime: "null",
+                    buyerid: 1,
+                    cancelordertime: "null",
+                    companyname: "千萬屋",
+                    completeordertime: "null",
+                    exporttime: "null",
+                    orderid: "1D202209090001",
+                    orderstatus: 1,
+                    ordertime: "2022-09-22 13:14:17",
+                    paymentterms: "月結",
+                    sellerid: 2,
+                    total: 0
+                }
+
+            ];
+
+        var allBuyListDetail = [
+            {
+                detailtotal: 0,
+                orderid: "1D202209090001",
+                orderqty: 30,
+                productnamespec: "2號的秋刀魚",
+                sellerproductid: 200001,
+                unitdealprice: 0
+            }
+        ]
+
+
+        // 欄位中文名稱對應
+        let buyListName = [
+            {
+                ProductNameSpec: "品項",
+                OrderId: "叫貨編號",
+                CompanyName: "供應商",
+                OrderTime: "叫貨時間",
+                OrderStatus: "當前狀態",
+                total: "總價",
+                PaymentTerms: "付款方式",
+                ProductNameSpec: "品名規格",
+                OrderQty: "叫貨數量",
+                UnitSellPrice: "成本單價",
+                detailTotal: "總價",
+                controller: "操作"
+            }
+        ]
+
+        let buyListStatusName = [
+            {
+                OrderTime: "待供應商確認",
+                AcceptOrderTime: "待供應商出貨",
+                ExportTime: "供應商出貨中",
+                ArriveOrderTime: "待我方收貨",
+                CompleteOrderTime: "訂單完成",
+                CancelOrderTime: "不成立"
+            }
+        ]
+
+        // 撈資料(使用非同步資料的方式撈)。
+        downloadData();
+        async function downloadData() {
+
+            returnObj = await viewsorderbuy(null);
+
+            if (returnObj.responseStatus != 200) {
+                // 沒接到資料                
+                reNewData();
+
+                console.log("orderStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                console.log(returnObj.responseObj);
+            } else {
+                // 處理及判斷邏輯：          
+                allBuyList = returnObj.responseObj;
+
+                reNewData();
+            }
+
+        }
+
+
+
+        function reNewData() {
+
+            let totalTr = ``;
+            for (let i = 0; i < allBuyList.length; i++) {
+                let singleTr = `
+                <tr class="hiddenRowControll"></tr>
+                <tr class="childRow"></tr>`
+                totalTr += singleTr;
+            }
+
+            $(".orderBuytable")[0].innerHTML = `
+            <thead>
+                <tr>
+                    <th style="width: 16%;">${buyListName[0].OrderId}</th>
+                    <th style="width: 15%;">${buyListName[0].CompanyName}</th>
+                    <th style="width: 16%;">${buyListName[0].ProductNameSpec}</th>
+                    <th colspan="2" style="width: 30%;">${buyListName[0].OrderStatus}</th>
+                    <th style="width: 10%;">${buyListName[0].total}</th>
+                    <th style="width: 15%;">${buyListName[0].controller}</th>
+                </tr>
+            </thead>
+            ${totalTr}`;
+
+
+
+            for (let i = 0; i < allBuyList.length; i++) {
+
+
+                // 判斷幾個按鈕狀態
+                // 送出叫貨單=送出叫貨單按鈕+刪除叫貨單按鈕
+                let sentOrder =
+                    `<button class="orderBtn mdc-button mdc-button--raised mb-2" onclick="sweetalertShow(2,this)" data-value="${allBuyList[i].orderid}">
+                    <span class="mdc-button__label fs-5 fw-normal">送出叫貨單</span>
+                </button><br>
+                <button class="orderBtnDel mdc-button mdc-button--outlined mb-2" onclick="sweetalertShow(8,this)" data-value="${allBuyList[i].orderid}">
+                    <span class="mdc-button__ripple"></span>
+                    <span class="mdc-button__label fs-5 fw-normal">刪除叫貨單</span>
+                </button><br>`;
+
+                let cancelOrder =
+                    `<button class="orderBtnDel mdc-button mdc-button--outlined mb-2" onclick="sweetalertShow(7,this)" data-value="${allBuyList[i].orderid}">
+                    <span class="mdc-button__ripple"></span>
+                    <span class="mdc-button__label fs-5 fw-normal">取消叫貨單</span>
+                </button><br>`;
+
+                let checkOrder =
+                    `<button class="detail mdc-button" onclick="detailBtnCheck(this)" data-value="${allBuyList[i].orderid}">
+                    <span class="mdc-button__ripple"></span>
+                    <span class="mdc-button__label fs-5 fw-normal">查看明細</span>
+                </button>`;
+
+                let intoStock =
+                    `<button class="orderBtn mdc-button mdc-button--raised mb-2" onclick="sweetalertShow(6,this)" data-value="${allBuyList[i].orderid}">
+                    <span class="mdc-button__label fs-5 fw-normal">已確認入庫</span>
+                </button><br>`;
+
+                let theButton = null;
+                switch (allBuyList[i].orderstatus) {
+                    case 1:
+                        theButton = sentOrder + checkOrder;
+                        break;
+                    case 2: case 3: case 4:
+                        theButton = cancelOrder + checkOrder;
+                        break;
+                    case 5:
+                        theButton = intoStock + cancelOrder + checkOrder;
+                        break;
+                    case 6: case 7:
+                        theButton = checkOrder;
+                        break;
+                    default:
+                        console.log("theButton error");
+                        break;
+                }
+
+
+                // 判斷時間軸
+                let returnTimeLineStatus = checkTimeLine(0, allBuyList[i].orderstatus);
+
+                let thetimeLine = null;
+                switch (allBuyList[i].orderstatus) {
+                    case 1: case 7:
+                        thetimeLine = ``;
+                        break;
+                    case 2: case 3: case 4: case 5: case 6:
+                        thetimeLine = ` 
+                            <div id="timeline">
+                                <ol>
+                                    <li class="fullstate active">
+                                        <span class="point d-block"></span>
+                                        <span class="diplome d-block">${returnTimeLineStatus.step1}</span>
+                                        <span class="timestamp d-block">${allBuyList[i].ordertime}</span>
+                                    </li>
+                                    <li class="fullstate ${allBuyList[i].acceptordertime == "null" ? "" : "active"}">
+                                        <span class="point d-block"></span>
+                                        <span class="diplome d-block">${returnTimeLineStatus.step2}</span>
+                                        <span class="timestamp d-block">${allBuyList[i].acceptordertime == "null" ? "" : allBuyList[i].acceptordertime}</span>
+                                    </li>
+                                    <li class="fullstate ${allBuyList[i].exporttime == "null" ? "" : "active"}">
+                                        <span class="point d-block"></span>
+                                        <span class="diplome d-block">${returnTimeLineStatus.step3}</span>
+                                        <span class="timestamp d-block">${allBuyList[i].exporttime == "null" ? "" : allBuyList[i].exporttime}</span>
+                                    </li>
+                                    <li class="fullstate ${allBuyList[i].arriveordertime == "null" ? "" : "active"}">
+                                        <span class="point d-block"></span>
+                                        <span class="diplome d-block">${returnTimeLineStatus.step4}</span>
+                                        <span class="timestamp d-block">${allBuyList[i].arriveordertime == "null" ? "" : allBuyList[i].arriveordertime}</span>
+                                    </li>
+                                    <li class="fullstate ${allBuyList[i].completeordertime == "null" ? "" : "active"}">
+                                        <span class="point d-block"></span>
+                                        <span class="diplome d-block">${returnTimeLineStatus.step5}</span>
+                                        <span class="timestamp d-block">${allBuyList[i].completeordertime == "null" ? "" : allBuyList[i].completeordertime}</span>
+                                    </li>                                    
+                                </ol>
+                            </div>`;
+                        break;
+                    default:
+                        console.log("thetimeLine error");
+                        break;
+                }
+
+                //------------------------------------------------------
+
+                // 創造<tr>的Html格式，並將資料帶入。
+                // 檢查當前狀態，0代入叫貨
+                let returnbuystatus = checkstatus(0, allBuyList[i].orderstatus);
+                let finalStatusTime = "";
+                switch (allBuyList[i].orderstatus) {
+                    case 1:
+                        finalStatusTime = "";
+                        break;
+                    case 2:
+                        finalStatusTime = allBuyList[i].ordertime;
+                        break;
+                    case 3:
+                        finalStatusTime = allBuyList[i].acceptordertime;
+                        break;
+                    case 4:
+                        finalStatusTime = allBuyList[i].exporttime;
+                        break;
+                    case 5:
+                        finalStatusTime = allBuyList[i].arriveordertime;
+                        break;
+                    case 6:
+                        finalStatusTime = allBuyList[i].completeordertime;
+                        break;
+                    case 7:
+                        finalStatusTime = allBuyList[i].cancelordertime;
+                        break;
+                    default:
+                        console.log("finalStatusTime error");
+                        break;
+                }
+
+                // 判斷商品字串
+                let productStr = allBuyList[i].productnamespec;
+                let productCount = (productStr.match(/<BR>/g) || []).length;
+                let fixProductStr = "";
+
+                if (productCount > 3) {
+                    let finalProductStr = "";
+                    let cutProudctStr = productStr;
+
+                    for(let i = 0; i < 3; i++){
+                        let singleProductLen = cutProudctStr.indexOf('>') + 1;
+                        let singleProductStr = cutProudctStr.substr(0, singleProductLen);
+                        finalProductStr += singleProductStr;
+                        cutProudctStr = cutProudctStr.substr(singleProductLen, cutProudctStr.length);
+                    }                    
+                    fixProductStr = finalProductStr.substr(0, (finalProductStr.length - 4));
+                } else {
+                    fixProductStr = productStr.substr(0, (productStr.length - 4));
+                }
+
+                let toptrHtmlData = `
+                    <td data-label="">${allBuyList[i].orderid}</td>
+                    <td data-label="">${allBuyList[i].companyname}</td>
+                    <td style="text-align:center;">
+                        <div class="w-100 my-2">
+                            <span>${fixProductStr}</span>
+                        </div>
+                        <div>
+                            <span>${productCount > 3 ? `......共${productCount}項` : ""}</span>
+                        </div>
+                    </td>
+                    <td colspan="2">
+                        <div id="timeline" class="pe-4">
+                            <ol class="forpage">
+                                <li class="active">
+                                    <span class="point d-block"></span>
+                                    <span class="diplome d-block">${returnbuystatus.prev}</span>
+                                    <span class="timestamp d-block">${finalStatusTime.replace(" ", "<br>")}</span>
+                                </li>
+                                <li class="point">
+                                    <span class="point d-block"></span>
+                                    <span class="diplome d-block">${allBuyList[i].orderstatus == 7 || allBuyList[i].orderstatus == 1 || allBuyList[i].orderstatus == 6 ? "" : returnbuystatus.now}</span>
+                                    <span class="timestamp d-block">${allBuyList[i].orderstatus == 7 || allBuyList[i].orderstatus == 1 || allBuyList[i].orderstatus == 6 ? "" : timeCounter(finalStatusTime, allBuyList[i].orderstatus)}</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </td>
+                    <td data-label="">${costFix(allBuyList[i].total)}</td>
+                    <td data-label="操作">${theButton}</td>`;
+
+
+
+                let bottomtrHtmlData = `
+                    <td colspan="7">
+                        <div class="childTableHidden px-4" data-value="${allBuyList[i].orderstatus}">
+                            <table class="fs-5 fw-normal mb-4 w-100 my-4">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 20%;">${buyListName[0].ProductNameSpec}</th>
+                                        <th style="width: 15%;">${buyListName[0].OrderQty}</th>
+                                        <th style="width: 15%;">${buyListName[0].UnitSellPrice}</th>
+                                        <th style="width: 15%;">${buyListName[0].detailTotal}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
+                            </table>                           
+                            <div class="w-100">
+                                ${thetimeLine}    
+                            </div>                                
+                        </div>
+                    </td>`;
+
+                $($(".hiddenRowControll")[i]).attr("data-state", allBuyList[i].orderstatus);
+                $(".hiddenRowControll")[i].innerHTML = toptrHtmlData;
+                $(".childRow")[i].innerHTML = bottomtrHtmlData;
+
+            }
+            document.querySelectorAll('.mdc-button').forEach(
+                function (ele) {
+                    mdc.ripple.MDCRipple.attachTo(ele);
+                });
+        }
+
+        // 開闔子table
+        function detailBtnCheck(btn) {
+
+            // let divNum;
+            // if ($(btn).closest("tr").index() == 0) {
+            //     divNum = 0;
+            // } else {
+            //     divNum = $(btn).closest("tr").index() / 2;
+            // }
+            // downloadDetailData($(btn).attr('data-value'), $(".childTableHidden")[divNum]);
+
+            downloadDetailData($(btn).attr('data-value'), $(btn).closest("tr").next().find(".childTableHidden")[0]);
+        }
+
+        // ajax取得詳細資料
+        async function downloadDetailData(requestData, showDetailPosition) {
+
+            let data = {
+                orderid: requestData
+            }
+
+            returnObj = await viewsorderbuychildTable(data);
+
+            if (returnObj.responseStatus != 200) {
+                // 沒接到資料                
+                sweetalertShow(0);
+
+                console.log("orderStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                console.log(returnObj.responseObj);
+            } else {
+                // 處理及判斷邏輯：          
+                allBuyListDetail = returnObj.responseObj;
+
+                reNewDetailData(showDetailPosition);
+            }
+
+        }
+
+        // 展開詳細資料
+        function reNewDetailData(detailPosition) {
+
+            let detailHtml = "";
+            for (let i = 0; i < allBuyListDetail.length; i++) {
+                let singleDetail = `
+                    <tr>
+                        <td data-label="">${allBuyListDetail[i].productnamespec}</td>
+                        <td data-label="">${allBuyListDetail[i].orderqty}</td>
+                        <td data-label="">${costFix(allBuyListDetail[i].unitdealprice)}</td>
+                        <td data-label="總價">${costFix(allBuyListDetail[i].detailtotal)}</td>
+                    </tr>
+                `;
+                detailHtml += singleDetail;
+            }
+
+            $(detailPosition).find("tbody")[0].innerHTML = detailHtml;
+
+
+            let divHeight = detailPosition.style.height;
+
+
+            if (divHeight == 0 || divHeight == "0px") {
+                let divHeightCount = "";
+
+                if ($(detailPosition).attr('data-value') == 1 || $(detailPosition).attr('data-value') == 7) {
+                    if ($(detailPosition).find("tr").length > 2) {
+                        divHeightCount = (($(detailPosition).find("tr").length) - 2) * 58 + 170 + "px";
+                    } else {
+                        divHeightCount = 170 + "px";
+                    }
+                } else {
+                    if ($(detailPosition).find("tr").length > 2) {
+                        divHeightCount = (($(detailPosition).find("tr").length) - 2) * 58 + 270 + "px";
+                    } else {
+                        divHeightCount = 270 + "px";
+                    }
+                }
+
+                $(detailPosition).css("height", divHeightCount);
+            } else {
+                $(detailPosition).css("height", "0px");
+            }
+        }
+
+
+
+        async function updateData(state, btn) {
+
+            let data = {
+                orderid: $(btn).attr('data-value'),
+                orderstatus: state
+            }
+
+            returnObj = await viewsorderbuyupdate(data);
+
+            if (returnObj.responseStatus != 200) {
+                // 沒接到資料
+
+                sweetalertShow((state + 10));
+
+                console.log("orderStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                console.log(returnObj.responseObj);
+            } else {
+                // 處理及判斷邏輯：          
+                // successStr = returnObj.responseText;
+
+                closeComponent();
+            }
+
+
+        }
+
+        // sweetalert提示
+        function sweetalertShow(state, btn) {
+
+            switch (state) {
+                case 0:
+                    Swal.fire({
+                        title: '取得明細資料異常，請再試一次',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    break;
+                case 7:
+                    Swal.fire({
+                        title: '請確認是否要取消該筆叫貨單？',
+                        text: "請注意：此操作是無法回復的",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: 'var(--color-irongray)',
+                        confirmButtonText: '取消叫貨單',
+                        cancelButtonText: '保留'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            updateData(state, btn);
+                        }
+                    })
+                    break;
+                case 17:
+                    Swal.fire({
+                        title: '叫貨單取消異常，請再試一次',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    break;
+                case 2:
+                    Swal.fire({
+                        title: '請確認是否送出該筆叫貨單？',
+                        icon: 'info',
+                        showCancelButton: true,
+                        confirmButtonColor: 'var(--color-marigold)',
+                        cancelButtonColor: 'var(--color-irongray)',
+                        confirmButtonText: '送出叫貨單',
+                        cancelButtonText: '保留'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            updateData(state, btn);
+                        }
+                    })
+                    break;
+                case 12:
+                    Swal.fire({
+                        title: '叫貨單送出異常，請再試一次',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    break;
+                case 6:
+                    Swal.fire({
+                        title: '請確認貨品是否皆已全到？',
+                        html: "點擊【確認入庫】後<br>叫貨數量將增加至庫存數量",
+                        icon: 'info',
+                        showCancelButton: true,
+                        confirmButtonColor: 'var(--color-marigold)',
+                        cancelButtonColor: 'var(--color-irongray)',
+                        confirmButtonText: '確認入庫',
+                        cancelButtonText: '尚未確認'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            updateData(state, btn);
+                        }
+                    })
+                    break;
+                case 16:
+                    Swal.fire({
+                        title: '確認入庫異常，請再試一次',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    break;
+                case 8:
+                    Swal.fire({
+                        title: '請確認是否要刪除該筆叫貨單？',
+                        text: "請注意：此操作是無法回復的",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: 'var(--color-irongray)',
+                        confirmButtonText: '刪除叫貨單',
+                        cancelButtonText: '保留'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            updateData(state, btn);
+                        }
+                    })
+                    break;
+                case 18:
+                    Swal.fire({
+                        title: '叫貨單刪除異常，請再試一次',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    break;
+                default:
+                    console.log("goods state error");
+                    break;
+            }
+
+        }
+
+
+
+
+    </script>
+
+</body>
+
+</html>

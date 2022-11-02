@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pagecontent</title>
+
+    <!-- Material Design -->
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+    <!-- ICON CSS -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+
+    <!-- globalstyle -->
+    <link rel="stylesheet" href="/css/globalstyle.css">
+    <!-- globalattributes -->
+    <link rel="stylesheet" href="/css/globalattributes.css">
+
+    <!-- 複數頁面使用CSS效果 -->
+    <link rel="stylesheet" href="/css/pluralpagestyle.css">
+
+
+    <style>
+        label input {
+            height: 36px;
+            width: 240px;
+        }
+
+        /* 表格 */
+        .pageTable {
+            margin: auto;
+            table-layout: fixed;
+            word-break: break-all;
+            word-wrap: break-word;
+            width: 100%;
+
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 0.3rem;
+            border: 1px solid var(--color-border);
+        }
+
+        .pageTable tr:nth-child(2) td {
+            border-top: 1px solid var(--color-border);
+        }
+
+        .pageTable td {
+            padding-top: 18px;
+            padding-bottom: 18px;
+        }
+
+        .pageTable tr td:nth-child(1) {
+            background-color: var(--color-tableth);
+        }
+
+        .pageTable tr td:not(:last-child) {
+            border-right: 1px solid var(--color-border);
+        }
+
+        /* 未顯示資訊的背景 */
+        .sectionBackground {
+            border: 1px solid var(--color-border);
+            background-color: var(--color-white);
+            height: 500px;
+        }
+
+        .sectionBackground span {
+            color: var(--color-irongray);
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+            margin-top: 17%;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- border border-primary  -->
+            <div class="col-11 mt-4 px-0">
+
+                <h1 class="fs-2 fw-bolder mb-4"><span class="text-black">數據分析</span></h1>
+
+                <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto mb-4">
+
+                    <div class="d-flex justify-content-between fs-5 fw-normal">
+
+                        <!-- 這裡是內容的框架，可直接改掉框架 -->
+                        <div>
+                            <label class="w-auto">
+                                <span>時間區間：</span>
+                                <input type="date" class="px-2" id="startDate" required
+                                    oninvalid="setCustomValidity('請選擇起始日')">
+                                <pre class="d-inline"> ~ </pre>
+                                <input type="date" class="px-2" id="byeDate" required
+                                    oninvalid="setCustomValidity('請選擇結束日')">
+                            </label>
+                        </div>
+
+                        <div>
+                            <button class="mdc-button mdc-button--raised" id="searBtn" onclick="downloadAnalyzeData()">
+                                <span class="mdc-button__label fs-5 fw-normal">分析數據</span>
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 未顯示資訊的背景 ---------------------------->
+                <div class="sectionBackground rounded-3 shadow-sm py-4 px-4 w-100 my-4">
+                    <span class="fs-2 fw-bold">請先搜尋欲檢視時間區段</span>
+                </div>
+
+                <div class="analyzeContent">
+                    <div class="d-flex justify-content-between">
+
+                        <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-50 h-auto mb-4 me-4">
+
+                            <!-- 產品圓餅圖 -->
+                            <div class="w-100">
+                                <canvas id="productPie" class="w-100"></canvas>
+                            </div>
+
+                            <div class="w-100 mt-4">
+
+                                <table class="pageTable fs-5 fw-normal text-center w-100">
+                                    <tr class="stockTable">
+                                        <td>產品</td>
+                                        <!-- <td>魚類</td>
+                                        <td>蝦類</td>
+                                        <td>管魷類</td>
+                                        <td>貝類</td> -->
+                                    </tr>
+                                    <tr class="stockTable">
+                                        <td>銷售量</td>
+                                        <!-- <td>55</td>
+                                        <td>49</td>
+                                        <td>44</td>
+                                        <td>24</td> -->
+                                    </tr>
+                                </table>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-50 h-auto mb-4">
+
+                            <!-- 廠商圓餅圖 -->
+                            <div class="w-100">
+                                <canvas id="cooperatePie" class="w-100"></canvas>
+                            </div>
+
+                            <div class="w-100 mt-4">
+
+                                <table class="pageTable fs-5 fw-normal text-center w-100">
+                                    <tr class="stockTable">
+                                        <td>廠商</td>
+                                        <td>千萬屋</td>
+                                        <td>魚吃魚海產</td>
+                                        <td>無名海產</td>
+                                    </tr>
+                                    <tr class="stockTable">
+                                        <td>銷售額</td>
+                                        <td>550</td>
+                                        <td>200</td>
+                                        <td>722</td>
+                                    </tr>
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto mb-4">
+
+                        <!-- 垂直線圖 -->
+                        <canvas id="verticalBarChart" class="w-100 h-auto"></canvas>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/javascript/materialdesigninit.js"></script>
+    <script src="/javascript/ajaxconnect.js"></script>
+    <script src="/javascript/tools.js"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <script>
+
+        // 所有產品列表的配色
+        // 淡蓝'#ADD8E6' (鲑鱼)色"#FFA07A" 浅粉红"#FFB6C1" 淡绿色"#90EE90" 淡珊瑚色#F08080 浅海洋绿#20B2AA
+        let allProductBarColor = [
+            '#ADD8E6',
+            "#FFA07A",
+            "#FFB6C1",
+            "#90EE90",
+            "#F08080",
+            "#20B2AA"
+        ];
+
+        // 番茄'#FF6347' 兰花的紫色"#DA70D6" 金"#FFD700" 深天蓝"#00BFFF" 深粉色"#FF1493" 酸橙绿"#32CD32"
+        let allCompanyBarColor = [
+            '#FF6347',
+            "#DA70D6",
+            "#FFD700",
+            "#32CD32",
+            "#00BFFF",
+            "#FF1493",
+        ];
+
+
+        // 所有產品類別
+        let classnameList = "";
+        // 所有個別產品數量
+        let classCountList = "";
+        // 用到的顏色列表
+        let classBarColor = "";
+
+        // 所有廠商名稱
+        let companynameList = "";
+        let companyCountList = "";
+        let companyBarColor = "";
+
+
+
+        analyzeInit();
+        function analyzeInit() {
+            $(".analyzeContent").hide();
+            $(".sectionBackground").show();
+        }
+
+        var analyzeList = [
+            {
+                buyerid: 3,
+                classname: "魚類",
+                companyname: "魚吃魚海產",
+                orderqty: 30,
+                productclassification: 4,
+                unitsellprice: 700
+            },
+            {
+                buyerid: 3,
+                classname: "貝類",
+                companyname: "魚吃魚海產",
+                orderqty: 20,
+                productclassification: 4,
+                unitsellprice: 700
+            },
+            {
+                buyerid: 3,
+                classname: "螃蟹類",
+                companyname: "魚吃魚海產",
+                orderqty: 80,
+                productclassification: 4,
+                unitsellprice: 700
+            },
+            {
+                buyerid: 3,
+                classname: "管魷類",
+                companyname: "魚吃魚海產",
+                orderqty: 30,
+                productclassification: 5,
+                unitsellprice: 700
+            },
+            {
+                buyerid: 3,
+                classname: "蝦類",
+                companyname: "魚吃魚海產",
+                orderqty: 20,
+                productclassification: 3,
+                unitsellprice: 700
+            },
+            {
+                buyerid: 3,
+                classname: "蝦類",
+                companyname: "王家海鮮",
+                orderqty: 30,
+                productclassification: 3,
+                unitsellprice: 700
+            },
+            {
+                buyerid: 3,
+                classname: "魚類",
+                companyname: "王家海鮮",
+                orderqty: 30,
+                productclassification: 4,
+                unitsellprice: 700
+            },
+            {
+                buyerid: 3,
+                classname: "魚類",
+                companyname: "無名海產",
+                orderqty: 30,
+                productclassification: 4,
+                unitsellprice: 700
+            },
+            {
+                buyerid: 3,
+                classname: "管魷類",
+                companyname: "無名海產",
+                orderqty: 50,
+                productclassification: 5,
+                unitsellprice: 700
+            }
+        ]
+
+        async function downloadAnalyzeData() {
+            // ajax兩個時間段(2022-10-01)+accountid
+
+            let startDate = $("#startDate").val();
+            let byetDate = $("#byeDate").val();
+
+            if (startDate == "" || byetDate == "") {
+                sweetalertShow(1);
+                return;
+            }
+
+            let data = {
+                "accountid": JSON.parse(localStorage.getItem("accountBean")).accountid,
+                "ordertime": startDate,
+                "completeordertime": byetDate
+            }
+
+            returnObj = await viewsanalyze(data);
+            // console.log(returnObj);
+
+            if (returnObj.responseStatus != 200) {
+                // 沒接到資料                
+                sweetalertShow(2);
+
+                console.log("orderStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                console.log(returnObj.responseObj);
+                return;
+            } else {
+                // 處理及判斷邏輯：          
+                analyzeList = returnObj.responseObj;
+
+                reNewData();
+            }
+
+
+            // reNewData();
+        }
+
+
+        function reNewData() {
+
+            // 更新產品相關資料----------------------------------------------------------------
+
+            // 先取得所有產品項目
+            let allproductList = new Array(analyzeList.length);
+            for (let i = 0; i < analyzeList.length; i++) {
+                allproductList[i] = analyzeList[i].classname;
+            }
+            // 用Set()+Array.from()檢查不重複，並取得唯一值
+            classnameList = Array.from(new Set(allproductList));
+
+
+            // 計算所有產品數量
+            classCountList = new Array(classnameList.length);
+            // 產品數量對應所需顏色量
+            classBarColor = new Array(classnameList.length);
+            // 更新表格
+            $($(".pageTable")[0]).find("tr")[0].innerHTML = `<td>產品類別</td>`;
+            $($(".pageTable")[0]).find("tr")[1].innerHTML = `<td>銷售額</td>`;
+            for (let i = 0; i < classnameList.length; i++) {
+
+                let singleClassCount = 0;
+                for (let k = 0; k < analyzeList.length; k++) {
+                    if (classnameList[i] == analyzeList[k].classname) {
+                        singleClassCount += (analyzeList[k].orderqty * analyzeList[k].unitsellprice);
+                    }
+                }
+
+                classCountList[i] = singleClassCount;
+                classBarColor[i] = allProductBarColor[i];
+
+                // 更新表格
+                let tableClassNameTd = `<td>${classnameList[i]}</td>`;
+                $($($(".pageTable")[0]).find("tr")[0]).append(tableClassNameTd);
+                let tableClassCountTd = `<td>${costFix(classCountList[i])}</td>`;
+                $($($(".pageTable")[0]).find("tr")[1]).append(tableClassCountTd);
+            }
+
+
+
+            // 更新廠商相關資料----------------------------------------------------------------
+            let allcooperateList = new Array(analyzeList.length);
+            for (let i = 0; i < analyzeList.length; i++) {
+                allcooperateList[i] = analyzeList[i].companyname;
+            }
+            companynameList = Array.from(new Set(allcooperateList));
+
+            companyCountList = new Array(companynameList.length);
+            companyBarColor = new Array(companynameList.length);
+            $($(".pageTable")[1]).find("tr")[0].innerHTML = `<td>廠商</td>`;
+            $($(".pageTable")[1]).find("tr")[1].innerHTML = `<td>銷售額</td>`;
+            for (let i = 0; i < companynameList.length; i++) {
+
+                let singleCompanyCount = 0;
+                for (let k = 0; k < analyzeList.length; k++) {
+                    if (companynameList[i] == analyzeList[k].companyname) {
+                        singleCompanyCount += (analyzeList[k].orderqty * analyzeList[k].unitsellprice);
+                    }
+                }
+
+                companyCountList[i] = singleCompanyCount;
+                companyBarColor[i] = allCompanyBarColor[i];
+
+                // 更新表格
+                let tableCompanynameTd = `<td>${companynameList[i]}</td>`;
+                $($($(".pageTable")[1]).find("tr")[0]).append(tableCompanynameTd);
+                let tableCompanyCountTd = `<td>${costFix(companyCountList[i])}</td>`;
+                $($($(".pageTable")[1]).find("tr")[1]).append(tableCompanyCountTd);
+            }
+
+
+
+            // 銷售一覽表資料----------------------------------------------------------------
+
+            verticalBarDatasets = new Array(classnameList.length);
+            for (let i = 0; i < classnameList.length; i++) {
+
+                // 分類的每個廠商值
+                let singleData = new Array(companynameList.length);
+                for(let k = 0; k < companynameList.length; k++){
+
+                    let dataCount = 0;
+                    for(let j = 0; j < analyzeList.length; j++){
+
+                        if(classnameList[i] ==  analyzeList[j].classname && companynameList[k] == analyzeList[j].companyname){
+                            dataCount += (analyzeList[j].orderqty * analyzeList[j].unitsellprice);
+                        }
+
+                    }
+                    singleData[k] = dataCount;
+                }
+
+
+                let singleDatasets = {
+                    label: classnameList[i],
+                    backgroundColor: classBarColor[i],
+                    data: singleData
+                }
+
+                verticalBarDatasets[i] = singleDatasets;
+            }
+
+
+            $(".analyzeContent").show();
+            $(".sectionBackground").hide();
+            activeAnalyze();
+        }
+
+
+
+        function sweetalertShow(state) {
+
+            switch (state) {
+                case 1:
+                    Swal.fire({
+                        title: '請選擇欲搜尋日期',
+                        icon: 'info',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    break;
+                case 2:
+                    Swal.fire({
+                        title: '數據取得異常，請再試一次',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+
+
+
+
+        // 呼叫圓餅圖-------------------------------------------------------------------------------------------
+        function activeAnalyze() {
+
+            let titleFontSize = 24;
+            let contentFontSize = 20;
+            let bodyFontSize = 20;
+            let labelFontSize = 20;
+
+            // 廠商圓餅圖 ---------------------------------------------------------------------------------------
+
+            var cooperatePieXValues = companynameList;
+            var cooperatePieYValues = companyCountList;
+            var cooperatePieBarColors = companyBarColor;
+
+            new Chart("cooperatePie", {
+                type: "doughnut",
+                data: {
+                    labels: cooperatePieXValues,
+                    datasets: [{
+                        backgroundColor: cooperatePieBarColors,
+                        data: cooperatePieYValues
+                    }]
+                },
+                options: {
+                    aspectRatio: 1.4,
+                    cutout: 50,
+                    responsive: true,
+                    maintainAspectRatio: true, // Add to prevent default behaviour of full-width/height 
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: labelFontSize,
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: '廠商銷售表',
+                            font: {
+                                size: titleFontSize,
+                            }
+                        },
+                        tooltip: {
+                            bodyFont: {
+                                size: bodyFontSize,
+                            }
+                        }
+                    }
+                }
+            });
+
+
+
+            // 產品圓餅圖 ---------------------------------------------------------------------------------------
+
+
+            var productPieXValues = classnameList;
+            var productPieYValues = classCountList;
+            var productPieBarColors = classBarColor;
+
+            new Chart("productPie", {
+                type: "doughnut",
+                data: {
+                    labels: productPieXValues,
+                    datasets: [{
+                        backgroundColor: productPieBarColors,
+                        data: productPieYValues
+                    }]
+                },
+                options: {
+                    aspectRatio: 1.4,
+                    cutout: 50,
+                    responsive: true,
+                    maintainAspectRatio: true, // Add to prevent default behaviour of full-width/height 
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: labelFontSize,
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: '產品銷售表',
+                            font: {
+                                size: titleFontSize,
+                            }
+                        },
+                        tooltip: {
+                            bodyFont: {
+                                size: bodyFontSize,
+                            }
+                        }
+
+                    }
+                }
+            });
+
+
+
+            // 垂直線圖 ---------------------------------------------------------------------------------------
+            new Chart(document.getElementById("verticalBarChart"), {
+                type: 'bar',
+                data: {
+                    labels: companynameList,
+                    datasets: verticalBarDatasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true, // Add to prevent default behaviour of full-width/height 
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: labelFontSize,
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: '銷售一覽表',
+                            font: {
+                                size: titleFontSize,
+                            }
+                        },
+                        tooltip: {
+                            bodyFont: {
+                                size: bodyFontSize,
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                font: {
+                                    size: contentFontSize,
+                                }
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                font: {
+                                    size: contentFontSize,
+                                }
+                            }
+                        }
+                    }
+
+
+                }
+            });
+
+        }
+
+
+    </script>
+
+
+
+</body>
+
+</html>

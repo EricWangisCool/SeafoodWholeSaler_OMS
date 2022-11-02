@@ -1,0 +1,73 @@
+/* ====================== CSS variables ===================== */
+
+/* 宣告全域(:root)變數(--名稱)。 */
+:root {
+    /* 基本顏色 */
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-marigold: #FBA01D;
+    --color-jasmine: #FACF83;
+    --color-sunorange: #FB6D1D;
+    --color-tangerine: #DE8E1B;
+    --color-alizarincrimson: #DC3545;
+    --color-amber: #FFC107;
+    --color-lightorange: #FD7E14;
+    --color-mint: #28A745;
+    --color-antiquewhite: #F6E4D2;
+    --color-whitesmoke: #EEEEEE;
+    --color-irongray: #545454;
+    --color-silver: #C0C0C0;
+    --color-switchSlider: #2196F3;
+    --color-seashell: #FFF5EE;
+    --color-burlywood: #DEB887;
+
+
+    /* 表格相關顏色 */
+    --color-informationhover: #f5f5f5;
+    --color-border: #e5e5e5;
+    --color-tableth: #f6f6f6;
+    --color-sectablefirst: #fef4eb;
+    --color-sectablesecond: #f4e2d6;
+    /* 表格高度 */
+    --table-thheight: 56px;
+    --table-tdheight: 52px;
+
+
+    /* 文字設定 */
+    --font-size-content: 16px;
+    --font-size-content-small: 14px;
+    --font-size-contenttitle: 20px;
+
+    --font-weight-content: 400;
+    --font-weight-contenttitle: 500;
+
+    
+    /* 第二組主色系 */
+    --color-secmain: #d0ad47;
+    --color-secbackground: #f6e4d0;
+    --color-secchoose: #e9d29c;
+    --color-secmenubackground: #fff4ee;
+    --color-secfont: #774248;
+    
+
+    /* 表格，警示效果文字及背景色 */
+    --color-dangerbackground: #f8e7e8;
+    --color-dangercolor: #933d3a;
+    --color-warningbackground: #fbf0db;
+    --color-warningcolor: #90742c;
+
+
+    /* Material Design 主題色 */
+    --mdc-theme-primary: #d0ad47;
+    /* --mdc-theme-secondary: #ffdfb1; */
+    --mdc-theme-secondary: #d0ad47;
+    --mdc-theme-on-primary: #fff;
+    --mdc-theme-on-secondary: #fff;
+
+    --mdc-theme-background: #d0ad47;
+    --mdc-theme-surface: #fff;
+    --mdc-theme-on-surface: var(--color-black);
+
+    /* --mdc-theme-primary: #d0ad47;
+    --mdc-theme-secondary: #f7e5af; */
+}

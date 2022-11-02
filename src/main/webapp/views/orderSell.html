@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pagecontent</title>
+
+    <!-- Material Design -->
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+    <!-- ICON CSS -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+
+    <!-- globalstyle -->
+    <link rel="stylesheet" href="../css/globalstyle.css">
+    <!-- globalattributes -->
+    <link rel="stylesheet" href="../css/globalattributes.css">
+    <!-- 加入頁簽小圖 -->
+    <link rel="shortcut icon" href="https://upload.cc/i1/2022/10/18/wJdKCL.png" type="image/x-icon">
+
+    <!-- 複數頁面使用CSS效果 -->
+    <link rel="stylesheet" href="/css/pluralpagestyle.css">
+
+    <style>
+        /* 表格 --------------------------------------------------------- */
+
+        .orderSelltable {
+            table-layout: fixed;
+            text-align: center;
+
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 0.3rem;
+            border: 1px solid var(--color-border);
+        }
+
+        .orderSelltable th {
+            height: var(--table-thheight);
+
+            color: var(--color-secfont);
+            font-weight: var(--font-weight-contenttitle);
+            background-color: var(--color-sectablesecond);
+        }
+
+        .orderSelltable td {
+            /* height: var(--table-tdheight); */
+            padding-top: 18px;
+            padding-bottom: 18px;
+            border-top: 1px solid var(--color-border);
+        }
+
+
+
+
+        .detailTable {
+            display: none;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            line-height: 25px;
+            font-size: 10px;
+            border: 2px solid var(--color-black);
+            background-color: var(--color-whitesmoke);
+            width: 90%;
+
+        }
+
+        .detailTh {
+            height: 30px;
+            font-size: 12px;
+            border: 2px solid var(--color-black);
+            background-color: var(--color-jasmine);
+        }
+
+        .detailBtn {
+            color: var(--color-black);
+            background-color: transparent;
+            border-color: var(--color-black);
+            background-color: var(--color-jasmine);
+            border-radius: 3px;
+            padding-right: 2%;
+            padding-left: 2%;
+
+        }
+
+        @media screen and (max-width: 1000px) {
+            table {
+                border: 0;
+            }
+
+            table thead {
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+
+            table tr {
+                border-bottom: 3px solid var(--color-antiquewhite);
+                display: block;
+                font-size: 16px;
+            }
+
+            table td {
+                border-bottom: 1px solid var(--color-antiquewhite);
+                display: block;
+                text-align: right;
+
+            }
+
+            table td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: var(--color-sunorange);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- border border-primary  -->
+            <div class="col-11 mt-4 px-0">
+
+                <h1 class="fs-2 fw-bold mb-4"><span class="text-black">接單管理</span></h1>
+
+                <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto mb-4">
+
+                    <!-- 這裡是內容的框架，可直接改掉框架 -->
+
+                    <div class="h-auto d-flex justify-content-start fs-5 fw-normal">
+                        <a class="opA active">全部</a>
+                        <a class="opA">待確認</a>
+                        <a class="opA">待出貨</a>
+                        <a class="opA">出貨中</a>
+                        <a class="opA">已完成</a>
+                        <a class="opA">不成立</a>
+                    </div>
+
+                    <div class="borderLine"></div>
+
+                    <hr class="hr-color mt-0 mb-4">
+
+
+
+                    <table class="orderSelltable fs-5 fw-normal w-100">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%;">接單編號</th>
+                                <th style="width: 15%;">採購商</th>
+                                <th colspan="2">當前狀態</th>
+                                <th style="width: 10%;">銷售合計</th>
+                                <th style="width: 10%;">利潤</th>
+                                <th style="width: 15%;">操作</th>
+                            </tr>
+                        </thead>
+
+
+                        <tr class="hiddenRowControll"></tr>
+                        <tr class="hiddenRowControll"></tr>
+                        <tr class="hiddenRowControll"></tr>
+                        <tr class="hiddenRowControll"></tr>
+                        <tr class="hiddenRowControll"></tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- 明細彈窗 -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">訂單明細</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="height: 700px;">
+                    <iframe id="ifrm" style="width: 100%; flex: 1; height: 700px;" src="./littleDetail.html"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Understood</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/javascript/materialdesigninit.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+
+    <script src="/javascript/ajaxconnect.js"></script>
+    <script src="/javascript/orderstatus.js"></script>
+    <script src="/javascript/tools.js"></script>
+
+
+    <script>
+        // 上方選單移動與選擇
+        // 最上方按鈕點擊時，按鈕狀態改變，下方底線移動。
+        $(".opA").on("click", async function () {
+            await downloadData();
+            $(".opA").removeClass('active');
+            $(this).addClass('active');
+
+            switch ($(this).index()) {
+                case 0:
+                    $(".borderLine").css({ "transform": "translateX(0px)", "width": "70px" });
+                    $(".hiddenRowControll").show();
+                    break;
+                case 1:
+                    $(".borderLine").css({ "transform": "translateX(70px)", "width": "90px" });
+                    $(".hiddenRowControll").hide();
+                    for (let i = 0; i < $(".hiddenRowControll").length; i++) {
+                        if ($($(".hiddenRowControll")[i]).attr("data-state") == 2) {
+                            $($(".hiddenRowControll")[i]).show();
+                        }
+                    }
+                    break;
+                case 2:
+                    $(".borderLine").css({ "transform": "translateX(158px)", "width": "90px" });
+                    $(".hiddenRowControll").hide();
+                    for (let i = 0; i < $(".hiddenRowControll").length; i++) {
+                        if ($($(".hiddenRowControll")[i]).attr("data-state") == 3) {
+                            $($(".hiddenRowControll")[i]).show();
+                        }
+                    }
+                    break;
+                case 3:
+                    $(".borderLine").css({ "transform": "translateX(245px)", "width": "90px" });
+                    $(".hiddenRowControll").hide();
+                    for (let i = 0; i < $(".hiddenRowControll").length; i++) {
+                        if ($($(".hiddenRowControll")[i]).attr("data-state") == 4 || $($(".hiddenRowControll")[i]).attr("data-state") == 5) {
+                            $($(".hiddenRowControll")[i]).show();
+                        }
+                    }
+                    break;
+                case 4:
+                    $(".borderLine").css({ "transform": "translateX(338px)", "width": "90px" });
+                    $(".hiddenRowControll").hide();
+                    for (let i = 0; i < $(".hiddenRowControll").length; i++) {
+                        if ($($(".hiddenRowControll")[i]).attr("data-state") == 6) {
+                            $($(".hiddenRowControll")[i]).show();
+                        }
+                    }
+                    break;
+                case 5:
+                    $(".borderLine").css({ "transform": "translateX(428px)", "width": "90px" });
+                    $(".hiddenRowControll").hide();
+                    for (let i = 0; i < $(".hiddenRowControll").length; i++) {
+                        if ($($(".hiddenRowControll")[i]).attr("data-state") == 7) {
+                            $($(".hiddenRowControll")[i]).show();
+                        }
+                    }
+                    break;
+                default:
+                    console.log("borderLine error");
+                    break;
+            }
+
+        })
+
+
+        //----------------------------------------------------------------------------------------------------------------------------------
+
+
+        // 呼叫model開啟，同時呼叫開啟的內部iframe方法.parentCall(0)
+        function callStaticBackdrop(tidy) {
+
+            switch (tidy.orderstatus) {
+                case 2:
+                    // 0是待確認時，無收件人資料
+                    $(".modal-body").css("height", "500px");
+                    $("#ifrm").css("height", "500px");
+                    break;
+                case 3: case 4: case 5: case 6:
+                    // 1是完整資料，含收件人資料
+                    $(".modal-body").css("height", "700px");
+                    $("#ifrm").css("height", "700px");
+                    break;
+                case 7:
+                    // 2是訂單不成立，無收件人資料
+                    $(".modal-body").css("height", "700px");
+                    $("#ifrm").css("height", "700px");
+                    break;
+                default:
+                    console.log("callStaticBackdrop error");
+                    break;
+            }
+
+            $("#staticBackdrop").modal("show");
+            $("#ifrm").get(0).contentWindow.parentCall(tidy);
+        }
+
+        // iframe內部的子類會呼叫這個方法。
+        function SetComponent(status, btn) {
+            $("#staticBackdrop").modal("hide");
+            sweetalertShow(status, btn);
+        }
+
+
+        // JSON假資料  ----------------------------------------------------------------------------------------------------------------------
+        // OrderId(接單編號)、CompanyName(採購商)、OrderTime(下單時間)、OrderStatus(交易狀態)、?total(?銷售合計(大總價))、?profit(?利潤)
+        // OrderStatus(交易狀態)：1是尚未送出叫貨單_還沒送出訂單、2是待確認_訂單送出、3是待出貨_訂單成立、4是出貨中、5是待收貨_待收貨入庫、6是訂單完成_入庫完成、7是訂單不成立_賣家或買家取消
+        var allSellList =
+            [
+                {
+                    "companyname": "Duck666666的店",
+                    "buyerid": "4",
+                    "cancelordertime": "null",
+                    "contactperson": "王先生",
+                    "address": "yy.yyy.yyyy",
+                    "paymentterms": "月結",
+                    "productid": 100001,
+                    "orderstatus": 3,
+                    "orderid": "2D202209090001",
+                    "acceptordertime": "2022-09-23 10:14:18",
+                    "exporttime": "null",
+                    "mobile": "0968145698",
+                    "ordertime": "2022-09-22 13:14:17",
+                    "cansell": 100,
+                    "completeordertime": "null",
+                    "total": 200000,
+                    "taxid": "88314578",
+                    "orderqty": 200,
+                    "arriveordertime": "null",
+                    "productnamespec": "1號的秋刀魚",
+                    "profit": 74000,
+                    "unitsellprice": 1000
+                },
+                {
+                    "companyname": "Duck666666的店",
+                    "buyerid": "4",
+                    "cancelordertime": "null",
+                    "contactperson": "王先生",
+                    "address": "yy.yyy.yyyy",
+                    "paymentterms": "月結",
+                    "productid": 100002,
+                    "orderstatus": 3,
+                    "orderid": "2D202209090001",
+                    "acceptordertime": "2022-09-23 10:14:18",
+                    "exporttime": "null",
+                    "mobile": "0968145698",
+                    "ordertime": "2022-09-22 13:14:17",
+                    "cansell": 350,
+                    "completeordertime": "null",
+                    "total": 75000,
+                    "taxid": "88314578",
+                    "orderqty": 150,
+                    "arriveordertime": "null",
+                    "productnamespec": "1號的魷魚",
+                    "profit": 74000,
+                    "unitsellprice": 500
+                },
+                {
+                    "companyname": "Duck77777的店",
+                    "buyerid": "5",
+                    "cancelordertime": "null",
+                    "contactperson": "王先生",
+                    "address": "yy.yyy.yyyy",
+                    "paymentterms": "月結",
+                    "productid": 100001,
+                    "orderstatus": 2,
+                    "orderid": "2D202209090002",
+                    "acceptordertime": "null",
+                    "exporttime": "null",
+                    "mobile": "0968145698",
+                    "ordertime": "2022-09-22 13:14:17",
+                    "cansell": 100,
+                    "completeordertime": "null",
+                    "total": 50000,
+                    "taxid": "88314578",
+                    "orderqty": 50,
+                    "arriveordertime": "null",
+                    "productnamespec": "1號的秋刀魚",
+                    "profit": 74000,
+                    "unitsellprice": 1000
+                },
+                {
+                    "companyname": "Duck77777的店",
+                    "buyerid": "5",
+                    "cancelordertime": "null",
+                    "contactperson": "王先生",
+                    "address": "yy.yyy.yyyy",
+                    "paymentterms": "月結",
+                    "productid": 100002,
+                    "orderstatus": 2,
+                    "orderid": "2D202209090002",
+                    "acceptordertime": "null",
+                    "exporttime": "null",
+                    "mobile": "0968145698",
+                    "ordertime": "2022-09-22 13:14:17",
+                    "cansell": 120,
+                    "completeordertime": "null",
+                    "total": 50000,
+                    "taxid": "88314578",
+                    "orderqty": 100,
+                    "arriveordertime": "null",
+                    "productnamespec": "1號的魷魚",
+                    "profit": 74000,
+                    "unitsellprice": 500
+                },
+                {
+                    "companyname": "隨贏",
+                    "buyerid": "3",
+                    "cancelordertime": "2022-10-08 22:23:07",
+                    "contactperson": "王先生",
+                    "address": "yy.yyy.yyyy",
+                    "paymentterms": "月結",
+                    "productid": 100001,
+                    "orderstatus": 6,
+                    "orderid": "2D202209090003",
+                    "acceptordertime": "2022-10-07 22:23:07",
+                    "exporttime": "2022-10-08 00:00:00",
+                    "mobile": "0968145698",
+                    "ordertime": "null",
+                    "cansell": 100,
+                    "completeordertime": "2022-10-09 22:42:04",
+                    "total": 5000,
+                    "taxid": "88314578",
+                    "orderqty": 5,
+                    "arriveordertime": "2022-10-09 00:00:00",
+                    "productnamespec": "1號的秋刀魚",
+                    "profit": 74000,
+                    "unitsellprice": 1000
+                },
+                {
+                    "companyname": "隨贏2",
+                    "buyerid": "3",
+                    "cancelordertime": "2022-10-08 22:23:07",
+                    "contactperson": "王先生",
+                    "address": "yy.yyy.yyyy",
+                    "paymentterms": "月結",
+                    "productid": 100001,
+                    "orderstatus": 6,
+                    "orderid": "2D202209090004",
+                    "acceptordertime": "2022-10-07 22:23:07",
+                    "exporttime": "2022-10-08 00:00:00",
+                    "mobile": "0968145698",
+                    "ordertime": "null",
+                    "cansell": 100,
+                    "completeordertime": "2022-10-09 22:42:04",
+                    "total": 5000,
+                    "taxid": "88314578",
+                    "orderqty": 5,
+                    "arriveordertime": "2022-10-09 00:00:00",
+                    "productnamespec": "1號的秋刀魚",
+                    "profit": 74000,
+                    "unitsellprice": 1000
+                },
+                {
+                    "companyname": "隨贏3",
+                    "buyerid": "3",
+                    "cancelordertime": "2022-10-08 22:23:07",
+                    "contactperson": "王先生",
+                    "address": "yy.yyy.yyyy",
+                    "paymentterms": "月結",
+                    "productid": 100001,
+                    "orderstatus": 6,
+                    "orderid": "2D202209090005",
+                    "acceptordertime": "2022-10-07 22:23:07",
+                    "exporttime": "2022-10-08 00:00:00",
+                    "mobile": "0968145698",
+                    "ordertime": "null",
+                    "cansell": 100,
+                    "completeordertime": "2022-10-09 22:42:04",
+                    "total": 5000,
+                    "taxid": "88314578",
+                    "orderqty": 5,
+                    "arriveordertime": "2022-10-09 00:00:00",
+                    "productnamespec": "1號的秋刀魚",
+                    "profit": 74000,
+                    "unitsellprice": 1000
+                },
+                {
+                    "companyname": "隨贏4",
+                    "buyerid": "3",
+                    "cancelordertime": "2022-10-08 22:23:07",
+                    "contactperson": "王先生",
+                    "address": "yy.yyy.yyyy",
+                    "paymentterms": "月結",
+                    "productid": 100001,
+                    "orderstatus": 6,
+                    "orderid": "2D202209090006",
+                    "acceptordertime": "2022-10-07 22:23:07",
+                    "exporttime": "2022-10-08 00:00:00",
+                    "mobile": "0968145698",
+                    "ordertime": "null",
+                    "cansell": 100,
+                    "completeordertime": "2022-10-09 22:42:04",
+                    "total": 5000,
+                    "taxid": "88314578",
+                    "orderqty": 5,
+                    "arriveordertime": "2022-10-09 00:00:00",
+                    "productnamespec": "1號的秋刀魚",
+                    "profit": 74000,
+                    "unitsellprice": 1000
+                }
+            ];
+        let tidyAllSellList = "";
+
+        // 欄位中文名稱對應
+        let sellListName = [
+            {
+                ProductNameSpec: "品項",
+                OrderId: "接單編號",
+                CompanyName: "採購商",
+                OrderTime: "下單時間",
+                OrderStatus: "當前狀態",
+                total: "銷售合計",
+                profit: "利潤",
+                controller: "操作"
+            }
+        ];
+
+        // 撈資料(使用非同步資料的方式撈)。
+        downloadData();
+        async function downloadData() {
+
+            let accountID = {
+                "accountid": JSON.parse(localStorage.getItem("accountBean")).accountid
+            }
+
+            returnObj = await viewsordersell(accountID);
+
+            if (returnObj.responseStatus != 200) {
+                // 沒接到資料                
+                reNewData();
+
+                console.log("orderStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                console.log(returnObj.responseObj);
+            } else {
+                // 處理及判斷邏輯：          
+                allSellList = returnObj.responseObj;
+
+                reNewData();
+            }
+
+            // reNewData();
+        }
+
+
+        function reNewData() {
+
+            tidyData();
+            console.log(tidyAllSellList);
+
+            let totalTr = ``;
+            for (let i = 0; i < tidyAllSellList.length; i++) {
+                let singleTr = `
+                <tr class="hiddenRowControll"></tr>`;
+                totalTr += singleTr;
+            }
+
+            $(".orderSelltable")[0].innerHTML = `
+            <thead>
+                <tr>
+                    <th style="width: 16%;">${sellListName[0].OrderId}</th>
+                    <th style="width: 15%;">${sellListName[0].CompanyName}</th>
+                    <th style="width: 18%;">${sellListName[0].ProductNameSpec}</th>
+                    <th colspan="2" style="width: 33%;">${sellListName[0].OrderStatus}</th>
+                    <th style="width: 10%;">${sellListName[0].total}</th>
+                    <th style="width: 12%;">${sellListName[0].controller}</th>
+                </tr>
+            </thead>${totalTr}`;
+
+            for (let i = 1; i <= tidyAllSellList.length; i++) {
+
+                // 判斷幾個按鈕
+                let confirmOrder = `
+                    <button class="orderBtn mdc-button mdc-button--raised mb-2" onclick="sweetalertShow(3,this)" data-value="${tidyAllSellList[i - 1].orderid}">
+                        <span class="mdc-button__label fs-5 fw-normal">確認訂單</span>
+                    </button><br>`;
+                let exportOrder = `
+                    <button class="orderBtn mdc-button mdc-button--raised mb-2" onclick="sweetalertShow(4,this)" data-value="${tidyAllSellList[i - 1].orderid}">
+                        <span class="mdc-button__label fs-5 fw-normal">全配出貨</span>
+                    </button><br>`;
+                let cancelOrder = `
+                    <button class="orderBtnDel mdc-button mdc-button--outlined mb-2" onclick="sweetalertShow(7,this)" data-value="${tidyAllSellList[i - 1].orderid}">
+                        <span class="mdc-button__ripple"></span>
+                        <span class="mdc-button__label fs-5 fw-normal">取消訂單</span>
+                    </button><br>`;
+                let checkOrder = `
+                    <button class="detail mdc-button" onclick="callStaticBackdrop(tidyAllSellList[${i - 1}])">
+                        <span class="mdc-button__ripple"></span>
+                        <span class="mdc-button__label fs-5 fw-normal">查看明細</span>
+                    </button>`;
+
+                let theButton = null;
+                switch (tidyAllSellList[i - 1].orderstatus) {
+                    case 2:
+                        theButton = confirmOrder + cancelOrder + checkOrder;
+                        break;
+                    case 3:
+                        theButton = exportOrder + cancelOrder + checkOrder;
+                        break;
+                    case 4: case 5:
+                        theButton = cancelOrder + checkOrder;
+                        break;
+                    case 6: case 7:
+                        theButton = checkOrder;
+                        break;
+                    default:
+                        console.log("按鈕錯誤");
+                        break;
+                }
+
+
+                // 判斷主頁時間軸
+                let returnSellstatus = checkstatus(1, tidyAllSellList[i - 1].orderstatus);
+                let finalStatusTime = "";
+                switch (tidyAllSellList[i - 1].orderstatus) {
+                    case 2:
+                        finalStatusTime = tidyAllSellList[i - 1].ordertime;
+                        break;
+                    case 3:
+                        finalStatusTime = tidyAllSellList[i - 1].acceptordertime;
+                        break;
+                    case 4:
+                        finalStatusTime = tidyAllSellList[i - 1].exporttime;
+                        break;
+                    case 5:
+                        finalStatusTime = tidyAllSellList[i - 1].arriveordertime;
+                        break;
+                    case 6:
+                        finalStatusTime = tidyAllSellList[i - 1].completeordertime;
+                        break;
+                    case 7:
+                        finalStatusTime = tidyAllSellList[i - 1].cancelordertime;
+                        break;
+                    default:
+                        console.log("finalStatusTime error");
+                        break;
+                }
+
+
+                // 組合商品字串
+                let groupStr = "";
+                for(let k = 0; k < tidyAllSellList[i - 1].product.length; k++){
+                    groupStr += tidyAllSellList[i - 1].product[k].productnamespec + "<BR>";
+                }
+
+                // 判斷商品字串
+                let productStr = groupStr;
+                let productCount = (productStr.match(/<BR>/g) || []).length;
+                let fixProductStr = "";
+
+                if (productCount > 3) {
+                    let finalProductStr = "";
+                    let cutProudctStr = productStr;
+
+                    for (let i = 0; i < 3; i++) {
+                        let singleProductLen = cutProudctStr.indexOf('>') + 1;
+                        let singleProductStr = cutProudctStr.substr(0, singleProductLen);
+                        finalProductStr += singleProductStr;
+                        cutProudctStr = cutProudctStr.substr(singleProductLen, cutProudctStr.length);
+                    }
+                    fixProductStr = finalProductStr.substr(0, (finalProductStr.length - 4));
+                } else {
+                    fixProductStr = productStr.substr(0, (productStr.length - 4));
+                }
+
+                // 創造<tr>的Html格式，並將資料帶入。
+                let trHtmlData =
+                    `<td data-label="">${tidyAllSellList[i - 1].orderid}</td>
+                    <td data-label="">${tidyAllSellList[i - 1].companyname}</td>
+                    <td style="text-align:center;">
+                        <div class="w-100 my-2">
+                            <span>${fixProductStr}</span>
+                        </div>
+                        <div>
+                            <span>${productCount > 3 ? `......共${productCount}項` : ""}</span>
+                        </div>
+                    </td>
+                    <td colspan="2">
+                        <div id="timeline" class="pe-4">
+                            <ol class="forpage">
+                                <li class="active">
+                                    <span class="point d-block"></span>
+                                    <span class="diplome d-block">${returnSellstatus.prev}</span>
+                                    <span class="timestamp d-block">${finalStatusTime.replace(" ", "<br>")}</span>
+                                </li>
+                                <li class="point">
+                                    <span class="point d-block"></span>
+                                    <span class="diplome d-block">${tidyAllSellList[i - 1].orderstatus == 7 || tidyAllSellList[i - 1].orderstatus == 6 ? "" : returnSellstatus.now}</span>
+                                    <span class="timestamp d-block">${tidyAllSellList[i - 1].orderstatus == 7 || tidyAllSellList[i - 1].orderstatus == 6 ? "" : timeCounter(finalStatusTime, tidyAllSellList[i - 1].orderstatus)}</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </td>
+                    <td data-label="">${costFix(tidyAllSellList[i - 1].total)}</td>
+                    <td data-label="">${theButton}</td>`;
+
+                // 把製作完的tr放回去tabel中。
+                $($(".orderSelltable tr")[i]).attr("data-state", tidyAllSellList[i - 1].orderstatus);
+                $(".orderSelltable tr")[i].innerHTML = trHtmlData;
+
+                document.querySelectorAll('.mdc-button').forEach(
+                    function (ele) {
+                        mdc.ripple.MDCRipple.attachTo(ele);
+                    });
+
+            }
+        }
+
+        function tidyData() {
+
+            let allSellListOrderid = new Array(allSellList.length);
+            for (let i = 0; i < allSellList.length; i++) {
+                allSellListOrderid[i] = allSellList[i].orderid;
+            }
+
+
+            // 用Set()+Array.from()檢查不重複，並取得唯一值
+            let allSellListOrderidResult = Array.from(new Set(allSellListOrderid));
+
+            tidyAllSellList = new Array(allSellListOrderidResult.length);
+            // 計算及分類每個商品及對應編號
+            for (let i = 0; i < allSellListOrderidResult.length; i++) {
+
+                let productCount = 0;
+                for (let k = 0; k < allSellList.length; k++) {
+                    if (allSellListOrderidResult[i] == allSellList[k].orderid) {
+                        productCount++;
+                    }
+                }
+                tidyAllSellList[i] = { product: new Array(productCount) };
+            }
+
+
+
+            // 將值填入(共用數值)
+            // buyerid??取消訂單時間??
+            for (let i = 0; i < allSellListOrderidResult.length; i++) {
+
+                let productCount = 0;
+                let singleTotal = 0;
+                let singleProfit = 0;
+                for (let k = 0; k < allSellList.length; k++) {
+                    if (allSellListOrderidResult[i] == allSellList[k].orderid) {
+
+                        tidyAllSellList[i].companyname = allSellList[k].companyname;
+                        tidyAllSellList[i].buyerid = allSellList[k].buyerid;
+                        tidyAllSellList[i].cancelordertime = allSellList[k].cancelordertime;
+                        tidyAllSellList[i].contactperson = allSellList[k].contactperson;
+                        tidyAllSellList[i].address = allSellList[k].address;
+                        tidyAllSellList[i].paymentterms = allSellList[k].paymentterms;
+                        tidyAllSellList[i].orderstatus = allSellList[k].orderstatus;
+                        tidyAllSellList[i].orderid = allSellList[k].orderid;
+                        tidyAllSellList[i].acceptordertime = allSellList[k].acceptordertime;
+                        tidyAllSellList[i].exporttime = allSellList[k].exporttime;
+                        tidyAllSellList[i].mobile = allSellList[k].mobile;
+                        tidyAllSellList[i].ordertime = allSellList[k].ordertime;
+                        tidyAllSellList[i].completeordertime = allSellList[k].completeordertime;
+                        tidyAllSellList[i].arriveordertime = allSellList[k].arriveordertime;
+                        tidyAllSellList[i].taxid = allSellList[k].taxid;
+                        tidyAllSellList[i].profit = "";
+                        tidyAllSellList[i].total = "";
+
+                        tidyAllSellList[i].product[productCount] = {};
+                        tidyAllSellList[i].product[productCount].productid = allSellList[k].productid;
+                        tidyAllSellList[i].product[productCount].cansell = allSellList[k].cansell;
+                        tidyAllSellList[i].product[productCount].total = allSellList[k].total;
+                        tidyAllSellList[i].product[productCount].orderqty = allSellList[k].orderqty;
+                        tidyAllSellList[i].product[productCount].productnamespec = allSellList[k].productnamespec;
+                        tidyAllSellList[i].product[productCount].profit = allSellList[k].profit;
+                        tidyAllSellList[i].product[productCount].unitsellprice = allSellList[k].unitsellprice;
+                        singleTotal += tidyAllSellList[i].product[productCount].total;
+                        singleProfit += tidyAllSellList[i].product[productCount].profit;
+                        productCount++;
+                        // break;
+                    }
+                }
+
+                tidyAllSellList[i].total = singleTotal;
+                tidyAllSellList[i].profit = singleProfit;
+            }
+
+        }
+
+        async function updateData(state, btn) {
+
+            // 狀態3時，檢查庫存可配數是否足夠，如果cancell < orderqty，就不給訂購。
+            if (state == 3) {
+                for (let i = 0; i < tidyAllSellList.length; i++) {
+                    if ($(btn).attr('data-value') == tidyAllSellList[i].orderid) {
+                        for (let k = 0; k < tidyAllSellList[i].product.length; k++) {
+
+                            if (tidyAllSellList[i].product[k].cansell < tidyAllSellList[i].product[k].orderqty) {
+
+                                sweetalertShow((state + 10));
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            // 基本結構
+            let sentData = {
+                "orderid": $(btn).attr('data-value'),
+                "orderstatus": state,
+                "buyerid": "",
+                "sellerid": JSON.parse(localStorage.getItem("accountBean")).accountid,
+                "paymentterms": "",
+                "ordertime": "",
+                "acceptordertime": "",
+                "exporttime": "",
+                "arriveordertime": "",
+                "completeordertime": "",
+                "cancelordertime": ""
+            }
+
+            // 用for迴圈將結構內的缺值填入
+            for (let i = 0; i < tidyAllSellList.length; i++) {
+                if ($(btn).attr('data-value') == tidyAllSellList[i].orderid) {
+                    sentData.buyerid = tidyAllSellList[i].buyerid;
+                    sentData.paymentterms = tidyAllSellList[i].paymentterms;
+                    sentData.ordertime = (tidyAllSellList[i].ordertime == "null" ? "null" : Date.parse(tidyAllSellList[i].ordertime));
+                    sentData.acceptordertime = (tidyAllSellList[i].acceptordertime == "null" ? "null" : Date.parse(tidyAllSellList[i].acceptordertime));
+                    sentData.exporttime = (tidyAllSellList[i].exporttime == "null" ? "null" : Date.parse(tidyAllSellList[i].exporttime));
+                    sentData.arriveordertime = (tidyAllSellList[i].arriveordertime == "null" ? "null" : Date.parse(tidyAllSellList[i].arriveordertime));
+                    sentData.completeordertime = (tidyAllSellList[i].completeordertime == "null" ? "null" : Date.parse(tidyAllSellList[i].completeordertime));
+                    sentData.cancelordertime = (tidyAllSellList[i].cancelordertime == "null" ? "null" : Date.parse(tidyAllSellList[i].cancelordertime));
+                    break;
+                }
+            }
+
+            returnObj = await viewsordersellupdate(sentData);
+
+            if (returnObj.responseStatus != 200) {
+                // 沒接到資料                
+                sweetalertShow((state + 10));
+
+                console.log("orderStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                console.log(returnObj.responseObj);
+            } else {
+                // 處理及判斷邏輯：   
+                successStr = returnObj.responseText;
+                if (successStr == "OK" || successStr != "" || successStr != null || successStr != undefined) {
+                    if (state == 4 && window.parent && window.parent.arriveOrderTimeCounter) {
+                        let countTime = "3000";
+                        sentData.orderstatus = 5;
+                        sentData.exporttime = (successStr == "null" ? "null" : Date.parse(successStr));
+                        window.parent.arriveOrderTimeCounter(sentData, countTime);	//呼叫父頁面的arriveOrderTimeCounter方法
+                    }
+                    window.location.replace(location.href);
+                }
+            }
+
+
+        }
+
+
+        function sweetalertShow(state, btn) {
+
+            switch (state) {
+                case 7:
+                    Swal.fire({
+                        title: '請確認是否要取消該筆訂單？',
+                        text: "請注意：此操作是無法回復的",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: 'var(--color-irongray)',
+                        confirmButtonText: '取消訂單',
+                        cancelButtonText: '保留'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            updateData(state, btn);
+                        }
+                    })
+                    break;
+                case 17:
+                    Swal.fire({
+                        title: '訂單取消異常，請再試一次',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    break;
+                case 3:
+                    Swal.fire({
+                        title: '是否要確認該筆訂單？',
+                        html: "請注意：需確保訂單內產品【庫存可配數】皆足夠",
+                        icon: 'info',
+                        showCancelButton: true,
+                        confirmButtonColor: 'var(--color-marigold)',
+                        cancelButtonColor: 'var(--color-irongray)',
+                        confirmButtonText: '確認訂單',
+                        cancelButtonText: '關閉提示'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            updateData(state, btn);
+                        }
+                    })
+                    break;
+                case 13:
+                    Swal.fire({
+                        html: '確認訂單或【庫存可配數】異常<br>請再試一次或檢查【庫存可配數】是否足夠',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                    break;
+                case 4:
+                    Swal.fire({
+                        title: '請確認是否進行出貨？',
+                        icon: 'info',
+                        showCancelButton: true,
+                        confirmButtonColor: 'var(--color-marigold)',
+                        cancelButtonColor: 'var(--color-irongray)',
+                        confirmButtonText: '全配出貨',
+                        cancelButtonText: '關閉提示'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            updateData(state, btn);
+                        }
+                    })
+                    break;
+                case 14:
+                    Swal.fire({
+                        title: '全配出貨異常，請再試一次',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    break;
+                default:
+                    console.log("goods state error");
+                    break;
+            }
+
+        }
+
+
+
+    </script>
+
+
+</body>
+
+</html>

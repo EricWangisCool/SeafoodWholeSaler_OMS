@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pagecontent</title>
+
+    <!-- Material Design -->
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+    <!-- ICON CSS -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+
+    <!-- globalstyle -->
+    <link rel="stylesheet" href="../css/globalstyle.css">
+    <!-- globalattributes -->
+    <link rel="stylesheet" href="../css/globalattributes.css">
+    <!-- 加入頁簽小圖 -->
+    <link rel="shortcut icon" href="https://upload.cc/i1/2022/10/18/wJdKCL.png" type="image/x-icon">
+
+    <!-- 複數頁面使用CSS效果 -->
+    <link rel="stylesheet" href="/css/pluralpagestyle.css">
+
+    <style>
+        table {
+            margin: auto;
+            table-layout: fixed;
+            word-break: break-all;
+            word-wrap: break-word;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        th,
+        td {
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+
+        th {
+            border: 2px solid var(--color-whitesmoke);
+            border-left: none;
+            border-right: none;
+        }
+
+        .choseArea {
+            font-size: var(--font-size-contenttitle);
+            text-align: left;
+            width: 100%;
+        }
+
+        .pdfArea {
+            text-align: right;
+        }
+
+        .stateTable th,
+        .stateTable td{
+            font-size: var(--font-size-content);
+        }
+
+        .search,
+        .export {
+            background-color: var(--color-marigold);
+            color: var(--color-white);
+            padding: 8px 16px;
+            border-radius: 3px;
+            border: none;
+        }
+
+        .search:hover {
+            background-color: var(--color-sunorange);
+            color: var(--color-white);
+        }
+
+        .dateArea {
+            font-size: 18px;
+            text-align: right;
+        }
+
+        .sectionBackground {
+            border: 1px solid var(--color-border);
+            background-color: var(--color-whitesmoke);
+            height: 400px;
+        }
+
+        .sectionBackground span {
+            color: var(--color-irongray);
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+            margin-top: 15%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- border border-primary  -->
+            <div class="col-11 mt-4 px-0">
+
+                <h1 class="fs-2 fw-bolder mb-4"><span class="text-black">應收對帳單</span></h1>
+
+                <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto">
+
+                    <!-- 這裡是內容的框架，可直接改掉框架 -->
+                    <label class="choseArea">對帳月份：
+                        <input type="date" class="px-2" style="width: 20%; height: 36px;" id="startDate" required
+                            oninvalid="setCustomValidity('請選擇起始日')">
+                        <pre class="d-inline"> ~ </pre>
+                        <input type="date" class="px-2" style="width: 20%; height: 36px;" id="byeDate" required
+                            oninvalid="setCustomValidity('請選擇結束日')">
+                    </label>
+                    <br><br>
+                    <!-- 下拉選單 -->
+
+                    <div class="d-flex justify-content-between">
+                        <div class="mdc-select mdc-select--outlined w-25 fs-5 fw-normal">
+                            <div class="mdc-select__anchor" aria-disabled="false"
+                                aria-labelledby="outlined-select-label" style="height: 36px;">
+                                <span class="mdc-notched-outline">
+                                    <span class="mdc-notched-outline__leading"></span>
+                                    <span class="mdc-notched-outline__trailing"></span>
+                                </span>
+                                <span class="mdc-select__selected-text-container">
+                                    <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+                                </span>
+                                <!-- 箭頭 -->
+                                <span class="mdc-select__dropdown-icon">
+                                    <svg class="mdc-select__dropdown-icon-graphic" viewBox="7 10 10 5"
+                                        focusable="false">
+                                        <polygon class="mdc-select__dropdown-icon-inactive" stroke="none"
+                                            fill-rule="evenodd" points="7 15 12 10 17 15">
+                                        </polygon>
+                                        <polygon class="mdc-select__dropdown-icon-active" stroke="none"
+                                            fill-rule="evenodd" points="7 10 12 15 17 10">
+                                        </polygon>
+                                    </svg>
+                                </span>
+                            </div>
+
+                            <!--  aria-selected="true" -->
+                            <div id="productclassification" class="mdc-select__menu mdc-menu mdc-menu-surface">
+                                <ul class="mdc-list">
+                                    <li class="mdc-list-item py-2 mdc-list-item--selected mdc-select--disabled"
+                                        data-value="請選擇分類">
+                                        <span class="mdc-list-item__ripple"></span>
+                                        <span class="mdc-list-item__text">請選擇廠商</span>
+                                    </li>
+                                    <!-- <li class="mdc-list-item py-2" data-value="">
+                                        <span class="mdc-list-item__ripple"></span>
+                                        <span class="mdc-list-item__text">千萬屋</span>
+                                    </li>
+                                    <li class="mdc-list-item py-2" data-value="">
+                                        <span class="mdc-list-item__ripple"></span>
+                                        <span class="mdc-list-item__text">魚吃魚海產</span>
+                                    </li>
+                                    <li class="mdc-list-item py-2" data-value="">
+                                        <span class="mdc-list-item__ripple"></span>
+                                        <span class="mdc-list-item__text">王家海鮮</span>
+                                    </li> -->
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button class="mdc-button mdc-button--raised" id="searBtn" onclick="reNewData()">
+                                <span class="mdc-button__label fs-5 fw-normal">搜尋對帳單</span>
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <br>
+
+                <!-- 未顯示資訊的背景 ---------------------------->
+                <div class="sectionBackground bg-white rounded-3 shadow-sm py-4 px-4 w-100">
+                    <span class="fs-2 fw-bold">請先搜尋對帳單</span>
+                </div>
+
+                <!-- 對帳單內容 -->
+                <div class="sectionTable bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto" id="stateTable">
+                    <div class="dateArea">
+                        <span>起迄日期：
+                            <span id="startDate1"></span>
+                            ~
+                            <span id="byeDate1"></span>
+                        </span>
+                        <span>　列印日期：<span id="print"></span></span>
+                        <span>　製表人：黃楷綸</span>
+                    </div>
+                    <hr>
+
+                    <div class="stateTable">
+                        <table>
+                            <tr>
+                                <td>客戶名稱：順慶商行</td>
+                                <td>聯絡窗口：蘇沐橙</td>
+                            </tr>
+
+                            <tr>
+                                <td>統一編號：123456789</td>
+                                <td>電話：0912-345-678</td>
+                            </tr>
+
+                            <tr>
+                                <td>發票地址：408台中市南屯區公益路二段51號</td>
+                                <td>傳真：(04)-2326-5860</td>
+                            </tr>
+                        </table>
+                        <br>
+
+                        <table>
+                            <tr>
+                                <th>銷貨日期</th>
+                                <th>接單編號</th>
+                                <th>品名規格</th>
+                                <th>數量</th>
+                                <th>銷售單價</th>
+                                <th>小計</th>
+                                <th>累計金額</th>
+                            </tr>
+
+                            <tr>
+                                <td>2022/09/02</td>
+                                <td>2022090201</td>
+                                <td>珍味魚卵/500G</td>
+                                <td>5</td>
+                                <td>50</td>
+                                <td>250</td>
+                                <td>250</td>
+                            </tr>
+
+                            <tr>
+                                <td>2022/09/03</td>
+                                <td>2022090204</td>
+                                <td>紅魚子/500G</td>
+                                <td>10</td>
+                                <td>30</td>
+                                <td>300</td>
+                                <td>570</td>
+                            </tr>
+
+                            <!-- <tr> -->
+                            <!-- <td></td>
+                                <td></td>
+                                <td>螺肉/1盒</td>
+                                <td>3</td>
+                                <td>90</td>
+                                <td>270</td>
+                                <td></td> -->
+                            <!-- </tr> -->
+
+                            <!-- <tr> -->
+                            <!-- <td>2022/09/10</td>
+                                <td>2022090205</td>
+                                <td>干貝/1盒</td>
+                                <td>5</td>
+                                <td>100</td>
+                                <td>500</td>
+                                <td>1260</td> -->
+                            <!-- </tr> -->
+
+                            <!-- <tr> -->
+                            <!-- <td></td>
+                                <td></td>
+                                <td>小龍蝦/1KG</td>
+                                <td>2</td>
+                                <td>380</td>
+                                <td>760</td>
+                                <td></td> -->
+                            <!-- </tr> -->
+
+                            <!-- <tr> -->
+                            <!-- <td>2022/09/22</td>
+                                <td>2022092210</td>
+                                <td>鱈魚/1盒</td>
+                                <td>20</td>
+                                <td>40</td>
+                                <td>80</td>
+                                <td>80</td> -->
+                            <!-- </tr> -->
+
+                            <!-- <tr>
+                                <th>合計</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>2160</th>
+                            </tr> -->
+
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+                            <tr></tr>
+
+                            <tr>
+                                <td colspan="7">* 註：若請款金額不符，請附上明細貨來電對帳。</td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="7">* 註：發票若有錯誤，請於銷貨次月八日前寄達更正，逾期恕不受理。</td>
+                            </tr>
+
+                        </table>
+                    </div>
+
+                    <div class="pdfArea">
+                        <!-- <button id="btnExport" class="mdc-button mdc-button--raised"
+                            onclick="tableToExcel('stateTable','example')"><span
+                                class="mdc-button__label fs-5 fw-normal">匯出Excel</span>
+                        </button> -->
+
+                        <span style="color: var(--color-alizarincrimson);">本月可匯出次數： <span id="num">30</span>　　</span>
+                        <button id="exportPDF" class="mdc-button mdc-button--raised"><span
+                                class="mdc-button__label fs-5 fw-normal" onclick="numRed()">匯出PDF</span>
+                        </button>
+
+
+                    </div>
+
+                </div>
+
+                <br><br>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/javascript/materialdesigninit.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/javascript/ajaxconnect.js"></script>
+    <script src="/javascript/tools.js"></script>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/TableExport/5.2.0/js/tableexport.min.js"
+        integrity="sha512-XmZS54be9JGMZjf+zk61JZaLZyjTRgs41JLSmx5QlIP5F+sSGIyzD2eJyxD4K6kGGr7AsVhaitzZ2WTfzpsQzg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+
+    <script>
+        // JSON假資料  ----------------------------------------------------------------------------------------------------------------------
+        // CompanyName(客戶名稱)、TaxId(統一編號)、Address(發票地址)、ContactPerson("聯絡窗口")
+        // Mobile(電話)、Fax(傳真)、OrderTime(銷貨日期)、OrderId(接單編號)、ProductNameSpec("品名規格")
+        // OrderQty("數量")、UnitSellPrice("銷售單價")、?detailTotal("小計")、?total(合計金額)
+
+        var cooperateList = [
+            {
+                supplierid: 10001,
+                suppliercompanyname: "順慶商行(id:10001)"
+            },
+            {
+                supplierid: 10003,
+                suppliercompanyname: "達克生鮮股份有限公司(id:10003)"
+            },
+            {
+                supplierid: 10005,
+                suppliercompanyname: "國亨企業社(id:10005)"
+            },
+            {
+                supplierid: 10007,
+                suppliercompanyname: "華的來股份有限公司(id:10007)"
+            },
+            {
+                supplierid: 10009,
+                suppliercompanyname: "聖祿食品股份有限公司(id:10009)"
+            },
+        ]
+
+        var stateList =
+            [
+                {
+                    CompanyName: "千萬屋",
+                    TaxId: "88314578",
+                    Address: "台中市西屯區至善路211號",
+                    ContactPerson: "eric",
+                    Mobile: "0968145698",
+                    Fax: "0423365475",
+                    OrderTime: "2022/09/02",
+                    OrderId: "2D202209020001",
+                    ProductNameSpec: "珍味魚卵/500G",
+                    OrderQty: 5,
+                    UnitSellPrice: 50,
+                    detailTotal: 250,
+                    total: 250
+                },
+                {
+                    CompanyName: "順慶商行",
+                    TaxId: "123456789",
+                    Address: "408台中市南屯區公益路二段51號",
+                    ContactPerson: "蘇沐橙",
+                    Mobile: "0912-345-678",
+                    Fax: "(04)-2326-5860",
+                    OrderTime: "2022/09/03",
+                    OrderId: "2D202209030001",
+                    ProductNameSpec: "紅魚子/500G",
+                    OrderQty: 10,
+                    UnitSellPrice: 30,
+                    detailTotal: 300,
+                    total: 570
+                },
+                {
+                    CompanyName: "順慶商行",
+                    TaxId: "123456789",
+                    Address: "408台中市南屯區公益路二段51號",
+                    ContactPerson: "蘇沐橙",
+                    Mobile: "0912-345-678",
+                    Fax: "(04)-2326-5860",
+                    OrderTime: "",
+                    OrderId: "",
+                    ProductNameSpec: "螺肉/1盒",
+                    OrderQty: 3,
+                    UnitSellPrice: 90,
+                    detailTotal: 270,
+                    total: null
+                },
+                {
+                    CompanyName: "順慶商行",
+                    TaxId: "123456789",
+                    Address: "408台中市南屯區公益路二段51號",
+                    ContactPerson: "蘇沐橙",
+                    Mobile: "0912-345-678",
+                    Fax: "(04)-2326-5860",
+                    OrderTime: "2022/09/10",
+                    OrderId: "2D202209100001",
+                    ProductNameSpec: "干貝/1盒",
+                    OrderQty: 5,
+                    UnitSellPrice: 100,
+                    detailTotal: 500,
+                    total: 1260
+                },
+                {
+                    CompanyName: "順慶商行",
+                    TaxId: "123456789",
+                    Address: "408台中市南屯區公益路二段51號",
+                    ContactPerson: "蘇沐橙",
+                    Mobile: "0912-345-678",
+                    Fax: "(04)-2326-5860",
+                    OrderTime: "",
+                    OrderId: "",
+                    ProductNameSpec: "小龍蝦/1KG",
+                    OrderQty: 2,
+                    UnitSellPrice: 380,
+                    detailTotal: 760,
+                    total: null
+                },
+                {
+                    CompanyName: "順慶商行",
+                    TaxId: "123456789",
+                    Address: "408台中市南屯區公益路二段51號",
+                    ContactPerson: "蘇沐橙",
+                    Mobile: "0912-345-678",
+                    Fax: "(04)-2326-5860",
+                    OrderTime: "2022/09/22",
+                    OrderId: "2D202209220001",
+                    ProductNameSpec: "鱈魚/1盒",
+                    OrderQty: 20,
+                    UnitSellPrice: 40,
+                    detailTotal: 80,
+                    total: 80
+                }
+            ];
+
+
+        // 欄位中文名稱對應
+        let cooperateListName = [
+            {
+                CompanyName: "客戶名稱",
+                TaxId: "統一編號",
+                Address: "發票地址",
+                ContactPerson: "聯絡窗口",
+                Mobile: "電話",
+                Fax: "傳真",
+                OrderTime: "銷貨日期",
+                OrderId: "接單編號",
+                ProductNameSpec: "品名規格",
+                OrderQty: "數量",
+                UnitSellPrice: "銷售單價",
+                detailTotal: "小計",
+                total: "累計金額"
+            }
+        ]
+
+        // AJAX撈廠商資料(使用非同步資料的方式撈)--------------------------------------------------------------------------------------。
+
+        // 廠商資料
+        // let choosesupplier = {
+        //     supplier: "",
+        //     supplierid: ""
+        // };
+
+        let theDate = {
+            // dateStart: "",
+            // dateStop: "",
+            "ordertime": "",
+            "completeordertime": "",
+            // accountid: parseInt(""),
+            "buyerid": parseInt("")
+        }
+
+        //前置抓廠商的AJAX
+        downloadCooperateData();
+        async function downloadCooperateData() {
+
+            // 廠商資料變數 = 拿到一包廠商資料
+            let accountID = {
+                "accountid": JSON.parse(localStorage.getItem("accountBean")).accountid
+            }
+
+            console.log(accountID);
+
+            returnObj = await viewscooperate(accountID);
+            console.log(returnObj);
+
+            // if (拿到一包廠商資料.responseStatus != 200)
+            if (returnObj.responseStatus != 200) {
+                // 撈完後更新畫面內容。
+                // reNewCooperateData();
+
+                console.log("cooperateList getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                console.log(returnObj.responseObj);
+            } else {
+                // 處理及判斷邏輯：                
+                cooperateList = returnObj.responseObj;
+
+                // 撈完後更新畫面內容。
+                reNewCooperateData();
+            }
+
+        }
+
+        // 下拉選單廠商列表------------------------------------------------
+        function reNewCooperateData() {
+
+            for (let i = 0; i < cooperateList.length; i++) {
+
+                let ulHtml = `
+                <li class="mdc-list-item py-2" data-value="${cooperateList[i].supplierid}">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">${cooperateList[i].suppliercompanyname}</span>
+                </li>`;
+
+                $("#productclassification ul").append(ulHtml);
+
+            }
+            // 廠商資訊
+            initializeSelect();
+        }
+
+
+        // 撈資料(使用非同步資料的方式撈)。
+        // AJAX點擊搜尋後，顯示指定廠商的期間對帳單------------------------------------------------------------------------------------------------------
+
+        async function downloadData() {
+
+            // 跟server要對應廠商的資料
+            theDate.ordertime = $("#startDate").val();
+            theDate.completeordertime = $("#byeDate").val();
+            theDate.buyerid = parseInt($("#productclassification").find("li.mdc-list-item--selected").attr('data-value'));
+            // console.log(theDate.buyerid);
+            returnObj = await viewstatement(theDate);
+            let ordertimeList = new Array(returnObj.responseObj.length);
+            for (let i = 0; i < ordertimeList.length; i++) {
+                ordertimeList[i] = JSON.parse(returnObj.responseText)[i].ordertime;
+            }
+
+            let temp = JSON.parse(returnObj.responseText);
+
+ 
+            if (returnObj.responseStatus != 200) {
+
+                // 撈完後更新畫面內容。
+                // sweetalertShow(1);
+                // reNewData();
+
+                console.log("cooperateProductList getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+
+            } else {
+                // 200
+                // 處理及判斷邏輯：                
+                // stateList = returnObj.responseObj;
+                stateList = temp;
+                for (let i = 0; i < ordertimeList.length; i++) {
+                    stateList[i].fixtime = ordertimeList[i];
+                }
+                // 撈完後更新畫面內容。
+                // reNewData();
+                // $(".sectionBackground").hide();
+                // $(".sectionTable").show();
+            }
+
+
+        }
+
+        //點擊搜尋之後---------------------------
+        async function reNewData() {
+
+            // // 提示沒選廠商
+            // if ($("#productclassification").find("li.mdc-list-item--selected").index() == 0) {
+            //     // 使用者沒選擇廠商
+            //     parentCall(0);
+            //     sweetalertShow(0);
+
+            //     return;
+            // } else {}
+
+            await downloadData();
+            // 創造<tr>的Html格式，並將資料帶入。
+            // console.log(stateList);
+
+            //上方廠商詳細資訊--------------------------------------
+
+            let trHtmlData =
+                `<td>${cooperateListName[0].CompanyName}：${stateList[0].companyname}</td>
+                    <td>${cooperateListName[0].ContactPerson}：${stateList[0].contactperson}</td>`;
+
+            let trHtmlData2 =
+                `<td>${cooperateListName[0].TaxId}：${stateList[0].taxid}</td>
+                    <td>${cooperateListName[0].Mobile}：${stateList[0].mobile}</td>`;
+
+            let trHtmlData3 =
+                `<td>${cooperateListName[0].Address}：${stateList[0].address}</td>
+                    <td>${cooperateListName[0].Fax}：${stateList[0].fax}</td>`;
+
+            //下方對帳單項目內容--------------------------------------
+            // 迴圈→廠商資料變數長度
+            // if (使用者選的魚吃魚海鮮 = 場商資料變數.廠商名稱) {}
+
+            let singleDate = new Array(stateList.length);
+            for (let i = 0; i < stateList.length; i++) {
+                singleDate[i] = stateList[i].fixtime;
+                // console.log(singleDate);
+            }
+            // console.log(singleDate);
+            // 用Set()+Array.from()檢查不重複，並取得唯一值
+            let singleDateResult = Array.from(new Set(singleDate));
+            // console.log(singleDateResult);
+
+            // tidyAllSellList = new Array(singleDateResult.length);            
+            // // 計算及分類每個商品及對應編號
+            // for (let i = 0; i < singleDateResult.length; i++) {
+
+            //     let productCount = 0;
+            //     for (let k = 0; k < allSellList.length; k++) {
+            //         if (singleDateResult[i] == allSellList[k].orderid) {
+            //             productCount++;
+            //         }
+            //     }
+            //     tidyAllSellList[i] = { product: new Array(productCount) };
+            // }
+
+            // 項目欄位名稱--------------------------------------------------------
+            let trHtmlData4 =
+                `<th style="width:12%;">${cooperateListName[0].OrderTime}</th>
+                    <th style="width:20%;">${cooperateListName[0].OrderId}</th>
+                    <th style="width:25%;">${cooperateListName[0].ProductNameSpec}</th>
+                    <th style="width:12%;">${cooperateListName[0].OrderQty}</th>
+                    <th style="width:12%;">${cooperateListName[0].UnitSellPrice}</th>
+                    <th style="width:12%;">${cooperateListName[0].detailTotal}</th>
+                    <th style="width:12%;">${cooperateListName[0].total}</th>`;
+
+            let todayTotal = 0;
+
+            let dateCount = 0;
+            for (let i = 0; i < stateList.length; i++) {
+
+                sum = stateList[i].detail;
+                todayTotal += sum;
+                // console.log(todayTotal);
+                stateList[i].fixtime = singleDateResult;
+
+
+                // 日期總額
+                let noRepeatDate;
+
+                // for (i = 0; i < 不重複日期陣列長度; i++) {
+                //     for (k = 0; k < 完整陣列長度; k++) {
+                //         if (不重複日期陣列[i] == 完整陣列[k]) {
+                //             用一個變數去累計當下完整陣列[k]的小計
+                //         }
+                //     }
+                // }
+
+                // console.log(stateList[i].orderid.substr(2,8));
+                if (i > 0 && stateList[i].orderid.substr(2,8) != stateList[i - 1].orderid.substr(2,8)) {
+                    dateCount++;
+                }else if(i > 0 && stateList[i].orderid.substr(2,8) == stateList[i - 1].orderid.substr(2,8)){
+                    singleDateResult[dateCount] = "";
+                }
+
+
+                // let trHtmlData5 =
+                //     // `<td>${stateList[i].ordertime}</td>
+                //     `<td>${singleDateResult[i] != undefined ? singleDateResult[i] : ""}</td>
+                //     <td>${stateList[i].orderid}</td>
+                //     <td>${stateList[i].productnamespec}</td>
+                //     <td>${costFix(stateList[i].orderqty)}</td>
+                //     <td>${costFix(stateList[i].unitdealprice)}</td>
+                //     <td>${costFix(stateList[i].detail)}</td>
+                //     <td>${costFix(todayTotal)}</td>`;
+                let trHtmlData5 =
+                    // `<td>${stateList[i].ordertime}</td>
+                    `<td>${singleDateResult[dateCount] != undefined ? singleDateResult[dateCount] : ""}</td>
+                    <td>${stateList[i].orderid}</td>
+                    <td>${stateList[i].productnamespec}</td>
+                    <td>${costFix(stateList[i].orderqty)}</td>
+                    <td>${costFix(stateList[i].unitdealprice)}</td>
+                    <td>${costFix(stateList[i].detail)}</td>
+                    <td>${costFix(todayTotal)}</td>`;
+
+                $(".stateTable tr")[i + 4].innerHTML = trHtmlData5;
+
+                // console.log(stateList[i].detail);
+
+
+                let trHtmlData12 =
+                    `<th>合計</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>${costFix(todayTotal)}</th>`;
+
+                $(".stateTable tr")[i + 5].innerHTML = trHtmlData12;
+
+            }
+
+
+            let trHtmlData13 =
+                `<td colspan="7">* 註：若請款金額不符，請附上明細貨來電對帳。</td>`;
+
+            let trHtmlData14 =
+                `<td colspan="7">* 註：發票若有錯誤，請於銷貨次月八日前寄達更正，逾期恕不受理。</td>`;
+
+
+            // 把製作完的tr放回去table中。
+            $(".stateTable tr")[0].innerHTML = trHtmlData;
+            $(".stateTable tr")[1].innerHTML = trHtmlData2;
+            $(".stateTable tr")[2].innerHTML = trHtmlData3;
+            $(".stateTable tr")[3].innerHTML = trHtmlData4;
+            // $(".stateTable tr")[4].innerHTML = trHtmlData5;
+            // $(".stateTable tr")[5].innerHTML = trHtmlData6;
+            // $(".stateTable tr")[6].innerHTML = trHtmlData8;
+            // $(".stateTable tr")[7].innerHTML = trHtmlData9;
+            // $(".stateTable tr")[8].innerHTML = trHtmlData10;
+            // $(".stateTable tr")[9].innerHTML = trHtmlData11;
+            // $(".stateTable tr")[10].innerHTML = trHtmlData12;
+            // $(".stateTable tr")[11].innerHTML = trHtmlData13;
+            // $(".stateTable tr")[12].innerHTML = trHtmlData14;
+
+        }
+
+
+
+    </script>
+
+    <script>
+        function sweetalertShow(state) {
+
+            switch (state) {
+                case 0:
+                    Swal.fire({
+                        title: '請選擇日期及廠商',
+                        icon: 'warning',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    break;
+                default:
+                    console.log("goods state error");
+                    break;
+            }
+
+        }
+    </script>
+
+    <script>
+        parentCall(0);
+        // 對帳單區塊變換
+        function parentCall(showcontent) {
+
+            switch (showcontent) {
+                case 0:
+                    // 請搜尋對帳單
+                    $(".sectionBackground").show();
+                    $(".sectionTable").hide();
+                    break;
+                case 1:
+                    // 出現對帳單
+                    $(".sectionBackground").hide();
+                    $(".sectionTable").show();
+                    break;
+                default:
+                    console.log("error");
+                    break;
+            }
+
+
+        }
+    </script>
+
+
+
+    <!-- 匯出Excel -->
+    <script>
+
+        // TableExport(document.getElementById("testTable"), {
+        //     filename: 'excelfile',
+        //     sheetname: "sheet1"
+        // });
+
+        // function exportReportToExcel() {
+        //     let table = document.getElementById("testTable");
+        //     // let table = document.getElementsById("testTable");
+        //     TableToExcel.convert(table[0], {
+        //         name: `file.xlsx`,
+        //         sheet: {
+        //             name: 'Sheet 1'
+        //         }
+        //     });
+        // }
+
+        var tableToExcel = (function () {
+            var uri = 'data:application/vnd.ms-excel;base64,'
+                , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+                , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+                , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+            return function (table, name) {
+                if (!table.nodeType) table = document.getElementById(table)
+                var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+                window.location.href = uri + base64(format(template, ctx))
+            }
+        })()
+
+    </script>
+
+    <!-- 匯出PDF -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <script src='/javascript/jspdf.debug.js'></script>
+
+    <script>
+        document.getElementById('exportPDF').addEventListener('click', function () {
+
+            var doc = new jsPDF();
+            html2canvas(document.getElementById('stateTable'), {
+                onrendered: function (canvas) {
+                    // var image = canvas.toDataURL("image/png");
+                    doc.addImage(canvas.toDataURL('image/jpeg', 1.0),
+                        'JPEG',
+                        25,
+                        25,
+                        210 - 50,
+                        ((210 - 50) / canvas.width) * canvas.height);
+                    doc.save('statement.pdf');
+                }
+            });
+
+            var doc2 = new jsPDF();
+            doc2.text('中文字測試', 10, 10);
+            doc2.save('helloworld.pdf');
+        });
+    </script>
+
+    <script>
+
+        $('#searBtn').on('click', function () {
+            if ($("#startDate") == null) {
+                // 使用者沒選擇廠商
+                parentCall(0);
+                sweetalertShow(0);
+
+                return;
+            } else {
+                parentCall(1);
+            }
+
+            if ($("#productclassification").find("li.mdc-list-item--selected").index() == 0) {
+                // 使用者沒選擇廠商
+                parentCall(0);
+                sweetalertShow(0);
+                console.log($("#startDate"));
+
+                return;
+            } else {
+                parentCall(1);
+            }
+
+            $('#startDate1').html($('#startDate').val());
+            $('#byeDate1').html($('#byeDate').val());
+            // console.log("date== " + $('#startDate').val());
+            // console.log("date2== " + $('#byeDate').val());
+            // 列印日期--------------------------------------------
+
+            var today = new Date();
+            var year = today.getFullYear();
+            var month = addZero(today.getMonth() + 1);
+            var date = addZero(today.getDate());
+            var todayPrint = year + "-" + month + "-" + date;
+            $('#print').html(todayPrint);
+            // 補0
+            function addZero(i) {
+                if (i < 10) { i = "0" + i }
+                return i;
+            }
+        });
+    </script>
+
+    <script>
+        function numRed() {
+            var num = document.getElementById('num');
+            num.innerHTML--;
+            console.log(123);
+        }
+    </script>
+
+</body>
+
+</html>

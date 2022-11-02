@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <!-- ICON CSS -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+
+
+    <!-- globalstyle -->
+    <link rel="stylesheet" href="/css/globalstyle.css">
+    <!-- 全域CSS屬性 -->
+    <link rel="stylesheet" href="/css/globalattributes.css">
+    <!-- 加入頁簽小圖 -->
+    <link rel="shortcut icon" href="https://upload.cc/i1/2022/10/18/wJdKCL.png" type="image/x-icon">
+
+
+    <!-- 複數頁面使用CSS效果 -->
+    <link rel="stylesheet" href="/css/pluralpagestyle.css">
+
+    <!-- 僅限本頁使用CSS效果 -->
+    <link rel="stylesheet" href="/css/sysstyle.css">
+
+</head>
+
+<body>
+
+    <!-- <div>HELLO</div> -->
+
+    <div class="main-container d-flex">
+
+        <div class="sidebar shadow-sm" id="side_nav">
+
+            <div class="header-box d-flex justify-content-between">
+                <a href="#" onclick="changepage(pageHref)"
+                    class="fs-4 fw-bolder text-decoration-none fst-italic m-auto pe-1"><span class="text-white">Nice to
+                        Sea You</span></a>
+                <button class="btn d-md-none d-block close-btn px-1 py-0 text-white"><i
+                        class="far fa-bars"></i></button>
+            </div>
+
+            <ul class="list-unstyled">
+                <li class="mt-3 active">
+
+                    <a href="./page.html" onclick="return loadIframe('ifrm', this.href)"
+                        class="text-decoration-none ps-3 py-2 d-inline-flex align-items-center">
+                        <i class="fas fa-home"></i>首頁</a>
+                </li>
+
+                <li class="">
+                    <a href="./news.html" onclick="return loadIframe('ifrm', this.href)"
+                        class="text-decoration-none ps-3 py-2 d-block d-inline-flex justify-content-between">
+                        <span><i class="fas fa-comment-plus"></i>通知與動向</span>
+                        <span class="text-white rounded-pill px-2 me-2"
+                            style="background-color: var(--color-alizarincrimson);">0</span>
+                    </a>
+                </li>
+
+                <li class=""><a href="./analyze.html" onclick="return loadIframe('ifrm', this.href)"
+                        class="text-decoration-none ps-3 py-2 d-block d-inline-flex align-items-center"><i
+                            class="fas fa-analytics"></i>數據中心</a></li>
+
+                <hr class="hr-color mx-3">
+
+                <!-- data-toggle必要項、aria-expanded預設關閉、aria-controls選擇控制項 -->
+                <li class="">
+                    <a href="" class="btn-toggle text-decoration-none ps-3 py-2 d-inline-flex align-items-center"
+                        data-bs-toggle="collapse" data-bs-target="#collapseStock" aria-expanded="false">
+                        <i class="fas fa-cubes"></i>庫存管理
+                    </a>
+                </li>
+                <div class="collapse" id="collapseStock">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal py-2 small">
+                        <li class=""><a href="./addStock.html" onclick="return loadIframe('ifrm', this.href, 0)"
+                                class="link-dark ps-5 py-1 d-inline-flex text-decoration-none rounded">新增庫存</a></li>
+                        <li class=""><a href="./orderStock.html" onclick="return loadIframe('ifrm', this.href)"
+                                class="link-dark ps-5 py-1 d-inline-flex text-decoration-none rounded">庫存概況</a></li>
+                    </ul>
+                </div>
+
+                <li class=""><a href="./orderBuy.html" onclick="return loadIframe('ifrm', this.href)"
+                        class="text-decoration-none ps-3 py-2 d-inline-flex align-items-center"><i
+                            class="fas fa-shopping-cart"></i>叫貨管理</a>
+                </li>
+                <li class=""><a href="./orderSell.html" onclick="return loadIframe('ifrm', this.href)"
+                        class="text-decoration-none ps-3 py-2 d-inline-flex align-items-center">
+                        <i class="fas fa-money-check-alt"></i>接單管理</a>
+                </li>
+                <li class=""><a href="./statement.html" onclick="return loadIframe('ifrm', this.href)"
+                        class="text-decoration-none ps-3 py-2 d-inline-flex align-items-center"><i
+                            class="fas fa-cash-register"></i>應收對帳單</a>
+                </li>
+
+                <hr class="hr-color mx-3">
+
+                <li class=""><a href="./cooperate.html" onclick="return loadIframe('ifrm', this.href)"
+                        class="text-decoration-none ps-3 py-2 d-inline-flex align-items-center">
+                        <i class="fas fa-users-cog"></i></i>廠商管理</a>
+                </li>
+
+                <li class=""><a href="./contact.html" onclick="return loadIframe('ifrm', this.href)"
+                        class="text-decoration-none ps-3 py-2 d-inline-flex align-items-center">
+                        <i class="fas fa-comment-dots"></i>聯絡我們</a>
+                </li>
+
+
+
+            </ul>
+        </div>
+
+
+
+
+        <div class="content" style="display: flex; flex-direction: column;">
+
+            <nav class="navbar navbar-expand-md navbar-light bg-light shadow-sm" style="min-height: 48px;">
+                <div class="container-fluid">
+
+                    <div class="d-flex justify-content-between d-md-none d-block">
+                        <button class="btn px-1 py-0 open-btn"><i class="far fa-bars"></i></button>
+                    </div>
+
+
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle py-0" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 18px;">
+
+                                <i class="fal fa-user-circle fa-xl me-3"></i>ADMIN
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="./account.html"
+                                        onclick="return loadIframe('ifrm', this.href)">帳戶設定</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#" onclick="logoutAlert(1)">登出</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </nav>
+
+
+            <!-- /views/page.html -->
+            <iframe id="ifrm" style="width: 100%; flex: 1;" src="/views/page.html"></iframe>
+
+
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/javascript/ajaxconnect.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+
+        // 更新標題名稱----------------------------------------------------------------------------------------------------------------------------
+        useraccountname = JSON.parse(localStorage.getItem("accountBean")).account;
+        if (useraccountname != null || useraccountname != "" || useraccountname != undefined) {
+            $("#navbarSupportedContent a")[0].innerHTML = useraccountname;
+        }
+
+
+        // 下拉選單運作------------------------------------------------------------------------------
+        $(".sidebar ul li").on("click", function () {
+
+            if ($(this).index() != 4) {
+                $(".sidebar ul li.active").removeClass('active');
+                $(this).addClass('active');
+            }
+
+        })
+
+        $(".open-btn").on("click", function () {
+            $("#side_nav").addClass("active");
+        })
+
+        $(".close-btn").on("click", function () {
+            $("#side_nav").removeClass("active");
+        })
+
+
+        // 讀取iframe轉址------------------------------------------------------------------------------
+        // 新增庫存的連結：
+        let addStockHref = "http://localhost:8080/views/addStock.html";
+        let pageHref = "http://localhost:8080/views/page.html";
+
+        function loadIframe(iframeName, url, addStockStateNum) {
+            var $iframe = $("#" + iframeName);
+            // console.log($iframe.attr("src") + "..." + url);
+            if ($iframe.attr("src") == url) {
+                return false;
+            } else {
+                $iframe.attr("src", url);
+
+                // 判斷是否為新增庫存。
+                if ($iframe.attr("src") == addStockHref) {
+                    addStockState = addStockStateNum;
+                }
+
+
+                return false;
+            }
+        }
+
+
+
+
+        // iframe內部的子類會呼叫這個方法------------------------------------------------------------------------------
+        function changepage(transferData, editStock) {
+            // 移除選取狀態。
+            $(".sidebar ul li.active").removeClass('active');
+
+            for (var i = 0; i < $(".sidebar ul li").length; i++) {
+                if ($($(".sidebar ul li")[i]).find("a").prop('href') == transferData) {
+                    $($(".sidebar ul li")[i]).addClass('active');
+                }
+                // console.log($($(".sidebar ul li")[i]).find("a").prop('href'));
+            }
+
+            if (transferData == addStockHref) {
+                loadIframe('ifrm', transferData, editStock);
+            } else {
+                loadIframe('ifrm', transferData);
+            }
+        }
+
+        // 新增庫存會呼叫這個方法
+        let addStockState = 0;
+        function checkAddStock() {
+            $("#ifrm").get(0).contentWindow.addStockinit(addStockState);
+        }
+
+        // 叫貨管理會呼叫這個方法
+        function arriveOrderTimeCounter(data, time) {
+            setTimeout(async function () {
+
+                returnObj = await viewsordersellupdate(data);
+
+                if (returnObj.responseStatus != 200) {
+                    // 沒接到資料
+
+                    console.log("orderStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                    console.log(returnObj.responseObj);
+                } else {
+                    // 處理及判斷邏輯： 
+                    successStr = returnObj.responseText;
+                    if (successStr == "OK") {
+                        console.log("arrive!!");
+                    }
+                }
+            }, time);
+        }
+
+        // 檢查是否有最新通知---------------------------------------------------------------------------------
+
+        let getNewsTimer = window.setInterval(function(){
+            getNewsData();
+        },1000);
+
+        $(".rounded-pill").hide();
+        let showNewsNum = 0;
+        async function getNewsData() {
+
+            // 與Server對接的ajax。
+            // 邊撈同時進行後續動作。
+
+            returnObj = await viewsnews(null);
+
+            if (returnObj.responseStatus != 200) {
+                // 沒接到資料
+                console.log("orderStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                console.log(returnObj.responseObj);
+            } else {
+                // 處理及判斷邏輯：          
+                allNewsList = returnObj.responseObj;
+
+                let newsCounter = 0;
+                for(let i = 0; i < allNewsList.length; i++){
+                    if(allNewsList[i].messageread == "N"){
+                        newsCounter++;
+                    }
+                }
+
+                // 數量不相等時，要顯示資訊
+                if(newsCounter != showNewsNum && newsCounter != 0){
+                    $(".rounded-pill").show();
+                    $(".rounded-pill")[0].innerHTML = newsCounter;      
+                    showNewsNum = newsCounter;
+                }else if(newsCounter == 0){
+                    $(".rounded-pill").hide();
+                }
+            }
+
+        }
+
+
+        // 登出按鈕功能--------------------------------------------------------------------------------------
+
+        function logoutAlert(statue) {
+
+            // 詢問是否登出
+            if (statue == 1) {
+                Swal.fire({
+                    title: '確定要登出嗎?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: 'var(--color-marigold)',
+                    cancelButtonColor: 'var(--color-irongray)',
+                    confirmButtonText: '登出',
+                    cancelButtonText: '取消'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // 呼叫登出AJAX
+                        logoutAjax();
+                    }
+                })
+            } else if (statue == 2) {
+                Swal.fire({
+                    title: '登出異常，請再試一次',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+
+        }
+
+
+        async function logoutAjax() {
+
+            returnObj = await logout(null);
+
+            if (returnObj.responseStatus != 200) {
+                // 沒接到資料
+                logoutAccount(0);
+
+                console.log("logout getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                console.log(returnObj.responseObj);
+            } else {
+
+                let successObj = returnObj.responseText;
+
+                if (successObj == "OK") {
+                    // 成功
+                    logoutAccount(1);
+                }
+            }
+        }
+
+        function logoutAccount(status) {
+
+            if (status == 0) {
+                // 失敗
+                logoutAlert(2);
+            } else {
+                // 成功
+                // 清除localStorage
+                localStorage.clear();
+                // 畫面跳轉
+                window.location.href = `../index.html`;
+            }
+
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>

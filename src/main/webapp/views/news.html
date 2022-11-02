@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pagecontent</title>
+
+    <!-- Material Design -->
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+    <!-- ICON CSS -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+
+
+    <!-- globalstyle -->
+    <link rel="stylesheet" href="../css/globalstyle.css">
+    <!-- globalattributes -->
+    <link rel="stylesheet" href="../css/globalattributes.css">
+    <!-- 加入頁簽小圖 -->
+    <link rel="shortcut icon" href="https://upload.cc/i1/2022/10/18/wJdKCL.png" type="image/x-icon">
+
+
+    <!-- 複數頁面使用CSS效果 -->
+    <link rel="stylesheet" href="/css/pluralpagestyle.css">
+
+
+
+    <style>
+        .newstable {
+            table-layout: fixed;
+            word-break: break-all;
+
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 0.3rem;
+            border: 1px solid var(--color-border);
+        }
+
+        .newstable th {
+            height: var(--table-thheight);
+
+            color: var(--color-irongray);
+            font-weight: var(--font-weight-contenttitle);
+            background-color: var(--color-tableth);
+        }
+
+        .newstable td {
+            /* height: var(--table-tdheight); */
+            padding-top: 18px;
+            padding-bottom: 18px;
+            border-top: 1px solid var(--color-border);
+
+        }
+
+        .newstable td q {
+            quotes: '【' '】';
+        }
+
+        .newstable td:first-child {
+            text-align: center;
+            vertical-align: text-top;
+            color: var(--color-irongray);
+        }
+
+        .newstable td span:nth-child(4) {
+            font-size: 12px;
+        }
+
+        .newstable td span:not(:first-child) {
+            color: var(--color-irongray);
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            background: var(--color-alizarincrimson);
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- border border-primary  -->
+            <div class="col-11 mt-4 mb-5 px-0">
+
+                <h1 class="fs-2 fw-bolder mb-4"><span class="text-black">通知與動向</span></h1>
+
+                <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto mb-4">
+
+                    <!-- 下拉選單 -->
+                    <div class="mdc-select mdc-select--outlined w-10 fs-5 fw-normal mb-4">
+                        <div class="mdc-select__anchor" aria-labelledby="outlined-select-label" style="height: 36px;">
+                            <span class="mdc-notched-outline">
+                                <span class="mdc-notched-outline__leading"></span>
+                                <span class="mdc-notched-outline__trailing"></span>
+                            </span>
+                            <span class="mdc-select__selected-text-container">
+                                <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+                            </span>
+                            <!-- 箭頭 -->
+                            <span class="mdc-select__dropdown-icon">
+                                <svg class="mdc-select__dropdown-icon-graphic" viewBox="7 10 10 5" focusable="false">
+                                    <polygon class="mdc-select__dropdown-icon-inactive" stroke="none"
+                                        fill-rule="evenodd" points="7 15 12 10 17 15">
+                                    </polygon>
+                                    <polygon class="mdc-select__dropdown-icon-active" stroke="none" fill-rule="evenodd"
+                                        points="7 10 12 15 17 10">
+                                    </polygon>
+                                </svg>
+                            </span>
+                        </div>
+
+                        <!--  aria-selected="true" -->
+                        <div class="mdc-select__menu mdc-menu mdc-menu-surface">
+                            <ul class="mdc-list">
+                                <!-- mdc選單位置 -->
+                            </ul>
+                        </div>
+                    </div>
+
+
+
+                    <!-- 這裡是內容的框架，可直接改掉框架 -->
+                    <hr class="hr-color mt-0">
+
+                    <table class="newstable fs-5 fw-normal w-100">
+                        <thead>
+                            <tr>
+                                <th width="50"></th>
+                                <th width="100%">通知內容</th>
+                            </tr>
+                        </thead>
+                        <!-- <tr>
+                            <td data-label="icon"><i class="fas fa-cubes fs-5"></i></td>
+                            <td data-label="內容">
+                                <q>庫存管理通知</q><span class="status-indicator"></span>
+                                <span class="d-block py-3">庫存商品牛奶貝已向XXX供應商自動補貨，等待XXX供應商確認。</span>
+                                <span class="d-block">2022/09/01 11:30:30</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-label="icon"><i class="fas fa-shopping-cart fs-5"></i></td>
+                            <td data-label="內容">
+                                <q>叫貨管理通知</q><span class="status-indicator"></span>
+                                <span class="d-block py-3">收到XXX廠商的鱸魚訂單，請於2022/09/08 10:30前進行訂單確認。</span>
+                                <span class="d-block">2022/09/01 11:30:30</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-label="icon"><i class="fas fa-money-check-alt fs-5"></i></td>
+                            <td data-label="內容">
+                                <q>出貨管理通知</q><span class=""></span>
+                                <span class="d-block py-3">#220154879訂單已完成撿貨及出貨。</span>
+                                <span class="d-block">2022/09/01 11:30:30</span>
+                            </td>
+                        </tr> -->
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/javascript/materialdesigninit.js"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/javascript/ajaxconnect.js"></script>
+
+    <script>
+
+        // 公告項目欄位
+        let selectTitle = ['所有通知', '系統公告', '庫存管理通知', '叫貨管理通知', '接單管理通知'];
+
+        // mdc select 選擇後調整畫面
+        function mdcSelect(data) {
+            let userSelect = $(data).attr("data-value");
+
+            if (userSelect == selectTitle[0]) {
+                for (let i = 1; i < $(".newstable tr").length; i++) {
+                    $($(".newstable tr")[i]).show();
+                }
+            } else {
+                for (let i = 1; i < $(".newstable tr").length; i++) {
+                    $($(".newstable tr")[i]).hide();
+                    if ($($(".newstable tr")[i]).find("q").html() == userSelect) {
+                        $($(".newstable tr")[i]).show();
+                    }
+                }
+            }
+        }
+
+
+
+        // 更新選單項目
+        newsInit();
+        function newsInit() {
+
+            for (let i = 0; i < selectTitle.length; i++) {
+                let singleSelectTitle = `
+                <li class="mdc-list-item py-2" data-value="${selectTitle[i]}" onclick="mdcSelect(this)">
+                    <span class="mdc-list-item__ripple"></span>
+                    <span class="mdc-list-item__text">${selectTitle[i]}</span>
+                </li>`;
+
+                $(".mdc-select ul.mdc-list").append(singleSelectTitle);
+            }
+
+            $(".mdc-select ul.mdc-list li")[0].classList.add('mdc-list-item--selected');
+            initializeSelect();
+
+        }
+
+
+        // server的假資料
+        let allNewsList = [
+            {
+                receiverid: 1,
+                messagecontent: '系統公告請盡快安排訂單#220101574出貨。2022-10-18 20:34:12',
+                messageid: 1,
+                messageread: 'N'
+            },
+            {
+                receiverid: 1,
+                messagecontent: '庫存管理通知收到XXX廠商的鱸魚訂單，請於2022/09/08 10:30前進行訂單確認。2022-09-08 20:34:12',
+                messageid: 4,
+                messageread: 'Y'
+            },
+            {
+                receiverid: 1,
+                messagecontent: '接單管理通知訂單#220154666的貨品已送達採購商。2022-10-18 20:34:12',
+                messageid: 5,
+                messageread: 'Y'
+            }
+        ];
+
+
+        downloadData();
+        async function downloadData() {
+
+            // 與Server對接的ajax。
+            // 邊撈同時進行後續動作。
+
+            returnObj = await viewsnews(null);
+
+            if (returnObj.responseStatus != 200) {
+                // 沒接到資料                
+                reNewData();
+
+                console.log("viewsnews getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                console.log(returnObj.responseObj);
+            } else {
+                // 處理及判斷邏輯：          
+                allNewsList = returnObj.responseObj;
+
+                reNewData();
+            }
+
+        }
+
+
+        function reNewData() {
+
+            $(".newstable")[0].innerHTML = `
+            <table class="newstable fs-5 fw-normal w-100">
+                <thead>
+                    <tr>
+                        <th width="50"></th>
+                        <th width="100%">通知內容</th>
+                    </tr>
+                </thead>
+            </table>`;
+
+
+            for (let i = 0; i < allNewsList.length; i++) {
+
+                let newsTitle = "";
+                let newsIcon = "";
+                let newsTime = "";
+                let newsContent = "";
+
+                for (let k = 0; k < selectTitle.length; k++) {
+                    let selectTitleLen = selectTitle[k].length;
+                    if ((allNewsList[i].messagecontent).substr(0, selectTitleLen) == selectTitle[k]) {
+                        // 標題
+                        newsTitle = selectTitle[k];
+
+                        // 時間(-19是時間的長度)
+                        newsTime = (allNewsList[i].messagecontent).slice(allNewsList[i].messagecontent.length - 19);
+                        // 判斷時間格式是否正常
+                        if (!isNaN(newsTime) || isNaN(Date.parse(newsTime))) {
+                            newsTime = "2022-12-31 00:00:00";
+                        }
+
+                        // 內容
+                        if (newsTime == "2022-12-31 00:00:00") {
+                            // 標題內容裡面沒有時間or時間錯誤
+                            newsContent = (allNewsList[i].messagecontent).slice(newsTitle.length);
+                        } else {
+                            // 標題內容有時間，要把時間部分排除
+                            newsContent = (allNewsList[i].messagecontent).slice(newsTitle.length, (allNewsList[i].messagecontent.length - 19));
+                        }
+
+                        // 檢查icon
+                        switch (newsTitle) {
+                            case selectTitle[0]:
+                                newsIcon = `<i class="fas fa-comment-plus fs-5"></i>`;
+                                break;
+                            case selectTitle[1]:
+                                newsIcon = `<i class="fas fa-comment-plus fs-5"></i>`;
+                                break;
+                            case selectTitle[2]:
+                                newsIcon = `<i class="fas fa-cubes fs-5"></i>`;
+                                break;
+                            case selectTitle[3]:
+                                newsIcon = `<i class="fas fa-shopping-cart fs-5"></i>`;
+                                break;
+                            case selectTitle[4]:
+                                newsIcon = `<i class="fas fa-money-check-alt fs-5"></i>`;
+                                break;
+                            default:
+                                newsIcon = "";
+                                console.log("newsTitle error");
+                                break;
+                        }
+
+                    }
+                }
+
+                // 沒有標題
+                if (newsTitle == "") {
+                    // 預設標題為selectTitle[1]
+                    newsTitle = selectTitle[1];
+                    newsIcon = `<i class="fas fa-comment-plus fs-5"></i>`;
+
+                    // 時間(-19是時間的長度)
+                    newsTime = (allNewsList[i].messagecontent).slice(allNewsList[i].messagecontent.length - 19);
+                    // 判斷時間格式是否正常
+                    if (!isNaN(newsTime) || isNaN(Date.parse(newsTime))) {
+                        newsTime = "2022-12-31 00:00:00";
+                    }
+
+                    // 內容
+                    if (newsTime == "2022-12-31 00:00:00") {
+                        // 標題內容裡面沒有時間or時間錯誤 並且 沒有標題
+                        newsContent = allNewsList[i].messagecontent;
+                    } else {
+                        // 標題內容有時間，要把時間部分排除
+                        newsContent = (allNewsList[i].messagecontent).slice(0, (allNewsList[i].messagecontent.length - 19));
+                    }
+                }
+
+
+                let singleHtmlTr = `
+                <tr data-value="${allNewsList[i].messageid}">
+                    <td data-label="icon">${newsIcon}</td>
+                    <td data-label="內容">
+                        <q>${newsTitle}</q><span class="${allNewsList[i].messageread == 'N' ? 'status-indicator' : ''}"></span>
+                        <span class="d-block py-3">${newsContent}</span>
+                        <span class="d-block">${newsTime}</span>
+                    </td>
+                </tr>`;
+
+                $(".newstable").append(singleHtmlTr);
+
+            }
+
+        }
+
+
+        // 1秒後回傳已讀
+        let newsRead = window.setTimeout(function () {
+
+            let sentServerArray = [];
+            for (let i = 1; i < $(".newstable tr").length; i++) {
+
+                if ($($(".newstable tr")[i]).find("span")[0].classList.value == "status-indicator") {
+                    sentServerArray.push($(".newstable tr")[i].dataset.value);
+                }
+
+            }
+
+            updateData(sentServerArray);
+
+        }, 1000)
+
+
+        async function updateData(data) {
+
+            // 與Server對接的ajax。
+            // 邊撈同時進行後續動作。
+
+            if (data.length != 0) {
+
+                sentData = new Array(data.length);
+                for (let i = 0; i < data.length; i++) {
+                    sentData[i] = parseInt(data[i]);
+                }
+
+                returnObj = await viewsnewsupdate(sentData);
+
+                if (returnObj.responseStatus != 200) {
+                    // 沒接到資料
+
+                    console.log("updateData getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                    console.log(returnObj.responseObj);
+                } else {
+                    // 處理及判斷邏輯：          
+                    console.log("news read");
+                }
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pagecontent</title>
+
+    <!-- Material Design -->
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+    <!-- ICON CSS -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+
+
+    <!-- globalstyle -->
+    <link rel="stylesheet" href="../css/globalstyle.css">
+    <!-- globalattributes -->
+    <link rel="stylesheet" href="../css/globalattributes.css">
+    <!-- 加入頁簽小圖 -->
+    <link rel="shortcut icon" href="https://upload.cc/i1/2022/10/18/wJdKCL.png" type="image/x-icon">
+
+    <!-- 複數頁面使用CSS效果 -->
+    <link rel="stylesheet" href="/css/pluralpagestyle.css">
+
+
+
+    <style>
+        table {
+            table-layout: fixed;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        table th {
+            height: 35px;
+            font-size: 16px;
+            background-color: var(--color-antiquewhite);
+        }
+
+
+        table img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            object-position: center;
+            padding-left: 10px;
+        }
+
+        /* 選擇廠商區塊--------------------------- */
+        .sectionTop,
+        .sectionTable {
+            /* background-color: var(--color-whitesmoke); */
+            border: 1px solid var(--color-border);
+        }
+
+        .sectionBackground {
+            border: 1px solid var(--color-border);
+            background-color: var(--color-whitesmoke);
+            height: 500px;
+        }
+
+        .sectionBackground span {
+            color: var(--color-irongray);
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+            margin-top: 22%;
+        }
+
+        /* 新增商品至叫貨單------------------ */
+        .total span {
+            color: var(--color-sunorange);
+            font-size: var(--font-size-contenttitle);
+        }
+
+        /* 訂購數量--------------------------- */
+        .qtyminus,
+        .qtyplus {
+            width: 20%;
+            text-align: center;
+            border: none;
+        }
+
+        .qty {
+            width: 25%;
+            text-align: center;
+        }
+
+
+        /* 響應式------------------------------ */
+        @media screen and (max-width: 1000px) {
+            table {
+                border: 0;
+            }
+
+            table thead {
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+
+            table tr {
+                border-bottom: 3px solid var(--color-antiquewhite);
+                display: block;
+                font-size: 16px;
+            }
+
+            table td {
+                border-bottom: 1px solid var(--color-antiquewhite);
+                display: block;
+                text-align: right;
+
+            }
+
+            table td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: var(--color-sunorange);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div>
+
+                <!-- 選擇廠商區塊 -->
+                <div class="sectionTop rounded-3 shadow-sm py-4 px-4 w-100 h-auto my-4">
+
+                    <!-- 這裡是內容的框架，可直接改掉框架 -->
+                    <div class="d-flex justify-content-between">
+
+                        <div class="w-75 h-auto">
+                            <span class="fs-5 fw-normal">廠商：</span>
+                            <div class="mdc-select mdc-select--outlined w-50">
+                                <div class="mdc-select__anchor" style="height: 36px;" aria-disabled="false"
+                                    aria-labelledby="outlined-select-label">
+                                    <span class="mdc-notched-outline">
+                                        <span class="mdc-notched-outline__leading"></span>
+                                        <span class="mdc-notched-outline__trailing"></span>
+                                    </span>
+                                    <span class="mdc-select__selected-text-container">
+                                        <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+                                    </span>
+                                    <!-- 箭頭 -->
+                                    <span class="mdc-select__dropdown-icon">
+                                        <svg class="mdc-select__dropdown-icon-graphic" viewBox="7 10 10 5"
+                                            focusable="false">
+                                            <polygon class="mdc-select__dropdown-icon-inactive" stroke="none"
+                                                fill-rule="evenodd" points="7 15 12 10 17 15">
+                                            </polygon>
+                                            <polygon class="mdc-select__dropdown-icon-active" stroke="none"
+                                                fill-rule="evenodd" points="7 10 12 15 17 10">
+                                            </polygon>
+                                        </svg>
+                                    </span>
+                                </div>
+
+                                <!--  aria-selected="true" -->
+                                <div id="productclassification" class="mdc-select__menu mdc-menu mdc-menu-surface">
+                                    <ul class="mdc-list">
+                                        <li class="mdc-list-item py-2 mdc-list-item--selected mdc-select--disabled"
+                                            data-value="請選擇分類">
+                                            <span class="mdc-list-item__ripple"></span>
+                                            <span class="mdc-list-item__text">請選擇廠商</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div>
+                            <button class="mdc-button mdc-button--raised my-auto" onclick="downloadProductData()">
+                                <span class="mdc-button__label fs-5 fw-normal">搜尋</span>
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 未顯示資訊的背景 ---------------------------->
+                <div class="sectionBackground rounded-3 shadow-sm py-4 px-4 w-100 my-4">
+                    <span class="fs-2 fw-bold">請先搜尋欲檢視廠商</span>
+                </div>
+
+
+                <!-- 商品列表---------------------------------- -->
+                <div class="sectionTable bg-white rounded-3 shadow-sm w-100 h-auto my-4">
+
+                    <table class="goodsTable fs-5 fw-normal">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%;">圖片</th>
+                                <th style="width: 15%;">品名規格</th>
+                                <th style="width: 15%;">說明</th>
+                                <th style="width: 10%;">單價</th>
+                                <th style="width: 10%;">最低訂購量</th>
+                                <th style="width: 10%;">我方缺貨數</th>
+                                <th style="width: 15%;">訂購數量</th>
+                            </tr>
+                        </thead>
+
+                        <!-- 項目內容：牛奶貝 -->
+
+                        <tr></tr>
+                        <tr></tr>
+                        <tr></tr>
+                        <tr></tr>
+                        <tr></tr>
+                    </table>                    
+
+                    <div class="d-flex flex-row-reverse">
+
+                        <div class="addGoodsArea mx-4 mb-4">
+                            <button class="mdc-button mdc-button--raised" id="addItem">
+                                <span class="mdc-button__label fs-5 fw-normal">新增商品</span>
+                            </button>
+                        </div>
+
+                        <span class="total my-auto">
+                            總金額(&nbsp<span>3</span>&nbsp種品項商品):&nbsp$ <span>12120</span>
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/javascript/materialdesigninit.js"></script>
+    <script src="/javascript/ajaxconnect.js"></script>
+    <script src="/javascript/tools.js"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+
+    <script>        
+
+        // JSON假資料  ----------------------------------------------------------------------------------------------------------------------
+        // CompanyName(供應商)、ProductPic(圖片)、ProductNameSpec(品名規格)、ProductDesc(說明)、UnitSellPrice(單價)
+        // MinSellQty(最低訂購數)、?useroutstock(缺貨數)、?CallShipping(訂購數量)
+
+        // var test = 
+        //     [
+        //         {
+        //             "productid":200001,
+        //             "unitcost":500,
+        //             "onshelf":1,
+        //             "productpic":"../img/05.jpg",
+        //             "stockqty":600,
+        //             "warningqty":0,
+        //             "ownerid":2,
+        //             "productclassification":3,
+        //             "owneroutstock":450,
+        //             "minsellqty":50,
+        //             "autoorderconfirmfunctionstatus":1,
+        //             "autoorderfunction":"N",
+        //             "safeqty":450,
+        //             "productnamespec":"2號的秋刀魚",
+        //             "productdesc":"好吃喔",
+        //             "unitsellprice":1000
+        //         },
+        //         {
+        //             "productid":200002,
+        //             "unitcost":400,
+        //             "onshelf":1,
+        //             "productpic":"../img/05.jpg",
+        //             "stockqty":500,
+        //             "warningqty":0,
+        //             "ownerid":2,
+        //             "productclassification":4,
+        //             "owneroutstock":450,
+        //             "minsellqty":50,
+        //             "autoorderconfirmfunctionstatus":1,
+        //             "autoorderfunction":"N",
+        //             "safeqty":450,
+        //             "productnamespec":"2號的魷魚",
+        //             "productdesc":"很好吃喔",
+        //             "unitsellprice":1000
+        //         }
+        //     ]
+
+        let choosesupplier = {
+            supplier: "",
+            supplierid: ""
+        };
+
+        var cooperateList = [
+            {
+                supplierid: 10001,
+                suppliercompanyname: "順慶商行(id:10001)"
+            },
+            {
+                supplierid: 10003,
+                suppliercompanyname: "達克生鮮股份有限公司(id:10003)"
+            },
+            {
+                supplierid: 10005,
+                suppliercompanyname: "國亨企業社(id:10005)"
+            },
+            {
+                supplierid: 10007,
+                suppliercompanyname: "華的來股份有限公司(id:10007)"
+            },
+            {
+                supplierid: 10009,
+                suppliercompanyname: "聖祿食品股份有限公司(id:10009)"
+            },
+        ]
+
+        var allStockList =
+            [
+                {
+                    "productid": 200001,
+                    "unitcost": 500,
+                    "onshelf": 1,
+                    "productpic": "../img/05.jpg",
+                    "stockqty": 600,
+                    "warningqty": 0,
+                    "ownerid": 2,
+                    "productclassification": 3,
+                    "owneroutstock": 450,
+                    "minsellqty": 50,
+                    "autoorderconfirmfunctionstatus": 1,
+                    "autoorderfunction": "N",
+                    "safeqty": 450,
+                    "productnamespec": "2號的秋刀魚",
+                    "productdesc": "好吃喔",
+                    "unitsellprice": 10
+                },
+                {
+                    "productid": 200005,
+                    "unitcost": 40,
+                    "onshelf": 1,
+                    "productpic": "../img/01.jpg",
+                    "stockqty": 600,
+                    "warningqty": 0,
+                    "ownerid": 2,
+                    "productclassification": 3,
+                    "owneroutstock": 20,
+                    "minsellqty": 50,
+                    "autoorderconfirmfunctionstatus": 1,
+                    "autoorderfunction": "N",
+                    "safeqty": 450,
+                    "productnamespec": "牛奶貝/1斤",
+                    "productdesc": "新鮮現撈/產地直送",
+                    "unitsellprice": 25
+                },
+                {
+                    "productid": 200097,
+                    "unitcost": 400,
+                    "onshelf": 1,
+                    "productpic": "../img/02.jpg",
+                    "stockqty": 500,
+                    "warningqty": 0,
+                    "ownerid": 2,
+                    "productclassification": 4,
+                    "owneroutstock": 70,
+                    "minsellqty": 50,
+                    "autoorderconfirmfunctionstatus": 1,
+                    "autoorderfunction": "N",
+                    "safeqty": 450,
+                    "productnamespec": "2號的魷魚",
+                    "productdesc": "很好吃喔",
+                    "unitsellprice": 5
+                },
+                {
+                    "productid": 200098,
+                    "unitcost": 400,
+                    "onshelf": 1,
+                    "productpic": "../img/02.jpg",
+                    "stockqty": 500,
+                    "warningqty": 0,
+                    "ownerid": 2,
+                    "productclassification": 4,
+                    "owneroutstock": 5,
+                    "minsellqty": 50,
+                    "autoorderconfirmfunctionstatus": 1,
+                    "autoorderfunction": "N",
+                    "safeqty": 450,
+                    "productnamespec": "3號的魷魚",
+                    "productdesc": "很好吃喔",
+                    "unitsellprice": 50
+                },
+                {
+                    "productid": 200099,
+                    "unitcost": 400,
+                    "onshelf": 1,
+                    "productpic": "../img/02.jpg",
+                    "stockqty": 500,
+                    "warningqty": 0,
+                    "ownerid": 2,
+                    "productclassification": 4,
+                    "owneroutstock": 15,
+                    "minsellqty": 50,
+                    "autoorderconfirmfunctionstatus": 1,
+                    "autoorderfunction": "N",
+                    "safeqty": 450,
+                    "productnamespec": "4號的魷魚",
+                    "productdesc": "很好吃喔",
+                    "unitsellprice": 15
+                }
+            ];
+
+
+        // 欄位中文名稱對應
+        let goodsListName = [
+            {
+                CompanyName: "供應商",
+                ProductPic: "圖片",
+                ProductNameSpec: "品名規格",
+                ProductDesc: "說明",
+                UnitSellPrice: "單價",
+                MinSellQty: "最低訂購量",
+                useroutstock: "缺貨數",
+                CallShipping: "訂購數量"
+            }
+        ]
+
+        // AJAX撈廠商資料(使用非同步資料的方式撈)--------------------------------------------------------------------------------------。
+        downloadCooperateData();
+        async function downloadCooperateData() {
+
+            let accountID = {
+                "accountid": JSON.parse(localStorage.getItem("accountBean")).accountid
+            };
+
+            returnObj = await viewscooperate(accountID);
+
+            if (returnObj.responseStatus != 200) {
+                // 撈完後更新畫面內容。
+                // reNewCooperateData();
+
+                console.log("cooperateList getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                console.log(returnObj.responseObj);
+            } else {
+                // 處理及判斷邏輯：                
+                cooperateList = returnObj.responseObj;
+
+                // 撈完後更新畫面內容。
+                reNewCooperateData();
+            }
+
+        }
+
+
+        // 更新廠商資料。
+        function reNewCooperateData() {
+
+            for (let i = 0; i < cooperateList.length; i++) {
+
+                let ulHtml = `
+                    <li class="mdc-list-item py-2" data-value="${cooperateList[i].supplierid}">
+                        <span class="mdc-list-item__ripple"></span>
+                        <span class="mdc-list-item__text">${cooperateList[i].suppliercompanyname}</span>
+                    </li>
+                `;
+
+                $("#productclassification ul").append(ulHtml);
+
+            }
+
+            initializeSelect();
+        }
+
+
+        // AJAX點擊搜尋後，顯示廠商的產品------------------------------------------------------------------------------------------------------
+        async function downloadProductData() {
+
+            let cooperateId = {
+                accountid: ""
+            }
+
+            if ($("#productclassification").find("li.mdc-list-item--selected").index() == 0) {
+                // 使用者沒選擇廠商
+                sweetalertShow(0);
+                return;
+            } else {
+                cooperateId.accountid = parseInt($("#productclassification").find("li.mdc-list-item--selected").attr('data-value'));
+            }
+
+            // 跟server要對應廠商的資料
+            returnObj = await viewsgoods(cooperateId);
+
+            if (returnObj.responseStatus != 200) {
+
+                // 撈完後更新畫面內容。
+                sweetalertShow(1);
+                // reNewData();
+                // $(".sectionBackground").hide();
+                // $(".sectionTable").show();
+                choosesupplier.supplierid = $("#productclassification").find("li.mdc-list-item--selected").attr('data-value');
+                choosesupplier.supplier = $("#productclassification").find("li.mdc-list-item--selected span")[1].innerHTML;
+
+                console.log("cooperateProductList getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                console.log(returnObj.responseObj);
+            } else {
+                // 處理及判斷邏輯：                
+                allStockList = returnObj.responseObj;
+
+                // 撈完後更新畫面內容。
+                reNewData();
+                $(".sectionBackground").hide();
+                $(".sectionTable").show();
+                choosesupplier.supplierid = $("#productclassification").find("li.mdc-list-item--selected").attr('data-value');
+                choosesupplier.supplier = $("#productclassification").find("li.mdc-list-item--selected span")[1].innerHTML;
+            }
+        }
+
+
+        function reNewData() {
+
+            // 規劃表格標題，0:從新增庫存來的，1:從庫存概覽來的
+            if (parentPage == 0) {
+                $(".goodsTable")[0].innerHTML = `
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">${goodsListName[0].ProductPic}</th>
+                        <th style="width: 22%;">${goodsListName[0].ProductNameSpec}</th>
+                        <th style="width: 22%;">${goodsListName[0].ProductDesc}</th>
+                        <th style="width: 10%;">${goodsListName[0].UnitSellPrice}</th>
+                        <th style="width: 10%;">${goodsListName[0].MinSellQty}</th>
+                        <th style="width: 15%;">操作</th>
+                    </tr>
+                </thead>`;
+            } else if (parentPage == 1 || parentPage == 2) {
+                $(".goodsTable")[0].innerHTML = `
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">${goodsListName[0].ProductPic}</th>
+                        <th style="width: 20%;">${goodsListName[0].ProductNameSpec}</th>
+                        <th>${goodsListName[0].ProductDesc}</th>
+                        <th style="width: 10%;">${goodsListName[0].UnitSellPrice}</th>
+                        <th style="width: 10%;">${goodsListName[0].MinSellQty}</th>
+                        <th style="width: 10%;">${goodsListName[0].useroutstock}</th>
+                        <th style="width: 15%;">${goodsListName[0].CallShipping}</th>
+                    </tr>
+                </thead>`;
+            }
+
+
+
+            for (let i = 0; i < allStockList.length; i++) {
+
+                let trHtmlData = "";
+                // 創造<tr>的Html格式，並將資料帶入。
+
+                if (parentPage == 0) {
+                    trHtmlData =`
+                    <tr>
+                        <td data-label=""><img src="${allStockList[i].productpic}" onerror="this.src='/img/01.jpg'"></td>
+                        <td data-label="">${allStockList[i].productnamespec}</td>
+                        <td data-label="">${allStockList[i].productdesc}</td>
+                        <td data-label="">${costFix(allStockList[i].unitsellprice)}</td>
+                        <td data-label="">${allStockList[i].minsellqty}</td>
+                        <td data-label="">
+                            <button class="mdc-button mdc-button--outlined" onclick="chooseSupplierAndProduct(${allStockList[i].productid})">
+                                <span class="mdc-button__ripple"></span>
+                                <span class="mdc-button__label fs-5 fw-normal">選擇品項</span>
+                            </button>
+                        </td>
+                    </tr>`
+                } else if (parentPage == 1 || parentPage == 2) {
+                    trHtmlData =`
+                    <tr>
+                        <td data-label=""><img src="${allStockList[i].productpic}" onerror="this.src='/img/01.jpg'"></td>
+                        <td data-label="">${allStockList[i].productnamespec}</td>
+                        <td data-label="">${allStockList[i].productdesc}</td>
+                        <td data-label="">${costFix(allStockList[i].unitsellprice)}</td>
+                        <td data-label="">${allStockList[i].minsellqty}</td>
+                        <td data-label="">${allStockList[i].owneroutstock}</td>
+                        <td data-label="">
+                            <input type='button' value='-' class='qtyminus' field='${allStockList[i].productid}' />
+                            <input type='text' name='${allStockList[i].productid}' value=${allStockList[i].owneroutstock} class='qty' />
+                            <input type='button' value='+' class='qtyplus' field='${allStockList[i].productid}' />
+                        </td>
+                    </tr>`
+                }                
+
+                // 把製作完的tr放回去tabel中。
+                $(".goodsTable").append(trHtmlData);
+            }
+
+            // MDC Button註冊動畫(待研究，沒有這邊會無法運作動畫，但理論上應該是不需要---------------)
+            document.querySelectorAll('.mdc-button').forEach(
+                function (ele) {
+                    mdc.ripple.MDCRipple.attachTo(ele);
+                });
+
+            // 設定數量增減的按鈕
+            if (parentPage == 1 || parentPage == 2) {
+                quantityBtn();
+                checkProductQuantityAndPrice();
+            }
+
+        }
+
+
+        function sweetalertShow(state) {
+
+            switch (state) {
+                case 0:
+                    Swal.fire({
+                        title: '請先選擇廠商',
+                        icon: 'warning',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    break;
+                case 1:
+                    Swal.fire({
+                        title: '取得廠商資料異常，請再試一次',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    break;
+                case 2:
+                    Swal.fire({
+                        title: '叫貨單建立異常，請再試一次',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    break;
+                case 3:
+                    Swal.fire({
+                        title: '建立叫貨單成功',
+                        html: "可前往【叫貨管理】確認叫貨單資訊<br>或繼續新增下一筆",
+                        icon: 'success',
+                        showCancelButton: true,
+                        confirmButtonColor: 'var(--color-marigold)',
+                        cancelButtonColor: 'var(--color-irongray)',
+                        confirmButtonText: '叫貨管理',
+                        cancelButtonText: '繼續新增'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            if (window.parent && window.parent.callParent) {
+                                window.parent.callParent(4, null);
+                            }
+                        } else {
+                            parentCall(1);
+                        }
+                    })
+                    break;
+                case 4:
+                    Swal.fire({
+                        title: '建立叫貨單成功',
+                        html: "可繼續新增下一筆<br>或回到【叫貨管理】確認叫貨單資訊",
+                        icon: 'success',
+                        showCancelButton: true,
+                        confirmButtonColor: 'var(--color-marigold)',
+                        cancelButtonColor: 'var(--color-irongray)',
+                        confirmButtonText: '叫貨管理',
+                        cancelButtonText: '繼續新增'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            callParent(null);
+                        } else {
+                            parentCall(2);
+                        }
+                    })
+                    break;
+                default:
+                    console.log("goods state error");
+                    break;
+            }
+
+        }
+
+
+        // 內外部呼叫--------------------------------------------------------------------------------------------------------------
+
+        // 0：從新增庫存來的，1：從庫存概覽頁面呼叫，2：從叫貨管理頁面呼叫。
+        let parentPage = null;
+
+        let addStockObj = {
+            supplierproductid: 20001,
+            supplierid: 10000,
+            supplierproduct: "新鮮牛奶貝 / 5斤",
+            supplier: "達克三角洲有限公司"
+        }
+
+        // 父類別會呼叫這個方法
+        function parentCall(showcontent) {
+
+            switch (showcontent) {
+                case 0:
+                    // showcontent:0從建立庫存頁面呼叫。
+                    parentPage = showcontent;
+                    $(".addGoodsArea").hide();
+                    $(".total").hide();
+                    $(".sectionBackground").show();
+                    break;
+                case 1:
+                    // showcontent:1從庫存概覽頁面呼叫。
+                    parentPage = showcontent;
+                    $("#addItem").find("span").html("建立叫貨單");
+                    $(".addGoodsArea").show();
+                    $(".total").show();
+                    $(".sectionBackground").show();
+                    break;
+                case 2:
+                    // showcontent:2從叫貨管理頁面呼叫。
+                    parentPage = showcontent;
+                    $("#addItem").find("span").html("建立叫貨單");
+                    $(".addGoodsArea").show();
+                    $(".total").show();
+                    $(".sectionBackground").show();
+                    break;
+                default:
+                    console.log("goods parentPage error");
+                    break;
+            }
+
+            $(".sectionTable").hide();
+        }
+
+
+        // 呼叫父類別方法 
+        function callParent(transferData) {
+            if (window.parent && window.parent.closeComponent) {
+
+                if (parentPage == 0 || parentPage == 2) {
+                    window.parent.closeComponent(transferData);	//呼叫父頁面的closeComponent方法
+                }
+
+            }
+        }
+
+
+        // 新增商品頁面的選擇品項及廠商
+        function chooseSupplierAndProduct(productid) {
+            if (parentPage == 0) {
+
+                for (let i = 0; i < allStockList.length; i++) {
+                    if (allStockList[i].productid == productid) {
+                        addStockObj.supplierproduct = allStockList[i].productnamespec;
+                        break;
+                    }
+                }
+
+                addStockObj.supplier = choosesupplier.supplier;
+                addStockObj.supplierid = choosesupplier.supplierid;
+                addStockObj.supplierproductid = productid;
+
+                // 呼叫父類方法，並把資料傳回去。
+                callParent(addStockObj);
+
+            }
+        }
+
+
+
+
+        // 新增商品----------------------------------------------------------------------------------------------------------
+        $(".container").on('click', '#addItem', function () {
+
+            let createGoodsArr = new Array(chooseProduct);
+            let createGoodsCounter = 0;
+
+            for (let i = 0; i < $("input[type='text']").length; i++) {
+                if (parseInt($($("input[type='text']")[i]).val()) != 0) {
+
+                    let dealprice = 0;
+                    for (let k = 0; k < allStockList.length; k++) {
+                        if (allStockList[k].productid == $($("input[type='text']")[i]).attr("name")) {
+                            dealprice = allStockList[k].unitsellprice;
+                            break;
+                        }
+                    }
+
+                    let goodsDataObj = {
+                        "sellerproductid": parseInt($($("input[type='text']")[i]).attr("name")),
+                        "orderqty": parseInt($($("input[type='text']")[i]).val()),
+                        "unitdealprice": dealprice
+                    }
+
+                    createGoodsArr[createGoodsCounter] = goodsDataObj;
+                    createGoodsCounter++;
+                }
+            }
+
+            combinationAjaxData = {
+                "sellerid": parseInt(choosesupplier.supplierid),
+                "products": createGoodsArr
+            }
+
+            postGoodsData(combinationAjaxData);
+
+        });
+
+
+        async function postGoodsData(data) {
+
+            returnObj = await viewsgoodsinsert(data);
+
+            console.log(returnObj);
+
+            if (returnObj.responseStatus != 200) {
+                // 撈完後更新畫面內容。
+                if (parentPage == 1) {
+                    sweetalertShow(3);
+                } else if (parentPage == 2) {
+                    sweetalertShow(4);
+                }
+
+                console.log("cooperateList getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                console.log(returnObj.responseObj);
+            } else {
+                // 處理及判斷邏輯：                
+                let successObj = returnObj.responseText;
+                if (successObj == "OK") {
+                    // 成功
+                    if (parentPage == 1) {
+                        sweetalertShow(3);
+                    } else if (parentPage == 2) {
+                        sweetalertShow(4);
+                    }
+
+                }
+            }
+
+        }
+
+
+        // 數量增減-----------------------------------------------------------------------------------------------------------
+        function quantityBtn() {
+            // This button will increment the value
+            $('.qtyplus').click(function (e) {
+                // Stop acting like a button
+                e.preventDefault();
+                // Get the field name
+                fieldName = $(this).attr('field');
+                // Get its current value
+                var currentVal = parseInt($('input[name=' + fieldName + ']').val());
+                // If is not undefined
+                // if (!isNaN(currentVal)) {
+                if (!isNaN(currentVal) && currentVal >= 0) {
+                    // Increment
+                    $('input[name=' + fieldName + ']').val(currentVal + 1);
+                } else {
+                    // Otherwise put a 0 there
+                    $('input[name=' + fieldName + ']').val(0);
+                }
+
+                checkProductQuantityAndPrice();
+            });
+            // This button will decrement the value till 0
+            $(".qtyminus").click(function (e) {
+                // Stop acting like a button
+                e.preventDefault();
+                // Get the field name
+                fieldName = $(this).attr('field');
+                // Get its current value
+                var currentVal = parseInt($('input[name=' + fieldName + ']').val());
+                // If it isn't undefined or its greater than 0
+                // if (!isNaN(currentVal) && currentVal > 0) {
+                if (!isNaN(currentVal) && currentVal > 0) {
+                    // Decrement one
+                    $('input[name=' + fieldName + ']').val(currentVal - 1);
+                } else {
+                    // Otherwise put a 0 there
+                    $('input[name=' + fieldName + ']').val(0);
+                }
+
+                checkProductQuantityAndPrice();
+            });
+
+            // 檢查輸入框是否有被輸入中
+            $('.qty').focus(function () {
+                checkProductQuantityAndPrice();
+            });
+            $('.qty').focusout(function () {                
+                fieldName = $(this).attr('name');
+                var currentVal = parseInt($('input[name=' + fieldName + ']').val());
+                if (isNaN(currentVal) || currentVal < 0) {
+                    // Increment
+                    $('input[name=' + fieldName + ']').val(0);
+                    console.log($('input[name=' + fieldName + ']').val(0));
+                }
+                checkProductQuantityAndPrice();
+            });
+        };
+
+
+        // 數量增減時，更新下方資訊
+        let chooseProduct = 0;
+        let chooseProductPrice = 0;
+        function checkProductQuantityAndPrice() {
+            chooseProduct = 0;
+            chooseProductPrice = 0;
+
+            for (let i = 0; i < $("input[type='text']").length; i++) {
+                if (parseInt($($("input[type='text']")[i]).val()) != 0) {
+
+                    for (let k = 0; k < allStockList.length; k++) {
+                        if (allStockList[k].productid == $($("input[type='text']")[i]).attr("name")) {
+                            chooseProductPrice += allStockList[k].unitsellprice * $($("input[type='text']")[i]).val();
+                            break;
+                        }
+                    }
+
+                    chooseProduct++;
+                }
+            }
+
+            $(".total span")[0].innerHTML = chooseProduct;
+            $(".total span")[1].innerHTML = costFix(chooseProductPrice);
+        }  
+
+
+    </script>
+
+
+
+</body>
+
+</html>

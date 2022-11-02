@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pagecontent</title>
+
+    <!-- Material Design -->
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+    <!-- ICON CSS -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <!-- globalstyle -->
+    <link rel="stylesheet" href="../css/globalstyle.css">
+    <!-- globalattributes -->
+    <link rel="stylesheet" href="../css/globalattributes.css">
+    <!-- 加入頁簽小圖 -->
+    <link rel="shortcut icon" href="https://upload.cc/i1/2022/10/18/wJdKCL.png" type="image/x-icon">
+    
+
+    <!-- 複數頁面使用CSS效果 -->
+    <link rel="stylesheet" href="/css/pluralpagestyle.css">
+
+    <style>
+        /* 較少資訊的商品清單 */
+        #dataContent {
+            border: 1px solid var(--color-border);
+        }
+
+        #timeLineContent {
+            margin-top: 70px;
+            height: 120px;
+        }
+
+        /* 較多資訊的清單 */
+        #moreContent {
+            border: 1px solid var(--color-border);
+        }
+
+        /* 表格 --------------------------------------------------------- */
+        .orderStocktable,
+        .orderStocktable1 {
+            table-layout: fixed;
+            font-size: 14px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 0.3rem;
+            border: 1px solid var(--color-border);
+        }
+
+        .orderStocktable th,
+        .orderStocktable1 th {
+            height: var(--table-thheight);
+            color: var(--color-irongray);
+            font-weight: var(--font-weight-contenttitle);
+            background-color: var(--color-tableth);
+        }
+
+        .orderStocktable td,
+        .orderStocktable1 td {
+            padding-top: 18px;
+            padding-bottom: 18px;
+            border-top: 1px solid var(--color-border);
+        }
+
+
+
+
+
+        .outTable {
+            border-collapse: separate;
+            border-spacing: 40px 10px;
+        }
+
+        .outTable tr td label {
+            height: 36px;
+        }
+
+        /* 失敗資訊------------------ */
+
+        #failContent {
+            background-color: var(--color-antiquewhite);
+            border: 1px solid var(--color-border);
+        }
+
+
+        @media screen and (max-width: 1000px) {
+            table {
+                border: 0;
+            }
+
+            table thead {
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+
+            table tr {
+                border-bottom: 3px solid var(--color-antiquewhite);
+                display: block;
+                font-size: 16px;
+            }
+
+            table td {
+                border-bottom: 1px solid var(--color-antiquewhite);
+                display: block;
+                text-align: right;
+
+            }
+
+            table td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: var(--color-sunorange);
+            }
+        }
+    </style>
+</head>
+
+<body style="background-color: white;">
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="col-11 mt-4 mb-5 px-0">
+
+                <!-- 分頁大標 -->
+                <!-- <h1 class="fs-2 fw-bold mb-4"><span class="text-black">小東西(訂單明細)</span></h1> -->
+
+                <!-- 不成立區塊 ---------------------------------------------------------------------------------------------------->
+
+                <div id="failContent" class="rounded-3 shadow-sm py-4 px-4 w-100 h-auto mb-4">
+
+                    <p class="fs-5 d-inline-flex mb-4 contenttitle">訂單狀態：不成立</p>
+
+                    <ul>
+                        <!-- <li>不成立類型：賣家取消／買家取消／商品遺失／商品損壞／逾時已由系統判定不成立</li>
+                        <li>原因：不想買了／賣家要求取消／修改訂單內容／對商品有疑慮／賣家出貨速度太慢／對賣家行為有疑慮<br>（如：要求繳交保證金）／付款問題（如：餘額不足）／買錯商品／其他</li>
+                        <li>買家要求／已售完／無法運送範圍</li> -->
+                        <li>不成立類型：買家取消</li>
+                        <li>原因：不想買了</li>
+                    </ul>
+
+                </div>
+
+
+                <!-- 確認前訂單明細----------------------- -->
+
+                <div id="dataContent" class="bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto mb-4">
+
+                    <p class="fs-5 d-inline-flex mb-4 contenttitle">商品清單</p>
+
+                    <table class="orderStocktable fs-5 fw-normal mb-4 w-100">
+                        <!-- 商品清單 -->
+                    </table>
+
+                    <!-- 這邊是詳細內容 ----------------------------------------------------------------->
+                    <div id="dataContentMore">
+
+                        <hr class="hr-color mt-0 mb-4">
+
+                        <p class="fs-5 d-inline-flex contenttitle">出貨資訊</p>
+
+                        <table class="outTable lh-lg w-100 fs-5 mb-4" id="outTable">
+                            <tr>
+                                <td class="contenttitle" style="width: 50%;">收貨人姓名</td>
+                                <td class="contenttitle" style="width: 50%;">收貨人電話</td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <label
+                                        class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label mdc-text-field--disabled w-100"
+                                        data-mdc-auto-init="MDCTextField">
+                                        <span class="mdc-notched-outline">
+                                            <span class="mdc-notched-outline__leading"></span>
+                                            <span class="mdc-notched-outline__trailing"></span>
+                                        </span>
+                                        <input type="text" class="mdc-text-field__input" disabled style="color: black;">
+                                    </label>
+                                </td>
+                                <td>
+                                    <label
+                                        class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label mdc-text-field--disabled w-100"
+                                        data-mdc-auto-init="MDCTextField">
+                                        <span class="mdc-notched-outline">
+                                            <span class="mdc-notched-outline__leading"></span>
+                                            <span class="mdc-notched-outline__trailing"></span>
+                                        </span>
+                                        <input type="text" class="mdc-text-field__input" disabled style="color: black;">
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="contenttitle">收件地址</td>
+                                <td class="contenttitle">付款方式</td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <label
+                                        class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label mdc-text-field--disabled w-100"
+                                        data-mdc-auto-init="MDCTextField">
+                                        <span class="mdc-notched-outline">
+                                            <span class="mdc-notched-outline__leading"></span>
+                                            <span class="mdc-notched-outline__trailing"></span>
+                                        </span>
+                                        <input type="text" class="mdc-text-field__input" disabled style="color: black;">
+                                    </label>
+                                </td>
+                                <td>
+                                    <label
+                                        class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label mdc-text-field--disabled w-100"
+                                        data-mdc-auto-init="MDCTextField">
+                                        <span class="mdc-notched-outline">
+                                            <span class="mdc-notched-outline__leading"></span>
+                                            <span class="mdc-notched-outline__trailing"></span>
+                                        </span>
+                                        <input type="text" class="mdc-text-field__input" disabled style="color: black;">
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="contenttitle">統一編號</td>
+                                <td class="contenttitle">銷售合計</td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <label
+                                        class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label mdc-text-field--disabled w-100"
+                                        data-mdc-auto-init="MDCTextField">
+                                        <span class="mdc-notched-outline">
+                                            <span class="mdc-notched-outline__leading"></span>
+                                            <span class="mdc-notched-outline__trailing"></span>
+                                        </span>
+                                        <input type="text" class="mdc-text-field__input" disabled style="color: black;">
+                                    </label>
+                                </td>
+                                <td>
+                                    <label
+                                        class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label mdc-text-field--disabled w-100"
+                                        data-mdc-auto-init="MDCTextField">
+                                        <span class="mdc-notched-outline">
+                                            <span class="mdc-notched-outline__leading"></span>
+                                            <span class="mdc-notched-outline__trailing"></span>
+                                        </span>
+                                        <input type="text" class="mdc-text-field__input" disabled style="color: black;">
+                                    </label>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                        <div id="timeLineContent">
+
+                        </div>
+
+                    </div>
+                    <!-- 這邊是詳細內容 ----------------------------------------------------------------->
+
+
+                    <hr class="hr-color mt-0 mb-4">
+
+                    <div id="dataContentBtn" class="d-flex justify-content-end">
+
+                        <button id="btnExport" class="mdc-button mdc-button--outlined me-2" onclick="turnToExcel()">
+                            <span class="mdc-button__ripple"></span>
+                            <span class="mdc-button__label fs-5 fw-normal">匯出Excel</span>
+                        </button>
+
+                        <button id="exportPDF" class="mdc-button mdc-button--outlined me-2">
+                            <span class="mdc-button__ripple"></span>
+                            <span class="mdc-button__label fs-5 fw-normal">匯出PDF</span>
+                        </button>
+
+                        <button class="mdc-button mdc-button--raised me-2"
+                            onclick="callParent((detailList.orderstatus+1),this)" data-value="">
+                            <span class="mdc-button__label fs-5 fw-normal">確認訂單</span>
+                        </button>
+
+                        <button class="mdc-button mdc-button--outlined" onclick="callParent(7,this)" data-value="">
+                            <span class="mdc-button__ripple"></span>
+                            <span class="mdc-button__label fs-5 fw-normal">取消訂單</span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 這邊是匯出資訊的Table -->
+                <div id="turnTable" style="display: none;">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/javascript/materialdesigninit.js"></script>
+
+    <script src="/javascript/ajaxconnect.js"></script>
+    <script src="/javascript/orderstatus.js"></script>
+    <script src="/javascript/tools.js"></script>
+
+
+    <script>
+
+
+        // JSON假資料  ----------------------------------------------------------------------------------------------------------------------
+        // ProductNameSpec(品名規格)、?CallShipping(訂購數量)、UnitSellPrice(銷售單價)
+        // ?Noshipping(未配數)、?StockOwn(庫存可配數)、?detailTotal(明細總金額)
+        // 時間軸：Status(狀態)、訂單時間：OrderStatus(交易狀態)、OrderTime(訂單送出時間)、AcceptOrderTime(訂單接受時間)、ExportTime(訂單出貨時間)、SellerEstimatedArriveTime(賣家預計到貨時間)、ArriveOrderTime(貨物送達時間)、CompleteOrderTime(訂單完成時間)、CancelOrderTime(訂單不完成時間)
+
+        // OrderStatus(交易狀態)：1是尚未送出叫貨單_還沒送出訂單、2是待確認_訂單送出、3是待出貨_訂單成立、4是出貨中、5是待收貨_待收貨入庫、6是訂單完成_入庫完成、7是訂單不成立_賣家或買家取消
+
+        var detailList =
+            [
+                {
+                    orderid: "",
+                    ContactPerson: "蘇沐橙",
+                    Address: "408台中市南屯區公益路二段51號18樓",
+                    Mobile: "0912345678",
+                    payMethod: "銀行轉帳/月結30(Net30)",
+                    TaxId: "05076416",
+                    SellerExpectTime: null,
+                    total: 5960,
+
+                    OrderStatus: 2,
+                    OrderTime: "09/23 12:51",
+                    AcceptOrderTime: "09/26 12:51",
+                    ExportTime: "09/27 11:22",
+                    ArriveOrderTime: "09/28 13:33",
+                    CompleteOrderTime: "09/29 14:49"
+                }
+            ];
+
+        // 欄位中文名稱對應
+        let detailListName = [
+            {
+                ContactPerson: "收貨人姓名",
+                Address: "收件地址",
+                Mobile: "收貨人電話",
+                payMethod: "付款方式",
+                TaxId: "統一編號",
+                SellerExpectTime: "預計出貨日期",
+                total: "銷售合計",
+
+
+                OrderTime: "待我方確認",
+                AcceptOrderTime: "待我方出貨",
+                ExportTime: "我方出貨中",
+                ArriveOrderTime: "待採購商收貨",
+                CompleteOrderTime: "訂單完成",
+                CancelOrderTime: "不成立"
+            }
+        ]
+
+        let detailItemListName = [
+            {
+                ProductNameSpec: "品名規格",
+                CallShipping: "訂購數量",
+                UnitSellPrice: "銷售單價",
+                StockOwn: "可出現貨",
+                detailTotal: "總金額"
+            }
+        ]
+
+
+        function reNewData() {
+
+            if (detailList.orderstatus == 2) {
+                // 清空Table，把除了<th>內部<tr>之外的所有<tr>清空。
+                $(".orderStocktable")[0].innerHTML = `
+                    <thead>
+                        <tr>
+                            <th>${detailItemListName[0].ProductNameSpec}</th>
+                            <th style="width: 18%;">${detailItemListName[0].CallShipping}</th>
+                            <th style="width: 18%;">${detailItemListName[0].UnitSellPrice}</th>
+                            <th style="width: 18%; color: var(--color-secfont);">${detailItemListName[0].StockOwn}</th>
+                            <th style="width: 18%;">${detailItemListName[0].detailTotal}</th>
+                        </tr>
+                    </thead>`;
+
+                // 將產品資料帶入。
+                let trHtmlData = "";
+                for (let i = 0; i < detailList.product.length; i++) {
+                    let singleTrHtmlData = `
+                    <tr>
+                        <td data-label="">${detailList.product[i].productnamespec}</td>
+                        <td data-label="">${detailList.product[i].orderqty}</td>
+                        <td data-label="">${costFix(detailList.product[i].unitsellprice)}</td>
+                        <td data-label="">${detailList.product[i].cansell}</td>
+                        <td data-label="">${costFix(detailList.product[i].total)}</td>
+                    </tr>`;
+                    trHtmlData += singleTrHtmlData;
+                }
+
+                // 把製作完的tr放回去table中。
+                $(".orderStocktable").append(trHtmlData);
+
+            } else {
+                // 清空Table，把除了<th>內部<tr>之外的所有<tr>清空。
+                $(".orderStocktable")[0].innerHTML = `
+                    <thead>
+                        <tr>
+                            <th>${detailItemListName[0].ProductNameSpec}</th>
+                            <th style="width: 22%;">${detailItemListName[0].CallShipping}</th>
+                            <th style="width: 22%;">${detailItemListName[0].UnitSellPrice}</th>
+                            <th style="width: 22%;">${detailItemListName[0].detailTotal}</th>
+                        </tr>
+                    </thead>`;
+
+                // 將產品資料帶入。
+                let trHtmlData = "";
+                for (let i = 0; i < detailList.product.length; i++) {
+                    let singleTrHtmlData = `
+                    <tr>
+                        <td data-label="">${detailList.product[i].productnamespec}</td>
+                        <td data-label="">${detailList.product[i].orderqty}</td>
+                        <td data-label="">${costFix(detailList.product[i].unitsellprice)}</td>
+                        <td data-label="">${costFix(detailList.product[i].total)}</td>
+                    </tr>`;
+                    trHtmlData += singleTrHtmlData;
+                }
+
+                // 把製作完的tr放回去table中。
+                $(".orderStocktable").append(trHtmlData);
+                
+            }
+
+
+            // 判斷時間軸
+            let returnTimeLineStatus = checkTimeLine(1, detailList.orderstatus);
+
+            let thetimeLine = null;
+            switch (detailList.orderstatus) {
+                case 1: case 7:
+                    thetimeLine = ``;
+                    break;
+                case 2: case 3: case 4: case 5: case 6:
+                    thetimeLine = ` 
+                    <div id="timeline">
+                        <ol>
+                            <li class="fullstate active">
+                                <span class="point d-block"></span>
+                                <span class="diplome d-block">${returnTimeLineStatus.step1}</span>
+                                <span class="timestamp d-block">${detailList.ordertime}</span>
+                            </li>
+                            <li class="fullstate ${detailList.acceptordertime == "null" ? "" : "active"}">
+                                <span class="point d-block"></span>
+                                <span class="diplome d-block">${returnTimeLineStatus.step2}</span>
+                                <span class="timestamp d-block">${detailList.acceptordertime == "null" ? "" : detailList.acceptordertime}</span>
+                            </li>
+                            <li class="fullstate ${detailList.exporttime == "null" ? "" : "active"}">
+                                <span class="point d-block"></span>
+                                <span class="diplome d-block">${returnTimeLineStatus.step3}</span>
+                                <span class="timestamp d-block">${detailList.exporttime == "null" ? "" : detailList.exporttime}</span>
+                            </li>
+                            <li class="fullstate ${detailList.arriveordertime == "null" ? "" : "active"}">
+                                <span class="point d-block"></span>
+                                <span class="diplome d-block">${returnTimeLineStatus.step4}</span>
+                                <span class="timestamp d-block">${detailList.arriveordertime == "null" ? "" : detailList.arriveordertime}</span>
+                            </li>
+                            <li class="fullstate ${detailList.completeordertime == "null" ? "" : "active"}">
+                                <span class="point d-block"></span>
+                                <span class="diplome d-block">${returnTimeLineStatus.step5}</span>
+                                <span class="timestamp d-block">${detailList.completeordertime == "null" ? "" : detailList.completeordertime}</span>
+                            </li>                                    
+                        </ol>
+                    </div>`;
+                    break;
+                default:
+                    console.log("thetimeLine error");
+                    break;
+            }
+
+            $("#timeLineContent").html(thetimeLine);
+
+            // 出貨資訊----------------------------------------------------------
+
+            // 其他
+            $(".mdc-text-field__input")[0].value = detailList.contactperson;
+            $(".mdc-text-field__input")[1].value = detailList.mobile;
+            $(".mdc-text-field__input")[2].value = detailList.address;
+            $(".mdc-text-field__input")[3].value = detailList.paymentterms;
+            $(".mdc-text-field__input")[4].value = detailList.taxid;
+            $(".mdc-text-field__input")[5].value = costFix(detailList.total);
+
+            $($("#dataContentBtn button")[2]).attr("data-value", detailList.orderid);
+            $($("#dataContentBtn button")[3]).attr("data-value", detailList.orderid);
+
+        }
+
+
+        // iframe的外部父類會呼叫這個function
+        function parentCall(tidy) {
+
+            switch (tidy.orderstatus) {
+                case 2:
+                    $("#failContent").hide();
+                    $("#dataContentMore").hide();
+                    $($("#dataContentBtn button")[0]).hide();
+                    $($("#dataContentBtn button")[1]).hide();
+                    $($("#dataContentBtn button")[2]).show();
+                    $($("#dataContentBtn button")[2]).find("span").html("確認訂單");
+                    $($("#dataContentBtn button")[3]).show();
+                    break;
+                case 3:
+                    $("#failContent").hide();
+                    $("#dataContentMore").show();
+                    $($("#dataContentBtn button")[0]).hide();
+                    $($("#dataContentBtn button")[1]).show();
+                    $($("#dataContentBtn button")[2]).show();
+                    $($("#dataContentBtn button")[2]).find("span").html("全配出貨");
+                    $($("#dataContentBtn button")[3]).show();
+                    break;
+                case 4: case 5:
+                    $("#failContent").hide();
+                    $("#dataContentMore").show();
+                    $($("#dataContentBtn button")[0]).hide();
+                    $($("#dataContentBtn button")[1]).show();
+                    $($("#dataContentBtn button")[2]).hide();
+                    $($("#dataContentBtn button")[3]).show();
+                    break;
+                case 6:
+                    $("#failContent").hide();
+                    $("#dataContentMore").show();
+                    $($("#dataContentBtn button")[0]).hide();
+                    $($("#dataContentBtn button")[1]).show();
+                    $($("#dataContentBtn button")[2]).hide();
+                    $($("#dataContentBtn button")[3]).hide();
+                    break;
+                case 7:
+                    $("#failContent").show();
+                    $("#dataContentMore").show();
+                    $($("#dataContentBtn button")[0]).hide();
+                    $($("#dataContentBtn button")[1]).show();
+                    $($("#dataContentBtn button")[2]).hide();
+                    $($("#dataContentBtn button")[3]).hide();
+                    break;
+                default:
+                    console.log("parentCall error");
+                    break;
+            }
+
+            detailList = tidy;
+            reNewData();
+        }
+
+        // 呼叫外部父類別的方法closeStaticBackdrop()
+        function callParent(status, btn) {
+            if (window.parent && window.parent.SetComponent) {
+                window.parent.SetComponent(status, btn);	//呼叫父頁面的SetComponent方法
+            }
+        }
+
+        // mdc text field註冊
+        window.mdc.autoInit();
+
+    </script>
+
+    <script>
+        // 轉換excel的方法
+        // function turnToExcel(){
+        //     $("table tr td")[0].innerHTML = $(".testTable tr td")[0].innerHTML;
+
+
+        //     tableToExcel('table','example')
+        // }
+
+        function turnToExcel() {
+
+            let exportTable = `
+                <table>                        
+                    <tr>
+                        <td>${$(".outTable td")[0].innerHTML}</td>
+                        <td>2</td>
+                        <td>${$(".outTable td")[1].innerHTML}</td>
+                        <td>4</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>${detailList.contactperson}</td>
+                        <td>9</td>
+                        <td>${detailList.mobile}</td>
+                        <td>9</td>
+                        <td>9</td>
+                    </tr>
+                </table>
+            `
+            $("#turnTable").html(exportTable);
+
+
+
+            console.log($("#turnTable")[0].innerHTML);
+
+            tableToExcel('turnTable', 'export');
+
+        }
+
+
+        var tableToExcel = (function () {
+            var uri = 'data:application/vnd.ms-excel;base64,'
+                , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+                , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+                , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+            return function (table, name) {
+                if (!table.nodeType) table = document.getElementById(table)
+                var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+                window.location.href = uri + base64(format(template, ctx))
+            }
+        })()
+
+    </script>
+
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <script src='/javascript/jspdf.debug.js'></script>
+
+    <script>
+        document.getElementById('exportPDF').addEventListener('click', function () {
+
+            var doc = new jsPDF();
+            html2canvas(document.getElementById('dataContent'), {
+                onrendered: function (canvas) {
+                    var image = canvas.toDataURL("image/png");
+                    doc.addImage(canvas.toDataURL('image/jpeg', 1.0),
+                        'JPEG',
+                        25,
+                        25,
+                        210 - 50,
+                        ((210 - 50) / canvas.width) * canvas.height);
+                    doc.save('orderdetails.pdf');
+                }
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>
