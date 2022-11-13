@@ -1,6 +1,6 @@
 # SeafoodWholesaler_OMS
 
-<----------------中文介紹---------------->
+<----------------中文介紹----------------><BR>
 主要負責：
 1. Spring Boot組態設定
 2. 專案架構建立 (Controller -> Service -> Repository -> DOM)
@@ -17,7 +17,7 @@ Account: duck123<BR>
 Password: duck1234<BR>
 Url: http://localhost:8080
 
-<----------------English desc---------------->
+<----------------English desc----------------><BR>
 Main Duty：
 1. Spring Boot configuration setup
 2. Project frame work setup (Controller -> Service -> Repository -> DOM)
