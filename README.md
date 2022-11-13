@@ -15,7 +15,7 @@ Node.js, AJAX, JSON, Restful API, Spring MVC & Spring Data Jpa, Hibernate ORM, T
 
 Account: duck123<BR>
 Password: duck1234<BR>
-Url: http://localhost:8080
+Url: http://localhost:8080<BR>
 MySQL port, account, password: "3306", "root", "root"
 
 <----------------English desc----------------><BR>
@@ -33,5 +33,5 @@ Remark: there is a SQL file inside for your import, you may use below account to
 
 Account: duck123<BR>
 Password: duck1234<BR>
-Url: http://localhost:8080
+Url: http://localhost:8080<BR>
 MySQL port, account, password: "3306", "root", "root"
