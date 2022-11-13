@@ -9,7 +9,7 @@
 5. 綠界金流串接
 
 使用技術與框架：
-Node.js, AJAX, Restful API, Spring MVC & Spring Data Jpa, Hibernate ORM, Tomcat, Java, GitHub
+Node.js, AJAX, JSON, Restful API, Spring MVC & Spring Data Jpa, Hibernate ORM, Tomcat, Java, GitHub
 
 附註: 裡面有SQL檔可以匯入，然後使用底下帳密登入測試，謝謝! <BR>
 
@@ -26,7 +26,7 @@ Main Duty：
 5. EcPay API integration
 
 Skills and framework：
-Node.js, AJAX, Restful API, Spring MVC & Spring Data Jpa, Hibernate ORM, Tomcat, Java, GitHub
+Node.js, AJAX, JSON, Restful API, Spring MVC & Spring Data Jpa, Hibernate ORM, Tomcat, Java, GitHub
 
 Remark: there is a SQL file inside for your import, you may use below account to log in and try our OMS, thank you!<BR>
 
