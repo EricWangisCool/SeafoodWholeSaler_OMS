@@ -21,7 +21,7 @@ MySQL port, account, password: "3306", "root", "root"
 <----------------English desc----------------><BR>
 Main Duty：
 1. Spring Boot configuration setup
-2. Project frame work setup (Controller -> Service -> Repository -> DOM)
+2. Project frame work setup (Controller -> Service -> Repository -> DAO)
 3. RDBMS Design (MySQL)
 4. Function development (CRUD, Business logic development, )
 5. EcPay API integration
