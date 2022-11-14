@@ -3,7 +3,7 @@
 <----------------中文介紹----------------><BR>
 主要負責：
 1. Spring Boot組態設定
-2. 專案架構建立 (Controller -> Service -> Repository -> DOM)
+2. 專案架構建立 (Controller -> Service -> Repository -> DAO)
 3. RDBMS Design (MySQL)
 4. 功能開發 (CRUD, 商業邏輯撰寫與切割)
 5. 綠界金流串接
