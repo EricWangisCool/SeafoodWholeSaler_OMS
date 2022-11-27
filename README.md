@@ -2,14 +2,14 @@
 
 <----------------中文介紹----------------><BR>
 主要負責：
-1. Spring Boot組態設定
-2. 專案架構建立 (Controller -> Service -> Repository -> Model)
-3. RDBMS Design (MySQL)
+1. Spring Boot組態設定(Java類別 + Annotation)
+2. 後端Model和Controller架設 (Controller -> Service -> Repository -> Entity)
+3. RDBMS設計 (MySQL管理DB，2NF設計，因為資料調度需求不用3NF)
 4. 功能開發 (CRUD, 商業邏輯撰寫與切割)
 5. 綠界金流串接
 
 使用技術與框架：
-Node.js, AJAX, JSON, Restful API, Spring MVC & Spring Data Jpa, Hibernate ORM, Tomcat, Java, GitHub
+Node.js, AJAX, JSON, Restful API, Spring MVC, Spring Data Jpa, Hibernate ORM, Tomcat, Java, GitHub
 
 附註: 裡面有SQL檔可以匯入，然後使用底下帳密登入測試，謝謝! <BR>
 
@@ -20,10 +20,10 @@ MySQL port, account, password: "3306", "root", "root"
 
 <----------------English desc----------------><BR>
 Main Duty：
-1. Spring Boot configuration setup
-2. Project frame work setup (Controller -> Service -> Repository -> Model)
-3. RDBMS Design (MySQL)
-4. Function development (CRUD, Business logic development, )
+1. Spring Boot configuration setup (Java Class + Annotation)
+2. Model and Controller framework setup (Controller -> Service -> Repository -> Entity)
+3. RDBMS Design (MySQL & 2NF design, considered that 3NF isn't suitable for our project to query)
+4. Function development (CRUD, Business logic development)
 5. EcPay API integration
 
 Skills and framework：
