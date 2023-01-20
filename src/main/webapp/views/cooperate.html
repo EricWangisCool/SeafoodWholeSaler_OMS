@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pagecontent</title>
+
+    <!-- Material Design -->
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+    <!-- ICON CSS -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+
+
+    <!-- globalstyle -->
+    <link rel="stylesheet" href="../css/globalstyle.css">
+    <!-- globalattributes -->
+    <link rel="stylesheet" href="../css/globalattributes.css">
+    <!-- 加入頁簽小圖 -->
+    <link rel="shortcut icon" href="https://upload.cc/i1/2022/10/18/wJdKCL.png" type="image/x-icon">
+
+    <!-- 複數頁面使用CSS效果 -->
+    <link rel="stylesheet" href="/css/pluralpagestyle.css">
+
+    <style>
+        /* 頁面格式 */
+        table {
+            text-align: center;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        th {
+            text-align: left;
+            padding-left: 3%;
+            border: 1px solid var(--color-whitesmoke);
+            color: var(--color-irongray);
+            font-weight: var(--font-weight-contenttitle);
+            background-color: var(--color-seashell);
+        }
+
+        td {
+            text-align: left;
+            border: 2px solid var(--color-whitesmoke);
+        }
+
+        /* 新增廠商按鈕------------ */
+        .cooSet {
+            float: right;
+        }
+
+        /* 加入區塊-------------- */
+
+        .accordion {
+            color: var(--color-black);
+            background-color: var(--color-jasmine);
+            cursor: pointer;
+            padding: 1%;
+            width: 100%;
+            border: 2px solid var(--color-border);
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            text-align: left;
+            outline: none;
+            transition: 0.4s;
+            /* opacity: 0.8; */
+            font-weight: bold;
+
+        }
+
+
+        .active {
+            background-color: var(--color-tangerine);
+        }
+
+        .accordion:hover {
+            background-color: var(--color-border);
+        }
+
+        .panel {
+            background-color: rgba(250, 250, 250, 0.864);
+            /* display: none; */
+        }
+
+        .title {
+            text-align: center;
+            height: 30px;
+            background-color: var(--color-burlywood);
+            color: var(--color-black);
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- border border-primary  -->
+            <div class="col-11 mt-4 px-0">
+
+                <h1 class="fs-2 fw-bolder mb-4"><span class="text-black">廠商管理</span>
+                    <button class="cooSet mt-2 mdc-button mdc-button--raised">
+                        <span class="mdc-button__label fs-5 fw-normal">新增廠商</span>
+                    </button>
+                </h1>
+
+                <div class="w-100 fs-5">
+
+
+                    <!-- 這裡是內容的框架，可直接改掉框架 -->
+                    <!-- 達克生鮮股份有限公司 -->
+                    <button class="accordion">達克生鮮股份有限公司</button>
+                    <div class="panel mb-4">
+                        <table class="cooperateTable">
+                            <tr>
+                                <!-- <th colspan="4" class="title">廠商基本資料</th> -->
+                            </tr>
+
+                            <tr>
+                                <!-- <th>廠商名稱</th>
+                                    <td>達克生鮮股份有限公司</td>
+                                    <th>聯絡窗口</th>
+                                    <td>蘇沐橙</td> -->
+                            </tr>
+
+                            <tr>
+                                <th>統一編號</th>
+                                <td>05076416</td>
+                                <th>廠商電話</th>
+                                <td>(04)-2326-5860</td>
+                            </tr>
+
+                            <tr>
+                                <th>傳真電話</th>
+                                <td>(04)-2326-5860</td>
+                                <th>窗口聯繫</th>
+                                <td>0912-345-678</td>
+                            </tr>
+
+                            <tr>
+                                <th>電子信箱</th>
+                                <td>amy680931@yahoo.com</td>
+                                <th>Line ID</th>
+                                <td>amy6809</td>
+                            </tr>
+
+                            <tr>
+                                <th>公司地址</th>
+                                <td colspan="3">408台中市南屯區公益路二段51號18樓</td>
+                            </tr>
+
+                            <tr>
+                                <th colspan="4" class="title">付款資料</th>
+                            </tr>
+
+                            <tr>
+                                <th>銀行名稱</th>
+                                <td>808玉山商業銀行</td>
+                                <th>付款方式</th>
+                                <td>
+                                    <select class="w-100">
+                                        <option value="opTT">電匯(T/T)</option>
+                                        <option value="opLC">電匯(L/C)</option>
+                                        <option value="opDP">電匯(D/P)</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>銀行帳戶</th>
+                                <td>12345678912345</td>
+                                <th>付款條件</th>
+                                <!-- <td>月結(Net30)</td> -->
+                                <td>
+                                    <select class="w-100">
+                                        <option value="net30">月結(Net30)</option>
+                                        <option value="tt30">月結(TT30)</option>
+                                        <option value="oa30">月結(OA30)</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>結帳日</th>
+                                <td>26</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+
+    <script src="/javascript/materialdesigninit.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="/javascript/ajaxconnect.js"></script>
+
+    <script>
+        // JSON假資料  ----------------------------------------------------------------------------------------------------------------------
+        // CompanyName(廠商名稱)、TaxId(統一編號)、Fax(傳真電話)、Email(電子信箱)、Address(公司地址)
+        // ContactPerson(聯絡窗口)、Mobile(廠商電話)、ContactPersonNum(窗口聯繫)、LineAccount(Line ID)
+        // BankName(銀行名稱)、BankAccount(銀行帳戶)、accountDay(結帳日)、?(付款方式)、PaymentTerms(付款條件)
+
+        var cooperateList =
+            [
+                {
+                    address: "yy.yyy.yyyy",
+                    bankaccount: "98765432142579",
+                    bankname: "台新銀行",
+                    bankswiftcode: 812,
+                    contactperson: "王先生",
+                    contactpersonnum: "0423365475",
+                    email: "eric@gmail.com",
+                    fax: "0423365555",
+                    lineaccount: "eric100",
+                    mobile: "0968145698",
+                    suppliercompanyname: "千萬屋",
+                    supplierid: 2,
+                    taxid: "88314578"
+                }
+            ];
+
+        // 欄位中文名稱對應
+        let cooperateListName = [
+            {
+                CompanyName: "廠商名稱",
+                TaxId: "統一編號",
+                Fax: "傳真電話",
+                Email: "電子信箱",
+                Address: "公司地址",
+                ContactPerson: "聯絡窗口",
+                Mobile: "廠商電話",
+                ContactPersonNum: "窗口聯繫",
+                LineAccount: "Line ID",
+                BankName: "銀行名稱",
+                BankAccount: "銀行帳戶",
+                accountDay: "結帳日",
+                payMethod: "付款方式",
+                PaymentTerms: "付款條件"
+            }
+        ]
+
+        // 撈資料(使用非同步資料的方式撈)。
+        downloadData();
+        async function downloadData() {
+
+            let accountID = {
+                "accountid": JSON.parse(localStorage.getItem("accountBean")).accountid
+            }
+
+            returnObj = await viewscooperate(accountID);
+            console.log(returnObj);
+
+            if (returnObj.responseStatus != 200) {
+                // 撈完後更新畫面內容。
+                reNewData();
+
+                console.log("cooperateList getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                console.log(returnObj.responseObj);
+            } else {
+                // 處理及判斷邏輯：                
+                cooperateList = returnObj.responseObj;
+
+                // 撈完後更新畫面內容。
+                reNewData();
+            }
+
+            // reNewData();
+        }
+
+        function reNewData() {
+
+            // 清空Table，把除了<th>內部<tr>之外的所有<tr>清空。
+            $("div.w-100").html("");
+            let singleCooperateData = "";
+            for (let i = 0; i < cooperateList.length; i++) {
+
+                let singleCooperateData = `
+                <button class="accordion">${cooperateList[i].suppliercompanyname}</button>
+                    <div class="panel mb-4">
+                        <table class="cooperateTable">
+                            <tr><th colspan="4" class="title">廠商基本資料</th></tr>
+                            <tr>
+                                <th>${cooperateListName[0].CompanyName}</th>
+                                <td>${cooperateList[i].suppliercompanyname}</td>
+                                <th>${cooperateListName[0].ContactPerson}</th>
+                                <td>${cooperateList[i].contactperson}</td>
+                            </tr>
+                            <tr>
+                                <th>${cooperateListName[0].TaxId}</th>
+                                <td>${cooperateList[i].taxid}</td>
+                                <th>${cooperateListName[0].Mobile}</th>
+                                <td>${cooperateList[i].mobile}</td>
+                            </tr>
+                            <tr>
+                                <th>${cooperateListName[0].Fax}</th>
+                                <td>${cooperateList[i].fax}</td>
+                                <th>${cooperateListName[0].ContactPersonNum}</th>
+                                <td>${cooperateList[i].contactpersonnum}</td>
+                            </tr>
+                            <tr>
+                                <th>${cooperateListName[0].Email}</th>
+                                <td>${cooperateList[i].email}</td>
+                                <th>${cooperateListName[0].LineAccount}</th>
+                                <td>${cooperateList[i].lineaccount}</td>
+                            </tr>
+                            <tr>
+                                <th>${cooperateListName[0].Address}</th>
+                                <td colspan="3">${cooperateList[i].address}</td>
+                            </tr>
+                            <tr><th colspan="4" class="title">付款資料</th></tr>
+                            <tr>
+                                <th>${cooperateListName[0].BankName}</th>
+                                <td>${cooperateList[i].bankname}</td>
+                                <th>${cooperateListName[0].payMethod}</th>
+                                <td>
+                                    <select class="w-100">
+                                        <option value="opTT">電匯(T/T)</option>
+                                        <option value="opLC">電匯(L/C)</option>
+                                        <option value="opDP">電匯(D/P)</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>${cooperateListName[0].BankAccount}</th>
+                                <td>${cooperateList[i].bankaccount}</td>
+                                <th>${cooperateListName[0].PaymentTerms}</th>
+                                <td>
+                                    <select class="w-100">
+                                        <option value="net30">月結(Net30)</option>
+                                        <option value="tt30">月結(TT30)</option>
+                                        <option value="oa30">月結(OA30)</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>${cooperateListName[0].accountDay}</th>
+                                <td colspan="3">30</td>
+                            </tr>
+                        </table>
+                    </div>                    
+                `
+                $("div.w-100").append(singleCooperateData);
+            }
+
+
+
+            // 廠商收合------------------------------------
+            var acc = document.getElementsByClassName("accordion");
+            for (let i = 0; i < acc.length; i++) {
+                var closepanel = acc[i].nextElementSibling;
+                closepanel.style.display = "none";
+
+                acc[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var panel = this.nextElementSibling;
+                    if (panel.style.display === "block") {
+                        panel.style.display = "none";
+                    } else {
+                        panel.style.display = "block";
+                    }
+                });
+            }
+        }
+
+
+
+        //新增廠商-----------------------------------
+        async function addCooperateData(data) {
+
+            let cooperName = {
+                "companyname": data
+            }
+
+            returnObj = await viewscooperateinsert(cooperName);
+            console.log(returnObj);
+
+            if (returnObj.responseStatus != 200) {
+                // 撈完後更新畫面內容。
+                errorAlert();
+                console.log("cooperateList getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                console.log(returnObj.responseObj);
+            } else {
+                // 處理及判斷邏輯：                
+                // successStr = returnObj.responseText;
+                // if(successStr == "OK"){
+
+                // }
+
+                // 撈完後更新畫面內容。
+                window.location.replace(location.href);
+            }
+
+        }
+
+        function errorAlert() {
+            Swal.fire({
+                title: '新增廠商異常，請檢查廠商名稱或再試一次',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+
+        $(".container").on('click', '.cooSet', function () {
+
+            Swal.fire({
+                title: '請輸入欲新增廠商帳號',
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonColor: 'var(--color-marigold)',
+                cancelButtonColor: 'var(--color-irongray)',
+                confirmButtonText: '新增',
+                cancelButtonText: '取消',
+                // showLoaderOnConfirm: true,
+                // preConfirm: (login) => {
+                //     return fetch(`//api.github.com/users/${login}`)
+                //         .then(response => {
+                //             if (!response.ok) {
+                //                 throw new Error(response.statusText)
+                //             }
+                //             return response.json()
+                //         })
+                //         .catch(error => {
+                //             Swal.showValidationMessage(
+                //                 // `Request failed: ${error}`
+                //                 `廠商帳號不得為空白`
+                //             )
+                //         })
+                // },
+                // allowOutsideClick: () => !Swal.isLoading()
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    console.log(result.value);
+
+                    if (result.value == "") {
+                        Swal.fire({
+                            title: '廠商帳號不得為空白',
+                            icon: 'error',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                    addCooperateData(result.value);
+
+                }
+            })
+
+        });
+
+
+    </script>
+
+
+</body>
+
+</html>

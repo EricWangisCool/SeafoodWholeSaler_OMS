@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pagecontent</title>
+
+    <!-- Material Design -->
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+    <!-- ICON CSS -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+
+
+    <!-- globalstyle -->
+    <link rel="stylesheet" href="../css/globalstyle.css">
+    <!-- globalattributes -->
+    <link rel="stylesheet" href="../css/globalattributes.css">
+
+
+    <!-- 複數頁面使用CSS效果 -->
+    <link rel="stylesheet" href="/css/pluralpagestyle.css">
+
+    <!-- 加入頁簽小圖 -->
+    <link rel="shortcut icon" href="https://upload.cc/i1/2022/10/18/wJdKCL.png" type="image/x-icon">
+
+    <!-- 僅限本頁使用CSS效果 -->
+
+    <style>
+        table {
+            margin: auto;
+            table-layout: fixed;
+            word-break: break-all;
+            word-wrap: break-word;
+            font-size: var(--font-size-content);
+            width: 100%;
+            line-height: 50px;
+        }
+
+        .title {
+            font-size: var(--font-size-contenttitle);
+            font-weight: var(--font-weight-contenttitle);
+        }
+
+        .icon {
+            width: 70px;
+            height: 60px;
+        }
+
+        /* 編輯input */
+        .readonly input {
+            border: none;
+            height: 30px;
+            line-height: 30px;
+        }
+
+        .updateBtn,
+        .updateIcon {
+            border: 1px solid var(--color-black);
+            color: var(--color-irongray);
+            background-color: transparent;
+            padding: 0% 3% 0% 3%;
+            height: 30px;
+            line-height: 30px;
+            font-size: 14px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .updateIcon {
+            display: none;
+        }
+
+        .updateBtn:hover {
+            background-color: var(--color-Silver);
+        }
+
+        .inputHeight {
+            line-height: 30px;
+        }
+
+        /* 新增按鈕------------ */
+        .accSet {
+            float: right;
+            font-size: var(--font-size-contenttitle);
+            border: 1px solid var(--color-border);
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- border border-primary  -->
+            <div class="col-11 mt-4 px-0">
+
+                <h1 class="fs-2 fw-bolder mb-4"><span class="text-black">帳號設定</span>
+
+                    <button class="accSet mt-2 mdc-button mdc-button--raised" value="編輯修改"
+                        onclick="btnClickTel(this)">
+                        <span class="mdc-button__label fs-5 fw-normal">編輯修改</span>
+                    </button>
+                </h1>
+
+                <div class="accountTable bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto">
+
+                    <!-- 這裡是內容的框架，可直接改掉框架 -->
+                    <div class="title">更新帳戶基本資訊</div>
+                    <hr>
+                    <table>
+                        <tr></tr>
+                        <tr></tr>
+                        <tr></tr>
+                        <tr></tr>
+                    </table>
+
+                    <hr>
+
+                    <table>
+                        <h5>
+                            付款資料
+                        </h5>
+
+                        <tr></tr>
+                        <tr></tr>
+                        <tr></tr>
+                        <tr></tr>
+                        <tr></tr>
+                    </table>
+
+                    <hr>
+
+                    <table>
+                        <tr></tr>
+                        <tr>
+                            <th>關閉帳戶</th>
+                            <td></td>
+                            <td><button class="updateBtn">了解更多</button></td>
+                        </tr>
+                    </table>
+
+                </div>
+                <br><br>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.2.min.js"></script>
+
+    <script>
+        // JSON假資料  ----------------------------------------------------------------------------------------------------------------------
+        // ?myImg(頭像)、Mobile(聯絡電話)、Email("電子信箱")、PassW("登入密碼")、BankName("銀行名稱")
+        //BankAccount("銀行帳戶")、?payMethod("付款方式")、PaymentTerms("付款條件")、?accountDay(結帳日)、?googleYN(社交登入)
+
+        var cooperateList =
+            [
+                {
+                    myImg: "../img/beUse/tempIcon.png",
+                    Mobile: "0912345678",
+                    Email: "amy680931@yahoo.com",
+                    PassW: "****",
+                    BankName: "808玉山商業銀行",
+                    BankAccount: "0141115748236",
+                    payMethod: "電匯(T/T)",
+                    PaymentTerms: "月結(Net30)",
+                    accountDay: 26,
+                    googleYN: "Google帳戶"
+
+                }
+            ];
+
+        // 欄位中文名稱對應
+        let cooperateListName = [
+            {
+                myImg: "頭像",
+                Mobile: "聯絡電話",
+                Email: "電子信箱",
+                PassW: "登入密碼",
+                BankName: "銀行名稱",
+                BankAccount: "銀行帳戶",
+                payMethod: "付款方式",
+                PaymentTerms: "付款條件",
+                accountDay: "結帳日",
+                googleYN: "社交登入"
+            }
+        ]
+
+        // 撈資料(使用非同步資料的方式撈)。
+        downloadData();
+        async function downloadData() {
+
+            // 與Server對接的ajax。
+            // 邊撈同時進行後續動作。
+            // var result = await $.ajax({
+            //     type: "get",
+            //     url: "http://localhost:3000/home/news"
+            // });
+
+            // allStockList = JSON.parse(result);
+
+            // 撈完後解析假資料並更新畫面內容。
+            reNewData();
+        }
+
+        function reNewData() {
+
+            // 清空Table，把除了<th>內部<tr>之外的所有<tr>清空。
+            $(".accountTable tr").innerHTML = "";
+
+
+            // 創造<tr>的Html格式，並將資料帶入。
+            let trHtmlData =
+                `<th style="width: 20%;">我的頭像</th>
+                <td style="width: 60%;"><img src=${cooperateList[0].myImg} class="icon"></td>
+                <td style="width: 20%;"><label class="updateBtn">
+                        <input class="updateIcon" type="file"> 上傳
+                    </label></td>`
+
+            let trHtmlData2 =
+                `<th>聯絡電話</th>
+                <td id="dvInputTel" class="readonly"><input type="text" class="inputHeight" readonly
+                        value=${cooperateList[0].Mobile} /></td>`
+                        
+
+            let trHtmlData3 =
+                `<th>電子信箱</th>
+                <td id="dvInputMail" class="readonly"><input type="text" class="inputHeight" readonly
+                        value=${cooperateList[0].Email} /></td>`
+
+            let trHtmlData4 =
+                `<th>登入密碼</th>
+                <td id="dvInputPassword" class="readonly"><input type="password" class="inputHeight"
+                        readonly value=${cooperateList[0].PassW} />
+                </td>`
+
+            let trHtmlData5 =
+                `<th style="width: 20%;">銀行名稱</th>
+                <td colspan="2" style="width: 60%;" id="bankName" class="readonly"><input type="text"
+                        class="inputHeight" readonly value=${cooperateList[0].BankName} /></td><td></td>`
+
+            let trHtmlData6 =
+                ` <th>銀行帳戶</th>
+                <td id="bankAccount" class="readonly"><input type="text" class="inputHeight" readonly
+                        value=${cooperateList[0].BankAccount} />
+                </td>`
+
+            let trHtmlData7 =
+                ` <th>付款方式</th>
+                <td id="payWay" class="readonly">
+                    <select readonly>
+                        <option value="opTT">${cooperateList[0].payMethod}</option>
+                        <option value="opLC">電匯(L/C)</option>
+                        <option value="opDP">電匯(D/P)</option>
+                    </select>
+                </td>`
+
+            let trHtmlData8 =
+                ` <th>付款條件</th>
+                <td id="payCondition" class="readonly">
+                    <select readonly>
+                        <option value="net30">${cooperateList[0].PaymentTerms}</option>
+                        <option value="tt30">月結(TT30)</option>
+                        <option value="oa30">月結(OA30)</option>
+                    </select>
+                </td>`
+
+            let trHtmlData9 =
+                ` <th>結帳日</th>
+                    <td id="checkout" class="readonly"><input type="text" class="inputHeight" readonly
+                            value=${cooperateList[0].accountDay} />
+                    </td>`
+
+            let trHtmlData10 =
+                ` <th style="width: 20%;">社交登入</th>
+                    <td style="width: 60%;">${cooperateList[0].googleYN}</td>
+                    <td style="width: 20%;"><button class="updateBtn">啟用</button></td>`
+
+            // 把製作完的tr放回去table中。
+            $(".accountTable tr")[0].innerHTML = trHtmlData;
+            $(".accountTable tr")[1].innerHTML = trHtmlData2;
+            $(".accountTable tr")[2].innerHTML = trHtmlData3;
+            $(".accountTable tr")[3].innerHTML = trHtmlData4;
+            $(".accountTable tr")[4].innerHTML = trHtmlData5;
+            $(".accountTable tr")[5].innerHTML = trHtmlData6;
+            $(".accountTable tr")[6].innerHTML = trHtmlData7;
+            $(".accountTable tr")[7].innerHTML = trHtmlData8;
+            $(".accountTable tr")[8].innerHTML = trHtmlData9;
+            $(".accountTable tr")[9].innerHTML = trHtmlData10;
+
+        }
+
+
+    </script>
+
+
+
+
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.2.min.js"></script>
+    <script>
+        // 編輯
+        function btnClickTel(btn) {
+            var toEdit = btn.value == '編輯修改';
+            console.log(btn.value);
+            $('#dvInputTel')[toEdit ? 'removeClass' : 'addClass']('readonly').find(':input').attr('readonly', toEdit ? false : true);
+            $('#dvInputMail')[toEdit ? 'removeClass' : 'addClass']('readonly').find(':input').attr('readonly', toEdit ? false : true);
+            $('#dvInputPassword')[toEdit ? 'removeClass' : 'addClass']('readonly').find(':input').attr('readonly', toEdit ? false : true);
+            $('#dvInputPassword')[toEdit ? 'removeClass' : 'addClass']('readonly').find(':input').attr('readonly', toEdit ? false : true);
+            $('#bankName')[toEdit ? 'removeClass' : 'addClass']('readonly').find(':input').attr('readonly', toEdit ? false : true);
+            $('#bankAccount')[toEdit ? 'removeClass' : 'addClass']('readonly').find(':input').attr('readonly', toEdit ? false : true);
+            $('#payWay')[toEdit ? 'removeClass' : 'addClass']('readonly').find(':input').attr('readonly', toEdit ? false : true);
+            $('#payCondition')[toEdit ? 'removeClass' : 'addClass']('readonly').find(':input').attr('readonly', toEdit ? false : true);
+            $('#checkout')[toEdit ? 'removeClass' : 'addClass']('readonly').find(':input').attr('readonly', toEdit ? false : true);
+            // $('.readonly')[toEdit ? 'removeClass' : 'addClass']('readonly').find(':input').attr('readonly', toEdit ? false : true);
+
+            btn.value = toEdit ? '更新' : '編輯修改';
+
+        }
+
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/javascript/materialdesigninit.js"></script>
+
+
+
+
+</body>
+
+</html>

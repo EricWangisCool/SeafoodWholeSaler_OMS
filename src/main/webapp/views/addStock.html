@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pagecontent</title>
+
+    <!-- Material Design -->
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+    <!-- ICON CSS -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <!-- globalstyle -->
+    <link rel="stylesheet" href="/css/globalstyle.css">
+    <!-- globalattributes -->
+    <link rel="stylesheet" href="/css/globalattributes.css">
+
+    <!-- 加入頁簽小圖 -->
+    <link rel="shortcut icon" href="https://upload.cc/i1/2022/10/18/wJdKCL.png" type="image/x-icon">
+
+    <!-- 複數頁面使用CSS效果 -->
+    <link rel="stylesheet" href="/css/pluralpagestyle.css">
+
+
+    <style>
+        .productBasicTable {
+            table-layout: fixed;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .productBasicTable tr.titlelabel {
+            height: 36px;
+        }
+
+        .productBasicTable tr.switchlabel td {
+            height: 40px;
+            vertical-align: text-top;
+        }
+
+        .productBasicTable tr.inputlabel td {
+            height: 68px;
+            vertical-align: text-top;
+        }
+
+        /* 控制輸入框高度 */
+        .productBasicTable tr.inputlabel td label {
+            height: 36px;
+        }
+
+        .productBasicTable tr.inputlabel td .mdc-select__anchor {
+            height: 36px;
+        }
+
+        /* 選擇供應商的Table */
+        .productBasicTable tr.inputlabel td .cooperatetable {
+            /* table-layout: fixed; */
+            text-align: center;
+            /* width: 75%; */
+            float: right; 
+
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 0.3rem;
+            border: 1px solid var(--color-border);
+        }
+
+        .productBasicTable tr.inputlabel td .cooperatetable td {
+            height: 36px;
+            padding: 18px;
+        }
+
+        .productBasicTable tr.inputlabel td .cooperatetable tr:nth-child(2) td {
+            border-top: 1px solid var(--color-border);
+        }
+
+
+        /* 顯示上傳圖片內容 */
+        #display-image {
+            display: none;
+            width: 100px;
+            height: 100px;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+
+        /* Switch按鈕的顏色 */
+        .form-check-input:checked {
+            background-color: var(--color-secmain);
+            border-color: var(--color-secmenubackground);
+        }
+
+        .form-switch .form-check-input {
+            height: 18px;
+            width: 36px;
+        }
+
+        .form-switch .form-check-input:focus {
+            border-color: rgba(0, 0, 0, 0.25);
+            outline: 0;
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+            background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(0,0,0,0.25)'/></svg>");
+        }
+
+        .form-switch .form-check-input:checked {
+            background-color: var(--color-secmain);
+            border-color: var(--color-secmain);
+            border: none;
+            background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba(255,255,255,1.0)'/></svg>");
+        }
+
+        /* 自動交易小輸入框 */
+        .quantity {
+            width: 15%;
+            height: 36px;
+        }
+
+        .quantity input {
+            text-align: center;
+        }
+
+
+        /* 新增庫存按鈕 */
+        .addSet {
+            float: right;
+        }
+
+        /* 把輸入數字的按鈕，移除上下箭頭 */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+
+
+        #section3Area,
+        #section4Area {
+            padding-left: 20%;
+            padding-top: 1%;
+
+        }
+
+
+        .table1,
+        .table2,
+        .table3 {
+            border-collapse: separate;
+            border-spacing: 150px 10px;
+        }
+
+
+        .littletable {
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 25px;
+            text-align: center;
+            width: 62%;
+            font-size: 12px;
+        }
+
+        .littletable td {
+            border: 2px solid var(--color-whitesmoke);
+        }
+
+        .addInput {
+            width: 100%;
+            font-size: var(--font-size-content);
+            line-height: 30px;
+        }
+
+        .descriptionInput {
+            width: 100%;
+            line-height: 30px;
+        }
+
+
+
+        .condition {
+            font-size: var(--font-size-content-small);
+        }
+
+        .addDiv {
+            padding-left: 21%;
+            padding-top: 1%;
+        }
+
+        .addItem {
+            border: none;
+            border-radius: 5px;
+            padding: 3px 10px 3px 10px;
+            background-color: var(--color-marigold);
+            color: var(--color-white);
+            font-size: 14px;
+        }
+
+        .note {
+            width: 100%;
+            line-height: 36px;
+            color: var(--color-alizarincrimson);
+        }
+
+        .switchTitle {
+            font-weight: bold;
+        }
+
+        .viaTitle {
+            line-height: 40px;
+            font-size: var(--font-size-content);
+            font-weight: var(--font-weight-contenttitle);
+        }
+
+        /* 上下一步------------------------------ */
+        .next,
+        .final,
+        .previous {
+            text-decoration: none;
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 3px;
+            /* float: right; */
+            cursor: pointer;
+            border: none;
+
+        }
+
+        .next,
+        .final {
+            background-color: var(--color-marigold);
+            color: var(--color-white);
+
+
+        }
+
+        .previous {
+            background-color: var(--color-silver);
+            color: var(--color-black);
+
+        }
+
+        .nextArea {
+            /* padding: 4% 5%; */
+            padding-top: 4%;
+            padding-right: 5%;
+        }
+
+        .preArea {
+            padding-bottom: 4%;
+            padding-left: 5%;
+        }
+
+        .next:hover,
+        .final:hover {
+            background-color: var(--color-sunorange);
+            color: var(--color-white);
+        }
+
+        .previous:hover {
+            background-color: var(--color-black);
+            color: var(--color-white);
+        }
+
+
+
+        /* 開關----------------------------------------- */
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 23px;
+            line-height: 23px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--color-Silver);
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 15px;
+            width: 15px;
+            left: 4px;
+            bottom: 4px;
+            background-color: var(--color-white);
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked+.slider {
+            background-color: var(--color-switchSlider);
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 1px var(--color-switchSlider);
+        }
+
+        input:checked+.slider:before {
+            -webkit-transform: translateX(15px);
+            -ms-transform: translateX(15px);
+            transform: translateX(15px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        /* hover小吐司------------------------------------------- */
+        .topInfo {
+            position: relative;
+            display: inline-block;
+        }
+
+        .topInfo .topInfotext {
+            visibility: hidden;
+            width: 150px;
+            background-color: var(--color-irongray);
+            color: var(--color-white);
+            text-align: left;
+            border-radius: 5px;
+            padding: 3px 0px 3px 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            /* 箭頭的位置 */
+            margin-left: -75px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 10px;
+        }
+
+        .topInfo .topInfotext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--color-irongray) transparent transparent transparent;
+        }
+
+        .topInfo:hover .topInfotext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- border border-primary  -->
+            <div class="col-11 mt-4 mb-5 px-0">
+
+                <h1 class="fs-2 fw-bold mb-4"><span class="text-black">新增/編輯庫存</span></h1>
+
+
+                <!-- 產品資訊相關 ------------------------------------------------------------------------------------->
+                <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto mb-4">
+
+                    <div>
+                        <p class="fs-5 d-inline-flex mb-4 contenttitle">產品資訊</p>
+                    </div>
+
+                    <hr class="hr-color mt-0 mb-4">
+
+                    <table class="productBasicTable fs-5 fw-normal w-100">
+                        <tr class="titlelabel">
+                            <td style="width: 30%;">名稱/規格</td>
+                            <td></td>
+                            <td style="width: 30%;"></td>
+                            <td></td>
+                            <td style="width: 30%;">成本單價</td>
+                        </tr>
+                        <tr class="inputlabel">
+                            <td colspan="3">
+                                <!-- 名稱/規格 -->
+                                <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label w-100"
+                                    data-mdc-auto-init="MDCTextField">
+                                    <span class="mdc-notched-outline">
+                                        <span class="mdc-notched-outline__leading"></span>
+                                        <span class="mdc-notched-outline__trailing"></span>
+                                    </span>
+                                    <input id="productnamespec" type="text" class="mdc-text-field__input"
+                                        placeholder="例如：比目魚/10斤">
+                                </label>
+
+                            </td>
+                            <td></td>
+                            <td>
+                                <!-- 成本單價 -->
+                                <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label w-100"
+                                    data-mdc-auto-init="MDCTextField">
+                                    <span class="mdc-notched-outline">
+                                        <span class="mdc-notched-outline__leading"></span>
+                                        <span class="mdc-notched-outline__trailing"></span>
+                                    </span>
+                                    <span class="mdc-text-field__affix mdc-text-field__affix--prefix">NT$</span>
+                                    <input id="unitcost" type="number" class="mdc-text-field__input"
+                                        aria-controls="my-helper-unitcost" aria-describedby="my-helper-unitcost">
+                                </label>
+                                <div class="mdc-text-field-helper-line">
+                                    <div class="mdc-text-field-helper-text fs-5 fw-normal" id="my-helper-unitcost"
+                                        aria-hidden="true">首次設定後，系統將自動平均叫貨成本</div>
+                                </div>
+
+                            </td>
+                        </tr>
+                        <tr class="titlelabel">
+                            <td>庫存數</td>
+                            <td></td>
+                            <td>警示庫存</td>
+                            <td></td>
+                            <td>安全庫存</td>
+                        </tr>
+                        <tr class="inputlabel">
+                            <td>
+                                <!-- 庫存數 -->
+                                <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label w-100"
+                                    data-mdc-auto-init="MDCTextField">
+                                    <span class="mdc-notched-outline">
+                                        <span class="mdc-notched-outline__leading"></span>
+                                        <span class="mdc-notched-outline__trailing"></span>
+                                    </span>
+                                    <input id="stockqty" type="number" class="mdc-text-field__input">
+                                </label>
+
+                            </td>
+                            <td></td>
+                            <td>
+                                <!-- 警示庫存 -->
+                                <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label w-100"
+                                    data-mdc-auto-init="MDCTextField">
+                                    <span class="mdc-notched-outline">
+                                        <span class="mdc-notched-outline__leading"></span>
+                                        <span class="mdc-notched-outline__trailing"></span>
+                                    </span>
+                                    <input id="warningqty" type="number" class="mdc-text-field__input"
+                                        aria-controls="my-helper-warningqty" aria-describedby="my-helper-warningqty">
+                                </label>
+                                <div class="mdc-text-field-helper-line">
+                                    <div class="mdc-text-field-helper-text fs-5 fw-normal" id="my-helper-warningqty"
+                                        aria-hidden="true">若庫存數低於此值，則需進行叫貨</div>
+                                </div>
+
+                            </td>
+                            <td></td>
+                            <td>
+                                <!-- 安全庫存 -->
+                                <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label w-100"
+                                    data-mdc-auto-init="MDCTextField">
+                                    <span class="mdc-notched-outline">
+                                        <span class="mdc-notched-outline__leading"></span>
+                                        <span class="mdc-notched-outline__trailing"></span>
+                                    </span>
+                                    <input id="safeqty" type="number" class="mdc-text-field__input"
+                                        aria-controls="my-helper-ordertoqty" aria-describedby="my-helper-ordertoqty">
+                                </label>
+                                <div class="mdc-text-field-helper-line">
+                                    <div class="mdc-text-field-helper-text fs-5 fw-normal" id="my-helper-ordertoqty"
+                                        aria-hidden="true">叫貨時，需補充至的緩衝值</div>
+                                </div>
+
+                            </td>
+
+                        </tr>
+                        <tr class="titlelabel">
+                            <td>產品分類</td>
+                            <td></td>
+                            <td>產品圖片</td>
+                            <td></td>
+                            <td>選擇補貨供應商</td>
+                        </tr>
+                        <tr class="inputlabel">
+                            <td>
+                                <div class="mdc-select mdc-select--outlined w-100">
+                                    <div class="mdc-select__anchor" aria-disabled="false"
+                                        aria-labelledby="outlined-select-label">
+                                        <span class="mdc-notched-outline">
+                                            <span class="mdc-notched-outline__leading"></span>
+                                            <span class="mdc-notched-outline__trailing"></span>
+                                        </span>
+                                        <span class="mdc-select__selected-text-container">
+                                            <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+                                        </span>
+                                        <!-- 箭頭 -->
+                                        <span class="mdc-select__dropdown-icon">
+                                            <svg class="mdc-select__dropdown-icon-graphic" viewBox="7 10 10 5"
+                                                focusable="false">
+                                                <polygon class="mdc-select__dropdown-icon-inactive" stroke="none"
+                                                    fill-rule="evenodd" points="7 15 12 10 17 15">
+                                                </polygon>
+                                                <polygon class="mdc-select__dropdown-icon-active" stroke="none"
+                                                    fill-rule="evenodd" points="7 10 12 15 17 10">
+                                                </polygon>
+                                            </svg>
+                                        </span>
+                                    </div>
+
+                                    <!--  aria-selected="true" -->
+                                    <div id="productclassification" class="mdc-select__menu mdc-menu mdc-menu-surface">
+                                        <ul class="mdc-list">
+                                            <li class="mdc-list-item py-2 mdc-list-item--selected mdc-select--disabled"
+                                                data-value="請選擇分類">
+                                                <span class="mdc-list-item__ripple"></span>
+                                                <span class="mdc-list-item__text">請選擇分類</span>
+                                            </li>
+                                            <li class="mdc-list-item py-2" data-value="螃蟹類">
+                                                <span class="mdc-list-item__ripple"></span>
+                                                <span class="mdc-list-item__text">螃蟹類</span>
+                                            </li>
+                                            <li class="mdc-list-item py-2" data-value="貝類">
+                                                <span class="mdc-list-item__ripple"></span>
+                                                <span class="mdc-list-item__text">貝類</span>
+                                            </li>
+                                            <li class="mdc-list-item py-2" data-value="蝦類">
+                                                <span class="mdc-list-item__ripple"></span>
+                                                <span class="mdc-list-item__text">蝦類</span>
+                                            </li>
+                                            <li class="mdc-list-item py-2" data-value="魚類">
+                                                <span class="mdc-list-item__ripple"></span>
+                                                <span class="mdc-list-item__text">魚類</span>
+                                            </li>
+                                            <li class="mdc-list-item py-2" data-value="管魷類">
+                                                <span class="mdc-list-item__ripple"></span>
+                                                <span class="mdc-list-item__text">管魷類</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td></td>
+                            <td>
+
+                                <div class="d-flex flex-row">
+
+                                    <div class="d-flex flex-column">
+                                        <div class="me-auto">
+                                            <input id="file" type="file" style="display: none" accept="image/*">
+                                            <button class="mdc-button mdc-button--outlined" onclick="file.click()">
+                                                <span class="mdc-button__ripple"></span>
+                                                <span class="mdc-button__label fs-5 fw-normal">選擇圖片</span>
+                                            </button>
+                                        </div>
+                                        <div class="mt-auto ms-auto">
+                                            <span id="display-image-name"></span>
+                                        </div>
+                                    </div>
+
+                                    <div id="display-image" class="ms-4"></div>
+
+                                </div>
+
+                            </td>
+                            <td></td>
+                            <td>
+
+                                <div class="d-flex flex-row">
+
+                                    <div class="w-auto">
+
+                                        <button class="mdc-button mdc-button--outlined h-auto" onclick="callStaticBackdrop(0)">
+                                            <span class="mdc-button__ripple"></span>
+                                            <span id="cooperatebtn"
+                                                class="mdc-button__label fs-5 fw-normal text-justify">新增供應商</span>
+                                        </button>
+
+                                    </div>
+
+                                    <div class="ms-2">
+
+                                        <table class="cooperatetable">
+
+                                            <tr>
+                                                <td></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td></td>
+                                            </tr>
+
+                                        </table>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+
+
+                <!-- 上架設定相關 ---------------------------------------------------------------------------------->
+                <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto mb-4">
+
+                    <div>
+                        <p class="fs-5 d-inline-flex mb-4 contenttitle">上架設定</p>
+                    </div>
+
+                    <hr class="hr-color mt-0 mb-4">
+
+                    <table class="productBasicTable fs-5 fw-normal w-100">
+                        <tr class="switchlabel">
+
+                            <td style="width: 30%;">
+
+                                <!-- 再input中增加 "checked" 即可成為被選取狀態 -->
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked-online"
+                                        onclick="checkSwitch()">
+                                    <label class="form-check-label ms-2" for="flexSwitchCheckChecked-online">關閉 / 開啟
+                                        產品上架</label>
+                                    <span class="topInfo">
+                                        <i class="fal fa-info-circle"></i>
+                                        <span class="topInfotext">若將產品上架，則所有【顧客】皆可下單購買</span>
+                                    </span>
+                                </div>
+
+                            </td>
+                            <td></td>
+                            <td style="width: 30%;"></td>
+                            <td></td>
+                            <td style="width: 30%;"></td>
+                        </tr>
+                        <tr class="titlelabel onlinedetail">
+                            <td>最低訂購數量</td>
+                            <td></td>
+                            <td>銷售單價</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="inputlabel onlinedetail">
+                            <td>
+                                <!-- 最低訂購數量 -->
+                                <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label w-100"
+                                    data-mdc-auto-init="MDCTextField">
+                                    <span class="mdc-notched-outline">
+                                        <span class="mdc-notched-outline__leading"></span>
+                                        <span class="mdc-notched-outline__trailing"></span>
+                                    </span>
+                                    <input id="minsellqty" type="number" class="mdc-text-field__input">
+                                </label>
+
+                            </td>
+                            <td></td>
+                            <td>
+                                <!-- 銷售單價 -->
+                                <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label w-100"
+                                    data-mdc-auto-init="MDCTextField">
+                                    <span class="mdc-notched-outline">
+                                        <span class="mdc-notched-outline__leading"></span>
+                                        <span class="mdc-notched-outline__trailing"></span>
+                                    </span>
+                                    <span class="mdc-text-field__affix mdc-text-field__affix--prefix">NT$</span>
+                                    <input id="unitsellprice" type="number" class="mdc-text-field__input">
+                                </label>
+
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="titlelabel onlinedetail">
+                            <td>產品說明</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="inputlabel onlinedetail">
+                            <td colspan="5">
+
+                                <!-- 產品說明 -->
+
+                                <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label w-100"
+                                    data-mdc-auto-init="MDCTextField">
+                                    <span class="mdc-notched-outline">
+                                        <span class="mdc-notched-outline__leading"></span>
+                                        <span class="mdc-notched-outline__trailing"></span>
+                                    </span>
+                                    <input id="productdesc" type="text" maxlength="50" class="mdc-text-field__input">
+                                </label>
+                                <div class="mdc-text-field-helper-line">
+                                    <div class="mdc-text-field-character-counter">0 / 50</div>
+                                </div>
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+
+                <!-- 自動叫貨相關 ----------------------------------------------------------------------------------------->
+                <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto mb-4">
+
+                    <div>
+                        <p class="fs-5 d-inline-flex mb-4 contenttitle">自動叫貨</p>
+                    </div>
+
+                    <hr class="hr-color mt-0 mb-4">
+
+                    <table class="productBasicTable fs-5 fw-normal w-100">
+                        <tr class="switchlabel">
+                            <td style="width: 30%;">
+
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked-autocall"
+                                        onclick="checkSwitch()">
+                                    <label class="form-check-label ms-2" for="flexSwitchCheckChecked-autocall">關閉 / 開啟
+                                        自動叫貨</label>
+                                    <span class="topInfo">
+                                        <i class="fal fa-info-circle"></i>
+                                        <span class="topInfotext">若【庫存數】低於【警示庫存】時，自動叫貨至【安全庫存】</span>
+                                    </span>
+                                </div>
+
+                            </td>
+                            <td></td>
+                            <td style="width: 30%;"></td>
+                            <td></td>
+                            <td style="width: 30%;"></td>
+                        </tr>
+                        <tr class="inputlabel autocalldetail">
+                            <td colspan="5">
+                                <ul class="note">
+                                    <li>若供應商未於一天內確認訂單，系統將會自動取消訂單。</li>
+                                    <li>若所有訂購皆失敗，則需手動建立叫貨單。</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </div>
+
+
+
+                <!-- 自動交易相關 ----------------------------------------------------------------------------------------------->
+                <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto mb-4" style="display: none;">
+
+                    <div>
+                        <p class="fs-5 d-inline-flex mb-4 contenttitle">自動交易</p>
+                    </div>
+
+                    <hr class="hr-color mt-0 mb-4">
+
+                    <table class="productBasicTable fs-5 fw-normal w-100">
+                        <tr class="switchlabel">
+                            <td style="width: 30%;">
+
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox"
+                                        id="flexSwitchCheckChecked-autoconfirm" onclick="checkSwitch()">
+                                    <label class="form-check-label ms-2" for="flexSwitchCheckChecked-autoconfirm">關閉 /
+                                        開啟
+                                        自動確認訂單</label>
+                                    <span class="topInfo">
+                                        <i class="fal fa-info-circle"></i>
+                                        <span class="topInfotext">若滿足下列條件，則接收訂單時，將自動確認</span>
+                                    </span>
+                                </div>
+                            </td>
+                            <td></td>
+                            <td style="width: 30%;"></td>
+                            <td></td>
+                            <td style="width: 30%;"></td>
+                        </tr>
+                        <tr class="autoconfirmdetail">
+                            <td colspan="5">
+
+                                <div class="mdc-form-field fs-5 fw-normal d-block">
+                                    <div class="mdc-radio">
+                                        <input class="mdc-radio__native-control" type="radio" id="radio-1" name="radios"
+                                            checked>
+                                        <div class="mdc-radio__background">
+                                            <div class="mdc-radio__outer-circle"></div>
+                                            <div class="mdc-radio__inner-circle"></div>
+                                        </div>
+                                        <div class="mdc-radio__ripple"></div>
+                                    </div>
+                                    <label for="radio-1" style="transform: translateY(-4px);">訂購數量小於【可出現貨】時</label>
+                                </div>
+
+                                <div class="mdc-form-field fs-5 fw-normal d-block">
+                                    <div class="mdc-radio">
+                                        <input class="mdc-radio__native-control" type="radio" id="radio-2"
+                                            name="radios">
+                                        <div class="mdc-radio__background">
+                                            <div class="mdc-radio__outer-circle"></div>
+                                            <div class="mdc-radio__inner-circle"></div>
+                                        </div>
+                                        <div class="mdc-radio__ripple"></div>
+                                    </div>
+                                    <label for="radio-2" style="transform: translateY(-4px);">訂購數量小於【可出現貨】加上【已叫貨量】時
+                                        <span class="topInfo">
+                                            <i class="fal fa-info-circle"></i>
+                                            <span class="topInfotext">有可能發生無法【配單】狀況</span>
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <div class="mdc-form-field fs-5 fw-normal d-block">
+                                    <div class="mdc-radio">
+                                        <input class="mdc-radio__native-control" type="radio" id="radio-3"
+                                            name="radios">
+                                        <div class="mdc-radio__background">
+                                            <div class="mdc-radio__outer-circle"></div>
+                                            <div class="mdc-radio__inner-circle"></div>
+                                        </div>
+                                        <div class="mdc-radio__ripple"></div>
+                                    </div>
+                                    <label for="radio-3" style="transform: translateY(-4px);">
+                                        訂購數量小於
+
+                                        <label
+                                            class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label quantity"
+                                            data-mdc-auto-init="MDCTextField">
+                                            <span class="mdc-notched-outline">
+                                                <span class="mdc-notched-outline__leading"></span>
+                                                <span class="mdc-notched-outline__trailing"></span>
+                                            </span>
+                                            <input id="reservedqty" type="number" class="mdc-text-field__input">
+                                        </label>
+
+                                        【可出現貨】數時
+                                    </label>
+                                </div>
+
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+                <button class="addSet mdc-button mdc-button--raised" onclick="setValue()">
+                    <span class="mdc-button__label fs-5 fw-normal">新增庫存</span>
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 購買彈窗 -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">商品清單</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="height: 700px;">
+                    <iframe id="ifrm" style="width: 100%; flex: 1; height: 700px;" src="./goods.html"></iframe>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/javascript/materialdesigninit.js"></script>
+    <script src="/javascript/ajaxconnect.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <script>
+
+        // 頁面狀態：0(新增庫存)、1(編輯庫存)
+        let pageState = 0;
+
+        // 供應商表格物件
+        let cooperateObj = {
+            supplierproductid: 0,
+            supplierid: 0,
+            supplierproduct: "",
+            supplier: ""
+        };
+        // JSON假資料物件
+        let allValueList = null;
+        // 使用者上傳的圖片
+        let productPicObj = null;
+        // 編輯產品的id
+        let editStockProductid = 0;
+
+        // 呼叫父類別方法(先去檢查是否要更改為編輯庫存)
+        callParent();
+        function callParent() {
+            if (window.parent && window.parent.checkAddStock) {
+                window.parent.checkAddStock();	//呼叫父頁面的SetComponent方法
+            }
+        }
+
+
+        // 資料重置(由父頁面呼叫)
+        function addStockinit(state) {
+
+            if (state == 0) {
+                // 新增庫存
+                pageState = 0;
+
+                $("h1 span")[0].innerHTML = "新增庫存";
+                $("button.addSet span")[0].innerHTML = "新增庫存";
+
+            } else {
+                // 編輯庫存
+                pageState = 1;
+
+                $("h1 span")[0].innerHTML = "編輯庫存";
+                $("button.addSet span")[0].innerHTML = "完成編輯";
+                // console.log(state);
+
+
+                // 資料傳入-------------------------------------------------------
+
+                editStockProductid = state.productid;  // 產品id                
+                $("#productnamespec").prop('value', state.productnamespec);  // 品名
+                // 圖片
+                $("#display-image").css('display', "block");
+                $("#display-image").css('background-image', 'url(' + state.productpic + ')');
+                productPicObj = state.productpic;
+                // 供應商
+                cooperateObj.supplierproductid = state.supplierproductid;
+                cooperateObj.supplierid = state.supplierid;
+                cooperateObj.supplierproduct = state.supplierproductname;
+                cooperateObj.supplier = state.suppliercompanyname;
+                // 產品分類
+                $($("#productclassification").find("li")[0]).removeClass("mdc-list-item--selected");
+                $($("#productclassification").find("li")[state.productclassification]).addClass("mdc-list-item--selected");
+                initializeSelect();
+
+                $("#unitcost").prop('value', state.unitcost);  // 成本單價                
+                $("#stockqty").prop('value', state.stockqty);  // 庫存數                
+                $("#warningqty").prop('value', state.warningqty);  // 警示庫存數                
+                $("#safeqty").prop('value', state.safeqty);  // 安全庫存數
+                // 是否上架                
+                state.onshelf == 1 ? $($('#flexSwitchCheckChecked-online')[0]).prop("checked", true) : $($('#flexSwitchCheckChecked-online')[0]).prop("checked", false);
+
+                $("#unitsellprice").prop('value', state.unitsellprice);  // 銷售單價
+                $("#minsellqty").prop('value', state.minsellqty);  // 最低訂購數量
+                $("#productdesc").prop('value', state.productdesc);  // 產品說明
+                // 是否自動叫貨
+                state.autoorderfunction == "Y" ? $($('#flexSwitchCheckChecked-autocall')[0]).prop("checked", true) : $($('#flexSwitchCheckChecked-autocall')[0]).prop("checked", false);
+                // 是否自動交易
+                state.autoorderconfirmfunctionstatus > 1 ? $($('#flexSwitchCheckChecked-autoconfirm')[0]).prop("checked", true) : $($('#flexSwitchCheckChecked-autoconfirm')[0]).prop("checked", false);
+                state.autoorderconfirmfunctionstatus > 1 ? $($(".autoconfirmdetail").find("input.mdc-radio__native-control")[state.autoorderconfirmfunctionstatus - 2]).prop("checked", true) : $($(".autoconfirmdetail").find("input.mdc-radio__native-control")[0]).prop("checked", true);
+                $("#reservedqty").prop('value', state.reservedqty);
+
+                // mdc設定值的方式。
+                // var el = document.querySelector('#username');
+                // var tf = mdc.textField.MDCTextField(el);
+                // tf.value = 'foo';
+
+            }
+
+
+            // 確認Switch狀態
+            checkSwitch();
+
+            // 確認新增供應商表格
+            checkCooperate();
+
+        }
+
+
+        // 檔案上傳，暫時先做到可以顯示圖片在畫面上。
+        const image_input = document.querySelector("#file");
+
+        image_input.addEventListener("change", function () {
+
+            const reader = new FileReader();
+
+            if (this.files && this.files[0]) {
+
+                reader.addEventListener("load", function () {
+                    const uploaded_image = reader.result;
+                    $("#display-image").css('display', "block");
+                    $("#display-image").css('background-image', 'url(' + uploaded_image + ')');
+                    productPicObj = uploaded_image;
+                    console.log(uploaded_image);
+                });
+
+                // console.log(this.files[0]);
+                reader.readAsDataURL(this.files[0]);
+                $("#display-image-name").html(this.files[0].name);
+            }
+
+        });
+
+
+        // 供應商表格判斷
+        function checkCooperate() {
+
+            if (cooperateObj.supplier == "") {
+                $(".cooperatetable").hide();
+            } else {
+                $(".cooperatetable tr:nth-child(1) td").html(cooperateObj.supplier);
+                $(".cooperatetable tr:nth-child(2) td").html(cooperateObj.supplierproduct);
+                $(".cooperatetable").show();
+
+                $("#cooperatebtn").html("編輯供應商");
+            }
+
+        }
+
+
+        // 下方功能判斷        
+        function checkSwitch() {
+            if ($('#flexSwitchCheckChecked-online')[0].checked) {
+                $(".onlinedetail").show();
+            } else {
+                $(".onlinedetail").hide();
+            }
+
+            if ($('#flexSwitchCheckChecked-autocall')[0].checked) {
+                $(".autocalldetail").show();
+            } else {
+                $(".autocalldetail").hide();
+            }
+
+            if ($('#flexSwitchCheckChecked-autoconfirm')[0].checked) {
+                $(".autoconfirmdetail").show();
+            } else {
+                $(".autoconfirmdetail").hide();
+            }
+        }
+
+
+        // 呼叫子類別的方法
+        function callStaticBackdrop(showcontent) {
+            $("#staticBackdrop").modal("show");
+            $("#ifrm").get(0).contentWindow.parentCall(showcontent);
+        }
+
+        // iframe內部的子類會呼叫這個方法
+        function closeComponent(transferData) {
+            $("#staticBackdrop").modal("hide");
+
+            // 傳入供應商資訊，並且呼叫供應商表格方法。
+            cooperateObj = transferData;
+            checkCooperate();
+        }
+
+
+        // JSON假資料(收集使用者資料)-----------------------------------------------------------------------------   
+        function setValue() {
+
+            // 檢查是否開啟自動交易
+            let autoorderconfirm = 0;
+            for (var i = 0; i < 3; i++) {
+                let checkValue = $($(".autoconfirmdetail").find("input.mdc-radio__native-control")[i]).prop("checked");
+                autoorderconfirm++;
+                if (checkValue) {
+                    break;
+                }
+            }
+
+
+            if (pageState == 0) {
+                // 新增庫存
+
+                allValueList = {
+                    "productnamespec": $("#productnamespec").prop('value'),
+                    "productpic": productPicObj,
+                    "supplierproductid": cooperateObj.supplierproductid == 0 ? 99999 : cooperateObj.supplierproductid,
+                    "supplierid": cooperateObj.supplierid == 0 ? 99999 : parseInt(cooperateObj.supplierid),
+                    // "supplierproductid":200001,
+                    // "supplierid":2,
+                    "productclassification": $("#productclassification").find("li.mdc-list-item--selected").index(),
+                    "unitcost": parseInt($("#unitcost").prop('value')),
+                    "stockqty": parseInt($("#stockqty").prop('value')),
+                    "warningqty": parseInt($("#warningqty").prop('value')),
+                    "safeqty": parseInt($("#safeqty").prop('value')),
+                    "onshelf": $('#flexSwitchCheckChecked-online')[0].checked ? 1 : 0,
+                    "unitsellprice": parseInt($("#unitsellprice").prop('value')),
+                    "minsellqty": parseInt($("#minsellqty").prop('value')),
+                    "productdesc": $("#productdesc").prop('value'),
+                    "autoorderfunction": $('#flexSwitchCheckChecked-autocall')[0].checked ? "Y" : "N",
+                    // "autoorderconfirmfunctionstatus": $('#flexSwitchCheckChecked-autoconfirm')[0].checked ? autoorderconfirm + 1 : 1,
+                    // "reservedqty": parseInt($("#reservedqty").prop('value'))
+                    // "autoorderfunction": "N",
+                    "autoorderconfirmfunctionstatus": 1,
+                    "reservedqty": 0
+                };
+
+                // console.log(allValueList);
+                insertData();
+
+            } else if (pageState == 1) {
+                // 編輯庫存
+
+                allValueList = {
+                    "productid": editStockProductid,
+                    "productnamespec": $("#productnamespec").prop('value'),
+                    "productpic": productPicObj,
+                    "supplierproductid": cooperateObj.supplierproductid == 0 ? 99999 : cooperateObj.supplierproductid,
+                    "supplierid": cooperateObj.supplierid == 0 ? 99999 : parseInt(cooperateObj.supplierid),
+                    // "supplierproductid":200002,
+                    // "supplierid":2,
+                    "productclassification": $("#productclassification").find("li.mdc-list-item--selected").index(),
+                    "unitcost": parseInt($("#unitcost").prop('value')),
+                    "stockqty": parseInt($("#stockqty").prop('value')),
+                    "warningqty": parseInt($("#warningqty").prop('value')),
+                    "safeqty": parseInt($("#safeqty").prop('value')),
+                    "onshelf": $('#flexSwitchCheckChecked-online')[0].checked ? 1 : 0,
+                    "unitsellprice": parseInt($("#unitsellprice").prop('value')),
+                    "minsellqty": parseInt($("#minsellqty").prop('value')),
+                    "productdesc": $("#productdesc").prop('value'),
+                    "autoorderfunction": $('#flexSwitchCheckChecked-autocall')[0].checked ? "Y" : "N",
+                    // "autoorderconfirmfunctionstatus": $('#flexSwitchCheckChecked-autoconfirm')[0].checked ? autoorderconfirm + 1 : 1,
+                    // "reservedqty": parseInt($("#reservedqty").prop('value'))
+                    // "autoorderfunction": "N",
+                    "autoorderconfirmfunctionstatus": 1,
+                    "reservedqty": 0
+                };
+
+                // console.log(allValueList);
+                updateData();
+            }
+
+
+        }
+
+
+        // 新增庫存-----------------------------------------------------------------------
+        // 傳資料(使用非同步資料的方式傳)。
+        async function insertData() {
+
+            returnObj = await viewsaddstockinsert(allValueList);
+            console.log(returnObj);
+
+            if (returnObj.responseStatus != 200) {
+                // 沒接到資料
+                ajaxalert(0, '庫存新增');
+
+                console.log("addStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                console.log(returnObj.responseObj);
+            } else {
+                // 處理及判斷邏輯：
+                let successObj = returnObj.responseText;
+
+                if (successObj == "OK") {
+                    // 成功
+                    ajaxalert(1, '庫存新增');
+                }
+            }
+        }
+
+
+        // 更新庫存-----------------------------------------------------------------------
+        // 傳資料(使用非同步資料的方式傳)。
+        async function updateData() {
+
+            returnObj = await viewsaddstockupdate(allValueList);
+
+            if (returnObj.responseStatus != 200) {
+                // 沒接到資料
+                ajaxalert(0, '編輯庫存');
+
+                console.log("addStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                console.log(returnObj.responseObj);
+            } else {
+                // 處理及判斷邏輯：
+                let successObj = returnObj.responseText;
+
+                if (successObj == "OK") {
+                    // 成功
+                    ajaxalert(2, '編輯庫存');
+                }
+            }
+        }
+
+
+
+        // sweetalert
+        function ajaxalert(state, tipstring) {
+
+            if (state == 0) {
+                // 新增失敗
+                Swal.fire({
+                    title: tipstring + '異常，請再試一次',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            } else if (state == 1) {
+                // 新增成功
+                Swal.fire({
+                    title: tipstring + '成功',
+                    html: "可前往【庫存概況】確認庫存<br>或繼續新增下一筆",
+                    icon: 'success',
+                    showCancelButton: true,
+                    confirmButtonColor: 'var(--color-marigold)',
+                    cancelButtonColor: 'var(--color-irongray)',
+                    confirmButtonText: '庫存概況',
+                    cancelButtonText: '繼續新增'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        callParentChangePage(0);
+                    } else {
+                        // 重新整理頁面(取代init)
+                        window.location.replace(location.href);
+                    }
+                })
+            } else if (state == 2) {
+                // 編輯成功
+                Swal.fire({
+                    title: tipstring + '成功',
+                    icon: 'success',
+                    confirmButtonColor: 'var(--color-marigold)',
+                    confirmButtonText: '庫存概況'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        callParentChangePage(0);
+                    }
+                })
+            }
+        }
+
+        function callParentChangePage(transferData) {
+            if (window.parent && window.parent.changepage) {
+                let href = '';
+
+                // 0：庫存概況、1：叫貨管理、2：接單管理、3：新增庫存
+                switch (transferData) {
+                    case 0:
+                        href = "http://localhost:8080/views/orderStock.html";
+                        break;
+                    default:
+                        console.log("href error");
+                        break;
+                }
+
+                window.parent.changepage(href);	//呼叫父頁面的SetComponent方法
+            }
+        }
+
+
+        // mdc text field註冊
+        window.mdc.autoInit();
+    </script>
+
+</body>
+
+</html>

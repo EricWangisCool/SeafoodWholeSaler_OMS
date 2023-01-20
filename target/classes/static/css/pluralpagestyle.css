@@ -1,0 +1,166 @@
+body {
+    background-color: var(--color-whitesmoke);
+}
+
+/* html {
+    滑順滾動效果 
+    scroll-behavior: smooth;
+} */
+
+/* 水平分隔線樣式 */
+hr.hr-color {
+    background-color: var(--color-irongray);
+}
+
+/* 所有區塊的標題字體粗度500 --------------------------- */
+.contenttitle {
+    font-weight: var(--font-weight-contenttitle);
+}
+
+/* 表格警示效果(需套用至<span>標籤上) --------------------------- */
+.dangerTd {
+    background-color: var(--color-dangerbackground);
+    color: var(--color-dangercolor);
+    display: inline-block;
+    height: 36px;
+    width: fit-content;
+    padding: 5px 16px;
+    border-radius: 0.3rem;
+    font-weight: 500;
+}
+
+.warningTd {
+    background-color: var(--color-warningbackground);
+    color: var(--color-warningcolor);
+    display: inline-block;
+    height: 36px;
+    width: fit-content;
+    padding: 5px 16px;
+    border-radius: 0.3rem;
+    font-weight: 500;
+}
+
+/* 下方頁碼 */
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination a {
+    color: var(--color-black);
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 0.3rem;
+    transition: background-color .3s;
+}
+
+.pagination a.active {
+    background-color: var(--color-secmain);
+    border-radius: 0.3rem;
+    color: var(--color-white);
+}
+
+.pagination a:hover:not(.active) {
+    background-color: var(--color-whitesmoke);
+    border-radius: 0.3rem;
+}
+
+/* 篩選 --------------------------------------------------------- */
+.opA {
+    color: var(--color-irongray);
+    text-decoration: none;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 24px;
+}
+
+.opA:hover {
+    color: var(--color-secfont);
+    cursor: pointer;
+}
+
+.opA.active {
+    color: var(--color-secmain);
+}
+
+
+/* 分隔線 --------------------------------------------------------- */
+.borderLine {
+    height: 3px;
+    width: 70px;
+    background-color: var(--color-secmain);
+    transform: translateX(0px);
+
+    transition-duration: .35s;
+    transition-timing-function: ease;
+}
+
+
+
+/* 時間軸------------------------------------------------ */
+
+#timeline ol {
+    position: relative;
+    display: block;
+    margin-top: 18px;
+    margin-bottom: 72px;
+    height: 1px;
+    padding-inline-start: 0;
+}
+
+#timeline ol.forpage {
+    position: relative;
+    display: block;
+    transform: translateY(-12px);
+    height: 1px;
+    padding-inline-start: 0;
+}
+
+/* 線 */
+#timeline li {
+    position: relative;
+    display: inline-block;
+    float: left;
+    width: calc(100% / 2);
+    height: 2px;
+    background: #FA8072;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#timeline li.fullstate {
+    width: calc(100% / 5);
+}
+
+#timeline li .diplome {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#timeline li .point {
+    content: "";
+    display: block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid #FF4500;
+    background: #fff;
+    position: absolute;
+    top: -8px;
+    left: calc(50% - 8px);
+}
+
+#timeline li .timestamp {
+    text-align: center;
+}
+
+/* 圓點顏色 */
+#timeline li.active>.point {
+    border: 8px solid #FF4500;
+}
+
+/* 狀態、時間顏色 */
+#timeline li.active>.diplome,
+#timeline li.active>.timestamp {
+    color: #FA8072;
+}

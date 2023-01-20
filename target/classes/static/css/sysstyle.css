@@ -1,0 +1,100 @@
+#side_nav {
+    /* background-color: #F6E4D2; */
+    background-color: var(--color-secbackground);
+    min-width: 228px;
+    max-width: 228px;
+
+    transition: all 0.2s;
+}
+
+.content {
+    min-height: 100vh;
+    width: 100%;
+}
+
+.sidebar .header-box {
+    /* background-color: #FBA01D; */
+    background-color: var(--color-secmain);
+    min-height: 48px;
+}
+
+.sidebar li a {
+    /* color: #545454; */
+    color: var(--color-secfont);
+    font-size: var(--font-size-content);    
+    font-weight: var(--font-weight-content);
+    width: 100%;
+    /* border: 1px solid red; */
+}
+
+.sidebar li a:hover{
+    background-color: var(--color-secchoose);
+}
+
+.sidebar li i {
+    /* color: #545454; */
+    color: var(--color-secfont);
+    font-size: var(--font-size-content-small);  
+    width: 1.5rem;
+    text-align: center;
+    margin-right: 8px;
+    /* border: 1px solid red; */
+}
+
+.sidebar li.active {
+    /* background-color: #FACF83; */
+    background-color: var(--color-secchoose);
+    
+}
+
+.sidebar li.active a,
+.sidebar li.active a:hover {
+    /* color: #545454; */
+    color: var(--color-secfont);
+}
+
+.sidebar ul div ul li a:hover{
+    color: var(--color-secfont);
+}
+
+
+.navbar .nav-item .nav-link {
+    /* color: #545454; */
+    color: var(--color-secfont);
+}
+
+
+@media(max-width: 767px) {
+    #side_nav {
+        margin-left: -228px;
+        position: fixed;
+        min-height: 100vh;
+        z-index: 1;
+    }
+
+    #side_nav.active {
+        margin-left: 0px;
+    }
+}
+
+/* -----------------------------  Side Bar Arrow  -------------------------------- */
+
+.btn-toggle::after {
+    color: var(--color-secfont);
+    line-height: 0;
+    margin-left: 80px;
+    content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+    transform: rotate(-90deg);
+    transition: transform .35s ease;
+    transform-origin: .5em 50%;
+}
+
+.btn-toggle[aria-expanded="true"]::after {
+    transform: rotate(90deg);
+}
+
+.btn-toggle-nav{
+    /* background-color: var(--color-seashell); */
+    background-color: var(--color-secmenubackground);
+}
+
