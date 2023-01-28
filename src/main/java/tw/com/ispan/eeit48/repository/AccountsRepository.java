@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import tw.com.ispan.eeit48.domain.AccountsBean;
+import tw.com.ispan.eeit48.model.AccountsBean;
 
 @Repository
 public interface AccountsRepository extends JpaRepository<AccountsBean, Integer> {

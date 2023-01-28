@@ -1,4 +1,4 @@
-package tw.com.ispan.eeit48.domain;
+package tw.com.ispan.eeit48.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,8 +8,9 @@ import javax.persistence.Table;
 import org.json.JSONObject;
 
 @Entity
-@Table(name = "autoorderconfirmfunctionstatus")
-public class AutoOrderConfirmFunctionStatusBean {
+@Table(name = "orderstatus")
+public class OrderStatusBean {
+
 	@Id
 	private Integer statusid;
 	@Column(columnDefinition = "char")
@@ -17,15 +18,15 @@ public class AutoOrderConfirmFunctionStatusBean {
 
 	@Override
 	public String toString() {
-		return "AutoOrderConfirmFunctionStatus [statusId=" + statusid + ", status=" + status + "]";
+		return "OrderStatusBean [statusid=" + statusid + ", status=" + status + "]";
 	}
 
-	public Integer getStatusId() {
+	public Integer getStatusid() {
 		return statusid;
 	}
 
-	public void setStatusId(Integer statusId) {
-		this.statusid = statusId;
+	public void setStatusid(Integer statusid) {
+		this.statusid = statusid;
 	}
 
 	public String getStatus() {
@@ -39,7 +40,7 @@ public class AutoOrderConfirmFunctionStatusBean {
 	public JSONObject toJsonObject() {
 		JSONObject obj = new JSONObject();
 		obj.put("statusid", statusid);
-		obj.put("account", status);
+		obj.put("status", status);
 		return obj;
 	}
 }

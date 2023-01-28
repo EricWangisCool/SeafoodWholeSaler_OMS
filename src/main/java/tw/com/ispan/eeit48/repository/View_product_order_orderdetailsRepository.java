@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import tw.com.ispan.eeit48.domain.View_product_order_orderdetailsBean;
+import tw.com.ispan.eeit48.model.View_product_order_orderdetailsBean;
 
 @Repository
 @Transactional

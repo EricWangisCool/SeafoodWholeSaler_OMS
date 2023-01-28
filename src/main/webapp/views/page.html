@@ -259,13 +259,6 @@
     <script src="/javascript/orderstatus.js"></script>
 
     <script>
-        // 更新標題名稱----------------------------------------------------------------------------------------------------------------------------
-        usercompanyname = JSON.parse(localStorage.getItem("accountBean")).companyname;
-        if (usercompanyname != null || usercompanyname != "" || usercompanyname != undefined) {
-            $("h1 span")[0].innerHTML = `${usercompanyname}，歡迎回到管理介面！`;
-        }
-
-
         // 呼叫父類別方法------------------------------------------------------------------------------------------------------------------
         function callParent(transferData) {
             if (window.parent && window.parent.changepage) {
@@ -286,20 +279,15 @@
                         console.log("href error");
                         break;
                 }
-
                 window.parent.changepage(href);	//呼叫父頁面的SetComponent方法
-
             }
         }
-
-
 
 
         // JSON假資料  ----------------------------------------------------------------------------------------------------------------------
         // 緊急庫存清單：ProductNameSpec(品名規格)、?StockOwn(可出現貨)、?CallShipping(已叫現貨)、SaveQty(安全庫存)
         // 叫貨清單：OrderId(叫貨編號)、CompanyName(供應商)、OrderStatus(完成階段)、OrderStatus(當前狀態)
         // 接單清單：OrderId(接單編號)、CompanyName(採購商)、OrderStatus(完成階段)、OrderStatus(當前狀態)
-
         let allPageList = [
             {
                 pageList: [
@@ -434,7 +422,6 @@
         ]
 
 
-
         // 欄位中文名稱對應------------------------------
         //緊急庫存清單
         let pageListName = [
@@ -469,13 +456,9 @@
             }
         ]
 
-
-
-
         // 撈資料(使用非同步資料的方式撈)。
         downloadData();
         async function downloadData() {
-
             // 與Server對接的ajax。
             // 邊撈同時進行後續動作。
             returnObj = await viewspage(null);
@@ -492,16 +475,19 @@
                 // 撈完後解析假資料並更新畫面內容。
                 reNewData();
             }
-
-            // reNewData();
-
         }
 
 
         function reNewData() {
             let pageDataNum = 3;  //每頁最多5筆資料。
 
-            // 最上方代辦數量欄位
+            // 更新標題名稱----------------------------------------------------------------------------------------------------------------------------
+            usercompanyname = allPageList[3].userCompanyName;
+            if (usercompanyname != null || usercompanyname != "" || usercompanyname != undefined) {
+            $("h1 span")[0].innerHTML = `${usercompanyname}，歡迎回到管理介面！`;
+            }
+
+            // 上方代辦數量欄位
             $(".pageTodoTable p")[0].innerHTML = allPageList[0].pageList.length;
             $(".pageTodoTable p")[1].innerHTML = allPageList[1].pageBuyList.length;
             $(".pageTodoTable p")[2].innerHTML = allPageList[2].pageSellList.length;
@@ -549,9 +535,7 @@
             </tr>`;
 
 
-
             for (let i = 0; i < (allPageList[0].pageList.length <= 3 ? allPageList[0].pageList.length : 3); i++) {
-
                 // 創造<tr>的Html格式，並將資料帶入。
                 // 08
                 let trHtmlData = `
@@ -570,7 +554,6 @@
 
 
             for (let i = 0; i < (allPageList[1].pageBuyList.length <= 3 ? allPageList[1].pageBuyList.length : 3); i++) {
-
                 // 當前狀態
                 let returnbuystatus = checkstatus(0, allPageList[1].pageBuyList[i].orderstatus);
 
@@ -633,25 +616,18 @@
 
                 //緊急叫貨清單逾時
                 var dateBuy = new Date(`${(timeCounter(allPageList[1].pageBuyList[i].statustime)).replace("<br>", " ")}`);// 過去時間
-
                 var dateNow = new Date();//現在時間
-
                 var sOne = dateBuy.getTime(), sTwo = dateNow.getTime();
-                var totalBuy = (sTwo - sOne) / 1000;
 
+                var totalBuy = (sTwo - sOne) / 1000;
                 var dayBuy = parseInt(totalBuy / (24 * 60 * 60)); // 天數
                 var afterDayBuy = totalBuy - dayBuy * 24 * 60 * 60; // 取得算出天數的剩餘秒數
                 var hourBuy = parseInt(afterDayBuy / (60 * 60)); // 小時
-
-
                 $(".buyOverTime")[i].innerHTML = (dayBuy + '天' + hourBuy + '時');
-
             }
 
 
-
             for (let i = 0; i < (allPageList[2].pageSellList.length <= 3 ? allPageList[2].pageSellList.length : 3); i++) {
-
                 let returnsellstatus = checkstatus(1, allPageList[2].pageSellList[i].orderstatus);
 
                 // 判斷商品字串
@@ -712,22 +688,16 @@
 
                 //緊急接單清單逾時
                 var dateSell = new Date(`${(timeCounter(allPageList[2].pageSellList[i].statustime)).replace("<br>", " ")}`);// 過去時間
-
                 var dateNow2 = new Date();//現在時間
-
                 var s1 = dateSell.getTime(), s2 = dateNow2.getTime();
-                var totalSell = (s2 - s1) / 1000;
 
+                var totalSell = (s2 - s1) / 1000;
                 var daySell = parseInt(totalSell / (24 * 60 * 60)); // 天數
                 var afterDaySell = totalSell - daySell * 24 * 60 * 60; // 取得算出天數的剩餘秒數
                 var hourSell = parseInt(afterDaySell / (60 * 60)); // 小時
-
                 $(".sellOverTime")[i].innerHTML = (daySell + '天' + hourSell + '時');
-
             }
-
         }
-
     </script>
 
 

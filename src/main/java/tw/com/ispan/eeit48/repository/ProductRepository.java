@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import tw.com.ispan.eeit48.domain.ProductBean;
+import tw.com.ispan.eeit48.model.ProductBean;
 
 @Repository
 public interface ProductRepository extends JpaRepository<ProductBean, Integer> {

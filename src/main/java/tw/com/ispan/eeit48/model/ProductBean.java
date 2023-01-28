@@ -1,4 +1,4 @@
-package tw.com.ispan.eeit48.domain;
+package tw.com.ispan.eeit48.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

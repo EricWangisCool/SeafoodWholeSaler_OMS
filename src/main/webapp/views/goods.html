@@ -441,13 +441,7 @@
         // AJAX撈廠商資料(使用非同步資料的方式撈)--------------------------------------------------------------------------------------。
         downloadCooperateData();
         async function downloadCooperateData() {
-
-            let accountID = {
-                "accountid": JSON.parse(localStorage.getItem("accountBean")).accountid
-            };
-
-            returnObj = await viewscooperate(accountID);
-
+            returnObj = await viewscooperate(null);
             if (returnObj.responseStatus != 200) {
                 // 撈完後更新畫面內容。
                 // reNewCooperateData();
@@ -461,7 +455,6 @@
                 // 撈完後更新畫面內容。
                 reNewCooperateData();
             }
-
         }
 
 

@@ -344,7 +344,6 @@
             }
 
             let data = {
-                "accountid": JSON.parse(localStorage.getItem("accountBean")).accountid,
                 "ordertime": startDate,
                 "completeordertime": byetDate
             }
@@ -481,7 +480,6 @@
         }
 
 
-
         function sweetalertShow(state) {
 
             switch (state) {
@@ -489,16 +487,14 @@
                     Swal.fire({
                         title: '請選擇欲搜尋日期',
                         icon: 'info',
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     });
                     break;
                 case 2:
                     Swal.fire({
-                        title: '數據取得異常，請再試一次',
+                        title: '權限不足，請聯繫管理人員',
                         icon: 'error',
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     });
                     break;
                 default:
@@ -506,9 +502,6 @@
             }
 
         }
-
-
-
 
 
         // 呼叫圓餅圖-------------------------------------------------------------------------------------------
@@ -565,10 +558,7 @@
             });
 
 
-
             // 產品圓餅圖 ---------------------------------------------------------------------------------------
-
-
             var productPieXValues = classnameList;
             var productPieYValues = classCountList;
             var productPieBarColors = classBarColor;
@@ -664,18 +654,9 @@
                             }
                         }
                     }
-
-
                 }
             });
-
         }
-
-
     </script>
-
-
-
 </body>
-
 </html>

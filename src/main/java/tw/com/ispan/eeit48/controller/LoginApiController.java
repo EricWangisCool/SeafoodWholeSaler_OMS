@@ -1,57 +1,65 @@
 package tw.com.ispan.eeit48.controller;
 
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tw.com.ispan.eeit48.domain.AccountsBean;
-import tw.com.ispan.eeit48.service.AccountsService;
+import tw.com.ispan.eeit48.model.AccountsBean;
+import tw.com.ispan.eeit48.repository.AccountsRepository;
+import tw.com.ispan.eeit48.springsecurity.lib.JWTUtil;
+import tw.com.ispan.eeit48.service.AuthService;
 
-//登入帳號頁面
 @RestController
 @RequestMapping(path = { "/login" })
 public class LoginApiController {
 	@Autowired
-	AccountsService accountsService;
+	private AuthenticationManager authenticationManager;
+	@Autowired
+	private JWTUtil jwtUtil;
+	@Autowired
+	private AuthService authService;
+	@Autowired
+	private AccountsRepository accountsRepository;
 
-	// 接收前端帳密資訊, 登入成功就將該user的bean紀錄在session裡, key = "user"
 	@PostMapping
-	public String checkAccountPass(@RequestBody AccountsBean dataRequest, HttpSession session) {
-		// 接收資料, 驗證資料
-		if (dataRequest.getAccount() == null || dataRequest.getAccount().length() == 0) {
-			System.out.println("login.username.required");
-		} else if (dataRequest.getPassw() == null || dataRequest.getPassw().length() == 0) {
-			System.out.println("login.password.required");
-			// 確認有收到前端輸入的帳密後, 呼叫model
-		} else {
-			AccountsBean bean = accountsService.login(dataRequest.getAccount(), dataRequest.getPassw());
-			// model執行如果有結果，就將使用者bean以"user"為key紀錄在session裡, 並回傳使用者JSON字串給前端
-			if (bean != null) {
-				session.setAttribute("user", bean);
-				return bean.toJsonObject().toString();
-			}
+	public ResponseEntity<?> login(@RequestBody AccountsBean authRequest) {
+		// 驗證用戶，並將userID和authority加入token裡回傳
+		try {
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getAccount(), authRequest.getPassw()));
+			AccountsBean user = authService.findUserByaccount(authRequest.getAccount());
+			String token = jwtUtil.createToken(user.getAccountid().toString(), user.getAuthority(), false);
+			HttpHeaders headers = new HttpHeaders();
+			headers.set("Authorization", token);
+			return ResponseEntity.ok().headers(headers).body(user.getCompanyname());
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 		}
-		return "NG";
 	}
 
-	// 第三方登入_接收前端回傳email, 登入成功就將該user的bean紀錄在session裡, key = "user"
 	@PostMapping(path = ("/thirdParty"))
-	public String checkEmail(@RequestBody AccountsBean dataRequest, HttpSession session) {
-		// 接收資料, 驗證資料
-		if (dataRequest.getEmail() == null || dataRequest.getEmail().length() == 0) {
+	public ResponseEntity<?> loginByThirdParty(@RequestBody AccountsBean authRequest) {
+		// 第三方登入_接收前端回傳email
+		if (authRequest.getEmail() == null || authRequest.getEmail().length() == 0) {
 			System.out.println("login.email.required");
-		}
-		// 確認有收到前端回傳的email後, 呼叫model
-		else {
-			AccountsBean bean = accountsService.thirdPartylogin(dataRequest.getEmail());
-			// model執行如果有結果，就將使用者bean以"user"為key紀錄在session裡, 並回傳使用者JSON字串給前端
+		} else {
+			AccountsBean bean = authService.findUserByEmail(authRequest.getEmail());
 			if (bean != null) {
-				session.setAttribute("user", bean);
-				return bean.toJsonObject().toString();
+				return ResponseEntity.ok().body(bean.toJsonObject().toString());
 			}
 		}
-		return "NG";
+		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("NG");
+	}
+
+	@PostMapping(path = ("/getUserAccount"))
+	public ResponseEntity<?> getUserAccount() {
+		int userId = authService.getCurrentUserId();
+		String account = accountsRepository.findOneByAccountid(userId).getAccount();
+		return ResponseEntity.ok().body(account);
 	}
 }

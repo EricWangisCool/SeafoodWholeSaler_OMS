@@ -5,14 +5,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import tw.com.ispan.eeit48.domain.*;
+import tw.com.ispan.eeit48.model.*;
 import tw.com.ispan.eeit48.repository.AccountsRepository;
 import tw.com.ispan.eeit48.repository.OrderDetailsRepositrory;
 import tw.com.ispan.eeit48.repository.OrdersRepository;
@@ -68,7 +66,7 @@ public class OrderDetailService {
                     AccountsBean buyer = accountsRepository.findOneByAccountid(bean.getBuyerid());
                     beanJsonObject.put("contactperson", buyer.getContactperson());
                     beanJsonObject.put("address", buyer.getAddress());
-                    beanJsonObject.put("mobile", buyer.getMobile());
+                    beanJsonObject.put("companyphone", buyer.getCompanyphone());
                     beanJsonObject.put("taxid", buyer.getTaxid());
 
                     // 把前端無用資訊清掉
@@ -100,10 +98,11 @@ public class OrderDetailService {
     public String Update(int accountid, OrdersBean ordersBean) throws Exception {
         // 接單資訊
         String orderid = ordersBean.getOrderid();
-        int orderstatus = ordersBean.getOrderstatus(), buyerid = ordersBean.getBuyerid(),
-                sellerId = ordersBean.getSellerid();
+        int orderstatus = ordersBean.getOrderstatus(),
+                buyerid = ordersBean.getBuyerid();
+
         // 接單_賣家資訊
-        String sellerCompanyName = accountsRepository.findCompanynameByAccountid(sellerId);
+        String sellerCompanyName = accountsRepository.findCompanynameByAccountid(accountid);
         // 接單_買家資訊
         String buyerEmail = accountsRepository.findEmailByAccountid(buyerid);
 

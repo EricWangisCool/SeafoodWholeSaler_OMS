@@ -142,23 +142,17 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#" onclick="logoutAlert(1)">登出</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="logoutAlert()">登出</a></li>
                             </ul>
                         </div>
 
                     </div>
                 </div>
             </nav>
-
-
             <!-- /views/page.html -->
             <iframe id="ifrm" style="width: 100%; flex: 1;" src="/views/page.html"></iframe>
-
-
         </div>
     </div>
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -166,13 +160,25 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+        function checkIfJwtTokenExist() {
+            if (localStorage.getItem("jwtToken") == null) {
+                window.location.href = `../index.html`;
+            }
+        }
+        checkIfJwtTokenExist();
 
         // 更新標題名稱----------------------------------------------------------------------------------------------------------------------------
-        useraccountname = JSON.parse(localStorage.getItem("accountBean")).account;
-        if (useraccountname != null || useraccountname != "" || useraccountname != undefined) {
-            $("#navbarSupportedContent a")[0].innerHTML = useraccountname;
-        }
+        let returnObj = "";
+        let useraccountname = "";
+        async function asyncGetUserAccount() {
+            returnObj = await getUserAccount("");
+            useraccountname = returnObj.responseText;
 
+            if (useraccountname != null || useraccountname != "" || useraccountname != undefined) {
+            $("#navbarSupportedContent a")[0].innerHTML = useraccountname;
+            }
+        }
+        asyncGetUserAccount();
 
         // 下拉選單運作------------------------------------------------------------------------------
         $(".sidebar ul li").on("click", function () {
@@ -192,7 +198,6 @@
             $("#side_nav").removeClass("active");
         })
 
-
         // 讀取iframe轉址------------------------------------------------------------------------------
         // 新增庫存的連結：
         let addStockHref = "http://localhost:8080/views/addStock.html";
@@ -210,14 +215,9 @@
                 if ($iframe.attr("src") == addStockHref) {
                     addStockState = addStockStateNum;
                 }
-
-
                 return false;
             }
         }
-
-
-
 
         // iframe內部的子類會呼叫這個方法------------------------------------------------------------------------------
         function changepage(transferData, editStock) {
@@ -266,18 +266,15 @@
         }
 
         // 檢查是否有最新通知---------------------------------------------------------------------------------
-
         let getNewsTimer = window.setInterval(function(){
-            getNewsData();
-        },1000);
+                getNewsData();
+        },1000);   
 
         $(".rounded-pill").hide();
         let showNewsNum = 0;
         async function getNewsData() {
-
             // 與Server對接的ajax。
             // 邊撈同時進行後續動作。
-
             returnObj = await viewsnews(null);
 
             if (returnObj.responseStatus != 200) {
@@ -304,17 +301,11 @@
                     $(".rounded-pill").hide();
                 }
             }
-
         }
 
-
         // 登出按鈕功能--------------------------------------------------------------------------------------
-
-        function logoutAlert(statue) {
-
-            // 詢問是否登出
-            if (statue == 1) {
-                Swal.fire({
+        function logoutAlert() {
+            Swal.fire({
                     title: '確定要登出嗎?',
                     icon: 'question',
                     showCancelButton: true,
@@ -322,64 +313,15 @@
                     cancelButtonColor: 'var(--color-irongray)',
                     confirmButtonText: '登出',
                     cancelButtonText: '取消'
-                }).then((result) => {
+            }).then ((result) => {
                     if (result.isConfirmed) {
-                        // 呼叫登出AJAX
-                        logoutAjax();
+                        localStorage.clear();
+                        Swal.fire('您已成功登出').then(function(){
+                            window.location.href = `../index.html`;
+                        });
                     }
-                })
-            } else if (statue == 2) {
-                Swal.fire({
-                    title: '登出異常，請再試一次',
-                    icon: 'error',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            }
-
-        }
-
-
-        async function logoutAjax() {
-
-            returnObj = await logout(null);
-
-            if (returnObj.responseStatus != 200) {
-                // 沒接到資料
-                logoutAccount(0);
-
-                console.log("logout getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                console.log(returnObj.responseObj);
-            } else {
-
-                let successObj = returnObj.responseText;
-
-                if (successObj == "OK") {
-                    // 成功
-                    logoutAccount(1);
-                }
-            }
-        }
-
-        function logoutAccount(status) {
-
-            if (status == 0) {
-                // 失敗
-                logoutAlert(2);
-            } else {
-                // 成功
-                // 清除localStorage
-                localStorage.clear();
-                // 畫面跳轉
-                window.location.href = `../index.html`;
-            }
-
-        }
-
-
-
+            })
+        };
     </script>
-
 </body>
-
 </html>

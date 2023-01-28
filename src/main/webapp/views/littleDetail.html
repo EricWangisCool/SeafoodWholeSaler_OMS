@@ -342,7 +342,7 @@
                     orderid: "",
                     ContactPerson: "蘇沐橙",
                     Address: "408台中市南屯區公益路二段51號18樓",
-                    Mobile: "0912345678",
+                    companyphone: "04-22134646",
                     payMethod: "銀行轉帳/月結30(Net30)",
                     TaxId: "05076416",
                     SellerExpectTime: null,
@@ -362,13 +362,11 @@
             {
                 ContactPerson: "收貨人姓名",
                 Address: "收件地址",
-                Mobile: "收貨人電話",
+                companyphone: "收貨公司電話",
                 payMethod: "付款方式",
                 TaxId: "統一編號",
                 SellerExpectTime: "預計出貨日期",
                 total: "銷售合計",
-
-
                 OrderTime: "待我方確認",
                 AcceptOrderTime: "待我方出貨",
                 ExportTime: "我方出貨中",
@@ -503,7 +501,7 @@
 
             // 其他
             $(".mdc-text-field__input")[0].value = detailList.contactperson;
-            $(".mdc-text-field__input")[1].value = detailList.mobile;
+            $(".mdc-text-field__input")[1].value = detailList.companyphone;
             $(".mdc-text-field__input")[2].value = detailList.address;
             $(".mdc-text-field__input")[3].value = detailList.paymentterms;
             $(".mdc-text-field__input")[4].value = detailList.taxid;
@@ -605,7 +603,7 @@
                     <tr>
                         <td>${detailList.contactperson}</td>
                         <td>9</td>
-                        <td>${detailList.mobile}</td>
+                        <td>${detailList.companyphone}</td>
                         <td>9</td>
                         <td>9</td>
                     </tr>

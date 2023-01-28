@@ -336,7 +336,7 @@
                     "orderid": "2D202209090001",
                     "acceptordertime": "2022-09-23 10:14:18",
                     "exporttime": "null",
-                    "mobile": "0968145698",
+                    "companyphone": "0968145698",
                     "ordertime": "2022-09-22 13:14:17",
                     "cansell": 100,
                     "completeordertime": "null",
@@ -360,7 +360,7 @@
                     "orderid": "2D202209090001",
                     "acceptordertime": "2022-09-23 10:14:18",
                     "exporttime": "null",
-                    "mobile": "0968145698",
+                    "companyphone": "0968145698",
                     "ordertime": "2022-09-22 13:14:17",
                     "cansell": 350,
                     "completeordertime": "null",
@@ -384,7 +384,7 @@
                     "orderid": "2D202209090002",
                     "acceptordertime": "null",
                     "exporttime": "null",
-                    "mobile": "0968145698",
+                    "companyphone": "0968145698",
                     "ordertime": "2022-09-22 13:14:17",
                     "cansell": 100,
                     "completeordertime": "null",
@@ -408,7 +408,7 @@
                     "orderid": "2D202209090002",
                     "acceptordertime": "null",
                     "exporttime": "null",
-                    "mobile": "0968145698",
+                    "companyphone": "0968145698",
                     "ordertime": "2022-09-22 13:14:17",
                     "cansell": 120,
                     "completeordertime": "null",
@@ -432,7 +432,7 @@
                     "orderid": "2D202209090003",
                     "acceptordertime": "2022-10-07 22:23:07",
                     "exporttime": "2022-10-08 00:00:00",
-                    "mobile": "0968145698",
+                    "companyphone": "0968145698",
                     "ordertime": "null",
                     "cansell": 100,
                     "completeordertime": "2022-10-09 22:42:04",
@@ -456,7 +456,7 @@
                     "orderid": "2D202209090004",
                     "acceptordertime": "2022-10-07 22:23:07",
                     "exporttime": "2022-10-08 00:00:00",
-                    "mobile": "0968145698",
+                    "companyphone": "0968145698",
                     "ordertime": "null",
                     "cansell": 100,
                     "completeordertime": "2022-10-09 22:42:04",
@@ -480,7 +480,7 @@
                     "orderid": "2D202209090005",
                     "acceptordertime": "2022-10-07 22:23:07",
                     "exporttime": "2022-10-08 00:00:00",
-                    "mobile": "0968145698",
+                    "companyphone": "0968145698",
                     "ordertime": "null",
                     "cansell": 100,
                     "completeordertime": "2022-10-09 22:42:04",
@@ -504,7 +504,7 @@
                     "orderid": "2D202209090006",
                     "acceptordertime": "2022-10-07 22:23:07",
                     "exporttime": "2022-10-08 00:00:00",
-                    "mobile": "0968145698",
+                    "companyphone": "0968145698",
                     "ordertime": "null",
                     "cansell": 100,
                     "completeordertime": "2022-10-09 22:42:04",
@@ -536,27 +536,17 @@
         // 撈資料(使用非同步資料的方式撈)。
         downloadData();
         async function downloadData() {
-
-            let accountID = {
-                "accountid": JSON.parse(localStorage.getItem("accountBean")).accountid
-            }
-
-            returnObj = await viewsordersell(accountID);
-
+            returnObj = await viewsordersell(null);
             if (returnObj.responseStatus != 200) {
                 // 沒接到資料                
                 reNewData();
-
                 console.log("orderStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
                 console.log(returnObj.responseObj);
             } else {
                 // 處理及判斷邏輯：          
                 allSellList = returnObj.responseObj;
-
                 reNewData();
             }
-
-            // reNewData();
         }
 
 
@@ -769,7 +759,7 @@
                         tidyAllSellList[i].orderid = allSellList[k].orderid;
                         tidyAllSellList[i].acceptordertime = allSellList[k].acceptordertime;
                         tidyAllSellList[i].exporttime = allSellList[k].exporttime;
-                        tidyAllSellList[i].mobile = allSellList[k].mobile;
+                        tidyAllSellList[i].companyphone = allSellList[k].companyphone;
                         tidyAllSellList[i].ordertime = allSellList[k].ordertime;
                         tidyAllSellList[i].completeordertime = allSellList[k].completeordertime;
                         tidyAllSellList[i].arriveordertime = allSellList[k].arriveordertime;
@@ -822,7 +812,7 @@
                 "orderid": $(btn).attr('data-value'),
                 "orderstatus": state,
                 "buyerid": "",
-                "sellerid": JSON.parse(localStorage.getItem("accountBean")).accountid,
+                "sellerid": "user",
                 "paymentterms": "",
                 "ordertime": "",
                 "acceptordertime": "",

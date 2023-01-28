@@ -1,13 +1,11 @@
-package tw.com.ispan.eeit48.domain;
+package tw.com.ispan.eeit48.model;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
-
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Immutable;
 import org.json.JSONObject;
@@ -27,7 +25,7 @@ public class View_companyfollowinglist_accountsBean implements Serializable {
 	@Column(columnDefinition = "char")
 	private String taxid;
 	@Column(columnDefinition = "char")
-	private String mobile;
+	private String companyphone;
 	@Column(columnDefinition = "char")
 	private String address;
 	@Column(columnDefinition = "char")
@@ -42,14 +40,15 @@ public class View_companyfollowinglist_accountsBean implements Serializable {
 	private String bankaccount;
 	@Column(columnDefinition = "char")
 	private String bankname;
-	private Integer bankswiftcode;
+	@Column(columnDefinition = "char")
+	private String bankswiftcode;
 	@Column(columnDefinition = "char")
 	private String lineaccount;
 
 	@Override
 	public String toString() {
 		return "view_companyfollowinglist_accountsBean [buyerid=" + buyerid + ", sellerid=" + sellerid
-				+ ", companyname=" + companyname + ", taxid=" + taxid + ", mobile=" + mobile + ", address=" + address
+				+ ", companyname=" + companyname + ", taxid=" + taxid + ", companyphone=" + companyphone + ", address=" + address
 				+ ", email=" + email + ", contactperson=" + contactperson + ", contactpersonnum=" + contactpersonnum
 				+ ", fax=" + fax + ", bankaccount=" + bankaccount + ", bankname=" + bankname + ", bankswiftcode="
 				+ bankswiftcode + ", lineaccount=" + lineaccount + "]";
@@ -79,13 +78,9 @@ public class View_companyfollowinglist_accountsBean implements Serializable {
 		this.sellerid = sellerid;
 	}
 
-	public String getMobile() {
-		return mobile;
-	}
+	public String getCompanyphone() { return companyphone; }
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
+	public void setCompanyphone(String companyphone) { this.companyphone = companyphone; }
 
 	public String getCompanyname() {
 		return companyname;
@@ -151,11 +146,11 @@ public class View_companyfollowinglist_accountsBean implements Serializable {
 		this.bankname = bankname;
 	}
 
-	public Integer getBankswiftcode() {
+	public String getBankswiftcode() {
 		return bankswiftcode;
 	}
 
-	public void setBankswiftcode(Integer bankswiftcode) {
+	public void setBankswiftcode(String bankswiftcode) {
 		this.bankswiftcode = bankswiftcode;
 	}
 
@@ -171,7 +166,7 @@ public class View_companyfollowinglist_accountsBean implements Serializable {
 		JSONObject obj = new JSONObject();
 		obj.put("buyerid", buyerid);
 		obj.put("sellerid", sellerid);
-		obj.put("mobile", mobile);
+		obj.put("companyphone", companyphone);
 		obj.put("companyname", companyname);
 		obj.put("taxid", taxid);
 		obj.put("address", address);

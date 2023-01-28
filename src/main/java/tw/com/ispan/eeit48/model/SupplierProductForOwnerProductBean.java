@@ -1,8 +1,7 @@
-package tw.com.ispan.eeit48.domain;
+package tw.com.ispan.eeit48.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;

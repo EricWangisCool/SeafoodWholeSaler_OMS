@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import tw.com.ispan.eeit48.domain.CompanyFollowingListBean;
+import tw.com.ispan.eeit48.model.CompanyFollowingListBean;
 import tw.com.ispan.eeit48.repository.CompanyFollowingListRepository;
 
 @Service

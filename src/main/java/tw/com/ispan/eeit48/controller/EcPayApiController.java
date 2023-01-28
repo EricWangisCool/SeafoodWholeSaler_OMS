@@ -8,12 +8,12 @@ import ecpay.payment.integration.ExampleAllInOne;
 
 @RestController
 @RequestMapping(path = { "/ecpay" })
-public class ECpayApiController {
+public class EcPayApiController {
 
 	@PostMapping
-	public String Ecpay() {
+	public String ecPay() {
 		JSONObject obj = new JSONObject(); 
 		obj.put("key", ExampleAllInOne.genAioCheckOutALL());
-		return obj.toString(); 
+		return obj.toString();
 	}
 }

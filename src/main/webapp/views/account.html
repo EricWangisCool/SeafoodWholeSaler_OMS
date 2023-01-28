@@ -160,14 +160,14 @@
 
     <script>
         // JSON假資料  ----------------------------------------------------------------------------------------------------------------------
-        // ?myImg(頭像)、Mobile(聯絡電話)、Email("電子信箱")、PassW("登入密碼")、BankName("銀行名稱")
+        // ?myImg(頭像)、companyphone(公司電話)、Email("電子信箱")、PassW("登入密碼")、BankName("銀行名稱")
         //BankAccount("銀行帳戶")、?payMethod("付款方式")、PaymentTerms("付款條件")、?accountDay(結帳日)、?googleYN(社交登入)
 
         var cooperateList =
             [
                 {
                     myImg: "../img/beUse/tempIcon.png",
-                    Mobile: "0912345678",
+                    companyphone: "04-22131313",
                     Email: "amy680931@yahoo.com",
                     PassW: "****",
                     BankName: "808玉山商業銀行",
@@ -176,7 +176,6 @@
                     PaymentTerms: "月結(Net30)",
                     accountDay: 26,
                     googleYN: "Google帳戶"
-
                 }
             ];
 
@@ -184,7 +183,7 @@
         let cooperateListName = [
             {
                 myImg: "頭像",
-                Mobile: "聯絡電話",
+                companyphone: "公司電話",
                 Email: "電子信箱",
                 PassW: "登入密碼",
                 BankName: "銀行名稱",
@@ -230,7 +229,7 @@
             let trHtmlData2 =
                 `<th>聯絡電話</th>
                 <td id="dvInputTel" class="readonly"><input type="text" class="inputHeight" readonly
-                        value=${cooperateList[0].Mobile} /></td>`
+                        value=${cooperateList[0].companyphone} /></td>`
                         
 
             let trHtmlData3 =

@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import tw.com.ispan.eeit48.domain.View_companyfollowinglist_accountsBean;
+import tw.com.ispan.eeit48.model.View_companyfollowinglist_accountsBean;
 
 @Repository
 @Transactional

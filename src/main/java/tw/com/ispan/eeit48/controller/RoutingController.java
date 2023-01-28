@@ -9,6 +9,6 @@ public class RoutingController {
 	// 輸入http://localhost:8080直接導到/index.html
 	@RequestMapping(path = { "/" })
 	public String indexPage() {
-		return "/index.html";
+		return "index.html";
 	}
 }

@@ -1,11 +1,21 @@
+function getJwtToken() {
+    return localStorage.getItem("jwtToken");
+ }
+
+
+function createAuthorizationTokenHeader() {
+    var token = getJwtToken();
+    if (token) {
+       return {"Authorization": "Bearer " + token};
+    } else {
+       return {};
+    }
+ }
+
+
 // 登入
 async function login(data) {
     let connurl = "/login";
-    return await ajaxmethod(connurl, data);
-}
-
-async function logout(data) {
-    let connurl = "/logout";
     return await ajaxmethod(connurl, data);
 }
 
@@ -13,6 +23,13 @@ async function logout(data) {
 // 註冊
 async function logininsert(data) {
     let connurl = "/login/insert";
+    return await ajaxmethod(connurl, data);
+}
+
+
+// 首頁Account顯示
+async function getUserAccount(data) {
+    let connurl = "/login/getUserAccount";
     return await ajaxmethod(connurl, data);
 }
 
@@ -151,27 +168,14 @@ async function viewsnewsupdate(data) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 async function ajaxmethod(connurl, data) {
 
     let returnObj = {
         responseObj: "",
         responseText: "",
-        responseStatus: ""
+        responseStatus: "",
+        responseToken: ""
     };
-
-
-    // console.log("to server:");
-    // console.log(data);
 
     try {
         await $.ajax({
@@ -181,28 +185,25 @@ async function ajaxmethod(connurl, data) {
             data: JSON.stringify(data),
             dataType: 'json',
             crossDomain: true,
+            headers: createAuthorizationTokenHeader(),
             xhrFields: {
                 withCredentials: true
             },
-            // success: function (getRequest) {
-            //     returnObj.requestObj = getRequest.responseJSON;
-            //     returnObj.requestStatus = getRequest.status;
-            // },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                // console.log("ajaxconnect error:  " + "(XMLHttpRequest.status)" + XMLHttpRequest.status + 
-                // "   (XMLHttpRequest.readyState)" + XMLHttpRequest.readyState + "   (textStatus)" + textStatus);
-            },
             complete: function (XMLHttpRequest, textStatus) {
                 console.log(XMLHttpRequest);
+                console.log(XMLHttpRequest.getResponseHeader("authorization"));
                 returnObj.responseText = XMLHttpRequest.responseText;
                 returnObj.responseObj = XMLHttpRequest.responseJSON;
                 returnObj.responseStatus = XMLHttpRequest.status;
+                returnObj.responseToken = XMLHttpRequest.getResponseHeader("authorization");
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log("ajaxconnect error:  " + "(XMLHttpRequest.status)" + XMLHttpRequest.status + 
+                "   (XMLHttpRequest.readyState)" + XMLHttpRequest.readyState + "   (textStatus)" + textStatus);
             }
-
         });
     } catch (err) {
-        // console.log(err);
+        console.log(err);
     }
-
     return returnObj;
 }

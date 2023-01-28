@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import tw.com.ispan.eeit48.domain.OrderDetailsBean;
-import tw.com.ispan.eeit48.domain.OrdersBean;
-import tw.com.ispan.eeit48.domain.ProductBean;
-import tw.com.ispan.eeit48.domain.SortComparator;
-import tw.com.ispan.eeit48.domain.View_product_order_orderdetailsBean;
+import tw.com.ispan.eeit48.model.OrderDetailsBean;
+import tw.com.ispan.eeit48.model.OrdersBean;
+import tw.com.ispan.eeit48.model.ProductBean;
+import tw.com.ispan.eeit48.model.SortComparator;
+import tw.com.ispan.eeit48.model.View_product_order_orderdetailsBean;
 import tw.com.ispan.eeit48.repository.OrderDetailsRepositrory;
 import tw.com.ispan.eeit48.repository.OrdersRepository;
 import tw.com.ispan.eeit48.repository.ProductRepository;

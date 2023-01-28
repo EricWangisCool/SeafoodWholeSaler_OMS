@@ -3,7 +3,7 @@ package tw.com.ispan.eeit48.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tw.com.ispan.eeit48.domain.SystemNoticeMessageBean;
+import tw.com.ispan.eeit48.model.SystemNoticeMessageBean;
 import tw.com.ispan.eeit48.repository.SystemNoticeMessageRepository;
 
 @Service

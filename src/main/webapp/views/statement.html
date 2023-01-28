@@ -392,7 +392,7 @@
     <script>
         // JSON假資料  ----------------------------------------------------------------------------------------------------------------------
         // CompanyName(客戶名稱)、TaxId(統一編號)、Address(發票地址)、ContactPerson("聯絡窗口")
-        // Mobile(電話)、Fax(傳真)、OrderTime(銷貨日期)、OrderId(接單編號)、ProductNameSpec("品名規格")
+        // companyphone(客戶電話)、Fax(傳真)、OrderTime(銷貨日期)、OrderId(接單編號)、ProductNameSpec("品名規格")
         // OrderQty("數量")、UnitSellPrice("銷售單價")、?detailTotal("小計")、?total(合計金額)
 
         var cooperateList = [
@@ -425,7 +425,7 @@
                     TaxId: "88314578",
                     Address: "台中市西屯區至善路211號",
                     ContactPerson: "eric",
-                    Mobile: "0968145698",
+                    companyphone: "0968145698",
                     Fax: "0423365475",
                     OrderTime: "2022/09/02",
                     OrderId: "2D202209020001",
@@ -440,7 +440,7 @@
                     TaxId: "123456789",
                     Address: "408台中市南屯區公益路二段51號",
                     ContactPerson: "蘇沐橙",
-                    Mobile: "0912-345-678",
+                    companyphone: "0912-345-678",
                     Fax: "(04)-2326-5860",
                     OrderTime: "2022/09/03",
                     OrderId: "2D202209030001",
@@ -455,7 +455,7 @@
                     TaxId: "123456789",
                     Address: "408台中市南屯區公益路二段51號",
                     ContactPerson: "蘇沐橙",
-                    Mobile: "0912-345-678",
+                    companyphone: "0912-345-678",
                     Fax: "(04)-2326-5860",
                     OrderTime: "",
                     OrderId: "",
@@ -470,7 +470,7 @@
                     TaxId: "123456789",
                     Address: "408台中市南屯區公益路二段51號",
                     ContactPerson: "蘇沐橙",
-                    Mobile: "0912-345-678",
+                    companyphone: "0912-345-678",
                     Fax: "(04)-2326-5860",
                     OrderTime: "2022/09/10",
                     OrderId: "2D202209100001",
@@ -485,7 +485,7 @@
                     TaxId: "123456789",
                     Address: "408台中市南屯區公益路二段51號",
                     ContactPerson: "蘇沐橙",
-                    Mobile: "0912-345-678",
+                    companyphone: "0912-345-678",
                     Fax: "(04)-2326-5860",
                     OrderTime: "",
                     OrderId: "",
@@ -500,7 +500,7 @@
                     TaxId: "123456789",
                     Address: "408台中市南屯區公益路二段51號",
                     ContactPerson: "蘇沐橙",
-                    Mobile: "0912-345-678",
+                    companyphone: "0912-345-678",
                     Fax: "(04)-2326-5860",
                     OrderTime: "2022/09/22",
                     OrderId: "2D202209220001",
@@ -520,7 +520,7 @@
                 TaxId: "統一編號",
                 Address: "發票地址",
                 ContactPerson: "聯絡窗口",
-                Mobile: "電話",
+                companyphone: "客戶電話",
                 Fax: "傳真",
                 OrderTime: "銷貨日期",
                 OrderId: "接單編號",
@@ -552,17 +552,8 @@
         //前置抓廠商的AJAX
         downloadCooperateData();
         async function downloadCooperateData() {
-
-            // 廠商資料變數 = 拿到一包廠商資料
-            let accountID = {
-                "accountid": JSON.parse(localStorage.getItem("accountBean")).accountid
-            }
-
-            console.log(accountID);
-
-            returnObj = await viewscooperate(accountID);
+            returnObj = await viewscooperate(null);
             console.log(returnObj);
-
             // if (拿到一包廠商資料.responseStatus != 200)
             if (returnObj.responseStatus != 200) {
                 // 撈完後更新畫面內容。
@@ -577,7 +568,6 @@
                 // 撈完後更新畫面內容。
                 reNewCooperateData();
             }
-
         }
 
         // 下拉選單廠商列表------------------------------------------------
@@ -667,7 +657,7 @@
 
             let trHtmlData2 =
                 `<td>${cooperateListName[0].TaxId}：${stateList[0].taxid}</td>
-                    <td>${cooperateListName[0].Mobile}：${stateList[0].mobile}</td>`;
+                    <td>${cooperateListName[0].companyphone}：${stateList[0].companyphone}</td>`;
 
             let trHtmlData3 =
                 `<td>${cooperateListName[0].Address}：${stateList[0].address}</td>

@@ -5,8 +5,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tw.com.ispan.eeit48.domain.ProductBean;
-import tw.com.ispan.eeit48.domain.SupplierProductForOwnerProductBean;
+import tw.com.ispan.eeit48.model.ProductBean;
+import tw.com.ispan.eeit48.model.SupplierProductForOwnerProductBean;
 import tw.com.ispan.eeit48.repository.ProductRepository;
 import tw.com.ispan.eeit48.repository.SupplierProductForOwnerProductRepository;
 

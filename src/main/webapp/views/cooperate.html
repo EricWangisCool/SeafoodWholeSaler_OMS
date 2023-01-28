@@ -215,7 +215,7 @@
     <script>
         // JSON假資料  ----------------------------------------------------------------------------------------------------------------------
         // CompanyName(廠商名稱)、TaxId(統一編號)、Fax(傳真電話)、Email(電子信箱)、Address(公司地址)
-        // ContactPerson(聯絡窗口)、Mobile(廠商電話)、ContactPersonNum(窗口聯繫)、LineAccount(Line ID)
+        // ContactPerson(聯絡窗口)、companyphone(廠商電話)、ContactPersonNum(窗口聯繫)、LineAccount(Line ID)
         // BankName(銀行名稱)、BankAccount(銀行帳戶)、accountDay(結帳日)、?(付款方式)、PaymentTerms(付款條件)
 
         var cooperateList =
@@ -230,7 +230,7 @@
                     email: "eric@gmail.com",
                     fax: "0423365555",
                     lineaccount: "eric100",
-                    mobile: "0968145698",
+                    companyphone: "04-22131313",
                     suppliercompanyname: "千萬屋",
                     supplierid: 2,
                     taxid: "88314578"
@@ -242,12 +242,12 @@
             {
                 CompanyName: "廠商名稱",
                 TaxId: "統一編號",
-                Fax: "傳真電話",
+                Fax: "傳真號碼",
                 Email: "電子信箱",
                 Address: "公司地址",
                 ContactPerson: "聯絡窗口",
-                Mobile: "廠商電話",
-                ContactPersonNum: "窗口聯繫",
+                ContactPersonNum: "窗口手機",
+                companyphone: "廠商電話",
                 LineAccount: "Line ID",
                 BankName: "銀行名稱",
                 BankAccount: "銀行帳戶",
@@ -260,14 +260,7 @@
         // 撈資料(使用非同步資料的方式撈)。
         downloadData();
         async function downloadData() {
-
-            let accountID = {
-                "accountid": JSON.parse(localStorage.getItem("accountBean")).accountid
-            }
-
-            returnObj = await viewscooperate(accountID);
-            console.log(returnObj);
-
+            returnObj = await viewscooperate(null);
             if (returnObj.responseStatus != 200) {
                 // 撈完後更新畫面內容。
                 reNewData();
@@ -281,8 +274,6 @@
                 // 撈完後更新畫面內容。
                 reNewData();
             }
-
-            // reNewData();
         }
 
         function reNewData() {
@@ -300,18 +291,18 @@
                             <tr>
                                 <th>${cooperateListName[0].CompanyName}</th>
                                 <td>${cooperateList[i].suppliercompanyname}</td>
-                                <th>${cooperateListName[0].ContactPerson}</th>
-                                <td>${cooperateList[i].contactperson}</td>
-                            </tr>
-                            <tr>
                                 <th>${cooperateListName[0].TaxId}</th>
                                 <td>${cooperateList[i].taxid}</td>
-                                <th>${cooperateListName[0].Mobile}</th>
-                                <td>${cooperateList[i].mobile}</td>
                             </tr>
                             <tr>
+                                <th>${cooperateListName[0].companyphone}</th>
+                                <td>${cooperateList[i].companyphone}</td>
                                 <th>${cooperateListName[0].Fax}</th>
-                                <td>${cooperateList[i].fax}</td>
+                                <td>${cooperateList[i].fax}</td>    
+                            </tr>
+                            <tr>
+                                <th>${cooperateListName[0].ContactPerson}</th>
+                                <td>${cooperateList[i].contactperson}</td>
                                 <th>${cooperateListName[0].ContactPersonNum}</th>
                                 <td>${cooperateList[i].contactpersonnum}</td>
                             </tr>

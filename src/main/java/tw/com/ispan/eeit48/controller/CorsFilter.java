@@ -1,8 +1,7 @@
-// 前後端分開開發時使用
+//// 前後端分開開發時使用
 //package tw.com.ispan.eeit48.controller;
 //
 //import java.io.IOException;
-//
 //import javax.servlet.Filter;
 //import javax.servlet.FilterChain;
 //import javax.servlet.ServletException;
@@ -12,7 +11,7 @@
 //import javax.servlet.http.HttpServletResponse;
 //
 //import org.springframework.context.annotation.Configuration;
-//@WebFilter(filterName = "CorsFilter ")
+//@WebFilter(filterName = "CorsFilter")
 //@Configuration
 //public class Config implements Filter {
 //    @Override
