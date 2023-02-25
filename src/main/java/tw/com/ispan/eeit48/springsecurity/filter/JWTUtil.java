@@ -1,4 +1,4 @@
-package tw.com.ispan.eeit48.springsecurity.lib;
+package tw.com.ispan.eeit48.springsecurity.filter;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;

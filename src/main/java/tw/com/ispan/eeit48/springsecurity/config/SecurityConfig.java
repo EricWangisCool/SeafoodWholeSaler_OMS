@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import tw.com.ispan.eeit48.service.AuthService;
+import tw.com.ispan.eeit48.springsecurity.filter.JWTAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity

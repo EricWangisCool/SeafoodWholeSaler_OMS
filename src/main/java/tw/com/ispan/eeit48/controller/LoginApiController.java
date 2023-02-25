@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tw.com.ispan.eeit48.model.AccountsBean;
 import tw.com.ispan.eeit48.repository.AccountsRepository;
-import tw.com.ispan.eeit48.springsecurity.lib.JWTUtil;
 import tw.com.ispan.eeit48.service.AuthService;
+import tw.com.ispan.eeit48.springsecurity.filter.JWTUtil;
 
 @RestController
 @RequestMapping(path = { "/login" })
