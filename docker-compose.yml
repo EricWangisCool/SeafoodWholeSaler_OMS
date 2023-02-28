@@ -1,0 +1,46 @@
+version: "3"
+services:
+  mysqldb:
+    container_name: mysqldb
+    image: mysql/mysql-server:5.7.34
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    # 定義本機與容器間Port的對映關係(HOST:CONTAINER)
+    ports:
+      - "3306:3306"
+    # 將sqls檔案夾內sql檔放入image的docker-entrypoint-initdb.d，作為mysql初始化匯入資料使用
+    volumes:
+      - ./sqls:/docker-entrypoint-initdb.d
+    networks:
+      - springmysql-net
+
+  server:
+    # 等候mysqldb建置完成後才建置server
+    depends_on:
+      - mysqldb
+    container_name: oms-server
+    image: oms/order-manage-system:0.0.1
+    build:
+      context: ./
+      dockerfile: dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/nsy?autoReconnect=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    networks:
+      - springmysql-net
+    command: ["./wait-for-it.sh", "mysqldb:3306", "--", "java", "-jar", "seafood-wholesaler-oms-1.0.0.war"]
+
+# 設定不同的Container運行在同一個網路中
+networks:
+  springmysql-net:
+
+#  `docker-compose` is a tool for defining and running multi-container Docker applications.
+#  It allows you to define the services, networks, and volumes for your application in a YAML file,
+#  and then use the docker-compose command to start and stop your application as a group of containers.
+

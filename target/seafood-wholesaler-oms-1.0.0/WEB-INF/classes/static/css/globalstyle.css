@@ -1,0 +1,23 @@
+/* ========== 思源黑體 fonts ========== */
+
+@import url("https://fonts.googleapis.com/earlyaccess/notosanstc.css");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+button,
+input,
+select,
+textarea,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Noto Sans TC' !important;
+}

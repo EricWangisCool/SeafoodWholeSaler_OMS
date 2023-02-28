@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pagecontent</title>
+
+    <!-- Material Design -->
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+    <!-- ICON CSS -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+
+    <!-- globalstyle -->
+    <link rel="stylesheet" href="/css/globalstyle.css">
+    <!-- globalattributes -->
+    <link rel="stylesheet" href="/css/globalattributes.css">
+    <!-- 加入頁簽小圖 -->
+    <link rel="shortcut icon" href="https://upload.cc/i1/2022/10/18/wJdKCL.png" type="image/x-icon">
+
+    <!-- 複數頁面使用CSS效果 -->
+    <link rel="stylesheet" href="/css/pluralpagestyle.css">
+
+
+
+    <style>
+        /* 新增庫存按鈕------------ */
+        .addSet {
+            float: right;
+        }
+
+        /* 建立叫貨單按鈕------------ */
+        .buySet {
+            float: right;
+        }
+
+
+        /* 表格 --------------------------------------------------------- */
+        .orderStocktable {
+            table-layout: fixed;
+            /* font-size: 14px; */
+            text-align: center;
+            /* line-height: 30px; */
+
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 0.3rem;
+            border: 1px solid var(--color-border);
+        }
+
+        .orderStocktable th {
+            height: var(--table-thheight);
+
+            color: var(--color-irongray);
+            font-weight: var(--font-weight-contenttitle);
+            background-color: var(--color-tableth);
+        }
+
+        .orderStocktable td {
+            /* height: var(--table-tdheight); */
+            padding-top: 18px;
+            padding-bottom: 18px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        /* 設定分隔線 */
+        .orderStocktable tr td:nth-child(2) {
+            border-right: 1px solid var(--color-border);
+        }
+
+        .orderStocktable tr td:nth-child(5) {
+            border-right: 1px solid var(--color-border);
+        }
+
+        .orderStocktable tr td:nth-child(8) {
+            border-right: 1px solid var(--color-border);
+        }
+
+        .orderStocktable tr td img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            object-position: center;
+            padding-left: 10px;
+        }
+
+
+        /* 下拉選單 ------------------------------------------------------ */
+        .dropdown-menu {
+            left: -200px;
+            top: 200px;
+            margin-bottom: 200px;
+        }
+
+        /* 按鈕 --------------------------------------------------------- */
+        .orderSet {
+            color: var(--color-secmain);
+            height: 36px;
+            padding: 0px 16px;
+            border-radius: 0.3rem;
+            border: 1px solid var(--color-border);
+            background-color: transparent;
+        }
+
+        .orderSet:hover {
+            color: var(--color-secmain);
+        }
+
+        .orderSet[aria-expanded="true"] {
+            color: var(--color-secmain);
+        }
+
+        .nav-item ul li:hover {
+            background-color: var(--color-whitesmoke);
+        }
+
+
+        /* 自動叫貨及自動確認icon顏色 */
+        tr span .fa-check-circle {
+            color: var(--color-mint);
+        }
+
+        tr span .fa-times-circle {
+            color: var(--color-alizarincrimson);
+        }
+
+
+        @media screen and (max-width: 1000px) {
+            table {
+                border: 0;
+            }
+
+            table thead {
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+
+            table tr {
+                /* border-bottom: 3px solid var(--color-antiquewhite); */
+                display: block;
+                font-size: 16px;
+            }
+
+            table td {
+                /* border-bottom: 1px solid var(--color-antiquewhite); */
+                display: block;
+                text-align: right;
+
+            }
+
+            table td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                text-transform: uppercase;
+                color: var(--color-sunorange);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="col-11 mt-4 mb-5 px-0">
+
+                <!-- 分頁大標 -->
+                <h1 class="fs-2 fw-bold mb-4">
+                    <span class="text-black">庫存概況</span>
+
+                    <button class="addSet mt-2 ms-2 mdc-button mdc-button--raised">
+                        <span class="mdc-button__label fs-5 fw-normal">新增庫存</span>
+                    </button>
+                    <button class="buySet mt-2 mdc-button mdc-button--raised" onclick="callStaticBackdrop(1)">
+                        <span class="mdc-button__label fs-5 fw-normal">建立叫貨單</span>
+                    </button>
+                </h1>
+
+
+                <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto mb-4">
+
+                    <!-- 這裡是內容的框架，可直接改掉框架 -->
+
+                    <div class="h-auto d-flex justify-content-start fs-5 fw-normal">
+                        <a class="opA active">全部</a>
+                        <!-- <a class="opA">已上架</a>
+                        <a class="opA">未上架</a>
+                        <a class="opA">庫存不足</a> -->
+                    </div>
+
+                    <div class="borderLine"></div>
+
+                    <hr class="hr-color mt-0 mb-4">
+
+                    <table class="orderStocktable fs-5 fw-normal w-100">
+                        <thead>
+                            <tr>
+                                <th style="width: 9%;">圖片</th>
+                                <th>品名規格</th>
+                                <th style="width: 10%;">庫存數</th>
+                                <th style="width: 10%;">被訂購量</th>
+                                <th style="width: 10%;">可出現貨</th>
+                                <th style="width: 10%;">已叫現貨</th>
+                                <th style="width: 10%;">安全庫存</th>
+                                <th style="width: 10%;">警示庫存</th>
+                                <th style="width: 15%;">操作</th>
+                            </tr>
+                        </thead>
+
+                        <!-- 項目內容 -->
+
+                        <tr>
+                            <td data-label="圖片"><img src="../img/01.jpg"></td>
+                            <td data-label="品名規格">牛奶貝/1斤</td>
+                            <td data-label="庫存數">50</td>
+                            <td data-label="被訂購量">10</td>
+                            <td data-label="可出現貨">40</td>
+                            <td data-label="已叫現貨">0</td>
+                            <td data-label="安全庫存">60</td>
+                            <td data-label="警示庫存">20</td>
+                            <td data-label="操作">
+
+                                <!-- 更多設定 -->
+                                <div class="nav-item dropstart mb-2">
+
+                                    <button class="nav-link dropdown-toggle orderSet m-auto" id="navbarDropdown"
+                                        data-bs-toggle="dropdown" aria-expanded="true">更多設定
+                                    </button>
+
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="./addStock.html">編輯庫存</a></li>
+                                        <li><a class="dropdown-item" onclick="delTableRow(1)">刪除庫存</a></li>
+                                    </ul>
+                                </div>
+
+                                <span class="d-inline-flex align-items-center mb-2"><i
+                                        class="fas fa-check-circle me-1"></i>自動叫貨</span><br>
+                                <span class="d-inline-flex align-items-center"><i
+                                        class="fas fa-times-circle me-1"></i>自動確認</span><br>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!-- 購買彈窗 -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">商品清單</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="height: 700px;">
+                    <iframe id="ifrm" style="width: 100%; flex: 1; height: 700px;" src="./goods.html"></iframe>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/javascript/materialdesigninit.js"></script>
+    <script src="/javascript/ajaxconnect.js"></script>
+
+
+    <!-- 確認刪除的功能 -->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+    <script>
+
+
+        // 呼叫子類別的方法----------------------------------------------------------------------------------------------------------
+        function callStaticBackdrop(showcontent) {
+            $("#staticBackdrop").modal("show");
+            $("#ifrm").get(0).contentWindow.parentCall(showcontent);
+        }
+
+
+        // iframe內部的子類會呼叫這個方法：建立叫貨單------------------------------------------------------------------------------------------------------
+        function closeComponent() {
+            $("#staticBackdrop").modal("hide");
+        }
+
+
+        // 最上方按鈕點擊時，按鈕狀態改變，下方底線移動。---------------------------------------------------------------------------------------
+
+        $(".opA").on("click", function () {
+            $(".opA").removeClass('active');
+            $(this).addClass('active');
+
+            switch ($(this).index()) {
+                case 0:
+                    $(".borderLine").css({ "transform": "translateX(0px)", "width": "70px" });
+                    break;
+                case 1:
+                    $(".borderLine").css({ "transform": "translateX(70px)", "width": "90px" });
+                    break;
+                case 2:
+                    $(".borderLine").css({ "transform": "translateX(158px)", "width": "90px" });
+                    break;
+                case 3:
+                    $(".borderLine").css({ "transform": "translateX(245px)", "width": "110px" });
+                    break;
+                default:
+                    console.log("borderLine狀態錯誤");
+                    break;
+            }
+
+        })
+
+
+        // 呼叫父頁面的changepage方法
+        function callParent(transferData, editStock) {
+            if (window.parent && window.parent.changepage) {
+                let href = '';
+
+                // 0：庫存概況、1：叫貨管理、2：接單管理、3：新增庫存、4：叫貨管理
+                switch (transferData) {
+                    case 3:
+                        href = "http://localhost:8080/views/addStock.html";
+                        break;
+                    case 4:
+                        href = "http://localhost:8080/views/orderBuy.html";
+                        break;
+                    default:
+                        console.log("href error");
+                        break;
+                }
+
+                // console.log(editStock);
+                window.parent.changepage(href, editStock);	//呼叫父頁面的SetComponent方法
+
+            }
+        }
+
+
+        // 是否跳轉至新增庫存頁面-------------------------------------
+
+        $(".container").on('click', '.addSet', function () {
+            Swal.fire({
+                title: '請確認是否要離開此頁面',
+                text: "頁面即將跳轉至【新增庫存】",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: 'var(--color-marigold)',
+                cancelButtonColor: 'var(--color-irongray)',
+                confirmButtonText: '確認',
+                cancelButtonText: '取消'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    callParent(3, 0);
+                }
+            })
+        });
+
+
+
+
+
+        // JSON假資料  ----------------------------------------------------------------------------------------------------------------------
+        // ProductPicl(圖片)、ProductNameSpec(品名)、StockQty(庫存數)、Noshipping(已定未出)
+        // StockOwn(可出現貨)、CallShipping(已叫現貨)、SaveQty(安全庫存)、WarningQty(警示庫存)
+        // autoCallShipping(N是關、Y是開)、autoConfirmOrder(1是關閉、2.3.4各自功能)
+
+        // productnamespec: "牛奶貝 / 5斤",
+        // productpic: "../img/05.jpg",
+        // supplierproductid: 200001,
+        // supplierid: 10000,
+        // supplierproduct: "新鮮牛奶貝 / 5斤",
+        // supplier: "達克三角洲有限公司",
+        // productclassification: "產品分類",
+        // unitcost: "平均成本",
+        // stockqty: 庫存,
+        // warningqty: 警示庫存,
+        // safeqty: 安全庫存,
+        // onshelf: "是否上架",
+        // unitsellprice: 價格,
+        // minsellqty: 最低銷售量,
+        // productdesc: "新鮮現撈",
+        // autoorderfunction: "自動叫貨N/Y",
+        // autoorderconfirmfunctionstatus: "自動交易1~4",
+        // reservedqty: "自動交易最後一欄",
+        // noshipping: "已訂未出",
+        // stockown: "可出現貨",
+        // callshipping: "已叫現貨"
+
+
+        var allStockList =
+            [
+                {
+                    productid: 100001,
+                    productnamespec: "牛奶貝 / 5斤",
+                    productpic: "../img/05.jpg",
+                    supplierproductid: 200001,
+                    supplierid: 10000,
+                    supplierproductname: "新鮮牛奶貝 / 5斤",
+                    suppliercompanyname: "達克三角洲有限公司",
+                    productclassification: 2,
+                    unitcost: 10,
+                    stockqty: 50,
+                    warningqty: 20,
+                    safeqty: 60,
+                    onshelf: 1,
+                    unitsellprice: 88,
+                    minsellqty: 11,
+                    productdesc: "新鮮現撈",
+                    autoorderfunction: "Y",
+                    autoorderconfirmfunctionstatus: 3,
+                    reservedqty: 30,
+                    noshipping: 10,
+                    stockown: 40,
+                    callshipping: 0
+                },
+                {
+                    productid: 100002,
+                    productnamespec: "珍珠龍膽/5條",
+                    productpic: "../img/02.jpg",
+                    supplierproductid: 200001,
+                    supplierid: 10000,
+                    supplierproductname: "第二牛奶貝 / 5斤",
+                    suppliercompanyname: "達克公司",
+                    productclassification: 3,
+                    unitcost: 15,
+                    stockqty: 50,
+                    warningqty: 10,
+                    safeqty: 80,
+                    onshelf: 0,
+                    unitsellprice: 45,
+                    minsellqty: 5,
+                    productdesc: "新鮮珍珠龍膽",
+                    autoorderfunction: "N",
+                    autoorderconfirmfunctionstatus: 1,
+                    reservedqty: 0,
+                    noshipping: 0,
+                    stockown: 15,
+                    callshipping: 15
+                },
+                {
+                    productid: 100003,
+                    productnamespec: "秋姑/1斤",
+                    productpic: "../img/03.jpg",
+                    supplierproductid: 200001,
+                    supplierid: 10000,
+                    supplierproductname: "秋姑 / 5斤",
+                    suppliercompanyname: "達達達達克公司",
+                    productclassification: 3,
+                    unitcost: 15,
+                    stockqty: 20,
+                    warningqty: 10,
+                    safeqty: 20,
+                    onshelf: 1,
+                    unitsellprice: 45,
+                    minsellqty: 5,
+                    productdesc: "新鮮珍珠龍膽",
+                    autoorderfunction: "Y",
+                    autoorderconfirmfunctionstatus: 2,
+                    reservedqty: 0,
+                    noshipping: 10,
+                    stockown: 10,
+                    callshipping: 0
+                },
+                {
+                    productid: 100004,
+                    productnamespec: "秋姑/2斤",
+                    productpic: "../img/03.jpg",
+                    supplierproductid: 200001,
+                    supplierid: 10000,
+                    supplierproductname: "秋姑 / 5斤",
+                    suppliercompanyname: "達達達達克公司",
+                    productclassification: 3,
+                    unitcost: 15,
+                    stockqty: 20,
+                    warningqty: 10,
+                    safeqty: 20,
+                    onshelf: 1,
+                    unitsellprice: 45,
+                    minsellqty: 5,
+                    productdesc: "新鮮珍珠龍膽",
+                    autoorderfunction: "Y",
+                    autoorderconfirmfunctionstatus: 2,
+                    reservedqty: 0,
+                    noshipping: 10,
+                    stockown: 10,
+                    callshipping: 0
+                },
+                {
+                    productid: 100005,
+                    productnamespec: "秋姑/3斤",
+                    productpic: "../img/03.jpg",
+                    supplierproductid: 200001,
+                    supplierid: 10000,
+                    supplierproductname: "秋姑 / 5斤",
+                    suppliercompanyname: "達達達達克公司",
+                    productclassification: 3,
+                    unitcost: 15,
+                    stockqty: 20,
+                    warningqty: 10,
+                    safeqty: 20,
+                    onshelf: 1,
+                    unitsellprice: 45,
+                    minsellqty: 5,
+                    productdesc: "新鮮珍珠龍膽",
+                    autoorderfunction: "Y",
+                    autoorderconfirmfunctionstatus: 2,
+                    reservedqty: 0,
+                    noshipping: 10,
+                    stockown: 10,
+                    callshipping: 0
+                },
+                {
+                    productid: 100006,
+                    productnamespec: "秋姑/4斤",
+                    productpic: "../img/03.jpg",
+                    supplierproductid: 200001,
+                    supplierid: 10000,
+                    supplierproductname: "秋姑 / 5斤",
+                    suppliercompanyname: "達達達達克公司",
+                    productclassification: 3,
+                    unitcost: 15,
+                    stockqty: 20,
+                    warningqty: 10,
+                    safeqty: 20,
+                    onshelf: 1,
+                    unitsellprice: 45,
+                    minsellqty: 5,
+                    productdesc: "新鮮珍珠龍膽",
+                    autoorderfunction: "Y",
+                    autoorderconfirmfunctionstatus: 2,
+                    reservedqty: 0,
+                    noshipping: 10,
+                    stockown: 10,
+                    callshipping: 0
+                },
+                {
+                    productid: 100007,
+                    productnamespec: "秋姑/4斤",
+                    productpic: "../img/03.jpg",
+                    supplierproductid: 200001,
+                    supplierid: 10000,
+                    supplierproductname: "秋姑 / 5斤",
+                    suppliercompanyname: "達達達達克公司",
+                    productclassification: 3,
+                    unitcost: 15,
+                    stockqty: 20,
+                    warningqty: 10,
+                    safeqty: 20,
+                    onshelf: 1,
+                    unitsellprice: 45,
+                    minsellqty: 5,
+                    productdesc: "新鮮珍珠龍膽",
+                    autoorderfunction: "Y",
+                    autoorderconfirmfunctionstatus: 2,
+                    reservedqty: 0,
+                    noshipping: 10,
+                    stockown: 10,
+                    callshipping: 0
+                },
+            ];
+
+
+
+        // 欄位中文名稱對應
+        let stockListName = [
+            {
+                ProductPicl: "圖片",
+                ProductNameSpec: "品名規格",
+                StockQty: "庫存數",
+                Noshipping: "已訂未出",
+                StockOwn: "可出現貨",
+                CallShipping: "已叫現貨",
+                SaveQty: "安全庫存",
+                WarningQty: "警示庫存"
+            }
+        ]
+
+        // 撈資料(使用非同步資料的方式撈)。
+        downloadData();
+        async function downloadData() {
+
+            // 與Server對接的ajax。
+            // 邊撈同時進行後續動作。
+
+            returnObj = await viewsorderstock(null);
+            // console.log(returnObj.responseObj);
+
+            if (returnObj.responseStatus != 200) {
+                // 沒接到資料                
+                // reNewData();
+
+                console.log("orderStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                console.log(returnObj.responseObj);
+            } else {
+                // 處理及判斷邏輯：          
+                allStockList = returnObj.responseObj;
+
+                reNewData();
+            }
+
+
+        }
+
+
+        function reNewData() {
+            // let pageDataNum = 5;  //每頁最多5筆資料。
+
+            $(".orderStocktable")[0].innerHTML = `
+            <thead>
+                <tr>
+                    <th style="width: 10%;">圖片</th>
+                    <th style="width: 15%;">品名規格</th>
+                    <th style="width: 10%;">庫存數</th>
+                    <th style="width: 10%;">被訂購量</th>
+                    <th style="width: 10%;">可出現貨</th>
+                    <th style="width: 10%;">已叫現貨</th>
+                    <th style="width: 10%;">安全庫存</th>
+                    <th style="width: 10%;">警示庫存</th>
+                    <th style="width: 15%;">操作</th>
+                </tr>
+            </thead>
+            `;
+
+
+
+            for (let i = 0; i < allStockList.length; i++) {
+
+                // 清空Table，把除了<th>內部<tr>之外的所有<tr>清空。
+
+
+                // 判斷是否開啟自動叫貨。
+                let autoCall = null;
+                if (allStockList[i].autoorderfunction == "Y") {
+                    autoCall = "fa-check-circle";
+                } else {
+                    autoCall = "fa-times-circle";
+                }
+
+
+
+                // 判斷是否開啟自動確認。
+                let autoConfirm = null;
+                if (allStockList[i].autoorderconfirmfunctionstatus != 1) {
+                    autoConfirm = "fa-check-circle";
+                } else {
+                    autoConfirm = "fa-times-circle";
+                }
+
+
+
+
+
+                // 創造<tr>的Html格式，並將資料帶入。
+                // img 抓法 ${allStockList[i].ProductPicl} 
+                // <span class="d-inline-flex align-items-center"><i class="fas ${autoConfirm} me-1"></i>自動確認</span><br>
+                let trHtmlData =
+                    `   <tr>
+                            <td data-label=${allStockList[0].ProductPicl}><img src="${(allStockList[i].productpic == undefined) ? '/img/01.jpg' : allStockList[i].productpic}" onerror="this.src='/img/01.jpg'"></td>
+                            <td data-label=${allStockList[0].ProductNameSpec}>${allStockList[i].productnamespec}</td>
+                            <td data-label=${allStockList[0].StockQty}>${allStockList[i].stockqty}</td>
+                            <td data-label=${allStockList[0].Noshipping}>${allStockList[i].noshipping}</td>
+                            <td data-label=${allStockList[0].StockOwn}>${allStockList[i].stockown}</td>
+                            <td data-label=${allStockList[0].CallShipping}>${allStockList[i].callshipping}</td>
+                            <td data-label=${allStockList[0].SaveQty}>${(allStockList[i].safeqty == undefined) ? "未設定" : allStockList[i].safeqty}</td>
+                            <td data-label=${allStockList[0].WarningQty}>${allStockList[i].warningqty}</td>
+                            <td data-label="操作">
+                                <div class="nav-item dropstart mb-2">
+                                    <button class="nav-link dropdown-toggle orderSet m-auto" id="navbarDropdown"
+                                        data-bs-toggle="dropdown" aria-expanded="true">更多設定
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="#" onclick="callParent(3,editTableRow(${i}))">編輯庫存</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="delTableRow(${allStockList[i].productid})">刪除庫存</a></li>
+                                    </ul>
+                                </div>
+
+                                <span class="d-inline-flex align-items-center"><i class="fas ${autoCall} me-1"></i>自動叫貨</span>                                
+                            </td>
+                        </tr>
+                    `
+
+                // 把製作完的tr放回去tabel中。
+                $(".orderStocktable").append(trHtmlData);
+            }
+
+
+        }
+
+
+        // 編輯庫存 -----------------------------------------------------------------------------------------------
+
+        let editstockobj = {};
+        function editTableRow(editObjNum) {
+            editstockobj = allStockList[editObjNum];
+            return editstockobj;
+        }
+
+
+        // 刪除庫存 -----------------------------------------------------------------------------------------------
+        function delTableRow(state) {
+
+
+            if (state != 0 && state != 1) {
+                // 需求為：刪除指定id產品
+
+                // 要刪除的產品id
+                let productidData = {
+                    "productid": state
+                };
+
+                Swal.fire({
+                    title: '請確認是否要刪除該筆庫存？',
+                    text: "請注意：此操作是無法回復的",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: 'var(--color-irongray)',
+                    confirmButtonText: '刪除',
+                    cancelButtonText: '取消'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // 呼叫server
+                        deleteData(productidData);
+                    }
+                })
+
+            } else if (state == 0) {
+                // 刪除失敗
+                Swal.fire({
+                    title: '庫存刪除異常，請再試一次',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            } else if (state == 1) {
+                // 成功
+                Swal.fire({
+                    title: '您已成功刪除該筆品項',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+
+                // 這邊要再重新與Server要資料。
+                downloadData();
+            }
+
+
+        }
+
+        async function deleteData(deleteproductid) {
+
+            // 與Server對接的ajax。
+            // 這邊要把刪除資訊傳給Server。
+            returnObj = await viewsaddstockdelete(deleteproductid);
+
+            if (returnObj.responseStatus != 200) {
+                // 沒接到資料                
+                delTableRow(1);
+
+                console.log("orderStockDelete getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
+                console.log(returnObj.responseObj);
+            } else {
+                // 處理及判斷邏輯：                
+                successObj = returnObj.responseText;
+                console.log(successObj);
+                if (successObj == "OK") {
+                    // 成功
+                    delTableRow(1);
+                }
+
+            }
+
+        }
+
+
+    </script>
+
+
+
+</body>
+
+</html>

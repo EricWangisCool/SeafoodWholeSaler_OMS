@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pagecontent</title>
+
+    <!-- Material Design -->
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+    <!-- ICON CSS -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+
+
+    <!-- globalstyle -->
+    <link rel="stylesheet" href="../css/globalstyle.css">
+    <!-- globalattributes -->
+    <link rel="stylesheet" href="../css/globalattributes.css">
+
+    <!-- 加入頁簽小圖 -->
+    <link rel="shortcut icon" href="https://upload.cc/i1/2022/10/18/wJdKCL.png" type="image/x-icon">
+
+
+    <!-- 複數頁面使用CSS效果 -->
+    <link rel="stylesheet" href="/css/pluralpagestyle.css">
+
+    <style>
+        h2 {
+            font-size: var(--font-size-contenttitle);
+            color: var(--color-tangerine);
+        }
+
+        p {
+            font-size: var(--font-size-content);
+        }
+
+        /* 地圖 */
+        .map {
+            margin-top: 1em;
+            float: left;
+            width: 50%;
+            padding-top: 20px;
+        }
+
+
+        /* 聯絡我們垂直置中 */
+        .wrap {
+            width: 50%;
+            display: flex;
+            text-align: left;
+            padding-left: 20%;
+            padding-top: 30px;
+
+        }
+
+
+        .txt {
+            width: 100%;
+            vertical-align: middle;
+            padding-left: 20px;
+        }
+
+        /* 手機裝置 */
+        .column-60 {
+            float: left;
+            width: 60%;
+            padding: 23px;
+            padding-top: 5%;
+            padding-left: 5%;
+            line-height: 2.5;
+        }
+
+        .column-60 h1 {
+            color: var(--color-tangerine);
+        }
+
+        .column-60 h4 {
+            color: var(--color-tangerine);
+        }
+
+        .column-60 li {
+            font-size: var(--font-size-contenttitle);
+        }
+
+        .column-60 p {
+            font-size: var(--font-size-content);
+        }
+
+        .column-40 {
+            float: left;
+            width: 40%;
+            padding: 20px;
+        }
+
+        /* The device with borders */
+        .smartphone {
+            position: relative;
+            width: 360px;
+            height: 640px;
+            margin: auto;
+            border: 16px var(--color-irongray) solid;
+            border-top-width: 60px;
+            border-bottom-width: 60px;
+            border-radius: 36px;
+        }
+
+        /* The horizontal line on the top of the device */
+        .smartphone:before {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 5px;
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--color-whitesmoke);
+            border-radius: 10px;
+        }
+
+        /* The circle on the bottom of the device */
+        .smartphone:after {
+            content: '';
+            display: block;
+            width: 35px;
+            height: 35px;
+            position: absolute;
+            left: 50%;
+            bottom: -65px;
+            transform: translate(-50%, -50%);
+            background: #404040;
+            border-radius: 50%;
+        }
+
+        /* The screen (or content) of the device */
+        .smartphone .content {
+            width: 360px;
+            height: 640px;
+            background: var(--color-whitesmoke);
+        }
+
+        .smartphone iframe {
+            width: 100%;
+            border: none;
+            height: 100%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <!-- border border-primary  -->
+            <div class="col-11 mt-4 px-0">
+
+                <h1 class="fs-2 fw-bolder mb-4"><span class="text-black">聯絡我們</span></h1>
+
+                <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto mb-4">
+
+                    <div class="info">
+                        <div class="container">
+
+                            <div class="map">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3640.604292585092!2d120.64881961536761!3d24.150531079288644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693d9650422ae1%3A0x334dfd5796c49ff6!2z6LOH562W5pyDLeaVuOS9jeaVmeiCsueglOeptuaJgC3kuK3ljYDoqJPnt7TkuK3lv4M!5e0!3m2!1szh-TW!2stw!4v1657597833286!5m2!1szh-TW!2stw"
+                                    width="650" height="350" style="border:0;" allowfullscreen="" loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                            <div class="form">
+
+                                <div>
+
+                                    <div class="wrap">
+                                        <div class="txt">
+                                            <h2><i class="fas fa-clock me-2"></i>服務時間</h2>
+                                            <p>周一～周五：09：00～18：00</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="wrap">
+                                        <div class="txt">
+                                            <h2><i class="fas fa-phone-square-alt me-2"></i>聯絡電話</h2>
+                                            <p>(04)-2326-5860</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="wrap">
+                                        <div class="txt">
+                                            <h2><i class="fas fa-envelope me-2"></i>客服信箱</h2>
+                                            <p>service@nsy.com</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="wrap">
+                                        <div class="txt">
+                                            <h2><i class="fas fa-map-marker-alt me-2"></i>公司位置</h2>
+                                            <p>台中市南屯區公益路二段51號18樓</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-100 mb-4" style="height:720px">
+                    <div class="column-60">
+                        <h1>NSY線上Line客服</h1>
+                        <h4 class="lh-lg">簡單二步驟即可成功加入</h4>
+                        <ol>
+                            <li>掃描行動條碼</li>
+                            <p>Line主頁＞右上角【加入好友】＞點選【行動條碼】</p>
+                            <li>加入官方客服</li>
+                            <p>掃描右方QRcode行動條碼，點擊下方【加入好友】，即可加入NiceToSeaYou</p>
+                        </ol>
+                        <h4>加入後請聯絡客服，即享開通專業版用戶優惠</h4>
+                        <ol>
+                            <li>續約一年即享9折優惠</li>
+                            <li>享有運輸險超殺折扣</li>
+                            <li>24小時全天候為您提供諮詢服務</li>
+                        </ol>
+                    </div>
+                    <div class="column-40 lh-lg">
+                        <div class="smartphone">
+                            <div class="content" style="width:100%;border:none;height:100%;">
+                                <iframe src="https://upload.cc/i1/2022/10/18/anskDW.jpg">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+</body>
+
+</html>

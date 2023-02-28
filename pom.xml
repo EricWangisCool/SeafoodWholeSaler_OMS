@@ -2,21 +2,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <groupId>tw.com.ispan.eeit48</groupId>
+    <artifactId>seafood-wholesaler-oms</artifactId>
+    <version>1.0.0</version>
+    <packaging>war</packaging>
+
+    <name>seafood-wholesaler-oms</name>
+    <description>NSY is an OMS for seafood Wholesaler</description>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.6.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>tw.com.ispan.eeit48</groupId>
-    <artifactId>SeafoodWholesaler_OMS</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
-    <name>SeafoodWholesaler_OMS</name>
-    <description>NSY is an OMS for seafood Wholesaler</description>
+
     <properties>
         <java.version>17</java.version>
         <start-class>tw.com.ispan.eeit48.OmsApplication</start-class>
+        <dockerfile-maven-plugin.version>1.4.12</dockerfile-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -104,6 +109,12 @@
             <scope>test</scope>
         </dependency>
 
+<!--    Below is for docker image building, so far I use docker-compose instead -->
+<!--        <dependency>-->
+<!--            <groupId>com.spotify</groupId>-->
+<!--            <artifactId>dockerfile-maven-plugin</artifactId>-->
+<!--            <version>${dockerfile-maven-plugin.version}</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
@@ -111,10 +122,42 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>tw.com.ispan.eeit48.OmsApplication</mainClass>
-                </configuration>
             </plugin>
         </plugins>
     </build>
+
+<!--    Below is for docker image building, so far I use docker-compose instead -->
+<!--    <profiles>-->
+<!--        <profile>-->
+<!--            <id>build-docker</id>-->
+<!--            <build>-->
+<!--                <plugins>-->
+<!--                    <plugin>-->
+<!--                        <groupId>com.spotify</groupId>-->
+<!--                        <artifactId>dockerfile-maven-plugin</artifactId>-->
+<!--                        <version>${dockerfile-maven-plugin.version}</version>-->
+<!--                        <executions>-->
+<!--                            <execution>-->
+<!--                                <id>default</id>-->
+<!--                                <goals>-->
+<!--                                    <goal>build</goal>-->
+<!--                                    <goal>push</goal>-->
+<!--                                </goals>-->
+<!--                                <phase>pre-integration-test</phase>-->
+<!--                            </execution>-->
+<!--                        </executions>-->
+<!--                        <configuration>-->
+<!--                            <dockerfile>${project.basedir}/dockerfile</dockerfile>-->
+<!--                            <repository>ericwangiscool/seafood-wholesaler-oms</repository>-->
+<!--                            <tag>${project.version}</tag>-->
+<!--                            <useMavenSettingsForAuth>true</useMavenSettingsForAuth>-->
+<!--                            <buildArgs>-->
+<!--                                <WAR_FILE>${project.build.finalName}.war</WAR_FILE>-->
+<!--                            </buildArgs>-->
+<!--                        </configuration>-->
+<!--                    </plugin>-->
+<!--                </plugins>-->
+<!--            </build>-->
+<!--        </profile>-->
+<!--    </profiles>-->
 </project>

@@ -39,7 +39,8 @@
 .idea_modules/
 
 ### Maven template
-target/
+# upload target for docker-compose demonstration
+# target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
