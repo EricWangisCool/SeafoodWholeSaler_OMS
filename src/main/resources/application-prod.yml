@@ -43,3 +43,6 @@ jwt:
   token-validity-in-seconds: 86400
   # valid 30 hours
   token-validity-in-seconds-for-remember-me: 108000
+#server:
+#  servlet:
+#    context-path: "/oms"
