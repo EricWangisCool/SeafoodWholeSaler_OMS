@@ -1,6 +1,0 @@
-spring:
-  # Profile
-  application:
-    name: SeafoodWholesaler_OMS
-  profiles:
-    active: prod
