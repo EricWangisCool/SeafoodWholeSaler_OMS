@@ -1,6 +1,8 @@
-# 水產商自動叫貨系統
+# 水產商自動叫貨系統 Seafood Wholesaler OMS
 
-[Go to English Desc](#seafood-wholesaler-oms)
+Live Demo: https://immargin.asuscomm.com/oms/ <BR>
+Or go to: [English Desc](#seafood-wholesaler-oms)<BR>
+Contributor: **[Eric Wang](https://github.com/EricWangisCool)** & **[Jack Yang](https://github.com/LaplusIjns)**
 
 ![image](etc/SystemPage.png?raw=true "JwtToken")
 
@@ -15,21 +17,41 @@ Restful API + JSON 實作前後端分離開發<BR>
 
 3. MySQL 實作Rdbms資料庫設計 (採2NF開發，因為資料調度需求不用3NF)
 
+4. Nginx + Jenkins + Docker 實作多專案本地端部署．持續整合與部署(CI/CD)
+
+5. Let's Encrypt 實作SSL憑證
+
 ## 其他技術
 JavaScript, Node.js, AJAX, Spring Mail, Tomcat, EcPay integration, Docker-compose
 
 ## 功能介紹
-1. 以Spring Security AuthenticationManager驗證登入帳密是否正確後回傳一組加密後的JWT放在Browser的LocalStorage裡，之後呼叫API時就只需驗證此JWT便能找到對應的使用者，免除伺服記憶體佔用(Session儲存方式)，同時避免在LocalStorage裡放置重要個資以遭竊取
+1. 以Spring Security AuthenticationManager驗證登入帳密是否正確後回傳一組加密後的JWT放在Browser的LocalStorage裡，之後呼叫API時就只需驗證此JWT便能找到對應的使用者，免除伺服記憶體佔用(Session儲存方式)，同時避免在LocalStorage裡放置重要個資以遭竊取<BR>
 ![image](etc/JwtToken.png?raw=true "JwtToken")
 
-2. 以Role權限驗證，區分部分頁面(如: 銷售額頁面)是否能夠讀取
+2. 以Role權限驗證，區分部分頁面(如: 銷售額頁面)是否能夠讀取<BR>
 ![image](etc/RoleSetting.png?raw=true "RoleSetting")
 
 ### ROLE_BOSS
 ![image](etc/RolePermit.png?raw=true "RolePermit")
 
 ### ROLE_EMPLOYEE
-![image](etc/RoleDenied.png?raw=true "RoldeDenied")
+![image](etc/RoleDenied.png?raw=true "RoleDenied")
+
+3. Nginx
+
+4. **[Jenkins](https://immargin.asuscomm.com/jenkins/asynchPeople/)** 持續整合
+
+在`OMS-git`正式台，使用紅框處`馬上建置`從git的main分支部署最新版本到 **[Live Demo](https://immargin.asuscomm.com/oms/)** <BR>
+使用藍框處查看建置過程， **[Log](https://immargin.asuscomm.com/oms_log)** 查看Log
+![image](etc/Jenkins.png?raw=true "Jenkins")
+
+
+在`OMS-test-git`測試台，使用組態切換要測試的分支，儲存後點選`馬上建置`，便能部署測試分支到 **[Test Environment](https://immargin.asuscomm.com/webtest/)** <BR>
+**[TestLog](https://immargin.asuscomm.com/oms_testlog)** 查看Log
+![image](etc/JenkinsTest.png?raw=true "JenkinsTest")
+
+5. Let's Encrypt
+
 
 ## 專案需求
 此專案是由Maven和Java 17所建構
@@ -88,14 +110,14 @@ JavaScript, Node.js, AJAX, Spring Mail, Tomcat, EcPay integration, Docker-compos
 1. Return encoded JWT after Spring Security AuthenticationManager's verification and store it inside browser's local storage, after that, it is able to call API whenever JWT is still valid and return user's information.
 ![image](etc/JwtToken.png?raw=true "JwtToken")
 
-2. Use role's authority to verify who is able to access the sensitive page.(ex. revenue page)
+2. Use role's authority to verify who is able to access the sensitive page.(ex. revenue page)<BR>
 ![image](etc/RoleSetting.png?raw=true "RoleSetting")
 
 ### ROLE_BOSS
 ![image](etc/RolePermit.png?raw=true "RolePermit")
 
 ### ROLE_EMPLOYEE
-![image](etc/RoleDenied.png?raw=true "RoldeDenied")
+![image](etc/RoleDenied.png?raw=true "RoleDenied")
 
 ## Requirement
 This project is build with Maven and Java 17.
