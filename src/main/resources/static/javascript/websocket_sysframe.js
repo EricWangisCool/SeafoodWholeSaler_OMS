@@ -2,11 +2,12 @@
  * 
  */
 var protocol = window.location.protocol;
+var url_prefix = location.pathname.split( '/' )[1];
     newsCounter = 0;
 	if(protocol == "https:"){
-		sock = new SockJS("https://"+window.location.host+"/ws");
+		sock = new SockJS("https://"+window.location.host+ "/" +url_prefix+"/ws");
       }else{
-    	sock = new SockJS("http://"+window.location.host+"/ws");
+    	sock = new SockJS("http://"+window.location.host+ "/" +url_prefix + "/ws");
       }
 
 	let client = Stomp.over(sock);

@@ -13,15 +13,14 @@
 //
 //$(".newstable").append(singleHtmlTr);
 
-
+var url_prefix = location.pathname.split( '/' )[1];
 var protocol = window.location.protocol;
     newsCounter = 0;
 	if(protocol == "https:"){
-		sock = new SockJS("https://"+window.location.host+"/ws");
+		sock = new SockJS("https://"+window.location.host  + "/" +url_prefix +"/ws");
       }else{
-    	sock = new SockJS("http://"+window.location.host+"/ws");
+    	sock = new SockJS("http://"+window.location.host+ "/" +url_prefix  +"/ws");
       }
-
 	let client = Stomp.over(sock);
 	client.debug = null
 	var token = getJwtToken();
