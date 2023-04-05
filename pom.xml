@@ -108,6 +108,11 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+      		<groupId>org.springframework.boot</groupId>
+      		<artifactId>spring-boot-starter-websocket</artifactId>
+    	</dependency>
+        
 
 <!--    Below is for docker image building, so far I use docker-compose instead -->
 <!--        <dependency>-->

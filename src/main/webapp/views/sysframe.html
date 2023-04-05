@@ -54,7 +54,7 @@
                         <i class="fas fa-home"></i>首頁</a>
                 </li>
 
-                <li class="">
+                <li class="newsli">
                     <a href="./news.html" onclick="return loadIframe('ifrm', this.href)"
                         class="text-decoration-none ps-3 py-2 d-block d-inline-flex justify-content-between">
                         <span><i class="fas fa-comment-plus"></i>通知與動向</span>
@@ -109,6 +109,10 @@
                         class="text-decoration-none ps-3 py-2 d-inline-flex align-items-center">
                         <i class="fas fa-comment-dots"></i>聯絡我們</a>
                 </li>
+<!--                 預留測試發送訊息 -->
+                <li>
+                <button onclick="sendMessage()" hidden>click!</button>
+                </li>
 
 
 
@@ -158,7 +162,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../javascript/ajaxconnect.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    
     <script>
         function checkIfJwtTokenExist() {
             if (localStorage.getItem("jwtToken") == null) {
@@ -266,9 +270,9 @@
         }
 
         // 檢查是否有最新通知---------------------------------------------------------------------------------
-        let getNewsTimer = window.setInterval(function(){
-                getNewsData();
-        },1000);   
+//         let getNewsTimer = window.setInterval(function(){
+//                 getNewsData();
+//         },1000);   
 
         $(".rounded-pill").hide();
         let showNewsNum = 0;
@@ -323,5 +327,13 @@
             })
         };
     </script>
+    <!-- WebSocket依賴 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.js" integrity="sha512-aHuAnb+FZ/yM5zYvdiA8q0sxLdsBQ3PRwO8D/08qsenCLQ2gWsosB43Cn1X8esAz0IpaC7Ns5cAPyKIdJQ0hNw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    
+    <!-- WebSocket JS設定 -->
+    <script src="../javascript/websocket_sysframe.js"></script>
+	 <!-- WebSocket 結束 -->
 </body>
 </html>
