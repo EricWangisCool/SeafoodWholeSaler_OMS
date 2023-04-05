@@ -230,7 +230,7 @@
 
 
         // server的假資料
-        let allNewsList = [
+        allNewsList = [
             {
                 receiverid: 1,
                 messagecontent: '系統公告請盡快安排訂單#220101574出貨。2022-10-18 20:34:12',
@@ -431,6 +431,14 @@
         }
 
     </script>
+    <!-- WebSocket依賴 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.js" integrity="sha512-aHuAnb+FZ/yM5zYvdiA8q0sxLdsBQ3PRwO8D/08qsenCLQ2gWsosB43Cn1X8esAz0IpaC7Ns5cAPyKIdJQ0hNw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    
+    <!-- WebSocket JS設定 -->
+    <script src="../javascript/websocket_news.js"></script>
+	 <!-- WebSocket 結束 -->
 
 </body>
 
