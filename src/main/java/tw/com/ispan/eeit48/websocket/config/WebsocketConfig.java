@@ -1,7 +1,6 @@
 package tw.com.ispan.eeit48.websocket.config;
 
 import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
@@ -25,11 +24,9 @@ import tw.com.ispan.eeit48.springsecurity.filter.JWTUtil;
 @Configuration
 @EnableWebSocketMessageBroker
 @EnableWebSocket
-public class WebsockeConfig implements WebSocketMessageBrokerConfigurer {
-	
+public class WebsocketConfig implements WebSocketMessageBrokerConfigurer {
 	@Autowired
 	JWTUtil jWTUtil;
-
 	/*
 	 *  設定連接終點
 	 */
@@ -52,10 +49,8 @@ public class WebsockeConfig implements WebSocketMessageBrokerConfigurer {
 
 	@Override
 	public void configureClientInboundChannel(ChannelRegistration registration) {
-		
 		registration.interceptors(
 				new ChannelInterceptor() {
-
 					/*
 					 *  收到訊息驗證是否合法token 並傳送User參數
 					 *  初次連接 設定 SecurityContextHolder 全局對象
@@ -71,13 +66,9 @@ public class WebsockeConfig implements WebSocketMessageBrokerConfigurer {
 							SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 							accessor.setUser(usernamePasswordAuthenticationToken);
 						}
-						
 						return message;
 					}
-					
 				}
 			);
 	}
-	
-    
 }

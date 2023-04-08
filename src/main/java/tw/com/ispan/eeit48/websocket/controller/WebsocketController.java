@@ -7,25 +7,17 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RestController;
-
-import tw.com.ispan.eeit48.model.AccountsBean;
 import tw.com.ispan.eeit48.repository.AccountsRepository;
 import tw.com.ispan.eeit48.service.AuthService;
 import tw.com.ispan.eeit48.websocket.common.NewsBean;
 
-
-
 @RestController
 public class WebsocketController {
-
 	private static final Logger log = LogManager.getLogger(WebsocketController.class);
-	
 	@Autowired
     private SimpMessagingTemplate wsTemplate;
-	
 	@Autowired
 	AuthService authService;
-	
 	@Autowired
 	AccountsRepository accountsRepository;
 
@@ -40,8 +32,5 @@ public class WebsocketController {
 		// AccountsBean accountsBean = accountsRepository.findOneByAccountid(AcccountId);
 		// authentication.getName() 轉傳給自己 
 		wsTemplate.convertAndSendToUser(authentication.getName(), "/PersonalNotify/Notify", newsBean);
-
     }
-
-	
 }

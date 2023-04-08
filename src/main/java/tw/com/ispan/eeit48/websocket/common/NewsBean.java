@@ -2,7 +2,6 @@ package tw.com.ispan.eeit48.websocket.common;
 
 import java.util.Date;
 
-
 public class NewsBean {
 	String titleType;
 	String message;
@@ -51,6 +50,4 @@ public class NewsBean {
 	public String toString() {
 		return "NewsBean [titleType=" + titleType + ", message=" + message + ", messageTime=" + messageTime + "]";
 	}
-	
-	
 }
