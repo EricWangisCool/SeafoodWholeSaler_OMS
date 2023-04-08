@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import tw.com.ispan.eeit48.repository.View_product_order_orderdetailsRepository;
 
 @Service
 @Transactional
-public class OrderDetailService {
+public class OrderSellService {
     @Autowired
     private View_product_order_orderdetailsRepository view_product_order_orderdetailsRepository;
     @Autowired
@@ -95,66 +96,66 @@ public class OrderDetailService {
         return jsonArray.toString();
     }
 
-    public String Update(int accountid, OrdersBean ordersBean) throws Exception {
-        // 接單資訊
-        String orderid = ordersBean.getOrderid();
-        int orderstatus = ordersBean.getOrderstatus(),
-                buyerid = ordersBean.getBuyerid();
-
-        // 接單_賣家資訊
-        String sellerCompanyName = accountsRepository.findCompanynameByAccountid(accountid);
-        // 接單_買家資訊
-        String buyerEmail = accountsRepository.findEmailByAccountid(buyerid);
+    public String Update(int sellerId, OrdersBean ordersBean) {
+        String orderId = ordersBean.getOrderid();
+        int buyerId = ordersBean.getBuyerid();
+        String sellerCompanyName = accountsRepository.findCompanynameByAccountid(sellerId);
+        String buyerEmail = accountsRepository.findEmailByAccountid(buyerId);
 
         // 通知買家用屬性，包括寄信(emailService)，以及系統內訊息提示(messageService)
-        SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
-        String dateSdFormat = sdFormat.format(date);
-        String mailText = String.format("賣家%s，於%s，已將訂單編號:%s，狀態調整為=>  ", sellerCompanyName, dateSdFormat, orderid);
-        String specialText, systemMessage = "叫貨管理通知: " + mailText;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String mailText = "賣家".concat(sellerCompanyName) + "，於".concat(sdf.format(date)) + "已將訂單編號:".concat(orderId) + "狀態調整為=> ",
+                systemMessage = "叫貨管理通知: ".concat(mailText),
+                    specialText;
 
-        switch (orderstatus) {
-            case 3:
-                ordersBean.setAcceptordertime(date);
-                ordersRepository.save(ordersBean);
+        try {
+            ordersBean.setSellerid(sellerId);
+            switch (ordersBean.getOrderstatus()) {
+                case 3 -> {
+                    ordersBean.setAcceptordertime(date);
+                    ordersRepository.save(ordersBean);
+                    specialText = "<訂購商品已通過>";
+                    emailService.sendMail(buyerEmail, specialText, mailText + specialText);
+                    messageService.saveNewMessage(systemMessage + specialText, buyerId);
 
-                specialText = "<訂購商品已通過>";
-                emailService.sendMail(buyerEmail, specialText, mailText + specialText);
-                messageService.saveNewMessage(systemMessage + specialText, buyerid);
-
-                // 當賣家接單後，系統監控賣家所有開啟自動叫貨的productId是否有達到叫貨條件，有的話就自動叫貨
-                List<View_product_order_orderdetailsBean> viewBeans = view_product_order_orderdetailsRepository
-                        .findAllByOrderidAndOwnerid(orderid, accountid);
-                for (View_product_order_orderdetailsBean viewBean : viewBeans) {
-                    this.checkAutoOrderPorduct(viewBean.getProductid(), accountid);
+                    // 當賣家接單後，系統監控賣家所有開啟自動叫貨的productId是否有達到叫貨條件，有的話就自動叫貨
+                    List<View_product_order_orderdetailsBean> viewBeans = view_product_order_orderdetailsRepository
+                            .findAllByOrderidAndOwnerid(orderId, sellerId);
+                    for (View_product_order_orderdetailsBean viewBean : viewBeans) {
+                        this.checkAutoOrderPorduct(viewBean.getProductid(), sellerId);
+                    }
+                    return "OK";
                 }
-                return "OK";
-            case 4:
-                ordersBean.setExporttime(date);
-                ordersRepository.save(ordersBean);
-
-                specialText = "<訂購商品已出貨>";
-                emailService.sendMail(buyerEmail, specialText, mailText + specialText);
-                messageService.saveNewMessage(systemMessage + specialText, buyerid);
-                return "OK";
-            case 5:
-                ordersBean.setArriveordertime(date);
-                ordersRepository.save(ordersBean);
-
-                specialText = "<訂購商品已送達指定地址>";
-                emailService.sendMail(buyerEmail, specialText, mailText + specialText);
-                messageService.saveNewMessage(systemMessage + specialText, buyerid);
-                return "OK";
-            case 7:
-                ordersBean.setCancelordertime(date);
-                ordersRepository.save(ordersBean);
-
-                specialText = "<訂購商品已取消>";
-                emailService.sendMail(buyerEmail, specialText, mailText + specialText);
-                messageService.saveNewMessage(systemMessage + specialText, buyerid);
-                return "OK";
+                case 4 -> {
+                    ordersBean.setExporttime(date);
+                    ordersRepository.save(ordersBean);
+                    specialText = "<訂購商品已出貨>";
+                    emailService.sendMail(buyerEmail, specialText, mailText + specialText);
+                    messageService.saveNewMessage(systemMessage + specialText, buyerId);
+                    return "OK";
+                }
+                case 5 -> {
+                    ordersBean.setArriveordertime(date);
+                    ordersRepository.save(ordersBean);
+                    specialText = "<訂購商品已送達指定地址>";
+                    emailService.sendMail(buyerEmail, specialText, mailText + specialText);
+                    messageService.saveNewMessage(systemMessage + specialText, buyerId);
+                    return "OK";
+                }
+                case 7 -> {
+                    ordersBean.setCancelordertime(date);
+                    ordersRepository.save(ordersBean);
+                    specialText = "<訂購商品已取消>";
+                    emailService.sendMail(buyerEmail, specialText, mailText + specialText);
+                    messageService.saveNewMessage(systemMessage + specialText, buyerId);
+                    return "OK";
+                }
+            }
+        } catch (Exception e) {
+            return e.toString();
         }
-        return "NG";
+        return "No relative process for given order status, please check!";
     }
 
     // 當賣家接單後，系統監控賣家所有開啟自動叫貨的productId是否有達到叫貨條件，有的話就自動叫貨
