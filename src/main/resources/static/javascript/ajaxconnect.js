@@ -143,7 +143,7 @@ async function viewstatement(data) {
 
 // 第三方金流
 async function ecpay() {
-    let connurl = "ecpay";
+    let connurl = "../ecpay";
     data = "";
     return await ajaxmethod(connurl, data);
 }
