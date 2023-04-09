@@ -1,11 +1,12 @@
 package ecpay.payment.integration.ecpayOperator;
 
-import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.FileCopyUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -13,12 +14,17 @@ import ecpay.payment.integration.errorMsg.ErrorMessage;
 import ecpay.payment.integration.exception.EcpayException;
 
 public class PaymentVerifyBase{
-	protected String confPath = "/ecpay/payment/integration/config/EcpayPayment.xml";
 	protected Document doc;
-	public PaymentVerifyBase(){
-		URL fileURL = this.getClass().getResource(confPath);
-		doc = EcpayFunction.xmlParser(fileURL.toString());
-		doc.getDocumentElement().normalize();
+	public PaymentVerifyBase() {
+		try {
+			ClassPathResource paymentConfPathResource = new ClassPathResource("EcpayPayment.xml");
+			byte[] binaryData = FileCopyUtils.copyToByteArray(paymentConfPathResource.getInputStream());
+			String xmlStr = new String(binaryData, StandardCharsets.UTF_8);
+			doc = EcpayFunction.xmlStringParser(xmlStr);
+			doc.getDocumentElement().normalize();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	protected void requireCheck(String FieldName, String objValue, String require){

@@ -1,15 +1,17 @@
 package ecpay.payment.integration;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.util.ResourceUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-
 import ecpay.payment.integration.ecpayOperator.EcpayFunction;
 import ecpay.payment.integration.errorMsg.ErrorMessage;
 import ecpay.payment.integration.exception.EcpayException;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class AllInOneBase {
 	protected static String operatingMode;
@@ -30,16 +32,18 @@ public class AllInOneBase {
 	protected static Document verifyDoc;
 	protected static String[] ignorePayment;
 	public AllInOneBase(){
-//		try{
+		try{
 			Document doc;
 			/* when using web project*/
 //			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 //			String configPath = URLDecoder.decode(classLoader.getResource("/payment_conf.xml").getPath(), "UTF-8");
 //			doc = EcpayFunction.xmlParser(configPath);
 			/* when using testing code*/
-			String paymentConfPath = "./src/main/resources/payment_conf.xml";
-			doc = EcpayFunction.xmlParser(paymentConfPath);
-			
+			ClassPathResource paymentConfPathResource = new ClassPathResource("payment_conf.xml");
+			byte[] binaryData = FileCopyUtils.copyToByteArray(paymentConfPathResource.getInputStream());
+			String xmlStr = new String(binaryData, StandardCharsets.UTF_8);
+			doc = EcpayFunction.xmlStringParser(xmlStr);
+
 			doc.getDocumentElement().normalize();
 			//OperatingMode
 			Element ele = (Element)doc.getElementsByTagName("OperatingMode").item(0);
@@ -71,8 +75,8 @@ public class AllInOneBase {
 			if(HashKey == null){
 				throw new EcpayException(ErrorMessage.MInfo_NOT_SETTING);
 			}
-//		} catch(UnsupportedEncodingException e){
-//			e.printStackTrace();
-//		}
+		} catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 }
