@@ -1,9 +1,6 @@
 package ecpay.payment.integration.ecpayOperator;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
@@ -38,6 +35,7 @@ import org.w3c.dom.Document;
 import ecpay.payment.integration.config.EcpayConfig;
 import ecpay.payment.integration.errorMsg.ErrorMessage;
 import ecpay.payment.integration.exception.EcpayException;
+import org.xml.sax.InputSource;
 
 /**
  * 共用函式
@@ -259,7 +257,18 @@ public class EcpayFunction {
 		}
 		
 	}
-	
+
+	public final static Document xmlStringParser(String xmlStr){
+		try{
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			InputSource is = new InputSource(new StringReader(xmlStr));
+			return builder.parse(is);
+		} catch(Exception e){
+			throw new Error(e);
+		}
+	}
+
 	/**
 	 * 信任所有憑證.
 	 * @param connection
