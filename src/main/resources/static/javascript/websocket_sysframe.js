@@ -1,13 +1,62 @@
 /**
  * 
  */
+function ajaxmethod2(connurl, data) {
+
+    let returnObj = {
+        responseObj: "",
+        responseText: "",
+        responseStatus: "",
+        responseToken: ""
+    };
+    try {
+         $.ajax({
+            type: 'post',
+            url: connurl,
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            crossDomain: true,
+            async:!1,
+            headers: createAuthorizationTokenHeader(),
+            xhrFields: {
+                withCredentials: true
+            },
+            complete: function (XMLHttpRequest, textStatus) {
+                returnObj.responseText = XMLHttpRequest.responseText;
+                returnObj.responseObj = XMLHttpRequest.responseJSON;
+                returnObj.responseStatus = XMLHttpRequest.status;
+                returnObj.responseToken = XMLHttpRequest.getResponseHeader("authorization");
+            },
+           
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                
+            }
+        });
+    } catch (err) {
+        console.log(err);
+    }
+    return returnObj;
+}
+function commoncontextpath2() {
+    let connurl = "../common/getContextPath";
+    return  ajaxmethod2(connurl, "");
+}
+function asyncGetCTX() {
+            returnObj2 =  commoncontextpath2();
+            ctx = returnObj2.responseText;
+            
+            return ctx
+            }
+var ctx_tmp = asyncGetCTX();
+ctx_path = ctx_tmp === 'nocontext' ? "" : ctx_tmp
 var protocol = window.location.protocol;
 var url_prefix = location.pathname.split( '/' )[1];
     newsCounter = 0;
 	if(protocol == "https:"){
-		sock = new SockJS("https://"+window.location.host+ "/" +url_prefix+"/ws");
+		sock = new SockJS("https://"+window.location.host+ ctx_path + "/ws");
       }else{
-    	sock = new SockJS("http://"+window.location.host+ "/" +url_prefix + "/ws");
+    	sock = new SockJS("http://"+window.location.host+ ctx_path + "/ws");
       }
 
 	let client = Stomp.over(sock);
