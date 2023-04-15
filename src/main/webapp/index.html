@@ -726,13 +726,13 @@
 
     <!-- ajax呼叫server請求登入 -->
     <script>
-        let returnObj = "";
+        let userObj = "";
         async function userLogin(data) {
             if (data != null && data != undefined && data != "") {
                 let userEmail = {
                     "email": data
                 };
-                returnObj = await loginthirdParty(userEmail);
+                userObj = await loginthirdParty(userEmail);
             } else {
                 let enterAccount = $("#usernameLogin").prop('value');
                 let enterPassWord = $("#passwordLogin").prop('value');
@@ -742,7 +742,7 @@
                                 account: enterAccount,
                                 passw: enterPassWord
                             };
-                    returnObj = await login(userAccountData);
+                            userObj = await login(userAccountData);
                 } else {
                     Swal.fire('缺少帳密資料');
                     return;
@@ -750,12 +750,12 @@
             }      
 
             // 撈完後解析假資料並更新畫面內容。
-            if (returnObj.responseStatus != 200) {
+            if (userObj.responseStatus != 200) {
                 Swal.fire('帳密錯誤');
                 return;
             } else {       
-                localStorage.setItem("jwtToken", returnObj.responseToken);
-                companyName = returnObj.responseText;
+                localStorage.setItem("jwtToken", userObj.responseToken);
+                companyName = userObj.responseText;
                 if (companyName != null || companyName != undefined || companyName != "") {
                     $("#containerSign div.column-33 span")[0].innerHTML = companyName;
                     return "Success";

@@ -1,3 +1,4 @@
+// --------------jwtToken method----------------------------------- 
 function getJwtToken() {
     return localStorage.getItem("jwtToken");
  }
@@ -12,7 +13,7 @@ function createAuthorizationTokenHeader() {
     }
  }
 
-
+// -------------- AJAX url setting method ----------------------------------- 
 // 登入
 async function login(data) {
     let connurl = "login";
@@ -168,40 +169,71 @@ async function viewsnewsupdate(data) {
 }
 
 
-async function ajaxmethod(connurl, data) {
+function getContextPath() {
+    let connurl = "../common/getContextPath";
+    data = "";
+    return sync_ajaxmethod(connurl, data);
+}
 
-    let returnObj = {
+
+
+// --------------AJAX Connection Method----------------------------------- 
+var returnObj;
+function initReturnObject() {
+    returnObj = {
         responseObj: "",
         responseText: "",
         responseStatus: "",
         responseToken: ""
     };
+}
 
+
+function getAjaxObject(isAsync, connurl, data) {
+    initReturnObject();
+    return {
+        type: 'post',
+        url: connurl,
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(data),
+        dataType: 'json',
+        crossDomain: true,
+        async: isAsync,
+        headers: createAuthorizationTokenHeader(),
+        xhrFields: {
+            withCredentials: true
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+            // console.log(XMLHttpRequest);
+            // console.log(XMLHttpRequest.getResponseHeader("authorization"));
+            returnObj.responseText = XMLHttpRequest.responseText;
+            returnObj.responseObj = XMLHttpRequest.responseJSON;
+            returnObj.responseStatus = XMLHttpRequest.status;
+            returnObj.responseToken = XMLHttpRequest.getResponseHeader("authorization");
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log("ajaxconnect error:  " + "(XMLHttpRequest.status)" + XMLHttpRequest.status + 
+            "   (XMLHttpRequest.readyState)" + XMLHttpRequest.readyState + "   (textStatus)" + textStatus);
+        }
+    };
+}
+
+
+async function ajaxmethod(connurl, data) {
+    initReturnObject();
     try {
-        await $.ajax({
-            type: 'post',
-            url: connurl,
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data),
-            dataType: 'json',
-            crossDomain: true,
-            headers: createAuthorizationTokenHeader(),
-            xhrFields: {
-                withCredentials: true
-            },
-            complete: function (XMLHttpRequest, textStatus) {
-                console.log(XMLHttpRequest);
-                console.log(XMLHttpRequest.getResponseHeader("authorization"));
-                returnObj.responseText = XMLHttpRequest.responseText;
-                returnObj.responseObj = XMLHttpRequest.responseJSON;
-                returnObj.responseStatus = XMLHttpRequest.status;
-                returnObj.responseToken = XMLHttpRequest.getResponseHeader("authorization");
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                console.log("ajaxconnect error:  " + "(XMLHttpRequest.status)" + XMLHttpRequest.status + 
-                "   (XMLHttpRequest.readyState)" + XMLHttpRequest.readyState + "   (textStatus)" + textStatus);
-            }
-        });
+        await $.ajax(getAjaxObject(true, connurl, data));
+    } catch (err) {
+        console.log(err);
+    }
+    return returnObj;
+}
+
+
+function sync_ajaxmethod(connurl, data) {
+    initReturnObject();
+    try {
+        $.ajax(getAjaxObject(false, connurl, data));
     } catch (err) {
         console.log(err);
     }

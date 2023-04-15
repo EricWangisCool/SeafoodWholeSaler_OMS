@@ -18,7 +18,6 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
-
 import tw.com.ispan.eeit48.springsecurity.filter.JWTUtil;
 
 @Configuration
@@ -27,7 +26,8 @@ import tw.com.ispan.eeit48.springsecurity.filter.JWTUtil;
 public class WebsocketConfig implements WebSocketMessageBrokerConfigurer {
 	@Autowired
 	JWTUtil jWTUtil;
-	/*
+
+	/**
 	 *  設定連接終點
 	 */
 	@Override
@@ -37,7 +37,7 @@ public class WebsocketConfig implements WebSocketMessageBrokerConfigurer {
                 .withSockJS();
     }
 
-	/*
+	/**
 	 * 設定 終點底下大代理域
 	 * 預設 /PersonalNotify 接收傳送user個人訊息
 	 *      /AllNotify 伺服器傳送全局訊息
@@ -51,20 +51,26 @@ public class WebsocketConfig implements WebSocketMessageBrokerConfigurer {
 	public void configureClientInboundChannel(ChannelRegistration registration) {
 		registration.interceptors(
 				new ChannelInterceptor() {
-					/*
+					/**
 					 *  收到訊息驗證是否合法token 並傳送User參數
 					 *  初次連接 設定 SecurityContextHolder 全局對象
 					 */
 					@Override
 					public Message<?> preSend(Message<?> message, MessageChannel channel) {
-						StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message,StompHeaderAccessor.class);	
-						if( StompCommand.CONNECT.equals(accessor.getCommand()) &&  accessor.getFirstNativeHeader("jwtToken")!=null  ) {
-							String token = accessor.getFirstNativeHeader("jwtToken");
-							HashMap<String, String> clientInfo = jWTUtil.getClientInfoFromToken(token);
-							UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-			                        new UsernamePasswordAuthenticationToken(clientInfo.get(JWTUtil.USERID_KEY), null, AuthorityUtils.commaSeparatedStringToAuthorityList(clientInfo.get(JWTUtil.AUTHORITY_KEY)));
-							SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-							accessor.setUser(usernamePasswordAuthenticationToken);
+						StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message,StompHeaderAccessor.class);
+
+						if (accessor != null && StompCommand.CONNECT.equals(accessor.getCommand())) {
+							String jwtToken = accessor.getFirstNativeHeader("jwtToken");
+
+							if (jwtToken != null) {
+								HashMap<String, String> clientInfo = jWTUtil.getClientInfoFromToken(jwtToken);
+
+								UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+										new UsernamePasswordAuthenticationToken(clientInfo.get(JWTUtil.USERID_KEY), null, AuthorityUtils.commaSeparatedStringToAuthorityList(clientInfo.get(JWTUtil.AUTHORITY_KEY)));
+
+								SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+								accessor.setUser(usernamePasswordAuthenticationToken);
+							}
 						}
 						return message;
 					}

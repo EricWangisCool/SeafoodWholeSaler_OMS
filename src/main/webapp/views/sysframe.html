@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>sysframe</title>
 
 
     <!-- Bootstrap CSS -->
@@ -109,13 +109,6 @@
                         class="text-decoration-none ps-3 py-2 d-inline-flex align-items-center">
                         <i class="fas fa-comment-dots"></i>聯絡我們</a>
                 </li>
-<!--                 預留測試發送訊息 -->
-                <li>
-                <button onclick="sendMessage()" hidden>click!</button>
-                </li>
-
-
-
             </ul>
         </div>
 
@@ -172,14 +165,18 @@
         checkIfJwtTokenExist();
 
         // 更新標題名稱----------------------------------------------------------------------------------------------------------------------------
-        let returnObj = "";
+        let userAccountObj = "";
         let useraccountname = "";
         async function asyncGetUserAccount() {
-            returnObj = await getUserAccount("");
-            useraccountname = returnObj.responseText;
+            userAccountObj = await getUserAccount("");
+            useraccountname = userAccountObj.responseText;
 
             if (useraccountname != null || useraccountname != "" || useraccountname != undefined) {
-            $("#navbarSupportedContent a")[0].innerHTML = useraccountname;
+                $("#navbarSupportedContent a")[0].innerHTML = useraccountname;
+            } else {
+                Swal.fire('登入全限已過期，請重新登入');
+                localStorage.removeItem("jwtToken");
+                window.location.href = `../index.html`;
             }
         }
         asyncGetUserAccount();
@@ -256,7 +253,6 @@
 
                 if (returnObj.responseStatus != 200) {
                     // 沒接到資料
-
                     console.log("orderStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
                     console.log(returnObj.responseObj);
                 } else {
@@ -267,44 +263,6 @@
                     }
                 }
             }, time);
-        }
-
-        // 檢查是否有最新通知---------------------------------------------------------------------------------
-//         let getNewsTimer = window.setInterval(function(){
-//                 getNewsData();
-//         },1000);   
-
-        $(".rounded-pill").hide();
-        let showNewsNum = 0;
-        async function getNewsData() {
-            // 與Server對接的ajax。
-            // 邊撈同時進行後續動作。
-            returnObj = await viewsnews(null);
-
-            if (returnObj.responseStatus != 200) {
-                // 沒接到資料
-                console.log("orderStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                console.log(returnObj.responseObj);
-            } else {
-                // 處理及判斷邏輯：          
-                allNewsList = returnObj.responseObj;
-
-                let newsCounter = 0;
-                for(let i = 0; i < allNewsList.length; i++){
-                    if(allNewsList[i].messageread == "N"){
-                        newsCounter++;
-                    }
-                }
-
-                // 數量不相等時，要顯示資訊
-                if(newsCounter != showNewsNum && newsCounter != 0){
-                    $(".rounded-pill").show();
-                    $(".rounded-pill")[0].innerHTML = newsCounter;      
-                    showNewsNum = newsCounter;
-                }else if(newsCounter == 0){
-                    $(".rounded-pill").hide();
-                }
-            }
         }
 
         // 登出按鈕功能--------------------------------------------------------------------------------------
@@ -326,6 +284,7 @@
                     }
             })
         };
+
     </script>
     <!-- WebSocket依賴 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.js" integrity="sha512-aHuAnb+FZ/yM5zYvdiA8q0sxLdsBQ3PRwO8D/08qsenCLQ2gWsosB43Cn1X8esAz0IpaC7Ns5cAPyKIdJQ0hNw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -333,7 +292,7 @@
     
     
     <!-- WebSocket JS設定 -->
-    <script src="../javascript/websocket_sysframe.js"></script>
+    <script src="../javascript/websocket.js"></script>
 	 <!-- WebSocket 結束 -->
 </body>
 </html>

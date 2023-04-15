@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pagecontent</title>
+    <title>news</title>
 
     <!-- Material Design -->
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
@@ -230,7 +230,7 @@
 
 
         // server的假資料
-        allNewsList = [
+        var allNewsList = [
             {
                 receiverid: 1,
                 messagecontent: '系統公告請盡快安排訂單#220101574出貨。2022-10-18 20:34:12',
@@ -250,30 +250,6 @@
                 messageread: 'Y'
             }
         ];
-
-
-        downloadData();
-        async function downloadData() {
-
-            // 與Server對接的ajax。
-            // 邊撈同時進行後續動作。
-
-            returnObj = await viewsnews(null);
-
-            if (returnObj.responseStatus != 200) {
-                // 沒接到資料                
-                reNewData();
-
-                console.log("viewsnews getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                console.log(returnObj.responseObj);
-            } else {
-                // 處理及判斷邏輯：          
-                allNewsList = returnObj.responseObj;
-
-                reNewData();
-            }
-
-        }
 
 
         function reNewData() {
@@ -298,12 +274,12 @@
 
                 for (let k = 0; k < selectTitle.length; k++) {
                     let selectTitleLen = selectTitle[k].length;
-                    if ((allNewsList[i].messagecontent).substr(0, selectTitleLen) == selectTitle[k]) {
+                    if ((allNewsList[i].messageContent).substr(0, selectTitleLen) == selectTitle[k]) {
                         // 標題
                         newsTitle = selectTitle[k];
 
                         // 時間(-19是時間的長度)
-                        newsTime = (allNewsList[i].messagecontent).slice(allNewsList[i].messagecontent.length - 19);
+                        newsTime = (allNewsList[i].messageContent).slice(allNewsList[i].messageContent.length - 19);
                         // 判斷時間格式是否正常
                         if (!isNaN(newsTime) || isNaN(Date.parse(newsTime))) {
                             newsTime = "2022-12-31 00:00:00";
@@ -312,10 +288,10 @@
                         // 內容
                         if (newsTime == "2022-12-31 00:00:00") {
                             // 標題內容裡面沒有時間or時間錯誤
-                            newsContent = (allNewsList[i].messagecontent).slice(newsTitle.length);
+                            newsContent = (allNewsList[i].messageContent).slice(newsTitle.length + 1);
                         } else {
                             // 標題內容有時間，要把時間部分排除
-                            newsContent = (allNewsList[i].messagecontent).slice(newsTitle.length, (allNewsList[i].messagecontent.length - 19));
+                            newsContent = (allNewsList[i].messageContent).slice(newsTitle.length + 1, (allNewsList[i].messageContent.length - 19));
                         }
 
                         // 檢查icon
@@ -351,7 +327,7 @@
                     newsIcon = `<i class="fas fa-comment-plus fs-5"></i>`;
 
                     // 時間(-19是時間的長度)
-                    newsTime = (allNewsList[i].messagecontent).slice(allNewsList[i].messagecontent.length - 19);
+                    newsTime = (allNewsList[i].messageContent).slice(allNewsList[i].messageContent.length - 19);
                     // 判斷時間格式是否正常
                     if (!isNaN(newsTime) || isNaN(Date.parse(newsTime))) {
                         newsTime = "2022-12-31 00:00:00";
@@ -360,10 +336,10 @@
                     // 內容
                     if (newsTime == "2022-12-31 00:00:00") {
                         // 標題內容裡面沒有時間or時間錯誤 並且 沒有標題
-                        newsContent = allNewsList[i].messagecontent;
+                        newsContent = allNewsList[i].messageContent;
                     } else {
                         // 標題內容有時間，要把時間部分排除
-                        newsContent = (allNewsList[i].messagecontent).slice(0, (allNewsList[i].messagecontent.length - 19));
+                        newsContent = (allNewsList[i].messageContent).slice(0, (allNewsList[i].messageContent.length - 19));
                     }
                 }
 
@@ -384,52 +360,6 @@
 
         }
 
-
-        // 1秒後回傳已讀
-        let newsRead = window.setTimeout(function () {
-
-            let sentServerArray = [];
-            for (let i = 1; i < $(".newstable tr").length; i++) {
-
-                if ($($(".newstable tr")[i]).find("span")[0].classList.value == "status-indicator") {
-                    sentServerArray.push($(".newstable tr")[i].dataset.value);
-                }
-
-            }
-
-            updateData(sentServerArray);
-
-        }, 1000)
-
-
-        async function updateData(data) {
-
-            // 與Server對接的ajax。
-            // 邊撈同時進行後續動作。
-
-            if (data.length != 0) {
-
-                sentData = new Array(data.length);
-                for (let i = 0; i < data.length; i++) {
-                    sentData[i] = parseInt(data[i]);
-                }
-
-                returnObj = await viewsnewsupdate(sentData);
-
-                if (returnObj.responseStatus != 200) {
-                    // 沒接到資料
-
-                    console.log("updateData getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                    console.log(returnObj.responseObj);
-                } else {
-                    // 處理及判斷邏輯：          
-                    console.log("news read");
-                }
-
-            }
-
-        }
-
     </script>
     <!-- WebSocket依賴 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.js" integrity="sha512-aHuAnb+FZ/yM5zYvdiA8q0sxLdsBQ3PRwO8D/08qsenCLQ2gWsosB43Cn1X8esAz0IpaC7Ns5cAPyKIdJQ0hNw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -437,7 +367,7 @@
     
     
     <!-- WebSocket JS設定 -->
-    <script src="../javascript/websocket_news.js"></script>
+    <script src="../javascript/websocket.js"></script>
 	 <!-- WebSocket 結束 -->
 
 </body>
