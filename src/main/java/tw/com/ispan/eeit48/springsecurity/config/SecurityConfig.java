@@ -14,7 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import tw.com.ispan.eeit48.service.AuthService;
+import tw.com.ispan.eeit48.mainfunction.service.AuthService;
 import tw.com.ispan.eeit48.springsecurity.filter.JWTAuthenticationFilter;
 
 @Configuration
@@ -70,6 +70,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring()
                 .antMatchers(HttpMethod.OPTIONS, "/**")
                 // allow anonymous resource requests
-                .antMatchers("/", "/*.html", "/favicon.ico", "/**/*.html", "/**/*.css", "/**/*.js", "/**/*.jpg", "/**/*.png");
+                .antMatchers("/", "/*.html", "/favicon.ico", "/**/*.html", "/**/*.css", "/**/*.js", "/**/*.jpg", "/**/*.png")
+                // allow websocket
+                .antMatchers("/ws/**");
     }
+    
+
 }
