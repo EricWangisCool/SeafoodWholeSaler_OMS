@@ -11,16 +11,15 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import tw.com.ispan.eeit48.mainfunction.model.ProductBean;
 import tw.com.ispan.eeit48.mainfunction.model.OrdersBean;
 import tw.com.ispan.eeit48.mainfunction.model.SortComparator;
 import tw.com.ispan.eeit48.mainfunction.repository.AccountsRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.OrdersRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.View_product_order_orderdetailsRepository;
+import static tw.com.ispan.eeit48.mainfunction.service.AuthService.getCurrentUserId;
 
 @Service
-@Transactional
 public class PageService {
 	@Autowired
 	private ProductService productService;
@@ -31,7 +30,9 @@ public class PageService {
 	@Autowired
 	private View_product_order_orderdetailsRepository view_product_order_orderdetailsRepository;
 
-	public String getPageInformation(int userId) throws Exception {
+	public String getUserMainPageInfo() throws Exception {
+		int userId = getCurrentUserId();
+
 		return new JSONArray(){{
 			put(new JSONObject(){{ put("pageList", returnPageList(userId));}});
 			put(new JSONObject(){{ put("pageBuyList", returnPageBuyList(userId));}});

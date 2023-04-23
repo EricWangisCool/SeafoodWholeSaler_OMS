@@ -5,37 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pagecontent</title>
 
+    <title>pagecontent</title>
 
     <!-- Material Design -->
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-        rel="stylesheet">
-    <!-- ICON CSS -->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
-
-
-    <!-- globalstyle -->
-    <link rel="stylesheet" href="../css/globalstyle.css">
-    <!-- globalattributes -->
-    <link rel="stylesheet" href="../css/globalattributes.css">
-    <!-- 加入頁簽小圖 -->
-    <link rel="shortcut icon" href="../img/beUse/nsyLogo.png" type="image/x-icon">
-
-
-    <!-- 複數頁面使用CSS效果 -->
-    <link rel="stylesheet" href="../css/pluralpagestyle.css">
-
-    <!-- 僅限本頁使用CSS效果 -->
-
-
-
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> 
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <header id="common-header"></header>
+    <script src="../javascript/getCommonHeader.js"></script>
+    
     <style>
         /* 最上層Todo的Table不需要框線樣式，故分開 --------------------------- */
         .pageTodoTable {
@@ -108,16 +89,18 @@
             padding-bottom: 18px;
             border-top: 1px solid var(--color-border);
         }
-    </style>
 
+        html, body, #loading {
+            height: 100%;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
+    <iframe id="loading" src="loading.html" width="100%" height="100%" scrolling="no"></iframe>
+    <div class="container" id="container" style="display: none;">
         <div class="row justify-content-center">
-
             <div class="col-11 mt-4 mb-5 px-0">
-
                 <!-- 分頁大標 -->
                 <h1 class="fs-2 fw-bold mb-4"><span class="text-black">馬雲，歡迎回到管理介面！</span></h1>
 
@@ -249,15 +232,11 @@
 
         </div>
     </div>
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script src="../javascript/materialdesigninit.js"></script>
     <script src="../javascript/ajaxconnect.js"></script>
-
     <script src="../javascript/orderstatus.js"></script>
-
+    <script src="../javascript/tools.js"></script>
     <script>
         // 呼叫父類別方法------------------------------------------------------------------------------------------------------------------
         function callParent(transferData) {

@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = {"/common"})
 public class CommonController {
-	@Value("${server.servlet.context-path:noContext}")
+	@Value("${server.servlet.context-path}")
 	private String contextPath;
 
 	/**
-	 * 因為正式台url使用prefix，使用此function回傳當前contextPath，本地端部署時則回傳空字串
+	 * 因為正式台與本地端使用不同context-path，使用此function取得當前contextPath
 	 * @return contextPath
 	 */
 	@PostMapping(path = {"/getContextPath"})
 	public String getContextPath() {
-		return "noContext".equals(contextPath) ? "" : contextPath;
+		return contextPath;
 	}
 }

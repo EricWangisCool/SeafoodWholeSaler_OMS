@@ -2,14 +2,12 @@ package tw.com.ispan.eeit48.mainfunction.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import tw.com.ispan.eeit48.mainfunction.model.SystemNoticeMessageBean;
 import tw.com.ispan.eeit48.mainfunction.repository.SystemNoticeMessageRepository;
 import tw.com.ispan.eeit48.websocket.service.WebSocketService;
 import java.util.List;
 
 @Service
-@Transactional
 public class SystemNoticeMessageService {
 	@Autowired
 	private SystemNoticeMessageRepository systemNoticeMessageRepository;

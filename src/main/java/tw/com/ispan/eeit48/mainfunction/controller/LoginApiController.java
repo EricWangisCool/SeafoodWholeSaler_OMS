@@ -14,6 +14,7 @@ import tw.com.ispan.eeit48.mainfunction.model.AccountsBean;
 import tw.com.ispan.eeit48.mainfunction.repository.AccountsRepository;
 import tw.com.ispan.eeit48.mainfunction.service.AuthService;
 import tw.com.ispan.eeit48.springsecurity.filter.JWTUtil;
+import static tw.com.ispan.eeit48.mainfunction.service.AuthService.getCurrentUserId;
 
 @RestController
 @RequestMapping(path = { "/login" })
@@ -32,7 +33,7 @@ public class LoginApiController {
 		// 驗證用戶，並將userID和authority加入token裡回傳
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getAccount(), authRequest.getPassw()));
-			AccountsBean user = authService.findUserByaccount(authRequest.getAccount());
+			AccountsBean user = authService.findUserByAccount(authRequest.getAccount());
 			String token = jwtUtil.createToken(user.getAccountid().toString(), user.getAuthority(), false);
 			HttpHeaders headers = new HttpHeaders();
 			headers.set("Authorization", token);
@@ -58,8 +59,10 @@ public class LoginApiController {
 
 	@PostMapping(path = ("/getUserAccount"))
 	public ResponseEntity<?> getUserAccount() {
-		int userId = authService.getCurrentUserId();
-		String account = accountsRepository.findOneByAccountid(userId).getAccount();
-		return ResponseEntity.ok().body(account);
+		try {
+			return ResponseEntity.ok().body(accountsRepository.findOneByAccountid(getCurrentUserId()).getAccount());
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.toString());
+		}
 	}
 }

@@ -8,7 +8,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import tw.com.ispan.eeit48.mainfunction.model.OrderDetailsBean;
 import tw.com.ispan.eeit48.mainfunction.model.ProductBean;
 import tw.com.ispan.eeit48.mainfunction.model.ProductClassIficationBean;
@@ -21,9 +20,9 @@ import tw.com.ispan.eeit48.mainfunction.repository.OrdersRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.ProductClassIficationRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.ProductRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.View_product_order_orderdetailsRepository;
+import static tw.com.ispan.eeit48.mainfunction.service.AuthService.getCurrentUserId;
 
 @Service
-@Transactional
 public class DataAnalyzeService {
 	@Autowired
 	private View_product_order_orderdetailsRepository view_product_order_orderdetailsRepository;
@@ -38,7 +37,9 @@ public class DataAnalyzeService {
 	@Autowired
 	private ProductClassIficationRepository classIficationRepository;
 
-	public String ShowAll(Integer accountid, String ordertime, String completeordertime) throws ParseException {
+	public String getUserOrdersByTime(String ordertime, String completeordertime) throws ParseException {
+		int userId = getCurrentUserId();
+
 		JSONObject[] obj;
 		JSONArray ListSHowAll = new JSONArray();
 		ListSHowAll.clear();
@@ -54,9 +55,10 @@ public class DataAnalyzeService {
 		Date DateofOrdertime = new SimpleDateFormat("yyyy-MM-dd").parse(ordertime);
 		Date DateofCompleteOrdertime = new SimpleDateFormat("yyyy-MM-dd").parse(completeordertime);
 		List<OrdersBean> ob = ordersRepository
-				.findAllBySelleridAndOrderstatusAndOrdertimeBetweenAndCompleteordertimeBetween(accountid, 6,
+				.findAllBySelleridAndOrderstatusAndOrdertimeBetweenAndCompleteordertimeBetween(userId, 6,
 						DateofOrdertime, DateofCompleteOrdertime, DateofOrdertime, DateofCompleteOrdertime); // 把所有完成的訂單放進去
-//找出帳號內特定時間內已完成的訂單
+
+		//找出帳號內特定時間內已完成的訂單
 		JSONArray LISTofFindOrderid = new JSONArray();
 		if (ob != null) {
 			for (OrdersBean bean : ob) {

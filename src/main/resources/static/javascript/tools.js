@@ -1,3 +1,9 @@
+// 頁面載入時顯示loading page，三秒後回正
+setTimeout(function() {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('container').style.display = 'block';
+}, 300);
+
 // 換算金額三位一撇 ----------------------------------------------------------------------------------
 
 function costFix(cost){    
@@ -8,14 +14,6 @@ function costFix(cost){
     internationalNumberFormat = new Intl.NumberFormat('en-US');
     return internationalNumberFormat.format(cost);
 }
-
-
-
-
-
-
-
-
 
 // 分頁按鈕---------------------------------------------------------------------------
 

@@ -9,28 +9,23 @@ import org.springframework.web.bind.annotation.RestController;
 import tw.com.ispan.eeit48.mainfunction.model.ProductBean;
 import tw.com.ispan.eeit48.mainfunction.service.StockService;
 import tw.com.ispan.eeit48.mainfunction.model.SupplierProductForOwnerProductBean;
-import tw.com.ispan.eeit48.mainfunction.service.AuthService;
+import static tw.com.ispan.eeit48.mainfunction.service.AuthService.getCurrentUserId;
 
 @RestController
 @RequestMapping(path = {"/views/addstock"})
 public class StockAPIController {
     @Autowired
     StockService stockService;
-    @Autowired
-    AuthService authService;
-    int userId;
 
     @PostMapping(path = {"/insert"})
     public String insertNewProduct(@RequestBody String body) {
-        userId = authService.getCurrentUserId();
-        JSONObject bodyObj = new JSONObject(body);
-        String result = "NG";
+        try {
+            int userId = getCurrentUserId();
+            JSONObject bodyObj = new JSONObject(body);
 
-        if (userId > 0) {
             // 設定庫存資訊
-            ProductBean productBean = new ProductBean();
-            productBean.setOwnerid(userId);
-            productBean = stockService.setProductBean(bodyObj, productBean);
+            ProductBean bean = new ProductBean();
+            bean.setOwnerid(userId);
 
             // 設定庫存補貨廠商
             SupplierProductForOwnerProductBean supplierProductForOwnerProductBean = new SupplierProductForOwnerProductBean();
@@ -38,24 +33,24 @@ public class StockAPIController {
             supplierProductForOwnerProductBean.setSupplierproductid((Integer) bodyObj.get("supplierproductid"));
 
             // 將庫存補貨廠商 & 庫存補貨廠商進行保存
-            result = stockService.insertNewStock(userId, productBean, supplierProductForOwnerProductBean);
+            return stockService.insertNewStock(userId, stockService.setProductBeanFromJson(bean, bodyObj), supplierProductForOwnerProductBean);
+        } catch (Exception e) {
+            return "NG";
         }
-        return result;
     }
 
     @PostMapping(path = {"/update"})
     public String updateProduct(@RequestBody String body) {
-        JSONObject bodyObj = new JSONObject(body);
-        return stockService.updateStock(bodyObj);
+        return stockService.updateStock(new JSONObject(body));
     }
 
     @PostMapping(path = {"/delete"})
     public String deleteProduct(@RequestBody ProductBean productBean) {
         int productId = productBean.getProductid();
-        String result = "NG";
         if (productId > 0) {
-            result = stockService.deleteStock(productId);
+            stockService.deleteStock(productId);
+            return "OK";
         }
-        return result;
+        return "NG";
     }
 }

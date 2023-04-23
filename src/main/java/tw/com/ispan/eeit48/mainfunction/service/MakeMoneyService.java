@@ -8,7 +8,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import tw.com.ispan.eeit48.mainfunction.model.ProductBean;
 import tw.com.ispan.eeit48.mainfunction.model.View_product_order_orderdetailsBean;
 import tw.com.ispan.eeit48.mainfunction.model.AccountsBean;
@@ -19,9 +18,9 @@ import tw.com.ispan.eeit48.mainfunction.repository.OrderDetailsRepositrory;
 import tw.com.ispan.eeit48.mainfunction.repository.OrdersRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.ProductRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.View_product_order_orderdetailsRepository;
+import static tw.com.ispan.eeit48.mainfunction.service.AuthService.getCurrentUserId;
 
 @Service
-@Transactional
 public class MakeMoneyService {
 	@Autowired
 	private View_product_order_orderdetailsRepository view_product_order_orderdetailsRepository;
@@ -34,8 +33,9 @@ public class MakeMoneyService {
 	@Autowired
 	private ProductRepository productRepository;
 
-	public String ShowAll(Integer accountid, String ordertime, String completeordertime, int buyerida)
-			throws ParseException {
+	public String ShowAll(String ordertime, String completeordertime, int buyerida) throws ParseException {
+		int userId = getCurrentUserId();
+
 		JSONObject[] obj;
 		JSONArray ListShowAll = new JSONArray();
 		ListShowAll.clear();
@@ -60,7 +60,7 @@ public class MakeMoneyService {
 		Date DateofCompleteOrdertime = new SimpleDateFormat("yyyy-MM-dd").parse(completeordertime);
 
 		List<OrdersBean> ob = ordersRepository
-				.findAllBySelleridAndBuyeridAndOrderstatusAndOrdertimeBetweenAndCompleteordertimeBetween(accountid,
+				.findAllBySelleridAndBuyeridAndOrderstatusAndOrdertimeBetweenAndCompleteordertimeBetween(userId,
 						buyerida, 6, DateofOrdertime, DateofCompleteOrdertime, DateofOrdertime,
 						DateofCompleteOrdertime); // 把所有完成的訂單放進去
 		// 找到特定時間內買家已完成的訂單

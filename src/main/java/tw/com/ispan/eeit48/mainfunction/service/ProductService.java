@@ -1,7 +1,6 @@
 package tw.com.ispan.eeit48.mainfunction.service;
 
 import java.util.List;
-import javax.transaction.Transactional;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import tw.com.ispan.eeit48.mainfunction.repository.SupplierProductForOwnerProduc
 import tw.com.ispan.eeit48.mainfunction.repository.View_product_order_orderdetailsRepository;
 
 @Service
-@Transactional
 public class ProductService {
 	@Autowired
 	private ProductRepository productRepository;

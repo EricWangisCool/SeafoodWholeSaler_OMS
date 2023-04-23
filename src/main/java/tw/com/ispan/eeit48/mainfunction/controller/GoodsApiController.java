@@ -15,17 +15,13 @@ import tw.com.ispan.eeit48.mainfunction.service.OrderBuyService;
 import tw.com.ispan.eeit48.mainfunction.service.ProductService;
 import tw.com.ispan.eeit48.mainfunction.model.AccountsBean;
 import tw.com.ispan.eeit48.mainfunction.model.OrdersBean;
-import tw.com.ispan.eeit48.mainfunction.repository.AccountsRepository;
-import tw.com.ispan.eeit48.mainfunction.repository.OrderDetailsRepositrory;
-import tw.com.ispan.eeit48.mainfunction.repository.ProductRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.SupplierProductForOwnerProductRepository;
 import tw.com.ispan.eeit48.mainfunction.service.View_companyfollowinglist_accountsService;
-import tw.com.ispan.eeit48.mainfunction.service.AuthService;
+import static tw.com.ispan.eeit48.mainfunction.service.AuthService.getCurrentUserId;
 
 @RestController
 @RequestMapping(path = {"/views/goods"})
 public class GoodsApiController {
-    // GoodsApiController用的屬性
     @Autowired
     private OrderBuyService orderBuyService;
     @Autowired
@@ -34,16 +30,6 @@ public class GoodsApiController {
     private SupplierProductForOwnerProductRepository supplierProductForOwnerProductRepository;
     @Autowired
     View_companyfollowinglist_accountsService view_companyfollowinglist_accountsService;
-    @Autowired
-    AuthService authService;
-
-    // 為了建構OrderBuyApiController才Autowired的屬性
-    @Autowired
-    private AccountsRepository accountsRepository;
-    @Autowired
-    private OrderDetailsRepositrory orderDetailsRepositrory;
-    @Autowired
-    private ProductRepository productRepository;
 
     // 前端發送供應商ID, 後端回傳該供應商的產品資訊
     @PostMapping
@@ -80,9 +66,10 @@ public class GoodsApiController {
 
     // 買方按下[新增商品]建立叫貨單, 訂單暫存未送出(orderStatus = 1)
     @PostMapping(path = ("/insert"))
-    public String insertOrder(@RequestBody String body) throws Exception {
-        int userId = authService.getCurrentUserId();
-        if (userId > 0 && body != null) {
+    public String insertOrder(@RequestBody String body) {
+        int userId = getCurrentUserId();
+
+        if (body != null) {
             JSONObject bodyJsonObject = new JSONObject(body);
             OrdersBean newOrdersBean = new OrdersBean();
             List<OrderDetailsBean> newOrderDetailsBeans = new ArrayList<OrderDetailsBean>();
@@ -106,7 +93,7 @@ public class GoodsApiController {
             }
 
             if (orderBuyService.saveNewOrdersBean(newOrdersBean) != null) {
-                if (orderBuyService.saveNewOrderDetailsBean(newOrderDetailsBeans) == true) {
+                if (orderBuyService.saveNewOrderDetailsBean(newOrderDetailsBeans)) {
                     // 如果orders && orderdetails都成功叫貨的話, 回傳OK
                     return "OK";
                 }
@@ -114,6 +101,6 @@ public class GoodsApiController {
                 return "NG";
             }
         }
-        return "Incorrect User";
+        return "NG";
     }
 }

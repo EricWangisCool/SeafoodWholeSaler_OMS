@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tw.com.ispan.eeit48.mainfunction.model.AccountsBean;
 import tw.com.ispan.eeit48.mainfunction.repository.AccountsRepository;
-
 import java.util.Optional;
 
 /**
@@ -33,7 +32,7 @@ public class AuthService implements UserDetailsService {
     }
 
     @Transactional(readOnly = true)
-    public AccountsBean findUserByaccount(String account) {
+    public AccountsBean findUserByAccount(String account) {
         Optional<AccountsBean> result = accountsRepository.findOneByaccount(account);
         if (result.isPresent()) {
             return result.get();
@@ -54,7 +53,7 @@ public class AuthService implements UserDetailsService {
         return null;
     }
 
-    public int getCurrentUserId() {
+    public static int getCurrentUserId() {
         return Integer.parseInt((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
     }
 }
