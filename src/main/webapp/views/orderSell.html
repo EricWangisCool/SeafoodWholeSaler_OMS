@@ -5,28 +5,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pagecontent</title>
+
+    <title>ordersell</title>
 
     <!-- Material Design -->
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> 
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-        rel="stylesheet">
-    <!-- ICON CSS -->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
-
-    <!-- globalstyle -->
-    <link rel="stylesheet" href="../css/globalstyle.css">
-    <!-- globalattributes -->
-    <link rel="stylesheet" href="../css/globalattributes.css">
-    <!-- 加入頁簽小圖 -->
-    <link rel="shortcut icon" href="../img/beUse/nsyLogo.png" type="image/x-icon">
-
-    <!-- 複數頁面使用CSS效果 -->
-    <link rel="stylesheet" href="../css/pluralpagestyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <header id="common-header"></header>
+    <script src="../javascript/getCommonHeader.js"></script>
 
     <style>
         /* 表格 --------------------------------------------------------- */
@@ -123,11 +112,16 @@
                 color: var(--color-sunorange);
             }
         }
+
+        html, body, #loading {
+            height: 100%;
+        }
     </style>
 </head>
 
 <body>
-    <div class="container">
+    <iframe id="loading" src="loading.html" width="100%" height="100%" scrolling="no"></iframe>
+    <div class="container" id="container" style="display: none;">
         <div class="row justify-content-center">
 
             <!-- border border-primary  -->
@@ -203,18 +197,13 @@
         </div>
     </div>
 
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../javascript/materialdesigninit.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-latest.pack.js"></script>
-
     <script src="../javascript/ajaxconnect.js"></script>
     <script src="../javascript/orderstatus.js"></script>
     <script src="../javascript/tools.js"></script>
-
-
     <script>
         // 上方選單移動與選擇
         // 最上方按鈕點擊時，按鈕狀態改變，下方底線移動。
@@ -279,9 +268,6 @@
             }
 
         })
-
-
-        //----------------------------------------------------------------------------------------------------------------------------------
 
 
         // 呼叫model開啟，同時呼叫開啟的內部iframe方法.parentCall(0)
@@ -941,14 +927,7 @@
                     console.log("goods state error");
                     break;
             }
-
         }
-
-
-
     </script>
-
-
 </body>
-
 </html>

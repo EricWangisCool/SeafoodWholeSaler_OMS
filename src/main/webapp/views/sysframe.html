@@ -5,39 +5,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>sysframe</title>
 
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
-    <!-- ICON CSS -->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
-
-
-    <!-- globalstyle -->
-    <link rel="stylesheet" href="../css/globalstyle.css">
-    <!-- 全域CSS屬性 -->
-    <link rel="stylesheet" href="../css/globalattributes.css">
-    <!-- 加入頁簽小圖 -->
-    <link rel="shortcut icon" href="../img/beUse/nsyLogo.png" type="image/x-icon">
-
-
-    <!-- 複數頁面使用CSS效果 -->
-    <link rel="stylesheet" href="../css/pluralpagestyle.css">
+    <!-- Material Design -->
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> 
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <header id="common-header"></header>
+    <script src="../javascript/getCommonHeader.js"></script>
 
     <!-- 僅限本頁使用CSS效果 -->
     <link rel="stylesheet" href="../css/sysstyle.css">
-
 </head>
 
 <body>
-
-    <!-- <div>HELLO</div> -->
-
     <div class="main-container d-flex">
-
         <div class="sidebar shadow-sm" id="side_nav">
-
             <div class="header-box d-flex justify-content-between">
                 <a href="#" onclick="changepage(pageHref)"
                     class="fs-4 fw-bolder text-decoration-none fst-italic m-auto pe-1"><span class="text-white">Nice to
@@ -57,9 +43,13 @@
                 <li class="newsli">
                     <a href="./news.html" onclick="return loadIframe('ifrm', this.href)"
                         class="text-decoration-none ps-3 py-2 d-block d-inline-flex justify-content-between">
-                        <span><i class="fas fa-comment-plus"></i>通知與動向</span>
-                        <span class="text-white rounded-pill px-2 me-2"
-                            style="background-color: var(--color-alizarincrimson);">0</span>
+                        <span>
+                            <i class="fas fa-comment-plus"></i>
+                            通知與動向
+                        </span>
+                        <span class="text-white rounded-pill px-2 me-2" 
+                                style="background-color: var(--color-alizarincrimson); display: none;">
+                        </span>
                     </a>
                 </li>
 
@@ -113,10 +103,7 @@
         </div>
 
 
-
-
         <div class="content" style="display: flex; flex-direction: column;">
-
             <nav class="navbar navbar-expand-md navbar-light bg-light shadow-sm" style="min-height: 48px;">
                 <div class="container-fluid">
 
@@ -126,12 +113,11 @@
 
 
                     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle py-0" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 18px;">
-
-                                <i class="fal fa-user-circle fa-xl me-3"></i>ADMIN
+                                <i class="fal fa-user-circle fa-xl me-3"></i>
+                                ADMIN
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="./account.html"
@@ -142,7 +128,6 @@
                                 <li><a class="dropdown-item" href="#" onclick="logoutAlert()">登出</a></li>
                             </ul>
                         </div>
-
                     </div>
                 </div>
             </nav>
@@ -152,10 +137,9 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="../javascript/ajaxconnect.js"></script>
+    <script src="../javascript/materialdesigninit.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+    <script src="../javascript/ajaxconnect.js"></script>
     <script>
         function checkIfJwtTokenExist() {
             if (localStorage.getItem("jwtToken") == null) {
@@ -165,18 +149,26 @@
         checkIfJwtTokenExist();
 
         // 更新標題名稱----------------------------------------------------------------------------------------------------------------------------
-        let userAccountObj = "";
-        let useraccountname = "";
         async function asyncGetUserAccount() {
-            userAccountObj = await getUserAccount("");
-            useraccountname = userAccountObj.responseText;
+            let userAccountName = "";
+            let userAccountObj = {};
 
-            if (useraccountname != null || useraccountname != "" || useraccountname != undefined) {
-                $("#navbarSupportedContent a")[0].innerHTML = useraccountname;
+            userAccountObj = await getUserAccount("");
+            if (isReturnObjectCorrect(userAccountObj)) {
+                userAccountName = userAccountObj.responseText;
+            }
+            
+            if (userAccountName != "") {
+                $("#navbarSupportedContent a")[0].innerHTML = userAccountName;
             } else {
-                Swal.fire('登入全限已過期，請重新登入');
-                localStorage.removeItem("jwtToken");
-                window.location.href = `../index.html`;
+                Swal.fire({
+                    title: '登入權限已過期，請重新登入',
+                    confirmButtonColor: 'var(--color-marigold)',
+                    confirmButtonText: '確定',
+                }).then((result) => {
+                    localStorage.removeItem("jwtToken");
+                    window.location.href = `../index.html`;
+                });
             }
         }
         asyncGetUserAccount();
@@ -248,7 +240,6 @@
         // 叫貨管理會呼叫這個方法
         function arriveOrderTimeCounter(data, time) {
             setTimeout(async function () {
-
                 returnObj = await viewsordersellupdate(data);
 
                 if (returnObj.responseStatus != 200) {
@@ -275,13 +266,17 @@
                     cancelButtonColor: 'var(--color-irongray)',
                     confirmButtonText: '登出',
                     cancelButtonText: '取消'
-            }).then ((result) => {
-                    if (result.isConfirmed) {
-                        localStorage.clear();
-                        Swal.fire('您已成功登出').then(function(){
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.clear();
+                        Swal.fire({
+                            title: '您已成功登出',
+                            showConfirmButton: true,
+                            confirmButtonColor: 'var(--color-marigold)'
+                        }).then((result) => {
                             window.location.href = `../index.html`;
-                        });
-                    }
+                    });
+                };    
             })
         };
 

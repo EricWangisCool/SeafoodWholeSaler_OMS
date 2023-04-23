@@ -5,31 +5,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pagecontent</title>
+    
+    <title>goods</title>
 
     <!-- Material Design -->
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> 
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-        rel="stylesheet">
-    <!-- ICON CSS -->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
-
-
-    <!-- globalstyle -->
-    <link rel="stylesheet" href="../css/globalstyle.css">
-    <!-- globalattributes -->
-    <link rel="stylesheet" href="../css/globalattributes.css">
-    <!-- 加入頁簽小圖 -->
-    <link rel="shortcut icon" href="../img/beUse/nsyLogo.png" type="image/x-icon">
-
-    <!-- 複數頁面使用CSS效果 -->
-    <link rel="stylesheet" href="../css/pluralpagestyle.css">
-
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <header id="common-header"></header>
+    <script src="../javascript/getCommonHeader.js"></script>
 
     <style>
         table {
@@ -134,9 +120,7 @@
 <body class="bg-white">
     <div class="container">
         <div class="row justify-content-center">
-
             <div>
-
                 <!-- 選擇廠商區塊 -->
                 <div class="sectionTop rounded-3 shadow-sm py-4 px-4 w-100 h-auto my-4">
 
@@ -188,9 +172,7 @@
                                 <span class="mdc-button__label fs-5 fw-normal">搜尋</span>
                             </button>
                         </div>
-
                     </div>
-
                 </div>
 
 
@@ -246,15 +228,11 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../javascript/materialdesigninit.js"></script>
     <script src="../javascript/ajaxconnect.js"></script>
     <script src="../javascript/tools.js"></script>
-
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-latest.pack.js"></script>
-
     <script>        
 
         // JSON假資料  ----------------------------------------------------------------------------------------------------------------------
@@ -922,12 +900,7 @@
             $(".total span")[0].innerHTML = chooseProduct;
             $(".total span")[1].innerHTML = costFix(chooseProductPrice);
         }  
-
-
     </script>
-
-
-
 </body>
 
 </html>

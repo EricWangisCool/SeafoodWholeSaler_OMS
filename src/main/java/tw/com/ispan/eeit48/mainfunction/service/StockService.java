@@ -9,6 +9,7 @@ import tw.com.ispan.eeit48.mainfunction.model.ProductBean;
 import tw.com.ispan.eeit48.mainfunction.model.SupplierProductForOwnerProductBean;
 import tw.com.ispan.eeit48.mainfunction.repository.ProductRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.SupplierProductForOwnerProductRepository;
+import static tw.com.ispan.eeit48.mainfunction.service.AuthService.getCurrentUserId;
 
 @Service
 @Transactional
@@ -20,11 +21,11 @@ public class StockService {
 
 	public String insertNewStock(Integer accountId, ProductBean productBean,
 			SupplierProductForOwnerProductBean supplierProductForOwnerProductBean) {
-		Integer lastOldProductId = null, newProductId = null;
+		Integer lastOldProductId = null, newProductId;
 		
 		// 找尋舊productId，如果找到，將就最新一筆productId+1作為newProductId，<否則就將(int)"accountId"+"00001">做為newProductId
 		List<ProductBean> productBeans = productRepository.findAllByOwnerid(accountId);
-		if (!productBeans.isEmpty() && productBeans != null) {
+		if (!productBeans.isEmpty()) {
 			for (ProductBean bean : productBeans) {
 				lastOldProductId = bean.getProductid();
 			}
@@ -37,12 +38,9 @@ public class StockService {
 		supplierProductForOwnerProductBean.setProductid(newProductId);
 
 		// 新庫存保存成功就保存它的供應商資訊，都保存成功回傳OK，否則回傳NG
-		if (productRepository.save(productBean) != null) {
-			if (supplierProductForOwnerProductRepository.save(supplierProductForOwnerProductBean) != null) {
-				return "OK";
-			}
-		}
-		return "NG";
+		productRepository.save(productBean);
+		supplierProductForOwnerProductRepository.save(supplierProductForOwnerProductBean);
+		return "OK";
 	}
 
 	public String updateStock(JSONObject bodyObj) {
@@ -50,21 +48,22 @@ public class StockService {
 		if (productId != null) {
 			ProductBean productBean = productRepository.findOneByProductid(productId);
 			if (productBean != null) {
-				productBean = this.setProductBean(bodyObj, productBean);
-				if (productRepository.save(productBean) != null) {
-					return "OK";
-				}
+				productBean = this.setProductBeanFromJson(productBean, bodyObj);
+				productRepository.save(productBean);
+				return "OK";
 			}
 		}
 		return "NG";
 	}
 
-	public String deleteStock(Integer productid) {
-		productRepository.deleteByProductid(productid);
-		return "OK";
-	}
+	public void deleteStock(Integer productid) { productRepository.deleteByProductid(productid); }
 
-	public ProductBean setProductBean(JSONObject bodyObj, ProductBean productBean) {
+	/**
+	 * 設定庫存資訊
+	 * @param bodyObj
+	 * @return ProductBean
+	 */
+	public ProductBean setProductBeanFromJson(ProductBean productBean, JSONObject bodyObj) {
 		productBean.setStockqty((Integer) bodyObj.get("stockqty"));
 		productBean.setUnitcost((Integer) bodyObj.get("unitcost"));
 		productBean.setWarningqty((Integer) bodyObj.get("warningqty"));

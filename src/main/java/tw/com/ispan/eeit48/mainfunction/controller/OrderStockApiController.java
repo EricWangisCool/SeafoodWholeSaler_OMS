@@ -9,25 +9,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tw.com.ispan.eeit48.mainfunction.model.ProductBean;
 import tw.com.ispan.eeit48.mainfunction.service.ProductService;
-import tw.com.ispan.eeit48.mainfunction.service.AuthService;
+import static tw.com.ispan.eeit48.mainfunction.service.AuthService.getCurrentUserId;
 
 @RestController
 @RequestMapping(path = {"/views/orderstock"})
 public class OrderStockApiController {
     @Autowired
     ProductService productService;
-    @Autowired
-    AuthService authService;
 
     @PostMapping
-    public String orderstockInformation() throws Exception {
+    public String orderStockInformation() throws Exception {
         // 回傳使用者所有商品資訊, 包括已訂未出數 & 可出現貨數 & 已叫現貨數 & 供應商相關資訊
-        int userId = authService.getCurrentUserId();
-        if (userId > 0) {
+        try {
             JSONArray list = new JSONArray();
-
-            // 依照userId, 找出他所有產品資訊, 並將單個產品資訊尋訪出來
-            List<ProductBean> productBeans = productService.findProductByOwnerid(userId);
+            List<ProductBean> productBeans = productService.findProductByOwnerid(getCurrentUserId());
             for (ProductBean productBean : productBeans) {
                 // 運用尋訪出的單個產品資訊, 找出productId, 用來找底下三個數量, 和供應商相關資訊
                 int productId = productBean.getProductid();
@@ -64,8 +59,7 @@ public class OrderStockApiController {
             }
             // 回傳JSON陣列字串給前端
             return list.toString();
-        } else {
-            System.out.println("no product for this User");
+        } catch (Exception e){
             return "NG";
         }
     }

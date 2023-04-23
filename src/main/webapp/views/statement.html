@@ -4,30 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pagecontent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <title>statement</title>   
 
     <!-- Material Design -->
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> 
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-        rel="stylesheet">
-    <!-- ICON CSS -->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
-
-    <!-- globalstyle -->
-    <link rel="stylesheet" href="../css/globalstyle.css">
-    <!-- globalattributes -->
-    <link rel="stylesheet" href="../css/globalattributes.css">
-    <!-- 加入頁簽小圖 -->
-    <link rel="shortcut icon" href="../img/beUse/nsyLogo.png" type="image/x-icon">
-
-    <!-- 複數頁面使用CSS效果 -->
-    <link rel="stylesheet" href="../css/pluralpagestyle.css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <header id="common-header"></header>
+    <script src="../javascript/getCommonHeader.js" defer></script>
     <style>
         table {
             margin: auto;
@@ -97,14 +85,17 @@
             width: 100%;
             margin-top: 15%;
         }
-    </style>
 
+        html, body, #loading {
+            height: 100%;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
+    <iframe id="loading" src="loading.html" width="100%" height="100%" scrolling="no"></iframe>
+    <div class="container" id="container" style="display: none;">
         <div class="row justify-content-center">
-
             <!-- border border-primary  -->
             <div class="col-11 mt-4 px-0">
 
@@ -179,9 +170,7 @@
                         </div>
 
                     </div>
-
                 </div>
-
                 <br>
 
                 <!-- 未顯示資訊的背景 ---------------------------->
@@ -342,15 +331,12 @@
                             <tr></tr>
                             <tr></tr>
                             <tr></tr>
-
                             <tr>
                                 <td colspan="7">* 註：若請款金額不符，請附上明細貨來電對帳。</td>
                             </tr>
-
                             <tr>
                                 <td colspan="7">* 註：發票若有錯誤，請於銷貨次月八日前寄達更正，逾期恕不受理。</td>
                             </tr>
-
                         </table>
                     </div>
 
@@ -364,31 +350,17 @@
                         <button id="exportPDF" class="mdc-button mdc-button--raised"><span
                                 class="mdc-button__label fs-5 fw-normal" onclick="numRed()">匯出PDF</span>
                         </button>
-
-
                     </div>
-
                 </div>
-
                 <br><br>
-
             </div>
-
         </div>
     </div>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../javascript/materialdesigninit.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../javascript/ajaxconnect.js"></script>
     <script src="../javascript/tools.js"></script>
-
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/TableExport/5.2.0/js/tableexport.min.js"
-        integrity="sha512-XmZS54be9JGMZjf+zk61JZaLZyjTRgs41JLSmx5QlIP5F+sSGIyzD2eJyxD4K6kGGr7AsVhaitzZ2WTfzpsQzg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-
     <script>
         // JSON假資料  ----------------------------------------------------------------------------------------------------------------------
         // CompanyName(客戶名稱)、TaxId(統一編號)、Address(發票地址)、ContactPerson("聯絡窗口")
@@ -572,7 +544,6 @@
 
         // 下拉選單廠商列表------------------------------------------------
         function reNewCooperateData() {
-
             for (let i = 0; i < cooperateList.length; i++) {
 
                 let ulHtml = `
@@ -764,16 +735,13 @@
                     <th>${costFix(todayTotal)}</th>`;
 
                 $(".stateTable tr")[i + 5].innerHTML = trHtmlData12;
-
             }
-
 
             let trHtmlData13 =
                 `<td colspan="7">* 註：若請款金額不符，請附上明細貨來電對帳。</td>`;
 
             let trHtmlData14 =
                 `<td colspan="7">* 註：發票若有錯誤，請於銷貨次月八日前寄達更正，逾期恕不受理。</td>`;
-
 
             // 把製作完的tr放回去table中。
             $(".stateTable tr")[0].innerHTML = trHtmlData;
@@ -789,30 +757,23 @@
             // $(".stateTable tr")[10].innerHTML = trHtmlData12;
             // $(".stateTable tr")[11].innerHTML = trHtmlData13;
             // $(".stateTable tr")[12].innerHTML = trHtmlData14;
-
         }
-
-
-
     </script>
 
     <script>
         function sweetalertShow(state) {
-
             switch (state) {
                 case 0:
                     Swal.fire({
                         title: '請選擇日期及廠商',
                         icon: 'warning',
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
+                        confirmButtonColor: 'var(--color-marigold)'
                     })
                     break;
                 default:
-                    console.log("goods state error");
                     break;
             }
-
         }
     </script>
 
@@ -836,16 +797,11 @@
                     console.log("error");
                     break;
             }
-
-
         }
     </script>
 
-
-
     <!-- 匯出Excel -->
     <script>
-
         // TableExport(document.getElementById("testTable"), {
         //     filename: 'excelfile',
         //     sheetname: "sheet1"
@@ -879,7 +835,6 @@
     <!-- 匯出PDF -->
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
     <script src='../javascript/jspdf.debug.js'></script>
-
     <script>
         document.getElementById('exportPDF').addEventListener('click', function () {
 
@@ -904,7 +859,6 @@
     </script>
 
     <script>
-
         $('#searBtn').on('click', function () {
             if ($("#startDate") == null) {
                 // 使用者沒選擇廠商
@@ -945,16 +899,13 @@
                 return i;
             }
         });
-    </script>
 
-    <script>
         function numRed() {
             var num = document.getElementById('num');
             num.innerHTML--;
             console.log(123);
         }
     </script>
-
 </body>
 
 </html>

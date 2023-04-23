@@ -66,19 +66,19 @@ public class JWTUtil implements InitializingBean {
             clientInfo.put(AUTHORITY_KEY, claims.get(AUTHORITY_KEY).toString());
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
             log.info("Invalid JWT signature.");
-            log.trace("Invalid JWT signature trace: {}", e);
+            log.trace("Invalid JWT signature trace: {}", e.toString());
         } catch (ExpiredJwtException e) {
             log.info("Expired JWT token.");
-            log.trace("Expired JWT token trace: {}", e);
+            log.trace("Expired JWT token trace: {}", e.toString());
         } catch (UnsupportedJwtException e) {
             log.info("Unsupported JWT token.");
-            log.trace("Unsupported JWT token trace: {}", e);
+            log.trace("Unsupported JWT token trace: {}", e.toString());
         } catch (IllegalArgumentException e) {
             log.info("JWT token compact of handler are invalid.");
-            log.trace("JWT token compact of handler are invalid trace: {}", e);
+            log.trace("JWT token compact of handler are invalid trace: {}", e.toString());
         } catch (Exception e) {
             log.info("JWT token other exception.");
-            log.trace("JWT token other exception trace: {}", e);
+            log.trace("JWT token other exception trace: {}", e.toString());
         }
         return clientInfo;
     }

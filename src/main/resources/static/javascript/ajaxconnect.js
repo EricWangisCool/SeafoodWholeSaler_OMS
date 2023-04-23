@@ -212,8 +212,8 @@ function getAjaxObject(isAsync, connurl, data) {
             returnObj.responseToken = XMLHttpRequest.getResponseHeader("authorization");
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            console.log("ajaxconnect error:  " + "(XMLHttpRequest.status)" + XMLHttpRequest.status + 
-            "   (XMLHttpRequest.readyState)" + XMLHttpRequest.readyState + "   (textStatus)" + textStatus);
+            console.log("AjaxConnect error:  " + "\nXMLHttpRequest.status= " + XMLHttpRequest.status + 
+            "\nXMLHttpRequest.readyState= " + XMLHttpRequest.readyState + "\ntextStatus= " + textStatus);
         }
     };
 }
@@ -238,4 +238,8 @@ function sync_ajaxmethod(connurl, data) {
         console.log(err);
     }
     return returnObj;
+}
+
+function isReturnObjectCorrect(returnObj) {
+    return returnObj.responseStatus == 200 ? true : false;
 }

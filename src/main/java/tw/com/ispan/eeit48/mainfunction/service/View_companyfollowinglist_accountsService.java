@@ -5,16 +5,15 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import tw.com.ispan.eeit48.mainfunction.model.AccountsBean;
 import tw.com.ispan.eeit48.mainfunction.model.CompanyFollowingListBean;
 import tw.com.ispan.eeit48.mainfunction.repository.AccountsRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.CompanyFollowingListRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.View_companyfollowinglist_accountsRepository;
 import tw.com.ispan.eeit48.mainfunction.model.View_companyfollowinglist_accountsBean;
+import static tw.com.ispan.eeit48.mainfunction.service.AuthService.getCurrentUserId;
 
 @Service
-@Transactional
 public class View_companyfollowinglist_accountsService {
 	@Autowired
 	private View_companyfollowinglist_accountsRepository view_companyfollowinglist_accountRepository;
@@ -22,14 +21,19 @@ public class View_companyfollowinglist_accountsService {
 	private AccountsRepository accountsRepository;
 	@Autowired
 	private CompanyFollowingListRepository companyFollowingListReposutory;
-
 	@Autowired
 	private View_companyfollowinglist_accountsRepository view_companyfollowinglist_accountsRepository;
 
-	public String SelectAll(Integer accontid) {
+	/**
+	 * 找到使用者的關聯廠商
+	 * @return
+	 */
+	public String selectUserFollowListForCompany() {
+		int userId = getCurrentUserId();
+
 		JSONArray ListAll = new JSONArray();
 		List<View_companyfollowinglist_accountsBean> beans = view_companyfollowinglist_accountRepository
-				.findAllByBuyerid(accontid); // 找到所有此帳號的關聯廠商
+				.findAllByBuyerid(userId); //
 
 		if (beans != null) {
 			JSONArray ListofFriend = new JSONArray();
@@ -95,12 +99,14 @@ public class View_companyfollowinglist_accountsService {
 		return ListAll.toString();
 	}
 
-	public JSONArray InsertNew(Integer accontid, String companyname) {
+	public JSONArray userFollowNewCompany(String companyName) {
+		int userId = getCurrentUserId();
+
 		JSONArray ListofNew = new JSONArray();
 		boolean stepOne = false;
 		int switchopen = 0;
-		int companyid = 0;
-		List<AccountsBean> beana = accountsRepository.findAllByCompanyname(companyname);
+		int companyid;
+		List<AccountsBean> beana = accountsRepository.findAllByCompanyname(companyName);
 
 		if (beana != null) {
 			JSONArray ListofAccount = new JSONArray();
@@ -113,7 +119,7 @@ public class View_companyfollowinglist_accountsService {
 
 			if (switchopen == 0) {
 				CompanyFollowingListBean in = new CompanyFollowingListBean();
-				in.setBuyerId(accontid);
+				in.setBuyerId(userId);
 				in.setSellerId(companyid);
 				companyFollowingListReposutory.save(in);
 				stepOne = true;
@@ -121,7 +127,7 @@ public class View_companyfollowinglist_accountsService {
 
 			if (stepOne == true) {
 				List<View_companyfollowinglist_accountsBean> beans = view_companyfollowinglist_accountRepository
-						.findAllByCompanyname(companyname);
+						.findAllByCompanyname(companyName);
 
 				if (beans != null) {
 					JSONArray lista = new JSONArray();

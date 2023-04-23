@@ -5,12 +5,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import tw.com.ispan.eeit48.mainfunction.model.ProductBean;
 import tw.com.ispan.eeit48.mainfunction.model.View_product_order_orderdetailsBean;
 import tw.com.ispan.eeit48.mainfunction.model.OrderDetailsBean;
@@ -21,6 +19,7 @@ import tw.com.ispan.eeit48.mainfunction.repository.OrdersRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.ProductRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.SupplierProductForOwnerProductRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.View_product_order_orderdetailsRepository;
+import static tw.com.ispan.eeit48.mainfunction.service.AuthService.getCurrentUserId;
 
 @Service
 @Transactional
@@ -71,7 +70,9 @@ public class OrderBuyService {
 	}
 
 	// 找出使用者的所有叫貨訂單資訊
-	public List<JSONObject> findOrdersByUserId(int userId) {
+	public List<JSONObject> findUserOrders() {
+		int userId = getCurrentUserId();
+
 		List<JSONObject> list = new ArrayList();
 		List<JSONObject> bookingOrdersJsonList = new ArrayList();
 		List<OrdersBean> bookingOrders = ordersRepository.findAllByBuyerid(userId);
@@ -103,7 +104,6 @@ public class OrderBuyService {
 			int orderQty = orderDeatil.getOrderqty() == null ? 0 : orderDeatil.getOrderqty();
 			int unitDealPrice = orderDeatil.getUnitdealprice() == null ? 0 : orderDeatil.getUnitdealprice();
 			int totalPricePerProduct = orderQty * unitDealPrice;
-			// System.out.println(productNameSpec + "totalPrice= " + totalPricePerProduct);
 			totalPriceOfOrderId += totalPricePerProduct;
 		}
 		return totalPriceOfOrderId;
@@ -111,28 +111,19 @@ public class OrderBuyService {
 
 	// 新增一筆叫貨單
 	public OrdersBean saveNewOrdersBean(OrdersBean newOrdersBean) {
-		OrdersBean savedOrdersBean = ordersRepository.save(newOrdersBean);
-		if (savedOrdersBean != null) {
-			return savedOrdersBean;
-		} else {
-			return null;
-		}
+		return ordersRepository.save(newOrdersBean);
 	}
 
 	// 新增一筆叫貨單明細
 	public Boolean saveNewOrderDetailsBean(List<OrderDetailsBean> newOrderDetailsBeans) {
-		Boolean saveStatus = true;
 		if (!newOrderDetailsBeans.isEmpty()) {
 			for (OrderDetailsBean newOrderDetailsbean : newOrderDetailsBeans) {
-				if (orderDetailsRepositrory.save(newOrderDetailsbean) == null) {
-					saveStatus = false;
-				}
+				orderDetailsRepositrory.save(newOrderDetailsbean);
 			}
-			return saveStatus;
+			return true;
 		} else {
-			saveStatus = false;
+			return false;
 		}
-		return saveStatus;
 	}
 
 	// 修改一筆叫貨單

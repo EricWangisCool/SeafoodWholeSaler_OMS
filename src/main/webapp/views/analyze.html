@@ -5,28 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pagecontent</title>
+    <title>analyze</title>
 
     <!-- Material Design -->
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> 
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-        rel="stylesheet">
-    <!-- ICON CSS -->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
-
-    <!-- globalstyle -->
-    <link rel="stylesheet" href="../css/globalstyle.css">
-    <!-- globalattributes -->
-    <link rel="stylesheet" href="../css/globalattributes.css">
-
-    <!-- 複數頁面使用CSS效果 -->
-    <link rel="stylesheet" href="../css/pluralpagestyle.css">
-
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <header id="common-header"></header>
+    <script src="../javascript/getCommonHeader.js"></script>
     <style>
         label input {
             height: 36px;
@@ -78,13 +66,16 @@
             width: 100%;
             margin-top: 17%;
         }
+
+        html, body, #loading {
+            height: 100%;
+        }
     </style>
-
-
 </head>
 
 <body>
-    <div class="container">
+    <iframe id="loading" src="loading.html" width="100%" height="100%" scrolling="no"></iframe>
+    <div class="container" id="container" style="display: none;">
         <div class="row justify-content-center">
 
             <!-- border border-primary  -->
@@ -113,9 +104,7 @@
                                 <span class="mdc-button__label fs-5 fw-normal">分析數據</span>
                             </button>
                         </div>
-
                     </div>
-
                 </div>
 
 
@@ -126,7 +115,6 @@
 
                 <div class="analyzeContent">
                     <div class="d-flex justify-content-between">
-
                         <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-50 h-auto mb-4 me-4">
 
                             <!-- 產品圓餅圖 -->
@@ -135,7 +123,6 @@
                             </div>
 
                             <div class="w-100 mt-4">
-
                                 <table class="pageTable fs-5 fw-normal text-center w-100">
                                     <tr class="stockTable">
                                         <td>產品</td>
@@ -152,10 +139,7 @@
                                         <td>24</td> -->
                                     </tr>
                                 </table>
-
                             </div>
-
-
                         </div>
 
                         <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-50 h-auto mb-4">
@@ -181,38 +165,28 @@
                                         <td>722</td>
                                     </tr>
                                 </table>
-
                             </div>
-
                         </div>
-
                     </div>
 
                     <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto mb-4">
 
                         <!-- 垂直線圖 -->
                         <canvas id="verticalBarChart" class="w-100 h-auto"></canvas>
-
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../javascript/materialdesigninit.js"></script>
     <script src="../javascript/ajaxconnect.js"></script>
     <script src="../javascript/tools.js"></script>
-
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
     <script>
 
         // 所有產品列表的配色
@@ -481,13 +455,13 @@
 
 
         function sweetalertShow(state) {
-
             switch (state) {
                 case 1:
                     Swal.fire({
                         title: '請選擇欲搜尋日期',
                         icon: 'info',
                         showConfirmButton: true,
+                        confirmButtonColor: 'var(--color-marigold)'
                     });
                     break;
                 case 2:
@@ -495,6 +469,7 @@
                         title: '權限不足，請聯繫管理人員',
                         icon: 'error',
                         showConfirmButton: true,
+                        confirmButtonColor: 'var(--color-marigold)'
                     });
                     break;
                 default:
@@ -506,7 +481,6 @@
 
         // 呼叫圓餅圖-------------------------------------------------------------------------------------------
         function activeAnalyze() {
-
             let titleFontSize = 24;
             let contentFontSize = 20;
             let bodyFontSize = 20;

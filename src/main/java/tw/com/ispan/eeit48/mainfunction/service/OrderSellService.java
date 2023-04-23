@@ -15,6 +15,8 @@ import tw.com.ispan.eeit48.mainfunction.repository.ProductRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.SupplierProductForOwnerProductRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.View_product_order_orderdetailsRepository;
 
+import static tw.com.ispan.eeit48.mainfunction.service.AuthService.getCurrentUserId;
+
 @Service
 @Transactional
 public class OrderSellService {
@@ -39,13 +41,15 @@ public class OrderSellService {
     @Autowired
     private EmailService emailService;
 
-    public String ShowAll(Integer accountid) {
+    public String ShowAll() {
+        int userId = getCurrentUserId();
+
         JSONArray jsonArray = new JSONArray();
         List<JSONObject> sellingOrdersJsonList = new ArrayList();
 
         // 拿到帳號所有交易狀態為2~7的售出訂單
         List<View_product_order_orderdetailsBean> beans = view_product_order_orderdetailsRepository
-                .findAllByOwneridAndOrderstatusBetween(accountid, 2, 7);
+                .findAllByOwneridAndOrderstatusBetween(userId, 2, 7);
 
         if (beans != null && !beans.isEmpty()) {
             for (View_product_order_orderdetailsBean bean : beans) {
@@ -92,7 +96,9 @@ public class OrderSellService {
         return jsonArray.toString();
     }
 
-    public String Update(int sellerId, OrdersBean ordersBean) {
+    public String Update(OrdersBean ordersBean) {
+        int sellerId = getCurrentUserId();
+
         Integer orderStatus = ordersBean.getOrderstatus();
         List<Integer> allowedStatuses = Arrays.asList(3, 4, 5, 7);
 

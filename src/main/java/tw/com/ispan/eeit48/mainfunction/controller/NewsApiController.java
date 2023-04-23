@@ -24,9 +24,9 @@ public class NewsApiController {
                     .collect(Collectors.toList());
 
             systemNoticeMessageService.updateMessagesToRead(messageIds);
+            return "OK";
         } catch (Exception e) {
             return "NG";
         }
-        return "OK";
     }
 }

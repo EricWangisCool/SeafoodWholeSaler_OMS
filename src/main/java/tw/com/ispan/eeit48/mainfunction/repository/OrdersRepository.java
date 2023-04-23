@@ -10,8 +10,6 @@ import tw.com.ispan.eeit48.mainfunction.model.OrdersBean;
 public interface OrdersRepository extends JpaRepository<OrdersBean, String> {
 	List<OrdersBean> findAllBySellerid(int sellerid);
 
-	List<OrdersBean> findAllBySelleridAndOrderstatus(int sellerid, int orderstatus);
-
 	List<OrdersBean> findAllByBuyerid(int userId);
 
 	OrdersBean findOneByOrderid(String orderId);
@@ -19,12 +17,6 @@ public interface OrdersRepository extends JpaRepository<OrdersBean, String> {
 	List<OrdersBean> findAllByOrderid(String orderid);
 
 	void deleteByOrderid(String orderid);
-
-	List<OrdersBean> findAllBySelleridAndOrdertimeBetweenAndCompleteordertimeBetween(Integer accountid, Date date1,
-			Date date2, Date date12, Date date22);
-
-	List<OrdersBean> findAllBySelleridAndBuyeridAndOrdertimeBetweenAndCompleteordertimeBetween(Integer accountid,
-			int buyerida, Date date1, Date date2, Date date12, Date date22);
 
 	List<OrdersBean> findAllBySelleridAndBuyeridAndOrderstatusAndOrdertimeBetweenAndCompleteordertimeBetween(
 			Integer accountid, int buyerida, int i, Date dateofOrdertime, Date dateofCompleteOrdertime,

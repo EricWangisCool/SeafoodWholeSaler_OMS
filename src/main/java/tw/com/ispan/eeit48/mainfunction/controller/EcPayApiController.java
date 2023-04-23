@@ -12,8 +12,8 @@ public class EcPayApiController {
 
 	@PostMapping
 	public String ecPay() {
-		JSONObject obj = new JSONObject(); 
-		obj.put("key", ExampleAllInOne.genAioCheckOutALL());
-		return obj.toString();
+		return new JSONObject(){{
+			put("key", ExampleAllInOne.genAioCheckOutALL());
+		}}.toString();
 	}
 }

@@ -1,11 +1,9 @@
 package tw.com.ispan.eeit48.mainfunction.repository;
 
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
 import tw.com.ispan.eeit48.mainfunction.model.ProductBean;
 
 @Repository
@@ -24,12 +22,6 @@ public interface ProductRepository extends JpaRepository<ProductBean, Integer> {
 
 	@Query(value = "select safeqty from product where productid = ?1", nativeQuery = true)
 	Integer findSafeQtyByProductid(Integer productId);
-
-	@Query(value = "select ownerid from product where productid = ?1", nativeQuery = true)
-	int findOwnerIdByProductid(Integer productId);
-
-	@Query(value = "select unitcost from product where productid = ?1", nativeQuery = true)
-	int findUnitCostByProductid(int productId);
 
 	List<ProductBean> findAllByAutoorderfunctionAndOwnerid(String string, Integer accountid);
 
