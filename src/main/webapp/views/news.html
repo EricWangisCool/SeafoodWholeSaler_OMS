@@ -167,8 +167,12 @@
     <script src="../javascript/materialdesigninit.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../javascript/ajaxconnect.js"></script>
-    <script src="../javascript/tools.js"></script>
     <script>
+        $(document).ajaxStop(function() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('container').style.display = 'block';
+        });
+
 
         // 公告項目欄位
         let selectTitle = ['所有通知', '系統公告', '庫存管理通知', '叫貨管理通知', '接單管理通知'];

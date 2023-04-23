@@ -1,6 +1,6 @@
 let commonHeaderContent = "";
 
-$.get(document.title == "NiceToSeaYou" ? "views/commonHeader.html" : "./commonHeader.html", function(data) {
+$.get("./commonHeader.html", function(data) {
     commonHeaderContent = data.toString();
 }).then(function() {
     let commonHeader = 
