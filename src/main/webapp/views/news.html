@@ -168,10 +168,10 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../javascript/ajaxconnect.js"></script>
     <script>
-        $(document).ajaxStop(function() {
+        setTimeout(function() {
             document.getElementById('loading').style.display = 'none';
             document.getElementById('container').style.display = 'block';
-        });
+        }, 600);
 
 
         // 公告項目欄位
