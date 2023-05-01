@@ -16,20 +16,25 @@ Restful API + JSON 實作前後端分離開發<BR>
 3. MySQL 實作Rdbms資料庫設計 (採2NF開發，因為資料調度需求不用3NF)
 
 ## 其他技術
-JavaScript, Node.js, AJAX, Spring Mail, Tomcat, EcPay integration, Docker-compose
+JavaScript, Node.js, AJAX, Spring Mail, Tomcat, EcPay integration, Docker-compose, WebSocket
 
-## 功能介紹
+## 技術介紹
+### SpringSecurity
 1. 以Spring Security AuthenticationManager驗證登入帳密是否正確後回傳一組加密後的JWT放在Browser的LocalStorage裡，之後呼叫API時就只需驗證此JWT便能找到對應的使用者，免除伺服記憶體佔用(Session儲存方式)，同時避免在LocalStorage裡放置重要個資以遭竊取
 ![image](etc/JwtToken.png?raw=true "JwtToken")
 
 2. 以Role權限驗證，區分部分頁面(如: 銷售額頁面)是否能夠讀取
 ![image](etc/RoleSetting.png?raw=true "RoleSetting")
 
-### ROLE_BOSS
+#### ROLE_BOSS
 ![image](etc/RolePermit.png?raw=true "RolePermit")
 
-### ROLE_EMPLOYEE
+#### ROLE_EMPLOYEE
 ![image](etc/RoleDenied.png?raw=true "RoldeDenied")
+
+### WebSocket
+實作WebSocket傳輸協定，透過一次性連結保持連線，讓前端訂單通知功能不用一直發送request與server要值，也能即時更新資訊<BR><BR>
+![image](etc/SystemNotice.png?raw=true "SystemNotice")
 
 ## 專案需求
 此專案是由Maven和Java 17所建構
@@ -66,6 +71,13 @@ Docker會幫你安裝`mysql`和`jdk`，同時匯入sql檔
 帳號: chen5678<BR>
 密碼: 5678<BR>
 
+***
+<font size="5" style="font-weight:bold;">
+   <center>English Version</center>
+</font>
+
+***
+
 # Seafood Wholesaler OMS
 
 ![image](etc/SystemPage.png?raw=true "JwtToken")
@@ -82,20 +94,25 @@ This project is used to demonstrate what I've learned in Java.
 3. MySQL Rdbms DB design (Use 2NF design rather than 3NF as it fit more in project)
 
 ## Others
-JavaScript, Node.js, AJAX, Spring Mail, Tomcat, EcPay integration, Docker-compose
+JavaScript, Node.js, AJAX, Spring Mail, Tomcat, EcPay integration, Docker-compose, WebSocket
 
 ## Function
+### SpringSecurity
 1. Return encoded JWT after Spring Security AuthenticationManager's verification and store it inside browser's local storage, after that, it is able to call API whenever JWT is still valid and return user's information.
 ![image](etc/JwtToken.png?raw=true "JwtToken")
 
 2. Use role's authority to verify who is able to access the sensitive page.(ex. revenue page)
 ![image](etc/RoleSetting.png?raw=true "RoleSetting")
 
-### ROLE_BOSS
+#### ROLE_BOSS
 ![image](etc/RolePermit.png?raw=true "RolePermit")
 
-### ROLE_EMPLOYEE
+#### ROLE_EMPLOYEE
 ![image](etc/RoleDenied.png?raw=true "RoldeDenied")
+
+### WebSocket
+By implementing WebSocket protocol, enable front-end to get instant message from server without continuously sending request.<BR><BR>
+![image](etc/SystemNotice.png?raw=true "SystemNotice")
 
 ## Requirement
 This project is build with Maven and Java 17.
