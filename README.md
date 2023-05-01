@@ -72,9 +72,7 @@ Docker會幫你安裝`mysql`和`jdk`，同時匯入sql檔
 密碼: 5678<BR>
 
 ***
-<font size="5" style="font-weight:bold;">
-   <center>English Version</center>
-</font>
+<p align="center" style="font-weight:bold; font-size:20px;">English Desc</p>
 
 ***
 
