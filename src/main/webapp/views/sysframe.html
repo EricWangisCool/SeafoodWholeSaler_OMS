@@ -141,6 +141,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../javascript/ajaxconnect.js"></script>
     <script>
+        // 檢查JWT----------------------------------------------------------------------------------------------------------------------------
         function checkIfJwtTokenExist() {
             if (localStorage.getItem("jwtToken") == null) {
                 window.location.href = `../index.html`;
@@ -148,113 +149,26 @@
         }
         checkIfJwtTokenExist();
 
-        // 更新標題名稱----------------------------------------------------------------------------------------------------------------------------
-        async function asyncGetUserAccount() {
-            let userAccountName = "";
-            let userAccountObj = {};
 
+        // 將使用者帳號更新至畫面右上角----------------------------------------------------------------------------------------------------------------------------
+        async function asyncGetUserAccount() {
+            let userAccountObj = {};
             userAccountObj = await getUserAccount("");
             if (isReturnObjectCorrect(userAccountObj)) {
-                userAccountName = userAccountObj.responseText;
-            }
-            
-            if (userAccountName != "") {
-                $("#navbarSupportedContent a")[0].innerHTML = userAccountName;
+                $("#navbarSupportedContent a")[0].innerHTML = userAccountObj.responseText;
             } else {
                 Swal.fire({
                     title: '登入權限已過期，請重新登入',
                     confirmButtonColor: 'var(--color-marigold)',
-                    confirmButtonText: '確定',
+                    confirmButtonText: '確定'
                 }).then((result) => {
                     localStorage.removeItem("jwtToken");
                     window.location.href = `../index.html`;
                 });
             }
-        }
+        };
         asyncGetUserAccount();
 
-        // 下拉選單運作------------------------------------------------------------------------------
-        $(".sidebar ul li").on("click", function () {
-
-            if ($(this).index() != 4) {
-                $(".sidebar ul li.active").removeClass('active');
-                $(this).addClass('active');
-            }
-
-        })
-
-        $(".open-btn").on("click", function () {
-            $("#side_nav").addClass("active");
-        })
-
-        $(".close-btn").on("click", function () {
-            $("#side_nav").removeClass("active");
-        })
-
-        // 讀取iframe轉址------------------------------------------------------------------------------
-        // 新增庫存的連結：
-        let addStockHref = "http://localhost:8080/views/addStock.html";
-        let pageHref = "http://localhost:8080/views/page.html";
-
-        function loadIframe(iframeName, url, addStockStateNum) {
-            var $iframe = $("#" + iframeName);
-            // console.log($iframe.attr("src") + "..." + url);
-            if ($iframe.attr("src") == url) {
-                return false;
-            } else {
-                $iframe.attr("src", url);
-
-                // 判斷是否為新增庫存。
-                if ($iframe.attr("src") == addStockHref) {
-                    addStockState = addStockStateNum;
-                }
-                return false;
-            }
-        }
-
-        // iframe內部的子類會呼叫這個方法------------------------------------------------------------------------------
-        function changepage(transferData, editStock) {
-            // 移除選取狀態。
-            $(".sidebar ul li.active").removeClass('active');
-
-            for (var i = 0; i < $(".sidebar ul li").length; i++) {
-                if ($($(".sidebar ul li")[i]).find("a").prop('href') == transferData) {
-                    $($(".sidebar ul li")[i]).addClass('active');
-                }
-                // console.log($($(".sidebar ul li")[i]).find("a").prop('href'));
-            }
-
-            if (transferData == addStockHref) {
-                loadIframe('ifrm', transferData, editStock);
-            } else {
-                loadIframe('ifrm', transferData);
-            }
-        }
-
-        // 新增庫存會呼叫這個方法
-        let addStockState = 0;
-        function checkAddStock() {
-            $("#ifrm").get(0).contentWindow.addStockinit(addStockState);
-        }
-
-        // 叫貨管理會呼叫這個方法
-        function arriveOrderTimeCounter(data, time) {
-            setTimeout(async function () {
-                returnObj = await viewsordersellupdate(data);
-
-                if (returnObj.responseStatus != 200) {
-                    // 沒接到資料
-                    console.log("orderStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                    console.log(returnObj.responseObj);
-                } else {
-                    // 處理及判斷邏輯： 
-                    successStr = returnObj.responseText;
-                    if (successStr == "OK") {
-                        console.log("arrive!!");
-                    }
-                }
-            }, time);
-        }
 
         // 登出按鈕功能--------------------------------------------------------------------------------------
         function logoutAlert() {
@@ -280,6 +194,83 @@
             })
         };
 
+
+        // 下拉選單運作------------------------------------------------------------------------------
+        $(".sidebar ul li").on("click", function () {
+            if ($(this).index() != 4) {
+                $(".sidebar ul li.active").removeClass('active');
+                $(this).addClass('active');
+            }
+        })
+
+        $(".open-btn").on("click", function () {
+            $("#side_nav").addClass("active");
+        })
+
+        $(".close-btn").on("click", function () {
+            $("#side_nav").removeClass("active");
+        })
+
+        
+        // 讀取iframe轉址------------------------------------------------------------------------------
+        // 新增庫存的連結：
+        let addStockHref = "http://localhost:8080/views/addStock.html";
+        let pageHref = "http://localhost:8080/views/page.html";
+
+        function loadIframe(iframeName, url, addStockStateNum) {
+            var $iframe = $("#" + iframeName);
+            if ($iframe.attr("src") == url) {
+                return false;
+            } else {
+                $iframe.attr("src", url);
+
+                // 判斷是否為新增庫存。
+                if ($iframe.attr("src") == addStockHref) {
+                    addStockState = addStockStateNum;
+                }
+                return false;
+            }
+        }
+
+        // iframe內部的子類會呼叫這個方法------------------------------------------------------------------------------
+        function changepage(transferData, editStock) {
+            // 移除選取狀態。
+            $(".sidebar ul li.active").removeClass('active');
+
+            for (var i = 0; i < $(".sidebar ul li").length; i++) {
+                if ($($(".sidebar ul li")[i]).find("a").prop('href') == transferData) {
+                    $($(".sidebar ul li")[i]).addClass('active');
+                }
+            }
+
+            if (transferData == addStockHref) {
+                loadIframe('ifrm', transferData, editStock);
+            } else {
+                loadIframe('ifrm', transferData);
+            }
+        }
+
+
+        // 模擬送貨時間的方法(預設3秒)，因為iframe不能setTimeout所以寫在父頁面裡
+        function simulateArriveTime(param) {
+            setTimeout(async function () {
+                let returnObj = await viewsordersellupdate(param);
+
+                if (isReturnObjectCorrect(returnObj)) {
+                    if (returnObj.responseText == "OK") {
+                        Swal.fire({
+                            title: '貨物已成功抵達買家',
+                            icon: 'info',
+                            confirmButtonColor: 'var(--color-marigold)'
+                        }).then((result) => {
+                            document.getElementById('ifrm').contentWindow.location.reload();
+                        });
+                    } else {
+                        console.log("simulateArriveTime function error");
+                    }
+                }
+            }, 3000);
+        };
     </script>
     <!-- WebSocket依賴 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.js" integrity="sha512-aHuAnb+FZ/yM5zYvdiA8q0sxLdsBQ3PRwO8D/08qsenCLQ2gWsosB43Cn1X8esAz0IpaC7Ns5cAPyKIdJQ0hNw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

@@ -8,18 +8,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tw.com.ispan.eeit48.mainfunction.model.OrderDetailsBean;
-import tw.com.ispan.eeit48.mainfunction.model.ProductBean;
-import tw.com.ispan.eeit48.mainfunction.model.ProductClassIficationBean;
-import tw.com.ispan.eeit48.mainfunction.model.View_product_order_orderdetailsBean;
-import tw.com.ispan.eeit48.mainfunction.model.AccountsBean;
-import tw.com.ispan.eeit48.mainfunction.model.OrdersBean;
+import tw.com.ispan.eeit48.mainfunction.model.*;
 import tw.com.ispan.eeit48.mainfunction.repository.AccountsRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.OrderDetailsRepositrory;
 import tw.com.ispan.eeit48.mainfunction.repository.OrdersRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.ProductClassIficationRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.ProductRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.View_product_order_orderdetailsRepository;
+import static tw.com.ispan.eeit48.common.util.CommonUtil.convertObjectToMap;
 import static tw.com.ispan.eeit48.mainfunction.service.AuthService.getCurrentUserId;
 
 @Service
@@ -144,11 +140,11 @@ public class DataAnalyzeService {
 		JSONArray ListofCount = new JSONArray();
 		ListofCount.clear();
 		for (int v = 0; v < ListofOrderDetail.length(); v++) {
-			List<ProductBean> op = productRepository.findAllByProductid(productid[v]); // 找到商品的資料
+			List<ProductBean> op = productRepository.findAllByProductId(productid[v]); // 找到商品的資料
 			if (ob != null) {
 				for (ProductBean bean : op) {
 					if (bean != null) {
-						ListofCount.put(bean.toJsonObject());
+						ListofCount.put(convertObjectToMap(bean));
 					}
 				}
 

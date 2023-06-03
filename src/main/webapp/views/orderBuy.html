@@ -435,10 +435,7 @@
             ${totalTr}`;
 
 
-
             for (let i = 0; i < allBuyList.length; i++) {
-
-
                 // 判斷幾個按鈕狀態
                 // 送出叫貨單=送出叫貨單按鈕+刪除叫貨單按鈕
                 let sentOrder =
@@ -652,15 +649,6 @@
 
         // 開闔子table
         function detailBtnCheck(btn) {
-
-            // let divNum;
-            // if ($(btn).closest("tr").index() == 0) {
-            //     divNum = 0;
-            // } else {
-            //     divNum = $(btn).closest("tr").index() / 2;
-            // }
-            // downloadDetailData($(btn).attr('data-value'), $(".childTableHidden")[divNum]);
-
             downloadDetailData($(btn).attr('data-value'), $(btn).closest("tr").next().find(".childTableHidden")[0]);
         }
 
@@ -733,10 +721,7 @@
             }
         }
 
-
-
         async function updateData(state, btn) {
-
             let data = {
                 orderid: $(btn).attr('data-value'),
                 orderstatus: state
@@ -753,12 +738,8 @@
                 console.log(returnObj.responseObj);
             } else {
                 // 處理及判斷邏輯：          
-                // successStr = returnObj.responseText;
-
                 closeComponent();
             }
-
-
         }
 
         // sweetalert提示

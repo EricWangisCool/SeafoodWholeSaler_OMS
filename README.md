@@ -22,6 +22,8 @@ Restful API + JSON 實作前後端分離開發<BR>
 JavaScript, Node.js, AJAX, Spring Mail, Tomcat, EcPay integration, Docker-compose, WebSocket
 ```
 
+## **[前後端接口規範參照](https://github.com/f2e-journey/treasure/blob/master/api.md#%E6%8E%A5%E5%8F%A3%E8%BF%94%E5%9B%9E%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)**
+
 ## 技術介紹
 ### SpringSecurity
 1. ```以Spring Security AuthenticationManager驗證登入帳密是否正確後回傳一組加密後的JWT放在Browser的LocalStorage裡，之後呼叫API時就只需驗證此JWT便能找到對應的使用者，免除伺服記憶體佔用(Session儲存方式)，同時避免在LocalStorage裡放置重要個資以遭竊取```
@@ -105,6 +107,8 @@ This project is used to demonstrate what I've learned in Java.
 ```
 JavaScript, Node.js, AJAX, Spring Mail, Tomcat, EcPay integration, Docker-compose, WebSocket
 ```
+
+## **[Restful Refer To](https://github.com/f2e-journey/treasure/blob/master/api.md#%E6%8E%A5%E5%8F%A3%E8%BF%94%E5%9B%9E%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)**
 
 ## Function
 ### SpringSecurity

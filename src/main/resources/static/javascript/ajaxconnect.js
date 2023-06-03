@@ -179,6 +179,8 @@ function getContextPath() {
 
 // --------------AJAX Connection Method----------------------------------- 
 var returnObj;
+
+
 function initReturnObject() {
     returnObj = {
         responseObj: "",
@@ -204,19 +206,18 @@ function getAjaxObject(isAsync, connurl, data) {
             withCredentials: true
         },
         complete: function (XMLHttpRequest, textStatus) {
-            // console.log(XMLHttpRequest);
-            // console.log(XMLHttpRequest.getResponseHeader("authorization"));
             returnObj.responseText = XMLHttpRequest.responseText;
-            returnObj.responseObj = XMLHttpRequest.responseJSON;
+            returnObj.responseObj = XMLHttpRequest.responseJSON == null ? {status: null} : XMLHttpRequest.responseJSON;
             returnObj.responseStatus = XMLHttpRequest.status;
             returnObj.responseToken = XMLHttpRequest.getResponseHeader("authorization");
+            // console.log(returnObj.responseText + "\n" + returnObj.responseObj.status + "\n" +  returnObj.responseStatus + "\n" +  returnObj.responseToken);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            console.log("AjaxConnect error:  " + "\nXMLHttpRequest.status= " + XMLHttpRequest.status + 
-            "\nXMLHttpRequest.readyState= " + XMLHttpRequest.readyState + "\ntextStatus= " + textStatus);
+            // console.log("AjaxConnect error:  " + "\nXMLHttpRequest.status= " + XMLHttpRequest.status + 
+            // "\nXMLHttpRequest.readyState= " + XMLHttpRequest.readyState + "\ntextStatus= " + textStatus);
         }
     };
-}
+};
 
 
 async function ajaxmethod(connurl, data) {
@@ -227,7 +228,7 @@ async function ajaxmethod(connurl, data) {
         console.log(err);
     }
     return returnObj;
-}
+};
 
 
 function sync_ajaxmethod(connurl, data) {
@@ -238,8 +239,22 @@ function sync_ajaxmethod(connurl, data) {
         console.log(err);
     }
     return returnObj;
-}
+};
 
 function isReturnObjectCorrect(returnObj) {
-    return returnObj.responseStatus == 200 ? true : false;
-}
+    var body = returnObj.responseObj;
+    
+    // <important>後端實作restful後就不用檢測body.status</important>
+    if (body.status != null) {
+        if (!body.status) {
+            // status 为 0 或者没有 status 字段时表示接口成功返回了数据
+            console.log(body.data);
+        } else {
+            // 失败
+            console.error(body.status, body.statusInfo);
+            // 统一由服务端返回给用户的提示信息
+            alert(body.statusInfo.message + ":\n" + body.statusInfo.detail.exception);
+        }
+    }
+    return ((returnObj.responseStatus == 200) && (returnObj.responseText != null));
+};

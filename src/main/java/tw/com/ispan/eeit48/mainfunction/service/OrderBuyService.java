@@ -98,8 +98,6 @@ public class OrderBuyService {
 		List<OrderDetailsBean> orderDeatils = orderDetailsRepositrory.findAllByOrderid(orderId);
 		// 依照該訂單所有產品資訊, 尋訪單個產品資訊
 		for (OrderDetailsBean orderDeatil : orderDeatils) {
-			// 產品名稱
-			String productNameSpec = productRepository.findProductNameByProductid(orderDeatil.getSellerproductid());
 			// 該產品小計
 			int orderQty = orderDeatil.getOrderqty() == null ? 0 : orderDeatil.getOrderqty();
 			int unitDealPrice = orderDeatil.getUnitdealprice() == null ? 0 : orderDeatil.getUnitdealprice();
@@ -175,9 +173,9 @@ public class OrderBuyService {
 				List<Integer> ownerProductIds = supplierProductForOwnerProductRepository
 						.findProductIdBySupplierProductId(sellerProductId);
 				int ownerProductId = ownerProductIds.get(0);
-				ProductBean ownerProductBean = productRepository.findOneByProductid(ownerProductId);
-				int originalUnitCost = ownerProductBean.getUnitcost();
-				int originalStockQty = ownerProductBean.getStockqty();
+				ProductBean ownerProductBean = productRepository.findOneByProductId(ownerProductId);
+				int originalUnitCost = ownerProductBean.getUnitCost();
+				int originalStockQty = ownerProductBean.getStockQty();
 				// 新庫存數 = 現在庫存數量 + 訂單進貨數量
 				int newStockQty = originalStockQty + inStockQty;
 				// 平均單價 = [(現在庫存的 成本單價 * 數量) + (訂單進價 * 數量)] / (現在庫存數量 + 訂單進貨數量)
@@ -185,8 +183,8 @@ public class OrderBuyService {
 						/ (newStockQty);
 
 				// 將值進行存檔
-				ownerProductBean.setStockqty(newStockQty);
-				ownerProductBean.setUnitcost(newAverageUnitCost);
+				ownerProductBean.setStockQty(newStockQty);
+				ownerProductBean.setUnitCost(newAverageUnitCost);
 				ProductBean savedBean = productRepository.save(ownerProductBean);
 				if (savedBean != null) {
 					saveResult = true;
@@ -206,12 +204,12 @@ public class OrderBuyService {
 				// 賣家與進貨單資訊
 				int sellerProductId = bean.getProductid();
 				int outStockQty = bean.getOrderqty();
-				ProductBean supplierProductBean = productRepository.findOneByProductid(sellerProductId);
-				int originalStockQty = supplierProductBean.getStockqty();
+				ProductBean supplierProductBean = productRepository.findOneByProductId(sellerProductId);
+				int originalStockQty = supplierProductBean.getStockQty();
 				// 新庫存數 = 現在庫存數量 - 訂單出售數量
 				int newStockQty = originalStockQty - outStockQty;
 				// 將值進行存檔
-				supplierProductBean.setStockqty(newStockQty);
+				supplierProductBean.setStockQty(newStockQty);
 				ProductBean savedBean = productRepository.save(supplierProductBean);
 				if (savedBean != null) {
 					saveResult = true;

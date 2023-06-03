@@ -123,16 +123,11 @@
     <iframe id="loading" src="loading.html" width="100%" height="100%" scrolling="no"></iframe>
     <div class="container" id="container" style="display: none;">
         <div class="row justify-content-center">
-
-            <!-- border border-primary  -->
             <div class="col-11 mt-4 px-0">
-
                 <h1 class="fs-2 fw-bold mb-4"><span class="text-black">接單管理</span></h1>
-
                 <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto mb-4">
 
                     <!-- 這裡是內容的框架，可直接改掉框架 -->
-
                     <div class="h-auto d-flex justify-content-start fs-5 fw-normal">
                         <a class="opA active">全部</a>
                         <a class="opA">待確認</a>
@@ -141,13 +136,8 @@
                         <a class="opA">已完成</a>
                         <a class="opA">不成立</a>
                     </div>
-
                     <div class="borderLine"></div>
-
                     <hr class="hr-color mt-0 mb-4">
-
-
-
                     <table class="orderSelltable fs-5 fw-normal w-100">
                         <thead>
                             <tr>
@@ -159,20 +149,14 @@
                                 <th style="width: 15%;">操作</th>
                             </tr>
                         </thead>
-
-
                         <tr class="hiddenRowControll"></tr>
                         <tr class="hiddenRowControll"></tr>
                         <tr class="hiddenRowControll"></tr>
                         <tr class="hiddenRowControll"></tr>
                         <tr class="hiddenRowControll"></tr>
-
                     </table>
-
                 </div>
-
             </div>
-
         </div>
     </div>
 
@@ -189,10 +173,7 @@
                 <div class="modal-body" style="height: 700px;">
                     <iframe id="ifrm" style="width: 100%; flex: 1; height: 700px;" src="./littleDetail.html"></iframe>
                 </div>
-                <div class="modal-footer">
-                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Understood</button> -->
-                </div>
+                <div class="modal-footer"></div>
             </div>
         </div>
     </div>
@@ -266,13 +247,11 @@
                     console.log("borderLine error");
                     break;
             }
-
         })
 
 
         // 呼叫model開啟，同時呼叫開啟的內部iframe方法.parentCall(0)
         function callStaticBackdrop(tidy) {
-
             switch (tidy.orderstatus) {
                 case 2:
                     // 0是待確認時，無收件人資料
@@ -537,10 +516,7 @@
 
 
         function reNewData() {
-
             tidyData();
-            console.log(tidyAllSellList);
-
             let totalTr = ``;
             for (let i = 0; i < tidyAllSellList.length; i++) {
                 let singleTr = `
@@ -695,7 +671,6 @@
                     function (ele) {
                         mdc.ripple.MDCRipple.attachTo(ele);
                     });
-
             }
         }
 
@@ -771,11 +746,9 @@
                 tidyAllSellList[i].total = singleTotal;
                 tidyAllSellList[i].profit = singleProfit;
             }
-
         }
 
         async function updateData(state, btn) {
-
             // 狀態3時，檢查庫存可配數是否足夠，如果cancell < orderqty，就不給訂購。
             if (state == 3) {
                 for (let i = 0; i < tidyAllSellList.length; i++) {
@@ -824,33 +797,21 @@
             }
 
             returnObj = await viewsordersellupdate(sentData);
-
-            if (returnObj.responseStatus != 200) {
-                // 沒接到資料                
-                sweetalertShow((state + 10));
-
-                console.log("orderStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                console.log(returnObj.responseObj);
+            if (isReturnObjectCorrect(returnObj)) {
+                // 點選全配及出貨，呼叫父頁面送貨模擬方法
+                if (state == 4) {
+                    sentData.orderstatus = 5;
+                    parent.simulateArriveTime(sentData);
+                };
+                window.location.replace(location.href);
             } else {
-                // 處理及判斷邏輯：   
-                successStr = returnObj.responseText;
-                if (successStr == "OK" || successStr != "" || successStr != null || successStr != undefined) {
-                    if (state == 4 && window.parent && window.parent.arriveOrderTimeCounter) {
-                        let countTime = "3000";
-                        sentData.orderstatus = 5;
-                        sentData.exporttime = (successStr == "null" ? "null" : Date.parse(successStr));
-                        window.parent.arriveOrderTimeCounter(sentData, countTime);	//呼叫父頁面的arriveOrderTimeCounter方法
-                    }
-                    window.location.replace(location.href);
-                }
-            }
-
-
+                sweetalertShow((state + 10));
+            };
         }
 
 
-        function sweetalertShow(state, btn) {
 
+        function sweetalertShow(state, btn) {
             switch (state) {
                 case 7:
                     Swal.fire({

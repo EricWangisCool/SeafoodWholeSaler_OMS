@@ -29,7 +29,7 @@
     <!-- 加入頁簽小圖 -->
     <link rel="shortcut icon" href="img/beUse/nsyLogo.png" type="image/x-icon">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <style>
         body,
@@ -294,37 +294,6 @@
 
 <body>
     <div id="app"></div>
-    <!-- 加载 React。-->
-    <!-- 注意: 部署时，将 "development.js" 替换为 "production.min.js"。-->
-    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <!-- <script type="text/babel">
-     class App extends React.Component {
-       constructor () {
-         super()
-         this.state = {
-           message: 'hello world'
-         }
-       }
-       render () {
-         let { message } = this.state
-         return (
-           <div>
-              <h2>{message}</h2>
-              <button onClick={this.btnClick.bind(this)}>按钮</button>
-             </div>
-         )
-       }
-       btnClick () {
-         console.log("点击了按钮")
-         this.setState({
-           message: 'Hello React'
-         })
-       }
-     }
-      ReactDOM.render(<App></App>, document.getElementById('app'))
-     </script> -->
     <div class="bgimg-1">
         <div id="containerLogin">
             <div class="row">
@@ -344,8 +313,6 @@
                 <div class="column-33">
                     <div class="rounded-3" style="background:rgba(246,228,210,0.8);">
                         <div class="title">歡迎回來。</div>
-                        <!-- <form action="./views/sysframe.html"> -->
-                        <!-- <form> -->
                         <div class="acps form-floating mb-3">
                             <input type="text" class="firstInput form-control" id="usernameLogin" placeholder="nsy123" autocomplete="off">
                             <label for="usernameLogin">帳號</label>
@@ -358,15 +325,9 @@
 
                         <a class="forget">忘記密碼？</a>
                         <br>
-                        <!-- <input type="submit" value="登入" class="submit"> -->
                         <div style="text-align:center;">
-                            <!-- <button class="submit" onclick="userLogin()">登入</button> -->
                             <button class="submit" onclick="show_hide(1)">登入</button>
                         </div>
-                        <!-- -->
-                        <!-- <div style="padding: 5%;">
-                            <div class="g-signin2" data-onsuccess="onSignIn" style="width: 426px; height: 50px;"></div>
-                        </div> -->
 
                         <!-- Google Login Button -->
                         <div class="w-100 h-auto mt-4 d-flex justify-content-center">
@@ -381,7 +342,6 @@
                         <!-- Google Login Button -->
                         <br>
                         <p class="toggle" onclick="show_hide(2)">還沒有帳號嗎？註冊</p>
-                        <!-- </form> -->
                         <br>
                     </div>
                 </div>
@@ -440,12 +400,6 @@
                                 <button class="submit" onclick="userLogin()">註冊</button>
                             </div>
                             <br>
-                            <!-- <div style="text-align: center;">
-                                <a href="https://www.google.com/"><img src="./img/googleLogin.png">
-                                </a>
-                            </div> -->
-                            <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
-
                             <p class="toggle" onclick="show_hide(0)">已經有帳號了？登入</p>
                         </form>
                         <br>
@@ -477,7 +431,7 @@
                         </div>
                         <br>
                         <div style="text-align:center;">
-                            <button class="submit" onclick="userLoginxxxxx()">
+                            <button class="submit" onclick="enterMainPage()">
                                 進入系統頁面
                             </button>
                         </div>
@@ -593,9 +547,6 @@
 
     <div class="bgimg-1">
         <article id="validation">
-            <!-- <div class="bd-heading sticky-xl-top align-self-start mt-5 mb-3 mt-xl-0 mb-xl-2">
-                <h3>聯繫我們</h3>
-            </div> -->
             <h2 class="display-6 text-center mb-4 fw-bold">聯繫我們</h2>
 
             <div>
@@ -665,81 +616,81 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-latest.pack.js"></script>
     <script>
+        // 檢查JWT-----------------------------------------------------------
         function enterSystemIfJwtExist() {
             if (localStorage.getItem("jwtToken") != null) {
-                userLoginxxxxx();
+                enterMainPage();
             }
         }
         
-        function userLoginxxxxx() {
+        function enterMainPage() {
             window.location.href = `views/sysframe.html`;
         }
 
-        enterSystemIfJwtExist()
-    </script>
+        enterSystemIfJwtExist();
 
 
-    <!-- 登入／註冊切換 -->
-    <script>
-        show_hide(0);
-        async function show_hide(state, loginStr) {
+        // 登入和註冊畫面切換-----------------------------------------------------------
+        async function show_hide(state, email) {
             var login = document.getElementById("containerLogin");
             var signup = document.getElementById("containerSignUp");
             var sign = document.getElementById("containerSign");
 
             switch (state) {
-                // 帳號密碼登入
+                // Login空畫面 (login出現 signup消失 sign消失)
                 case 0:
-                    login.style.display = "block";  //lonin出現
+                    login.style.display = "block";  
                     document.getElementById("usernameLogin").value = "";
                     document.getElementById("passwordLogin").value = "";
-                    signup.style.display = "none";  //signup消失
-                    sign.style.display = "none";    //sign消失
+                    signup.style.display = "none"; 
+                    sign.style.display = "none";   
                     break;
-                //登入完成點進入系統
+
+                // 登入完成點進入系統 (login消失 signup消失 sign出現)
                 case 1:
-                    let result = await userLogin(loginStr);
-                    if (result == "Success") {
-                        login.style.display = "none";   //login消失
-                        signup.style.display = "none";    //signup消失
-                        sign.style.display = "block"; //sign出現
+                    if (await isUserLoginSuccess(email)) {
+                        login.style.display = "none";  
+                        signup.style.display = "none"; 
+                        sign.style.display = "block"; 
                         sign.style.visibility = "visible";
                     } else {
                         document.getElementById("usernameLogin").value = "";
                         document.getElementById("passwordLogin").value = "";
                     }
                     break;
-                // 註冊頁面
+                    
+                // 切換註冊頁面 (login消失 signup出現 signup消失)
                 case 2:
-                    signup.style.display = "block";  //signup出現
+                    signup.style.display = "block";
                     signup.style.visibility = "visible";
-                    login.style.display = "none";   //login消失
-                    sign.style.display = "none";  //signup消失
+                    login.style.display = "none";   
+                    sign.style.display = "none";  
                     break;
             }
         }
-    </script>
+
+        show_hide(0);
 
 
-    <!-- ajax呼叫server請求登入 -->
-    <script>
-        let userObj = "";
-        async function userLogin(data) {
-            if (data != null && data != undefined && data != "") {
-                let userEmail = {
-                    "email": data
-                };
-                userObj = await loginthirdParty(userEmail);
+        // 登入功能-----------------------------------------------------------
+        let userObj = {};
+        async function isUserLoginSuccess(email) {
+            // ThirdParty login
+            if (email != null || email != undefined) {
+                userObj = await loginthirdParty({
+                    "email": email
+                });
             } else {
+                // Normal login
                 let enterAccount = $("#usernameLogin").prop('value');
                 let enterPassWord = $("#passwordLogin").prop('value');
                 if (enterAccount != null && enterAccount != undefined && enterAccount != "" 
-                        && enterPassWord != null && enterPassWord != undefined && enterPassWord != "") {
-                            let userAccountData = {
-                                account: enterAccount,
-                                passw: enterPassWord
-                            };
-                            userObj = await login(userAccountData);
+                        && enterPassWord != null && enterPassWord != undefined && enterPassWord != "") {        
+                    
+                    userObj = await login({
+                        account: enterAccount,
+                        passw: enterPassWord
+                    });
                 } else {
                     Swal.fire({
                         title: '缺少帳密資料',
@@ -751,9 +702,13 @@
                     return;
                 }
             }      
-
-            // 撈完後解析假資料並更新畫面內容。
-            if (userObj.responseStatus != 200) {
+            
+            if (isReturnObjectCorrect(userObj)) {
+                localStorage.setItem("jwtToken", userObj.responseToken);
+                companyName = userObj.responseText;
+                $("#containerSign div.column-33 span")[0].innerHTML = companyName;
+                return true;
+            } else {
                 Swal.fire({
                     title: '帳密錯誤',
                     icon: 'error',
@@ -762,21 +717,98 @@
                     showConfirmButton: true,
                     confirmButtonColor: 'var(--color-marigold)',
                 });
-                return;
-            } else {       
-                localStorage.setItem("jwtToken", userObj.responseToken);
-                companyName = userObj.responseText;
-                if (companyName != null || companyName != undefined || companyName != "") {
-                    $("#containerSign div.column-33 span")[0].innerHTML = companyName;
-                    return "Success";
-                }
-            }
+                return false;
+            };
         }
+
+
+        // 忘記密碼-----------------------------------------------------------
+        function isValidatedEmail(email) {
+            var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            return email.match(validRegex);
+        };
+
+        $(".forget").on('click', function () {
+            Swal.fire({
+                title: '重置密碼',
+                text: '請輸入您關聯的電子信箱，我們將寄送新密碼給您',
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off'
+                },
+                showCancelButton: true,
+                showLoaderOnConfirm: true,
+                heightAuto: false,
+                confirmButtonColor: 'var(--color-sunorange)',
+                cancelButtonColor: 'var(--color-irongray)',
+                confirmButtonText: '確認',
+                cancelButtonText: '取消',
+                preConfirm: (enteredEmail) => {
+                    if (isValidatedEmail(enteredEmail)) {
+                        Swal.fire({
+                            title: '重置密碼通知信已寄出',
+                            text: '系統已發送新密碼至您關聯的電子信箱，請確認查收',
+                            icon: 'info',
+                            iconColor: 'var(--color-marigold)',
+                            confirmButtonColor: 'var(--color-sunorange)',
+                            heightAuto: false
+                        });
+                    } else {
+                        Swal.showValidationMessage(`電子信箱格式有誤`);
+                    }
+                } 
+            })
+        });
+    
+
+        // 提交建議-----------------------------------------------------------
+        $(".opinion").on('click', function () {
+            Swal.fire({
+                title: '已收到您的意見回饋',
+                text: '您的建議是我們成長的動力，NSY全體成員祝您生活愉快',
+                icon: 'success',
+                confirmButtonColor: 'var(--color-marigold)',
+                heightAuto: false
+            })
+        });
     </script>
 
 
-    <!-- 處理Google登入的回傳內容 -->
-    <script>
+    <!-- Google 第三方登入功能暫時關閉 -->
+    <!-- 加载 React。-->
+    <!-- 注意: 部署时，将 "development.js" 替换为 "production.min.js"。-->
+    <!-- <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> -->
+    <!-- <script type="text/babel">
+     class App extends React.Component {
+       constructor () {
+         super()
+         this.state = {
+           message: 'hello world'
+         }
+       }
+       render () {
+         let { message } = this.state
+         return (
+           <div>
+              <h2>{message}</h2>
+              <button onClick={this.btnClick.bind(this)}>按钮</button>
+             </div>
+         )
+       }
+       btnClick () {
+         console.log("点击了按钮")
+         this.setState({
+           message: 'Hello React'
+         })
+       }
+     }
+      ReactDOM.render(<App></App>, document.getElementById('app'))
+     </script> -->
+
+     <!-- 處理Google登入的回傳內容 -->
+    <!-- <script>
         function parseJwt(token) {
             var base64Url = token.split('.')[1];
             var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -788,11 +820,7 @@
         };
 
         function handleCallback(response) {
-            // console.log(response);
-
             const data = parseJwt(response.credential);
-            // console.log(data.email);
-
             let loginStr = data.email;
             show_hide(1, loginStr);
 
@@ -804,71 +832,6 @@
             // }
             //  credential 是 base64 的 JWT Token，可以用解碼的方式拿到使用者資料
         }
-    </script>
-   
-    <script>
-        // 忘記密碼
-        $(".forget").on('click', function () {
-            Swal.fire({
-                title: '重置密碼',
-                text: '請輸入您關聯的電子信箱，我們將寄送新密碼給您',
-                input: 'text',
-                inputAttributes: {
-                    autocapitalize: 'off'
-                },
-                showCancelButton: true,
-                confirmButtonColor: 'var(--color-sunorange)',
-                cancelButtonColor: 'var(--color-irongray)',
-                confirmButtonText: '確認',
-                cancelButtonText: '取消',
-                showLoaderOnConfirm: true,
-                preConfirm: (login) => {
-                    return fetch(`//api.github.com/users/${login}`)
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error(response.statusText)
-                            }
-                            return response.json()
-                        })
-                        .catch(error => {
-                            Swal.showValidationMessage(
-                                // `Request failed: ${error}`
-                                `電子信箱格式有誤`
-                            )
-                        })
-                },
-                allowOutsideClick: () => !Swal.isLoading()
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire(
-                        '重置密碼通知信已寄出',
-                        '系統已發送新密碼至您關聯的電子信箱，請確認查收',
-                        'info'
-                    )
-                }
-            })
-        });
-        
-        // 提交建議
-        $(".opinion").on('click', function () {
-            Swal.fire({
-                title: '已收到您的意見回饋',
-                text: '您的建議是我們成長的動力，NSY全體成員祝您生活愉快',
-                icon: 'success',
-                confirmButtonColor: 'var(--color-marigold)'
-            })
-        });
-        
-        // 報告用功能
-        // setTimeout(function () {
-        //     Swal.fire({
-        //         title: '您已成功升級為專業版用戶！',
-        //         icon: 'success',
-        //         confirmButtonColor: 'var(--color-marigold)'
-        //     })
-        //     $('#version').html("專業版</span>");
-        //     $('#version').css('color', '#E60000');
-        // }, 70 * 1000); 
-    </script>
+    </script> -->
 </body>
 </html>

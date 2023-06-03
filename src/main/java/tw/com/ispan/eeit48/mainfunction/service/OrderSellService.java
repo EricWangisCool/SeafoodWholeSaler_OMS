@@ -154,15 +154,15 @@ public class OrderSellService {
 
     // 當賣家接單後，系統監控賣家所有開啟自動叫貨的productId是否有達到叫貨條件，有的話就自動叫貨
     public void checkAutoOrderProduct(int productId, int accountId) {
-        List<ProductBean> autoBeans = productRepository.findAllByAutoorderfunctionAndOwnerid("Y", accountId);
+        List<ProductBean> autoBeans = productRepository.findAllByAutoOrderFunctionAndOwnerId("Y", accountId);
         if (autoBeans != null && !autoBeans.isEmpty()) {
             for (ProductBean autoBean : autoBeans) {
                 // 有開啟自動叫貨的productId
-                int autoProductId = autoBean.getProductid();
+                int autoProductId = autoBean.getProductId();
                 // 警示庫存數
-                int warningQty = autoBean.getWarningqty();
+                int warningQty = autoBean.getWarningQty();
                 // 安全庫存數
-                int safeQty = autoBean.getSafeqty();
+                int safeQty = autoBean.getSafeQty();
                 // 可出現貨數
                 int stockOwn = productService.findStockOwnByProductId(autoProductId);
                 // 已叫現貨數
@@ -178,9 +178,7 @@ public class OrderSellService {
                     int supplierProductId =
                             supplierProductForOwnerProductRepository.findOneByProductid(autoProductId).getSupplierproductid();
                     int supplierProductUnitPrice =
-                            productRepository.findOneByProductid(supplierProductId).getUnitsellprice();
-                    String supplierProductName =
-                            productRepository.findProductNameByProductid(supplierProductId);
+                            productRepository.findOneByProductId(supplierProductId).getUnitSellPrice();
 
                     // 新增一筆新order
                     Date now = new Date();

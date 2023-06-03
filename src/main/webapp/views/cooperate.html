@@ -95,10 +95,7 @@
     <iframe id="loading" src="loading.html" width="100%" height="100%" scrolling="no"></iframe>
     <div class="container" id="container" style="display: none;">
         <div class="row justify-content-center">
-
-            <!-- border border-primary  -->
             <div class="col-11 mt-4 px-0">
-
                 <h1 class="fs-2 fw-bolder mb-4"><span class="text-black">廠商管理</span>
                     <button class="cooSet mt-2 mdc-button mdc-button--raised">
                         <span class="mdc-button__label fs-5 fw-normal">新增廠商</span>
@@ -106,24 +103,13 @@
                 </h1>
 
                 <div class="w-100 fs-5">
-
-
                     <!-- 這裡是內容的框架，可直接改掉框架 -->
                     <!-- 達克生鮮股份有限公司 -->
                     <button class="accordion">達克生鮮股份有限公司</button>
                     <div class="panel mb-4">
                         <table class="cooperateTable">
-                            <tr>
-                                <!-- <th colspan="4" class="title">廠商基本資料</th> -->
-                            </tr>
-
-                            <tr>
-                                <!-- <th>廠商名稱</th>
-                                    <td>達克生鮮股份有限公司</td>
-                                    <th>聯絡窗口</th>
-                                    <td>蘇沐橙</td> -->
-                            </tr>
-
+                            <tr></tr>
+                            <tr></tr>
                             <tr>
                                 <th>統一編號</th>
                                 <td>05076416</td>
@@ -171,7 +157,6 @@
                                 <th>銀行帳戶</th>
                                 <td>12345678912345</td>
                                 <th>付款條件</th>
-                                <!-- <td>月結(Net30)</td> -->
                                 <td>
                                     <select class="w-100">
                                         <option value="net30">月結(Net30)</option>
@@ -376,13 +361,6 @@
                 console.log("cooperateList getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
                 console.log(returnObj.responseObj);
             } else {
-                // 處理及判斷邏輯：                
-                // successStr = returnObj.responseText;
-                // if(successStr == "OK"){
-
-                // }
-
-                // 撈完後更新畫面內容。
                 window.location.replace(location.href);
             }
 
@@ -410,23 +388,6 @@
                 cancelButtonColor: 'var(--color-irongray)',
                 confirmButtonText: '新增',
                 cancelButtonText: '取消',
-                // showLoaderOnConfirm: true,
-                // preConfirm: (login) => {
-                //     return fetch(`//api.github.com/users/${login}`)
-                //         .then(response => {
-                //             if (!response.ok) {
-                //                 throw new Error(response.statusText)
-                //             }
-                //             return response.json()
-                //         })
-                //         .catch(error => {
-                //             Swal.showValidationMessage(
-                //                 // `Request failed: ${error}`
-                //                 `廠商帳號不得為空白`
-                //             )
-                //         })
-                // },
-                // allowOutsideClick: () => !Swal.isLoading()
             }).then((result) => {
                 if (result.isConfirmed) {
 
@@ -441,10 +402,8 @@
                         })
                     }
                     addCooperateData(result.value);
-
                 }
             })
-
         });
     </script>
 </body>

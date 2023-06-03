@@ -3,6 +3,8 @@ services:
   mysqldb:
     container_name: mysqldb
     image: mysql/mysql-server:5.7.34
+    # 支援Mac M1, M2屬性，如果為其他平台可自行調整
+    platform: linux/x86_64
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root

@@ -238,50 +238,9 @@
         // JSON假資料  ----------------------------------------------------------------------------------------------------------------------
         // CompanyName(供應商)、ProductPic(圖片)、ProductNameSpec(品名規格)、ProductDesc(說明)、UnitSellPrice(單價)
         // MinSellQty(最低訂購數)、?useroutstock(缺貨數)、?CallShipping(訂購數量)
-
-        // var test = 
-        //     [
-        //         {
-        //             "productid":200001,
-        //             "unitcost":500,
-        //             "onshelf":1,
-        //             "productpic":"../img/05.jpg",
-        //             "stockqty":600,
-        //             "warningqty":0,
-        //             "ownerid":2,
-        //             "productclassification":3,
-        //             "owneroutstock":450,
-        //             "minsellqty":50,
-        //             "autoorderconfirmfunctionstatus":1,
-        //             "autoorderfunction":"N",
-        //             "safeqty":450,
-        //             "productnamespec":"2號的秋刀魚",
-        //             "productdesc":"好吃喔",
-        //             "unitsellprice":1000
-        //         },
-        //         {
-        //             "productid":200002,
-        //             "unitcost":400,
-        //             "onshelf":1,
-        //             "productpic":"../img/05.jpg",
-        //             "stockqty":500,
-        //             "warningqty":0,
-        //             "ownerid":2,
-        //             "productclassification":4,
-        //             "owneroutstock":450,
-        //             "minsellqty":50,
-        //             "autoorderconfirmfunctionstatus":1,
-        //             "autoorderfunction":"N",
-        //             "safeqty":450,
-        //             "productnamespec":"2號的魷魚",
-        //             "productdesc":"很好吃喔",
-        //             "unitsellprice":1000
-        //         }
-        //     ]
-
-        let choosesupplier = {
+        let chooseSupplier = {
             supplier: "",
-            supplierid: ""
+            supplierId: ""
         };
 
         var cooperateList = [
@@ -405,14 +364,14 @@
         // 欄位中文名稱對應
         let goodsListName = [
             {
-                CompanyName: "供應商",
-                ProductPic: "圖片",
-                ProductNameSpec: "品名規格",
-                ProductDesc: "說明",
-                UnitSellPrice: "單價",
-                MinSellQty: "最低訂購量",
-                useroutstock: "缺貨數",
-                CallShipping: "訂購數量"
+                companyName: "供應商",
+                productPic: "圖片",
+                productNameSpec: "品名規格",
+                productDesc: "說明",
+                unitSellPrice: "單價",
+                minSellQty: "最低訂購量",
+                userOutStock: "缺貨數",
+                callShipping: "訂購數量"
             }
         ]
 
@@ -473,6 +432,7 @@
 
             // 跟server要對應廠商的資料
             returnObj = await viewsgoods(cooperateId);
+            console.log(returnObj);
 
             if (returnObj.responseStatus != 200) {
 
@@ -481,8 +441,8 @@
                 // reNewData();
                 // $(".sectionBackground").hide();
                 // $(".sectionTable").show();
-                choosesupplier.supplierid = $("#productclassification").find("li.mdc-list-item--selected").attr('data-value');
-                choosesupplier.supplier = $("#productclassification").find("li.mdc-list-item--selected span")[1].innerHTML;
+                chooseSupplier.supplierId = $("#productclassification").find("li.mdc-list-item--selected").attr('data-value');
+                chooseSupplier.supplier = $("#productclassification").find("li.mdc-list-item--selected span")[1].innerHTML;
 
                 console.log("cooperateProductList getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
                 console.log(returnObj.responseObj);
@@ -494,8 +454,8 @@
                 reNewData();
                 $(".sectionBackground").hide();
                 $(".sectionTable").show();
-                choosesupplier.supplierid = $("#productclassification").find("li.mdc-list-item--selected").attr('data-value');
-                choosesupplier.supplier = $("#productclassification").find("li.mdc-list-item--selected span")[1].innerHTML;
+                chooseSupplier.supplierId = $("#productclassification").find("li.mdc-list-item--selected").attr('data-value');
+                chooseSupplier.supplier = $("#productclassification").find("li.mdc-list-item--selected span")[1].innerHTML;
             }
         }
 
@@ -507,11 +467,11 @@
                 $(".goodsTable")[0].innerHTML = `
                 <thead>
                     <tr>
-                        <th style="width: 10%;">${goodsListName[0].ProductPic}</th>
-                        <th style="width: 22%;">${goodsListName[0].ProductNameSpec}</th>
-                        <th style="width: 22%;">${goodsListName[0].ProductDesc}</th>
-                        <th style="width: 10%;">${goodsListName[0].UnitSellPrice}</th>
-                        <th style="width: 10%;">${goodsListName[0].MinSellQty}</th>
+                        <th style="width: 10%;">${goodsListName[0].productPic}</th>
+                        <th style="width: 22%;">${goodsListName[0].productNameSpec}</th>
+                        <th style="width: 22%;">${goodsListName[0].productDesc}</th>
+                        <th style="width: 10%;">${goodsListName[0].unitSellPrice}</th>
+                        <th style="width: 10%;">${goodsListName[0].minSellQty}</th>
                         <th style="width: 15%;">操作</th>
                     </tr>
                 </thead>`;
@@ -519,13 +479,13 @@
                 $(".goodsTable")[0].innerHTML = `
                 <thead>
                     <tr>
-                        <th style="width: 10%;">${goodsListName[0].ProductPic}</th>
-                        <th style="width: 20%;">${goodsListName[0].ProductNameSpec}</th>
-                        <th>${goodsListName[0].ProductDesc}</th>
-                        <th style="width: 10%;">${goodsListName[0].UnitSellPrice}</th>
-                        <th style="width: 10%;">${goodsListName[0].MinSellQty}</th>
-                        <th style="width: 10%;">${goodsListName[0].useroutstock}</th>
-                        <th style="width: 15%;">${goodsListName[0].CallShipping}</th>
+                        <th style="width: 10%;">${goodsListName[0].productPic}</th>
+                        <th style="width: 20%;">${goodsListName[0].productNameSpec}</th>
+                        <th>${goodsListName[0].productDesc}</th>
+                        <th style="width: 10%;">${goodsListName[0].unitSellPrice}</th>
+                        <th style="width: 10%;">${goodsListName[0].minSellQty}</th>
+                        <th style="width: 10%;">${goodsListName[0].userOutStock}</th>
+                        <th style="width: 15%;">${goodsListName[0].callShipping}</th>
                     </tr>
                 </thead>`;
             }
@@ -533,20 +493,19 @@
 
 
             for (let i = 0; i < allStockList.length; i++) {
-
                 let trHtmlData = "";
                 // 創造<tr>的Html格式，並將資料帶入。
 
                 if (parentPage == 0) {
                     trHtmlData =`
                     <tr>
-                        <td data-label=""><img src="${allStockList[i].productpic}" onerror="this.src='/img/01.jpg'"></td>
-                        <td data-label="">${allStockList[i].productnamespec}</td>
-                        <td data-label="">${allStockList[i].productdesc}</td>
-                        <td data-label="">${costFix(allStockList[i].unitsellprice)}</td>
-                        <td data-label="">${allStockList[i].minsellqty}</td>
+                        <td data-label=""><img src="${allStockList[i].productPic}" onerror="this.src='/img/01.jpg'"></td>
+                        <td data-label="">${allStockList[i].productNameSpec}</td>
+                        <td data-label="">${allStockList[i].productDesc}</td>
+                        <td data-label="">${costFix(allStockList[i].unitSellPrice)}</td>
+                        <td data-label="">${allStockList[i].minSellQty}</td>
                         <td data-label="">
-                            <button class="mdc-button mdc-button--outlined" onclick="chooseSupplierAndProduct(${allStockList[i].productid})">
+                            <button class="mdc-button mdc-button--outlined" onclick="chooseSupplierAndProduct(${allStockList[i].productId})">
                                 <span class="mdc-button__ripple"></span>
                                 <span class="mdc-button__label fs-5 fw-normal">選擇品項</span>
                             </button>
@@ -555,16 +514,16 @@
                 } else if (parentPage == 1 || parentPage == 2) {
                     trHtmlData =`
                     <tr>
-                        <td data-label=""><img src="${allStockList[i].productpic}" onerror="this.src='/img/01.jpg'"></td>
-                        <td data-label="">${allStockList[i].productnamespec}</td>
-                        <td data-label="">${allStockList[i].productdesc}</td>
-                        <td data-label="">${costFix(allStockList[i].unitsellprice)}</td>
-                        <td data-label="">${allStockList[i].minsellqty}</td>
-                        <td data-label="">${allStockList[i].owneroutstock}</td>
+                        <td data-label=""><img src="${allStockList[i].productPic}" onerror="this.src='/img/01.jpg'"></td>
+                        <td data-label="">${allStockList[i].productNameSpec}</td>
+                        <td data-label="">${allStockList[i].productDesc}</td>
+                        <td data-label="">${costFix(allStockList[i].unitSellPrice)}</td>
+                        <td data-label="">${allStockList[i].minsellQty}</td>
+                        <td data-label="">${allStockList[i].ownerOutStock}</td>
                         <td data-label="">
-                            <input type='button' value='-' class='qtyminus' field='${allStockList[i].productid}' />
-                            <input type='text' name='${allStockList[i].productid}' value=${allStockList[i].owneroutstock} class='qty' />
-                            <input type='button' value='+' class='qtyplus' field='${allStockList[i].productid}' />
+                            <input type='button' value='-' class='qtyminus' field='${allStockList[i].productId}' />
+                            <input type='text' name='${allStockList[i].productId}' value=${allStockList[i].ownerOutStock} class='qty' />
+                            <input type='button' value='+' class='qtyplus' field='${allStockList[i].productId}' />
                         </td>
                     </tr>`
                 }                
@@ -584,7 +543,6 @@
                 quantityBtn();
                 checkProductQuantityAndPrice();
             }
-
         }
 
 
@@ -667,9 +625,9 @@
         let parentPage = null;
 
         let addStockObj = {
-            supplierproductid: 20001,
-            supplierid: 10000,
-            supplierproduct: "新鮮牛奶貝 / 5斤",
+            supplierProductId: 20001,
+            supplierId: 10000,
+            supplierProduct: "新鮮牛奶貝 / 5斤",
             supplier: "達克三角洲有限公司"
         }
 
@@ -712,29 +670,26 @@
         // 呼叫父類別方法 
         function callParent(transferData) {
             if (window.parent && window.parent.closeComponent) {
-
                 if (parentPage == 0 || parentPage == 2) {
                     window.parent.closeComponent(transferData);	//呼叫父頁面的closeComponent方法
                 }
-
             }
         }
 
 
         // 新增商品頁面的選擇品項及廠商
-        function chooseSupplierAndProduct(productid) {
+        function chooseSupplierAndProduct(productId) {
             if (parentPage == 0) {
-
                 for (let i = 0; i < allStockList.length; i++) {
-                    if (allStockList[i].productid == productid) {
-                        addStockObj.supplierproduct = allStockList[i].productnamespec;
+                    if (allStockList[i].productId == productId) {
+                        addStockObj.supplierProduct = allStockList[i].productNameSpec;
                         break;
                     }
                 }
 
-                addStockObj.supplier = choosesupplier.supplier;
-                addStockObj.supplierid = choosesupplier.supplierid;
-                addStockObj.supplierproductid = productid;
+                addStockObj.supplier = chooseSupplier.supplier;
+                addStockObj.supplierid = chooseSupplier.supplierId;
+                addStockObj.supplierproductid = productId;
 
                 // 呼叫父類方法，並把資料傳回去。
                 callParent(addStockObj);
@@ -774,17 +729,15 @@
             }
 
             combinationAjaxData = {
-                "sellerid": parseInt(choosesupplier.supplierid),
+                "sellerid": parseInt(chooseSupplier.supplierid),
                 "products": createGoodsArr
             }
 
             postGoodsData(combinationAjaxData);
-
         });
 
 
         async function postGoodsData(data) {
-
             returnObj = await viewsgoodsinsert(data);
 
             console.log(returnObj);
@@ -809,10 +762,8 @@
                     } else if (parentPage == 2) {
                         sweetalertShow(4);
                     }
-
                 }
             }
-
         }
 
 
@@ -887,8 +838,8 @@
                 if (parseInt($($("input[type='text']")[i]).val()) != 0) {
 
                     for (let k = 0; k < allStockList.length; k++) {
-                        if (allStockList[k].productid == $($("input[type='text']")[i]).attr("name")) {
-                            chooseProductPrice += allStockList[k].unitsellprice * $($("input[type='text']")[i]).val();
+                        if (allStockList[k].productId == $($("input[type='text']")[i]).attr("name")) {
+                            chooseProductPrice += allStockList[k].unitSellPrice * $($("input[type='text']")[i]).val();
                             break;
                         }
                     }

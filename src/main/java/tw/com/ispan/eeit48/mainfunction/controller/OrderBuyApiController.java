@@ -76,7 +76,7 @@ public class OrderBuyApiController {
         // 依照該訂單所有產品資訊, 尋訪單個產品資訊
         for (OrderDetailsBean orderDeatil : orderDeatils) {
             // 產品名稱
-            String productNameSpec = productRepository.findProductNameByProductid(orderDeatil.getSellerproductid());
+             String productNameSpec = productRepository.findProductNameSpecByProductId(orderDeatil.getSellerproductid());
             // 產品小計
             int orderQty = orderDeatil.getOrderqty() == null ? 0 : orderDeatil.getOrderqty();
             int unitDealPrice = orderDeatil.getUnitdealprice() == null ? 0 : orderDeatil.getUnitdealprice();

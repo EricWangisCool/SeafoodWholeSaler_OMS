@@ -49,7 +49,7 @@ public class PageService {
 		List<ProductBean> ownerProducts = productService.findProductByOwnerid(userId);
 		if (ownerProducts != null) {
 			for (ProductBean ownerProduct : ownerProducts) {
-				int ownerProductId = ownerProduct.getProductid();
+				int ownerProductId = ownerProduct.getProductId();
 				// 可出現貨數(stockown)
 				int stockown = productService.findStockOwnByProductId(ownerProductId);
 				// 已叫現貨數(callshipping)
@@ -57,17 +57,17 @@ public class PageService {
 				// "可出現貨 + 已叫現貨" (stockownandcallshipping)
 				int stockownandcallshipping = stockown + callshipping;
 				// 警戒庫存數(warningQty)
-				int warningQty = ownerProduct.getWarningqty();
+				int warningQty = ownerProduct.getWarningQty();
 
 				// 如果 ( "可出現貨" + "已叫現貨") < "警戒庫存", 就放入緊急庫存清單
 				if (stockownandcallshipping < warningQty) {
 					// "缺貨數"(outstock) = "安全庫存數"（safeQty) -  ("可出現貨" + "已叫現貨")(stockownandcallshipping)
-					int safeQty = ownerProduct.getSafeqty();
+					int safeQty = ownerProduct.getSafeQty();
 					int outstock = safeQty - stockownandcallshipping;
 
 					// 前端頁面需要值
 					JSONObject jsonObject = new JSONObject();
-					jsonObject.put("productnamespec", ownerProduct.getProductnamespec());
+					jsonObject.put("productnamespec", ownerProduct.getProductNameSpec());
 					jsonObject.put("outstock", outstock);
 					jsonObject.put("safeqty", safeQty);
 					jsonObject.put("stockownandcallshipping", stockownandcallshipping);

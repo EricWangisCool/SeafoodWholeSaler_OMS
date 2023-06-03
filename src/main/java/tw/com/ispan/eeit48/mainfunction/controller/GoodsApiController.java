@@ -2,6 +2,7 @@ package tw.com.ispan.eeit48.mainfunction.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import tw.com.ispan.eeit48.mainfunction.model.AccountsBean;
 import tw.com.ispan.eeit48.mainfunction.model.OrdersBean;
 import tw.com.ispan.eeit48.mainfunction.repository.SupplierProductForOwnerProductRepository;
 import tw.com.ispan.eeit48.mainfunction.service.View_companyfollowinglist_accountsService;
+import static tw.com.ispan.eeit48.common.util.CommonUtil.convertObjectToMap;
 import static tw.com.ispan.eeit48.mainfunction.service.AuthService.getCurrentUserId;
 
 @RestController
@@ -29,7 +31,7 @@ public class GoodsApiController {
     @Autowired
     private SupplierProductForOwnerProductRepository supplierProductForOwnerProductRepository;
     @Autowired
-    View_companyfollowinglist_accountsService view_companyfollowinglist_accountsService;
+    private View_companyfollowinglist_accountsService view_companyfollowinglist_accountsService;
 
     // 前端發送供應商ID, 後端回傳該供應商的產品資訊
     @PostMapping
@@ -41,7 +43,7 @@ public class GoodsApiController {
             // 尋訪出供應商單筆商品資訊
             for (ProductBean productBean : productBeans) {
                 // 從單筆供應商productId, 查看是否為自己productId的補貨對象, 是的話回傳缺貨數(outstock), 不是的話回傳0
-                Integer supplierProductId = productBean.getProductid();
+                Integer supplierProductId = productBean.getProductId();
                 int owneroutstock = 0;
                 if (supplierProductId != null) {
                     // 從供應商單一producitId, 找到對應自己productIds(可多個產品), 然後將它們的缺貨數加總(outstock)
@@ -55,9 +57,11 @@ public class GoodsApiController {
                         }
                     }
                 }
-                JSONObject productBeanJsonObject = productBean.toJsonObject();
-                productBeanJsonObject.put("owneroutstock", owneroutstock);
-                list.put(productBeanJsonObject);
+                Map<String, Object> product =  convertObjectToMap(productBean);
+                product.put("owneroutstock", owneroutstock);
+                product.putIfAbsent("reservedqty", "null");
+                product.putIfAbsent("productpic", "null");
+                list.put(product);
             }
             return list.toString();
         }

@@ -123,18 +123,10 @@
 <body style="background-color: white;">
     <div class="container">
         <div class="row justify-content-center">
-
             <div class="col-11 mt-4 mb-5 px-0">
-
-                <!-- 分頁大標 -->
-                <!-- <h1 class="fs-2 fw-bold mb-4"><span class="text-black">小東西(訂單明細)</span></h1> -->
-
                 <!-- 不成立區塊 ---------------------------------------------------------------------------------------------------->
-
                 <div id="failContent" class="rounded-3 shadow-sm py-4 px-4 w-100 h-auto mb-4">
-
                     <p class="fs-5 d-inline-flex mb-4 contenttitle">訂單狀態：不成立</p>
-
                     <ul>
                         <!-- <li>不成立類型：賣家取消／買家取消／商品遺失／商品損壞／逾時已由系統判定不成立</li>
                         <li>原因：不想買了／賣家要求取消／修改訂單內容／對商品有疑慮／賣家出貨速度太慢／對賣家行為有疑慮<br>（如：要求繳交保證金）／付款問題（如：餘額不足）／買錯商品／其他</li>
@@ -142,7 +134,6 @@
                         <li>不成立類型：買家取消</li>
                         <li>原因：不想買了</li>
                     </ul>
-
                 </div>
 
 
@@ -158,11 +149,8 @@
 
                     <!-- 這邊是詳細內容 ----------------------------------------------------------------->
                     <div id="dataContentMore">
-
                         <hr class="hr-color mt-0 mb-4">
-
                         <p class="fs-5 d-inline-flex contenttitle">出貨資訊</p>
-
                         <table class="outTable lh-lg w-100 fs-5 mb-4" id="outTable">
                             <tr>
                                 <td class="contenttitle" style="width: 50%;">收貨人姓名</td>
@@ -253,19 +241,12 @@
                                     </label>
                                 </td>
                             </tr>
-
                         </table>
-
                         <div id="timeLineContent">
-
                         </div>
-
                     </div>
                     <!-- 這邊是詳細內容 ----------------------------------------------------------------->
-
-
                     <hr class="hr-color mt-0 mb-4">
-
                     <div id="dataContentBtn" class="d-flex justify-content-end">
 
                         <button id="btnExport" class="mdc-button mdc-button--outlined me-2" onclick="turnToExcel()">
@@ -287,18 +268,12 @@
                             <span class="mdc-button__ripple"></span>
                             <span class="mdc-button__label fs-5 fw-normal">取消訂單</span>
                         </button>
-
                     </div>
-
                 </div>
-
 
                 <!-- 這邊是匯出資訊的Table -->
-                <div id="turnTable" style="display: none;">
-
-                </div>
+                <div id="turnTable" style="display: none;"></div>
             </div>
-
         </div>
     </div>
     
@@ -312,7 +287,6 @@
         // ProductNameSpec(品名規格)、?CallShipping(訂購數量)、UnitSellPrice(銷售單價)
         // ?Noshipping(未配數)、?StockOwn(庫存可配數)、?detailTotal(明細總金額)
         // 時間軸：Status(狀態)、訂單時間：OrderStatus(交易狀態)、OrderTime(訂單送出時間)、AcceptOrderTime(訂單接受時間)、ExportTime(訂單出貨時間)、SellerEstimatedArriveTime(賣家預計到貨時間)、ArriveOrderTime(貨物送達時間)、CompleteOrderTime(訂單完成時間)、CancelOrderTime(訂單不完成時間)
-
         // OrderStatus(交易狀態)：1是尚未送出叫貨單_還沒送出訂單、2是待確認_訂單送出、3是待出貨_訂單成立、4是出貨中、5是待收貨_待收貨入庫、6是訂單完成_入庫完成、7是訂單不成立_賣家或買家取消
 
         var detailList =
@@ -485,16 +459,13 @@
             $(".mdc-text-field__input")[3].value = detailList.paymentterms;
             $(".mdc-text-field__input")[4].value = detailList.taxid;
             $(".mdc-text-field__input")[5].value = costFix(detailList.total);
-
             $($("#dataContentBtn button")[2]).attr("data-value", detailList.orderid);
             $($("#dataContentBtn button")[3]).attr("data-value", detailList.orderid);
-
         }
 
 
         // iframe的外部父類會呼叫這個function
         function parentCall(tidy) {
-
             switch (tidy.orderstatus) {
                 case 2:
                     $("#failContent").hide();
@@ -556,18 +527,10 @@
 
         // mdc text field註冊
         window.mdc.autoInit();
-
     </script>
 
     <script>
         // 轉換excel的方法
-        // function turnToExcel(){
-        //     $("table tr td")[0].innerHTML = $(".testTable tr td")[0].innerHTML;
-
-
-        //     tableToExcel('table','example')
-        // }
-
         function turnToExcel() {
 
             let exportTable = `
@@ -589,13 +552,7 @@
                 </table>
             `
             $("#turnTable").html(exportTable);
-
-
-
-            console.log($("#turnTable")[0].innerHTML);
-
             tableToExcel('turnTable', 'export');
-
         }
 
 
@@ -634,7 +591,6 @@
             });
         });
     </script>
-
 
 </body>
 

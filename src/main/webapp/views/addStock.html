@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <header id="common-header"></header>
     <script src="../javascript/getCommonHeader.js"></script>
     <style>
@@ -373,22 +374,16 @@
     <iframe id="loading" src="loading.html" width="100%" height="100%" scrolling="no"></iframe>
     <div class="container" id="container" style="display: none;">
         <div class="row justify-content-center">
-
             <!-- border border-primary  -->
             <div class="col-11 mt-4 mb-5 px-0">
-
                 <h1 class="fs-2 fw-bold mb-4"><span class="text-black">新增/編輯庫存</span></h1>
-
 
                 <!-- 產品資訊相關 ------------------------------------------------------------------------------------->
                 <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto mb-4">
-
                     <div>
                         <p class="fs-5 d-inline-flex mb-4 contenttitle">產品資訊</p>
                     </div>
-
                     <hr class="hr-color mt-0 mb-4">
-
                     <table class="productBasicTable fs-5 fw-normal w-100">
                         <tr class="titlelabel">
                             <td style="width: 30%;">名稱/規格</td>
@@ -409,7 +404,6 @@
                                     <input id="productnamespec" type="text" class="mdc-text-field__input"
                                         placeholder="例如：比目魚/10斤">
                                 </label>
-
                             </td>
                             <td></td>
                             <td>
@@ -449,7 +443,6 @@
                                     </span>
                                     <input id="stockqty" type="number" class="mdc-text-field__input">
                                 </label>
-
                             </td>
                             <td></td>
                             <td>
@@ -467,7 +460,6 @@
                                     <div class="mdc-text-field-helper-text fs-5 fw-normal" id="my-helper-warningqty"
                                         aria-hidden="true">若庫存數低於此值，則需進行叫貨</div>
                                 </div>
-
                             </td>
                             <td></td>
                             <td>
@@ -553,13 +545,10 @@
                                         </ul>
                                     </div>
                                 </div>
-
                             </td>
                             <td></td>
                             <td>
-
                                 <div class="d-flex flex-row">
-
                                     <div class="d-flex flex-column">
                                         <div class="me-auto">
                                             <input id="file" type="file" style="display: none" accept="image/*">
@@ -572,52 +561,34 @@
                                             <span id="display-image-name"></span>
                                         </div>
                                     </div>
-
                                     <div id="display-image" class="ms-4"></div>
-
                                 </div>
-
                             </td>
                             <td></td>
                             <td>
-
                                 <div class="d-flex flex-row">
-
                                     <div class="w-auto">
-
                                         <button class="mdc-button mdc-button--outlined h-auto" onclick="callStaticBackdrop(0)">
                                             <span class="mdc-button__ripple"></span>
                                             <span id="cooperatebtn"
                                                 class="mdc-button__label fs-5 fw-normal text-justify">新增供應商</span>
                                         </button>
-
                                     </div>
-
                                     <div class="ms-2">
-
                                         <table class="cooperatetable">
-
                                             <tr>
                                                 <td></td>
                                             </tr>
-
                                             <tr>
                                                 <td></td>
                                             </tr>
-
                                         </table>
-
                                     </div>
-
                                 </div>
-
                             </td>
                         </tr>
                     </table>
-
                 </div>
-
-
 
                 <!-- 上架設定相關 ---------------------------------------------------------------------------------->
                 <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto mb-4">
@@ -759,15 +730,10 @@
                             </td>
                         </tr>
                     </table>
-
-
                 </div>
-
-
 
                 <!-- 自動交易相關 ----------------------------------------------------------------------------------------------->
                 <div class="bg-white rounded-3 shadow-sm py-4 px-4 w-100 h-auto mb-4" style="display: none;">
-
                     <div>
                         <p class="fs-5 d-inline-flex mb-4 contenttitle">自動交易</p>
                     </div>
@@ -777,13 +743,13 @@
                     <table class="productBasicTable fs-5 fw-normal w-100">
                         <tr class="switchlabel">
                             <td style="width: 30%;">
-
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox"
                                         id="flexSwitchCheckChecked-autoconfirm" onclick="checkSwitch()">
                                     <label class="form-check-label ms-2" for="flexSwitchCheckChecked-autoconfirm">關閉 /
                                         開啟
-                                        自動確認訂單</label>
+                                        自動確認訂單
+                                    </label>
                                     <span class="topInfo">
                                         <i class="fal fa-info-circle"></i>
                                         <span class="topInfotext">若滿足下列條件，則接收訂單時，將自動確認</span>
@@ -841,7 +807,6 @@
                                     </div>
                                     <label for="radio-3" style="transform: translateY(-4px);">
                                         訂購數量小於
-
                                         <label
                                             class="mdc-text-field mdc-text-field--outlined mdc-text-field--no-label quantity"
                                             data-mdc-auto-init="MDCTextField">
@@ -851,25 +816,17 @@
                                             </span>
                                             <input id="reservedqty" type="number" class="mdc-text-field__input">
                                         </label>
-
                                         【可出現貨】數時
                                     </label>
                                 </div>
-
-
                             </td>
                         </tr>
-
                     </table>
-
                 </div>
-
                 <button class="addSet mdc-button mdc-button--raised" onclick="setValue()">
                     <span class="mdc-button__label fs-5 fw-normal">新增庫存</span>
                 </button>
-
             </div>
-
         </div>
     </div>
 
@@ -891,13 +848,11 @@
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="../javascript/materialdesigninit.js"></script>
     <script src="../javascript/ajaxconnect.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../javascript/tools.js"></script>
     <script>
-
         // 頁面狀態：0(新增庫存)、1(編輯庫存)
         let pageState = 0;
 
@@ -915,32 +870,19 @@
         // 編輯產品的id
         let editStockProductid = 0;
 
-        // 呼叫父類別方法(先去檢查是否要更改為編輯庫存)
-        callParent();
-        function callParent() {
-            if (window.parent && window.parent.checkAddStock) {
-                window.parent.checkAddStock();	//呼叫父頁面的SetComponent方法
-            }
-        }
-
-
-        // 資料重置(由父頁面呼叫)
+        // 資料重置
         function addStockinit(state) {
-
             if (state == 0) {
                 // 新增庫存
                 pageState = 0;
-
                 $("h1 span")[0].innerHTML = "新增庫存";
                 $("button.addSet span")[0].innerHTML = "新增庫存";
 
             } else {
                 // 編輯庫存
                 pageState = 1;
-
                 $("h1 span")[0].innerHTML = "編輯庫存";
                 $("button.addSet span")[0].innerHTML = "完成編輯";
-                // console.log(state);
 
 
                 // 資料傳入-------------------------------------------------------
@@ -977,33 +919,21 @@
                 state.autoorderconfirmfunctionstatus > 1 ? $($('#flexSwitchCheckChecked-autoconfirm')[0]).prop("checked", true) : $($('#flexSwitchCheckChecked-autoconfirm')[0]).prop("checked", false);
                 state.autoorderconfirmfunctionstatus > 1 ? $($(".autoconfirmdetail").find("input.mdc-radio__native-control")[state.autoorderconfirmfunctionstatus - 2]).prop("checked", true) : $($(".autoconfirmdetail").find("input.mdc-radio__native-control")[0]).prop("checked", true);
                 $("#reservedqty").prop('value', state.reservedqty);
-
-                // mdc設定值的方式。
-                // var el = document.querySelector('#username');
-                // var tf = mdc.textField.MDCTextField(el);
-                // tf.value = 'foo';
-
             }
-
-
             // 確認Switch狀態
             checkSwitch();
 
             // 確認新增供應商表格
             checkCooperate();
-
         }
-
+        addStockinit(0);
 
         // 檔案上傳，暫時先做到可以顯示圖片在畫面上。
         const image_input = document.querySelector("#file");
-
         image_input.addEventListener("change", function () {
-
             const reader = new FileReader();
 
             if (this.files && this.files[0]) {
-
                 reader.addEventListener("load", function () {
                     const uploaded_image = reader.result;
                     $("#display-image").css('display', "block");
@@ -1012,27 +942,22 @@
                     console.log(uploaded_image);
                 });
 
-                // console.log(this.files[0]);
                 reader.readAsDataURL(this.files[0]);
                 $("#display-image-name").html(this.files[0].name);
             }
-
         });
 
 
         // 供應商表格判斷
         function checkCooperate() {
-
             if (cooperateObj.supplier == "") {
                 $(".cooperatetable").hide();
             } else {
                 $(".cooperatetable tr:nth-child(1) td").html(cooperateObj.supplier);
                 $(".cooperatetable tr:nth-child(2) td").html(cooperateObj.supplierproduct);
                 $(".cooperatetable").show();
-
                 $("#cooperatebtn").html("編輯供應商");
             }
-
         }
 
 
@@ -1087,17 +1012,12 @@
                 }
             }
 
-
-            if (pageState == 0) {
-                // 新增庫存
-
-                allValueList = {
+            allValueList = {
+                "productInfo": {
+                    "productid": null,
+                    "ownerid": null,
                     "productnamespec": $("#productnamespec").prop('value'),
                     "productpic": productPicObj,
-                    "supplierproductid": cooperateObj.supplierproductid == 0 ? 99999 : cooperateObj.supplierproductid,
-                    "supplierid": cooperateObj.supplierid == 0 ? 99999 : parseInt(cooperateObj.supplierid),
-                    // "supplierproductid":200001,
-                    // "supplierid":2,
                     "productclassification": $("#productclassification").find("li.mdc-list-item--selected").index(),
                     "unitcost": parseInt($("#unitcost").prop('value')),
                     "stockqty": parseInt($("#stockqty").prop('value')),
@@ -1108,73 +1028,35 @@
                     "minsellqty": parseInt($("#minsellqty").prop('value')),
                     "productdesc": $("#productdesc").prop('value'),
                     "autoorderfunction": $('#flexSwitchCheckChecked-autocall')[0].checked ? "Y" : "N",
-                    // "autoorderconfirmfunctionstatus": $('#flexSwitchCheckChecked-autoconfirm')[0].checked ? autoorderconfirm + 1 : 1,
-                    // "reservedqty": parseInt($("#reservedqty").prop('value'))
-                    // "autoorderfunction": "N",
                     "autoorderconfirmfunctionstatus": 1,
                     "reservedqty": 0
-                };
+                },
+                "supplierInfo": {
+                    "productid": null,
+                    "supplierproductid": cooperateObj.supplierproductid == 0 ? 99999 : cooperateObj.supplierproductid,
+                    "supplierid": cooperateObj.supplierid == 0 ? 99999 : parseInt(cooperateObj.supplierid)
+                }
+            };
 
-                // console.log(allValueList);
+            if (pageState == 0) { // 新增庫存
                 insertData();
-
-            } else if (pageState == 1) {
-                // 編輯庫存
-
-                allValueList = {
-                    "productid": editStockProductid,
-                    "productnamespec": $("#productnamespec").prop('value'),
-                    "productpic": productPicObj,
-                    "supplierproductid": cooperateObj.supplierproductid == 0 ? 99999 : cooperateObj.supplierproductid,
-                    "supplierid": cooperateObj.supplierid == 0 ? 99999 : parseInt(cooperateObj.supplierid),
-                    // "supplierproductid":200002,
-                    // "supplierid":2,
-                    "productclassification": $("#productclassification").find("li.mdc-list-item--selected").index(),
-                    "unitcost": parseInt($("#unitcost").prop('value')),
-                    "stockqty": parseInt($("#stockqty").prop('value')),
-                    "warningqty": parseInt($("#warningqty").prop('value')),
-                    "safeqty": parseInt($("#safeqty").prop('value')),
-                    "onshelf": $('#flexSwitchCheckChecked-online')[0].checked ? 1 : 0,
-                    "unitsellprice": parseInt($("#unitsellprice").prop('value')),
-                    "minsellqty": parseInt($("#minsellqty").prop('value')),
-                    "productdesc": $("#productdesc").prop('value'),
-                    "autoorderfunction": $('#flexSwitchCheckChecked-autocall')[0].checked ? "Y" : "N",
-                    // "autoorderconfirmfunctionstatus": $('#flexSwitchCheckChecked-autoconfirm')[0].checked ? autoorderconfirm + 1 : 1,
-                    // "reservedqty": parseInt($("#reservedqty").prop('value'))
-                    // "autoorderfunction": "N",
-                    "autoorderconfirmfunctionstatus": 1,
-                    "reservedqty": 0
-                };
-
-                // console.log(allValueList);
+            } else {              // 編輯庫存 (pageState = 1)
+                allValueList.productBean.productid = editStockProductid;
                 updateData();
-            }
-
-
-        }
+            };
+        };
 
 
         // 新增庫存-----------------------------------------------------------------------
-        // 傳資料(使用非同步資料的方式傳)。
+        var errorMessage = "Error from addStock.html";
+
         async function insertData() {
-
             returnObj = await viewsaddstockinsert(allValueList);
-            console.log(returnObj);
-
-            if (returnObj.responseStatus != 200) {
-                // 沒接到資料
-                ajaxalert(0, '庫存新增');
-
-                console.log("addStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                console.log(returnObj.responseObj);
+            if (isReturnObjectCorrect(returnObj)) {
+                ajaxalert(1, '庫存新增');
             } else {
-                // 處理及判斷邏輯：
-                let successObj = returnObj.responseText;
-
-                if (successObj == "OK") {
-                    // 成功
-                    ajaxalert(1, '庫存新增');
-                }
+                ajaxalert(0, '庫存新增');
+                console.log(errorMessage + "insertData function");
             }
         }
 
@@ -1182,31 +1064,17 @@
         // 更新庫存-----------------------------------------------------------------------
         // 傳資料(使用非同步資料的方式傳)。
         async function updateData() {
-
             returnObj = await viewsaddstockupdate(allValueList);
-
-            if (returnObj.responseStatus != 200) {
-                // 沒接到資料
-                ajaxalert(0, '編輯庫存');
-
-                console.log("addStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                console.log(returnObj.responseObj);
+            if (isReturnObjectCorrect(returnObj)) {
+                ajaxalert(2, '編輯庫存');
             } else {
-                // 處理及判斷邏輯：
-                let successObj = returnObj.responseText;
-
-                if (successObj == "OK") {
-                    // 成功
-                    ajaxalert(2, '編輯庫存');
-                }
+                ajaxalert(0, '編輯庫存');
+                console.log(errorMessage + "updateData function");
             }
         }
 
 
-
-        // sweetalert
         function ajaxalert(state, tipstring) {
-
             if (state == 0) {
                 // 新增失敗
                 Swal.fire({
@@ -1262,11 +1130,9 @@
                         console.log("href error");
                         break;
                 }
-
                 window.parent.changepage(href);	//呼叫父頁面的SetComponent方法
             }
         }
-
 
         // mdc text field註冊
         window.mdc.autoInit();

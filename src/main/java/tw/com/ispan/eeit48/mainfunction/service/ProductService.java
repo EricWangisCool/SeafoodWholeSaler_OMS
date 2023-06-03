@@ -26,7 +26,7 @@ public class ProductService {
 
 	// 以商品OwnerId找: 產品資訊
 	public List<ProductBean> findProductByOwnerid(int OwnerId) {
-		List<ProductBean> beans = productRepository.findAllByOwneridByOrderByOwneridDesc(OwnerId);
+		List<ProductBean> beans = productRepository.findAllByOwnerIdByOrderByOwnerIdDesc(OwnerId);
 		if (!beans.isEmpty()) {
 			return beans;
 		}
@@ -59,7 +59,7 @@ public class ProductService {
 		ProductService ps = new ProductService(productRepository, view_product_order_orderdetailsRepository,
 				supplierProductForOwnerProductRepository);
 		// 產品庫存數
-		int stockQty = productRepository.findStockqtyByProductid(productId);
+		int stockQty = productRepository.findStockQtyByProductId(productId);
 		// 被訂購量
 		int orderedQty = ps.findOrderedQtyByProductId(productId);
 		// 可出現貨
@@ -108,8 +108,8 @@ public class ProductService {
 		ProductService ps = new ProductService(productRepository, view_product_order_orderdetailsRepository,
 				supplierProductForOwnerProductRepository);
 		// 安全庫存
-		int safeQty = productRepository.findSafeQtyByProductid(productId) == null ? 0
-				: productRepository.findSafeQtyByProductid(productId);
+		int safeQty = productRepository.findSafeQtyByProductId(productId) == null ? 0
+				: productRepository.findSafeQtyByProductId(productId);
 		// 可出現貨
 		int stockOwn = ps.findStockOwnByProductId(productId);
 		// 已叫現貨
@@ -128,7 +128,7 @@ public class ProductService {
 			// 使用供應商ID: 找供應商公司名稱
 			String supplierCompanyName = accountsRepository.findCompanynameByAccountid(supplier.getSupplierid());
 			// 使用供應商產品ID: 找供應商產品名稱
-			String supplierProductName = productRepository.findProductNameByProductid(supplier.getSupplierproductid());
+			String supplierProductName = productRepository.findProductNameSpecByProductId(supplier.getSupplierproductid());
 			// 將供應商資訊物件化, 並放入剛查找出來的供應商名稱
 			supplierJsonObject = supplier.toJsonObject();
 			supplierJsonObject.put("suppliercompanyname", supplierCompanyName);

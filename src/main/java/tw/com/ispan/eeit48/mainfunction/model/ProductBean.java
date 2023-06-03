@@ -5,190 +5,156 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.json.JSONObject;
-
 @Entity
-@Table(name = "product")
+@Table(name = "Product")
 public class ProductBean {
-
 	@Id
-	private Integer productid;
+	private Integer productId;
 	@Column(columnDefinition = "longtext")
-	private String productpic;
-	private Integer productclassification;
-	private Integer unitcost;
-	private Integer stockqty;
-	private Integer warningqty;
+	private String productPic;
+	private Integer productClassification;
+	private Integer unitCost;
+	private Integer stockQty;
+	private Integer warningQty;
 	@Column(columnDefinition = "char")
-	private String autoorderfunction;
-	private Integer safeqty;
-	private Integer unitsellprice;
-	private Integer minsellqty;
+	private String autoOrderFunction;
+	private Integer safeQty;
+	private Integer unitSellPrice;
+	private Integer minSellQty;
 	@Column(columnDefinition = "char")
-	private String productdesc;
-	private Integer onshelf;
-	private Integer autoorderconfirmfunctionstatus;
-	private Integer reservedqty;
-	private Integer ownerid;
+	private String productDesc;
+	private Integer onShelf;
+	private Integer autoOrderConfirmFunctionStatus;
+	private Integer reservedQty;
+	private Integer ownerId;
 	@Column(columnDefinition = "char")
-	private String productnamespec;
+	private String productNameSpec;
 
-	@Override
-	public String toString() {
-		return "ProductBean [productid=" + productid + ", productpic=" + productpic + ", productclassification="
-				+ productclassification + ", unitcost=" + unitcost + ", stockqty=" + stockqty + ", warningqty="
-				+ warningqty + ", autoorderfunction=" + autoorderfunction + ", safeqty=" + safeqty + ", unitsellprice="
-				+ unitsellprice + ", minsellqty=" + minsellqty + ", productdesc=" + productdesc + ", onshelf=" + onshelf
-				+ ", autoorderconfirmfunctionstatus=" + autoorderconfirmfunctionstatus + ", reservedqty=" + reservedqty
-				+ ", ownerid=" + ownerid + ", productnamespec=" + productnamespec + "]";
+	public Integer getProductId() {
+		return productId;
 	}
 
-	public Integer getProductid() {
-		return productid;
+	public void setProductId(Integer productId) {
+		this.productId = productId;
 	}
 
-	public void setProductid(Integer productid) {
-		this.productid = productid;
+	public String getProductPic() {
+		return productPic;
 	}
 
-	public String getProductpic() {
-		return productpic;
+	public void setProductPic(String productPic) {
+		this.productPic = productPic;
 	}
 
-	public void setProductpic(String productpic) {
-		this.productpic = productpic;
+	public Integer getProductClassification() {
+		return productClassification;
 	}
 
-	public Integer getProductclassification() {
-		return productclassification;
+	public void setProductClassification(Integer productClassification) {
+		this.productClassification = productClassification;
 	}
 
-	public void setProductclassification(Integer productclassification) {
-		this.productclassification = productclassification;
+	public Integer getUnitCost() {
+		return unitCost;
 	}
 
-	public Integer getUnitcost() {
-		return unitcost;
+	public void setUnitCost(Integer unitCost) {
+		this.unitCost = unitCost;
 	}
 
-	public void setUnitcost(Integer unitcost) {
-		this.unitcost = unitcost;
+	public Integer getStockQty() {
+		return stockQty;
 	}
 
-	public Integer getStockqty() {
-		return stockqty;
+	public void setStockQty(Integer stockQty) {
+		this.stockQty = stockQty;
 	}
 
-	public void setStockqty(Integer stockqty) {
-		this.stockqty = stockqty;
+	public Integer getWarningQty() {
+		return warningQty;
 	}
 
-	public Integer getWarningqty() {
-		return warningqty;
+	public void setWarningQty(Integer warningQty) {
+		this.warningQty = warningQty;
 	}
 
-	public void setWarningqty(Integer warningqty) {
-		this.warningqty = warningqty;
+	public String getAutoOrderFunction() {
+		return autoOrderFunction;
 	}
 
-	public String getAutoorderfunction() {
-		return autoorderfunction;
+	public void setAutoOrderFunction(String autoOrderFunction) {
+		this.autoOrderFunction = autoOrderFunction;
 	}
 
-	public void setAutoorderfunction(String autoorderfunction) {
-		this.autoorderfunction = autoorderfunction;
+	public Integer getSafeQty() {
+		return safeQty;
 	}
 
-	public Integer getSafeqty() {
-		return safeqty;
+	public void setSafeQty(Integer safeQty) {
+		this.safeQty = safeQty;
 	}
 
-	public void setSafeqty(Integer safeqty) {
-		this.safeqty = safeqty;
+	public Integer getUnitSellPrice() {
+		return unitSellPrice;
 	}
 
-	public Integer getUnitsellprice() {
-		return unitsellprice;
+	public void setUnitSellPrice(Integer unitSellPrice) {
+		this.unitSellPrice = unitSellPrice;
 	}
 
-	public void setUnitsellprice(Integer unitsellprice) {
-		this.unitsellprice = unitsellprice;
+	public Integer getMinSellQty() {
+		return minSellQty;
 	}
 
-	public Integer getMinsellqty() {
-		return minsellqty;
+	public void setMinSellQty(Integer minSellQty) {
+		this.minSellQty = minSellQty;
 	}
 
-	public void setMinsellqty(Integer minsellqty) {
-		this.minsellqty = minsellqty;
+	public String getProductDesc() {
+		return productDesc;
 	}
 
-	public String getProductdesc() {
-		return productdesc;
+	public void setProductDesc(String productDesc) {
+		this.productDesc = productDesc;
 	}
 
-	public void setProductdesc(String productdesc) {
-		this.productdesc = productdesc;
+	public Integer getOnShelf() {
+		return onShelf;
 	}
 
-	public Integer getOnshelf() {
-		return onshelf;
+	public void setOnShelf(Integer onShelf) {
+		this.onShelf = onShelf;
 	}
 
-	public void setOnshelf(Integer onshelf) {
-		this.onshelf = onshelf;
+	public Integer getAutoOrderConfirmFunctionStatus() {
+		return autoOrderConfirmFunctionStatus;
 	}
 
-	public Integer getAutoorderconfirmfunctionstatus() {
-		return autoorderconfirmfunctionstatus;
+	public void setAutoOrderConfirmFunctionStatus(Integer autoOrderConfirmFunctionStatus) {
+		this.autoOrderConfirmFunctionStatus = autoOrderConfirmFunctionStatus;
 	}
 
-	public void setAutoorderconfirmfunctionstatus(Integer autoorderconfirmfunctionstatus) {
-		this.autoorderconfirmfunctionstatus = autoorderconfirmfunctionstatus;
+	public Integer getReservedQty() {
+		return reservedQty;
 	}
 
-	public Integer getReservedqty() {
-		return reservedqty;
+	public void setReservedQty(Integer reservedQty) {
+		this.reservedQty = reservedQty;
 	}
 
-	public void setReservedqty(Integer reservedqty) {
-		this.reservedqty = reservedqty;
+	public Integer getOwnerId() {
+		return ownerId;
 	}
 
-	public Integer getOwnerid() {
-		return ownerid;
+	public void setOwnerId(Integer ownerId) {
+		this.ownerId = ownerId;
 	}
 
-	public void setOwnerid(Integer ownerid) {
-		this.ownerid = ownerid;
+	public String getProductNameSpec() {
+		return productNameSpec;
 	}
 
-	public String getProductnamespec() {
-		return productnamespec;
-	}
-
-	public void setProductnamespec(String productnamespec) {
-		this.productnamespec = productnamespec;
-	}
-
-	public JSONObject toJsonObject() {
-		JSONObject obj = new JSONObject();
-		obj.put("productid", productid);
-		obj.put("productpic", productpic == null ? "null" : productpic);
-		obj.put("productclassification", productclassification);
-		obj.put("unitcost", unitcost);
-		obj.put("stockqty", stockqty);
-		obj.put("warningqty", warningqty);
-		obj.put("autoorderfunction", autoorderfunction);
-		obj.put("safeqty", safeqty);
-		obj.put("unitsellprice", unitsellprice);
-		obj.put("minsellqty", minsellqty);
-		obj.put("productdesc", productdesc);
-		obj.put("onshelf", onshelf);
-		obj.put("autoorderconfirmfunctionstatus", autoorderconfirmfunctionstatus);
-		obj.put("reservedqty", reservedqty == null ? "null" : reservedqty);
-		obj.put("ownerid", ownerid);
-		obj.put("productnamespec", productnamespec);
-		return obj;
+	public void setProductNameSpec(String productNameSpec) {
+		this.productNameSpec = productNameSpec;
 	}
 }

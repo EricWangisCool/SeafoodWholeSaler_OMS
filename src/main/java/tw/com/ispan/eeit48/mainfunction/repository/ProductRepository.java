@@ -1,33 +1,62 @@
 package tw.com.ispan.eeit48.mainfunction.repository;
 
-import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import tw.com.ispan.eeit48.mainfunction.model.ProductBean;
+import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<ProductBean, Integer> {
-	List<ProductBean> findAllByOwnerid(int ownerid);
+	@Transactional
+	int deleteByProductId(Integer productId);
+	List<ProductBean> findAllByProductId(Integer productId);
+	List<ProductBean> findAllByAutoOrderFunctionAndOwnerId(String autoOrderFunc, Integer accountId);
+	ProductBean findOneByProductId(int productId);
+	boolean existsById(int id);
 
-	List<ProductBean> findAllByProductid(Integer productid);
+	@Query(value = """
+			SELECT productNameSpec
+			  FROM Product
+			 WHERE productId = ?1
+			"""
+			, nativeQuery = true)
+	String findProductNameSpecByProductId(Integer productId);
 
-	void deleteByProductid(Integer productid);
+	@Query(value = """
+			SELECT stockQty		
+			  FROM Product  		
+			 WHERE productId = ?1	
+			"""
+			, nativeQuery = true)
+	int findStockQtyByProductId(Integer productId);
 
-	@Query(value = "select productnamespec from product where productid = ?1", nativeQuery = true)
-	String findProductNameByProductid(Integer sellerproductid);
+	@Query(value = """
+			SELECT safeQty         
+			  FROM Product 			
+			 WHERE productId = ?1	
+			"""
+			, nativeQuery = true)
+	Integer findSafeQtyByProductId(Integer productId);
 
-	@Query(value = "select stockqty from product where productid = ?1", nativeQuery = true)
-	int findStockqtyByProductid(Integer productId);
+	@Query(value = """
+			SELECT * 				 
+			  FROM Product 		     
+			 WHERE ownerId = ?1 	 
+			 ORDER BY productId DESC 
+			"""
+			, nativeQuery = true)
+	List<ProductBean> findAllByOwnerIdByOrderByOwnerIdDesc(int ownerId);
 
-	@Query(value = "select safeqty from product where productid = ?1", nativeQuery = true)
-	Integer findSafeQtyByProductid(Integer productId);
-
-	List<ProductBean> findAllByAutoorderfunctionAndOwnerid(String string, Integer accountid);
-
-	@Query(value = "SELECT * FROM product WHERE ownerid = ?1 ORDER BY productId DESC", nativeQuery = true)
-	List<ProductBean> findAllByOwneridByOrderByOwneridDesc(int ownerid);
-
-	ProductBean findOneByProductid(int productId);
+	@Query(value = """
+            SELECT productId 
+              FROM Product 
+             WHERE ownerId = ?1 
+             ORDER BY ProductId DESC 
+             LIMIT 1
+             """
+			, nativeQuery = true)
+	Integer findLastProductIdByOwnerId(int ownerId);
 
 }
