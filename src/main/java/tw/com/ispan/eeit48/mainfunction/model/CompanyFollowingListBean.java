@@ -17,32 +17,25 @@ import org.json.JSONObject;
 public class CompanyFollowingListBean implements Serializable {
 
 	@Id
-	private Integer buyer_id;
-	private Integer seller_id;
-
-	
-
-	
-
-	@Override
-	public String toString() {
-		return "CompanyFollowingListBean [buyer_id=" + buyer_id + ", seller_id=" + seller_id + "]";
-	}
-
+	private Integer buyerId;
+	private Integer sellerId;
 	public Integer getBuyerId() {
-		return buyer_id;
+		return buyerId;
 	}
-
-	public void setBuyerId(Integer buyer_id) {
-		this.buyer_id = buyer_id;
+	public void setBuyerId(Integer buyerId) {
+		this.buyerId = buyerId;
 	}
-
 	public Integer getSellerId() {
-		return seller_id;
+		return sellerId;
+	}
+	public void setSellerId(Integer sellerId) {
+		this.sellerId = sellerId;
 	}
 
-	public void setSellerId(Integer seller_id) {
-		this.seller_id = seller_id;
-	}
+	
+
+	
+
+
 
 }

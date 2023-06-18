@@ -16,53 +16,35 @@ import org.json.JSONObject;
 public class OrderDetailsBean implements Serializable {
 	@Id
 	@Column(columnDefinition = "char")
-	private String order_id;
-	private Integer seller_product_id;
-	private Integer order_qty;
-	private Integer unit_deal_price;
-
-
-
-
-	
-
-	
-
-	@Override
-	public String toString() {
-		return "OrderDetailsBean [order_id=" + order_id + ", seller_product_id=" + seller_product_id + ", order_qty="
-				+ order_qty + ", unit_deal_price=" + unit_deal_price + "]";
+	private String orderId;
+	private Integer sellerProductId;
+	private Integer orderQty;
+	private Integer unitDealPrice;
+	public String getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+	public Integer getSellerProductId() {
+		return sellerProductId;
+	}
+	public void setSellerProductId(Integer sellerProductId) {
+		this.sellerProductId = sellerProductId;
+	}
+	public Integer getOrderQty() {
+		return orderQty;
+	}
+	public void setOrderQty(Integer orderQty) {
+		this.orderQty = orderQty;
+	}
+	public Integer getUnitDealPrice() {
+		return unitDealPrice;
+	}
+	public void setUnitDealPrice(Integer unitDealPrice) {
+		this.unitDealPrice = unitDealPrice;
 	}
 
-	public String getOrderid() {
-		return order_id;
-	}
 
-	public void setOrderid(String order_id) {
-		this.order_id = order_id;
-	}
 
-	public Integer getSellerproductid() {
-		return seller_product_id;
-	}
-
-	public void setSellerproductid(Integer seller_product_id) {
-		this.seller_product_id = seller_product_id;
-	}
-
-	public Integer getOrderqty() {
-		return order_qty;
-	}
-
-	public void setOrderqty(Integer order_qty) {
-		this.order_qty = order_qty;
-	}
-
-	public Integer getUnitdealprice() {
-		return unit_deal_price;
-	}
-
-	public void setUnitdealprice(Integer unit_deal_price) {
-		this.unit_deal_price = unit_deal_price;
-	}
 }

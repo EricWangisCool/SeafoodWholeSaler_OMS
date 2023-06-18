@@ -18,300 +18,223 @@ import org.json.JSONObject;
 @DynamicUpdate
 public class View_product_order_orderdetailsBean implements Serializable {
 	@Id
-	private Integer product_id;
+	private Integer productId;
 	@Column(columnDefinition = "char")
-	private String order_id;
-	private Integer order_status;
-	private Integer stock_qty;
-	private Integer warning_qty;
-	private Integer order_qty;
-	private Integer buyer_id;
-	private Integer owner_id;
-	private Integer unit_deal_price;
-	private Integer safe_qty;
+	private String orderId;
+	private Integer orderStatus;
+	private Integer stockQty;
+	private Integer warningQty;
+	private Integer orderQty;
+	private Integer buyerId;
+	private Integer ownerId;
+	private Integer unitDealPrice;
+	private Integer safeQty;
 	@Column(columnDefinition = "char")
-	private String company_name;
-	private Integer unit_cost;
+	private String companyName;
+	private Integer unitCost;
 	@Column(columnDefinition = "char")
-	private String payment_terms;
+	private String paymentTerms;
 	@Column(columnDefinition = "char")
-	private String product_name_spec;
+	private String productNameSpec;
 	@Column(columnDefinition = "char")
-	private String delivery_order_id;
+	private String deliveryOrderId;
 	@Column(columnDefinition = "char")
-	private String delivery_order_remark;
+	private String deliveryOrderRemark;
 	@Column(columnDefinition = "datetime")
-	private String order_time;
+	private String orderTime;
 	@Column(columnDefinition = "datetime")
-	private String accept_order_time;
+	private String acceptOrderTime;
 	@Column(columnDefinition = "datetime")
-	private String export_time;
+	private String exportTime;
 	@Column(columnDefinition = "datetime")
-	private String arrive_order_time;
+	private String arriveOrderTime;
 	@Column(columnDefinition = "datetime")
-	private String complete_order_time;
+	private String completeOrderTime;
 	@Column(columnDefinition = "datetime")
-	private String cancel_order_time;
+	private String cancelOrderTime;
 	@Column(columnDefinition = "char")
-	private String auto_order_function;
-	private Integer unit_sell_price;
-	private Integer min_sell_qty;
+	private String autoOrderFunction;
+	private Integer unitSellPrice;
+	private Integer minSellQty;
 	@Column(columnDefinition = "char")
-	private String product_desc;
-	private Integer on_shelf;
-	private Integer auto_order_confirm_function_status;
-	private Integer reserved_qty;
+	private String productDesc;
+	private Integer onShelf;
+	private Integer autoOrderConfirmFunctionStatus;
+	private Integer reservedQty;
+	public Integer getProductId() {
+		return productId;
+	}
+	public void setProductId(Integer productId) {
+		this.productId = productId;
+	}
+	public String getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+	public Integer getOrderStatus() {
+		return orderStatus;
+	}
+	public void setOrderStatus(Integer orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+	public Integer getStockQty() {
+		return stockQty;
+	}
+	public void setStockQty(Integer stockQty) {
+		this.stockQty = stockQty;
+	}
+	public Integer getWarningQty() {
+		return warningQty;
+	}
+	public void setWarningQty(Integer warningQty) {
+		this.warningQty = warningQty;
+	}
+	public Integer getOrderQty() {
+		return orderQty;
+	}
+	public void setOrderQty(Integer orderQty) {
+		this.orderQty = orderQty;
+	}
+	public Integer getBuyerId() {
+		return buyerId;
+	}
+	public void setBuyerId(Integer buyerId) {
+		this.buyerId = buyerId;
+	}
+	public Integer getOwnerId() {
+		return ownerId;
+	}
+	public void setOwnerId(Integer ownerId) {
+		this.ownerId = ownerId;
+	}
+	public Integer getUnitDealPrice() {
+		return unitDealPrice;
+	}
+	public void setUnitDealPrice(Integer unitDealPrice) {
+		this.unitDealPrice = unitDealPrice;
+	}
+	public Integer getSafeQty() {
+		return safeQty;
+	}
+	public void setSafeQty(Integer safeQty) {
+		this.safeQty = safeQty;
+	}
+	public String getCompanyName() {
+		return companyName;
+	}
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+	public Integer getUnitCost() {
+		return unitCost;
+	}
+	public void setUnitCost(Integer unitCost) {
+		this.unitCost = unitCost;
+	}
+	public String getPaymentTerms() {
+		return paymentTerms;
+	}
+	public void setPaymentTerms(String paymentTerms) {
+		this.paymentTerms = paymentTerms;
+	}
+	public String getProductNameSpec() {
+		return productNameSpec;
+	}
+	public void setProductNameSpec(String productNameSpec) {
+		this.productNameSpec = productNameSpec;
+	}
+	public String getDeliveryOrderId() {
+		return deliveryOrderId;
+	}
+	public void setDeliveryOrderId(String deliveryOrderId) {
+		this.deliveryOrderId = deliveryOrderId;
+	}
+	public String getDeliveryOrderRemark() {
+		return deliveryOrderRemark;
+	}
+	public void setDeliveryOrderRemark(String deliveryOrderRemark) {
+		this.deliveryOrderRemark = deliveryOrderRemark;
+	}
+	public String getOrderTime() {
+		return orderTime;
+	}
+	public void setOrderTime(String orderTime) {
+		this.orderTime = orderTime;
+	}
+	public String getAcceptOrderTime() {
+		return acceptOrderTime;
+	}
+	public void setAcceptOrderTime(String acceptOrderTime) {
+		this.acceptOrderTime = acceptOrderTime;
+	}
+	public String getExportTime() {
+		return exportTime;
+	}
+	public void setExportTime(String exportTime) {
+		this.exportTime = exportTime;
+	}
+	public String getArriveOrderTime() {
+		return arriveOrderTime;
+	}
+	public void setArriveOrderTime(String arriveOrderTime) {
+		this.arriveOrderTime = arriveOrderTime;
+	}
+	public String getCompleteOrderTime() {
+		return completeOrderTime;
+	}
+	public void setCompleteOrderTime(String completeOrderTime) {
+		this.completeOrderTime = completeOrderTime;
+	}
+	public String getCancelOrderTime() {
+		return cancelOrderTime;
+	}
+	public void setCancelOrderTime(String cancelOrderTime) {
+		this.cancelOrderTime = cancelOrderTime;
+	}
+	public String getAutoOrderFunction() {
+		return autoOrderFunction;
+	}
+	public void setAutoOrderFunction(String autoOrderFunction) {
+		this.autoOrderFunction = autoOrderFunction;
+	}
+	public Integer getUnitSellPrice() {
+		return unitSellPrice;
+	}
+	public void setUnitSellPrice(Integer unitSellPrice) {
+		this.unitSellPrice = unitSellPrice;
+	}
+	public Integer getMinSellQty() {
+		return minSellQty;
+	}
+	public void setMinSellQty(Integer minSellQty) {
+		this.minSellQty = minSellQty;
+	}
+	public String getProductDesc() {
+		return productDesc;
+	}
+	public void setProductDesc(String productDesc) {
+		this.productDesc = productDesc;
+	}
+	public Integer getOnShelf() {
+		return onShelf;
+	}
+	public void setOnShelf(Integer onShelf) {
+		this.onShelf = onShelf;
+	}
+	public Integer getAutoOrderConfirmFunctionStatus() {
+		return autoOrderConfirmFunctionStatus;
+	}
+	public void setAutoOrderConfirmFunctionStatus(Integer autoOrderConfirmFunctionStatus) {
+		this.autoOrderConfirmFunctionStatus = autoOrderConfirmFunctionStatus;
+	}
+	public Integer getReservedQty() {
+		return reservedQty;
+	}
+	public void setReservedQty(Integer reservedQty) {
+		this.reservedQty = reservedQty;
+	}
 
 	
-
-
-
-	@Override
-	public String toString() {
-		return "View_product_order_orderdetailsBean [product_id=" + product_id + ", order_id=" + order_id
-				+ ", order_status=" + order_status + ", stock_qty=" + stock_qty + ", warning_qty=" + warning_qty
-				+ ", order_qty=" + order_qty + ", buyer_id=" + buyer_id + ", owner_id=" + owner_id
-				+ ", unit_deal_price=" + unit_deal_price + ", safe_qty=" + safe_qty + ", company_name=" + company_name
-				+ ", unit_cost=" + unit_cost + ", payment_terms=" + payment_terms + ", product_name_spec="
-				+ product_name_spec + ", delivery_order_id=" + delivery_order_id + ", delivery_order_remark="
-				+ delivery_order_remark + ", order_time=" + order_time + ", accept_order_time=" + accept_order_time
-				+ ", export_time=" + export_time + ", arrive_order_time=" + arrive_order_time + ", complete_order_time="
-				+ complete_order_time + ", cancel_order_time=" + cancel_order_time + ", auto_order_function="
-				+ auto_order_function + ", unit_sell_price=" + unit_sell_price + ", min_sell_qty=" + min_sell_qty
-				+ ", product_desc=" + product_desc + ", on_shelf=" + on_shelf + ", auto_order_confirm_function_status="
-				+ auto_order_confirm_function_status + ", reserved_qty=" + reserved_qty + "]";
-	}
-
-	public String getCompanyname() {
-		return company_name;
-	}
-
-	public void setCompanyname(String company_name) {
-		this.company_name = company_name;
-	}
-
-	public Integer getUnitcost() {
-		return unit_cost;
-	}
-
-	public void setUnitcost(Integer unit_cost) {
-		this.unit_cost = unit_cost;
-	}
-
-	public String getPaymentterms() {
-		return payment_terms;
-	}
-
-	public void setPaymentterms(String payment_terms) {
-		this.payment_terms =payment_terms;
-	}
-
-	public Integer getOwnerid() {
-		return owner_id;
-	}
-
-	public void setOwnerid(Integer  owner_id) {
-		this. owner_id=  owner_id;
-	}
-
-	public Integer getProductid() {
-		return product_id;
-	}
-
-	public void setProductid(Integer product_id) {
-		this.product_id = product_id;
-	}
-
-	public String getOrderid() {
-		return order_id;
-	}
-
-	public void setOrderid(String order_id) {
-		this.order_id = order_id;
-	}
-
-	public Integer getOrderstatus() {
-		return order_status;
-	}
-
-	public void setOrderstatus(Integer order_status) {
-		this.order_status = order_status;
-	}
-
-	public Integer getStockqty() {
-		return stock_qty;
-	}
-
-	public void setStockqty(Integer stock_qty) {
-		this.stock_qty = stock_qty;
-	}
-
-	public Integer getWarningqty() {
-		return warning_qty;
-	}
-
-	public void setWarningqty(Integer warning_qty) {
-		this.warning_qty = warning_qty;
-	}
-
-	public Integer getOrderqty() {
-		return order_qty;
-	}
-
-	public void setOrderqty(Integer order_qty) {
-		this.order_qty = order_qty;
-	}
-
-	public Integer getBuyerid() {
-		return buyer_id;
-	}
-
-	public void setBuyerid(Integer buyer_id) {
-		this.buyer_id = buyer_id;
-	}
-
-	public Integer getUnitdealprice() {
-		return unit_deal_price;
-	}
-
-	public void setUnitdealprice(Integer unit_deal_price) {
-		this.unit_deal_price = unit_deal_price;
-	}
-
-	public Integer getSafeqty() {
-		return safe_qty;
-	}
-
-	public void setSafeqty(Integer safe_qty) {
-		this.safe_qty = safe_qty;
-	}
-
-	public String getProductnamespec() {
-		return product_name_spec;
-	}
-
-	public void setProductnamespec(String product_name_spec) {
-		this.product_name_spec = product_name_spec;
-	}
-
-	public String getDeliveryorderid() {
-		return delivery_order_id;
-	}
-
-	public void setDeliveryorderid(String delivery_order_id) {
-		this.delivery_order_id = delivery_order_id;
-	}
-
-	public String getDeliveryorderremark() {
-		return delivery_order_remark;
-	}
-
-	public void setDeliveryorderremark(String delivery_order_remark) {
-		this.delivery_order_remark = delivery_order_remark;
-	}
-
-	public String getOrdertime() {
-		return order_time;
-	}
-
-	public void setOrdertime(String order_time) {
-		this.order_time = order_time;
-	}
-
-	public String getAcceptordertime() {
-		return accept_order_time;
-	}
-
-	public void setAcceptordertime(String accept_order_time) {
-		this.accept_order_time = accept_order_time;
-	}
-
-	public String getExporttime() {
-		return export_time;
-	}
-
-	public void setExporttime(String export_time) {
-		this.export_time = export_time;
-	}
-
-	public String getArriveordertime() {
-		return arrive_order_time;
-	}
-
-	public void setArriveordertime(String arrive_order_time) {
-		this.arrive_order_time = arrive_order_time;
-	}
-
-	public String getCompleteordertime() {
-		return complete_order_time;
-	}
-
-	public void setCompleteordertime(String complete_order_time) {
-		this.complete_order_time = complete_order_time;
-	}
-
-	public String getCancelordertime() {
-		return cancel_order_time;
-	}
-
-	public void setCancelordertime(String cancel_order_time) {
-		this.cancel_order_time = cancel_order_time;
-	}
-
-
-	public String getAutoorderfunction() {
-		return auto_order_function;
-	}
-
-	public void setAutoorderfunction(String auto_order_function) {
-		this.auto_order_function = auto_order_function;
-	}
-
-	public Integer getUnitsellprice() {
-		return unit_sell_price;
-	}
-
-	public void setUnitsellprice(Integer unit_sell_price) {
-		this.unit_sell_price = unit_sell_price;
-	}
-
-	public Integer getMinsellqty() {
-		return min_sell_qty;
-	}
-
-	public void setMinsellqty(Integer min_sell_qty) {
-		this.min_sell_qty = min_sell_qty;
-	}
-
-	public String getProductdesc() {
-		return product_desc;
-	}
-
-	public void setProductdesc(String product_desc) {
-		this.product_desc = product_desc;
-	}
-
-	public Integer getOnshelf() {
-		return on_shelf;
-	}
-
-	public void setOnshelf(Integer on_shelf) {
-		this.on_shelf = on_shelf;
-	}
-
-	public Integer getAutoorderconfirmfunctionstatus() {
-		return auto_order_confirm_function_status;
-	}
-
-	public void setAutoorderconfirmfunctionstatus(Integer auto_order_confirm_function_status) {
-		this.auto_order_confirm_function_status = auto_order_confirm_function_status;
-	}
-
-	public Integer getReservedqty() {
-		return reserved_qty;
-	}
-
-	public void setReservedqty(Integer reserved_qty) {
-		this.reserved_qty = reserved_qty;
-	}
 }

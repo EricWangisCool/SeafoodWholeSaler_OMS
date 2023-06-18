@@ -23,7 +23,7 @@ public class View_companyfollowinglist_accountsBean implements Serializable {
 	@Column(columnDefinition = "char")
 	private String companyName;
 	@Column(columnDefinition = "char")
-	private String taxid;
+	private String taxId;
 	@Column(columnDefinition = "char")
 	private String companyPhone;
 	@Column(columnDefinition = "char")
@@ -45,15 +45,6 @@ public class View_companyfollowinglist_accountsBean implements Serializable {
 	@Column(columnDefinition = "char")
 	private String lineAccount;
 
-	
-	@Override
-	public String toString() {
-		return "View_companyfollowinglist_accountsBean [buyerId=" + buyerId + ", sellerId=" + sellerId
-				+ ", companyName=" + companyName + ", taxid=" + taxid + ", companyPhone=" + companyPhone + ", address="
-				+ address + ", email=" + email + ", contactPerson=" + contactPerson + ", contactPersonNum="
-				+ contactPersonNum + ", fax=" + fax + ", bankAccount=" + bankAccount + ", bankName=" + bankName
-				+ ", bankSwiftCode=" + bankSwiftCode + ", lineAccount=" + lineAccount + "]";
-	}
 
 	public String getContactpersonnum() {
 		return contactPersonNum;
@@ -91,12 +82,94 @@ public class View_companyfollowinglist_accountsBean implements Serializable {
 		this.companyName = companyname;
 	}
 
-	public String getTaxid() {
-		return taxid;
+	
+
+	public Integer getBuyerId() {
+		return buyerId;
 	}
 
-	public void setTaxid(String taxid) {
-		this.taxid = taxid;
+	public void setBuyerId(Integer buyerId) {
+		this.buyerId = buyerId;
+	}
+
+	public Integer getSellerId() {
+		return sellerId;
+	}
+
+	public void setSellerId(Integer sellerId) {
+		this.sellerId = sellerId;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public String getTaxId() {
+		return taxId;
+	}
+
+	public void setTaxId(String taxId) {
+		this.taxId = taxId;
+	}
+
+	public String getCompanyPhone() {
+		return companyPhone;
+	}
+
+	public void setCompanyPhone(String companyPhone) {
+		this.companyPhone = companyPhone;
+	}
+
+	public String getContactPerson() {
+		return contactPerson;
+	}
+
+	public void setContactPerson(String contactPerson) {
+		this.contactPerson = contactPerson;
+	}
+
+	public String getContactPersonNum() {
+		return contactPersonNum;
+	}
+
+	public void setContactPersonNum(String contactPersonNum) {
+		this.contactPersonNum = contactPersonNum;
+	}
+
+	public String getBankAccount() {
+		return bankAccount;
+	}
+
+	public void setBankAccount(String bankAccount) {
+		this.bankAccount = bankAccount;
+	}
+
+	public String getBankName() {
+		return bankName;
+	}
+
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
+
+	public String getBankSwiftCode() {
+		return bankSwiftCode;
+	}
+
+	public void setBankSwiftCode(String bankSwiftCode) {
+		this.bankSwiftCode = bankSwiftCode;
+	}
+
+	public String getLineAccount() {
+		return lineAccount;
+	}
+
+	public void setLineAccount(String lineAccount) {
+		this.lineAccount = lineAccount;
 	}
 
 	public String getAddress() {

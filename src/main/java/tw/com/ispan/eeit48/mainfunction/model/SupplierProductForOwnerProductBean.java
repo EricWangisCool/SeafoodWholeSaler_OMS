@@ -18,41 +18,28 @@ import org.json.JSONObject;
 @Table(name = "t_supplier_product_for_owner_product")
 public class SupplierProductForOwnerProductBean implements Serializable {
 	@Id
-	private Integer product_id;
+	private Integer productId;
 	@Id
-	private Integer supplier_product_id;
-	private Integer supplier_id;
-
-
-	
-
-	@Override
-	public String toString() {
-		return "SupplierProductForOwnerProductBean [product_id=" + product_id + ", supplier_product_id="
-				+ supplier_product_id + ", supplier_id=" + supplier_id + "]";
+	private Integer supplierProductId;
+	private Integer supplierId;
+	public Integer getProductId() {
+		return productId;
+	}
+	public void setProductId(Integer productId) {
+		this.productId = productId;
+	}
+	public Integer getSupplierProductId() {
+		return supplierProductId;
+	}
+	public void setSupplierProductId(Integer supplierProductId) {
+		this.supplierProductId = supplierProductId;
+	}
+	public Integer getSupplierId() {
+		return supplierId;
+	}
+	public void setSupplierId(Integer supplierId) {
+		this.supplierId = supplierId;
 	}
 
-	public Integer getProductid() {
-		return product_id;
-	}
 
-	public void setProductid(Integer product_id) {
-		this.product_id = product_id;
-	}
-
-	public Integer getSupplierproductid() {
-		return supplier_product_id;
-	}
-
-	public void setSupplierproductid(Integer supplier_product_id) {
-		this.supplier_product_id = supplier_product_id;
-	}
-
-	public Integer getSupplierid() {
-		return supplier_id;
-	}
-
-	public void setSupplierid(Integer supplier_id) {
-		this.supplier_id = supplier_id;
-	}
 }

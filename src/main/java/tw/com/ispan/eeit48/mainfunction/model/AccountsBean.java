@@ -15,65 +15,46 @@ import java.util.*;
 @Table(name = "t_accounts")
 public class AccountsBean implements UserDetails {
 	@Id
-	private Integer account_id;
+	private Integer accountId;
 	@Column(columnDefinition = "char")
 	private String account;
 	@Column(columnDefinition = "char")
-	private String pass_w;
+	private String passW;
 	@Column(columnDefinition = "char")
-	private String company_phone;
+	private String companyPhone;
 	@Column(columnDefinition = "char")
-	private String company_name;
+	private String companyName;
 	@Column(columnDefinition = "char")
-	private String tax_id;
+	private String taxId;
 	@Column(columnDefinition = "char")
 	private String address;
 	@Column(columnDefinition = "char")
 	private String email;
 	@Column(columnDefinition = "char")
-	private String contact_person;
+	private String contactPerson;
 	@Column(columnDefinition = "char")
 	private String fax;
 	@Column(columnDefinition = "char")
-	private String bank_account;
+	private String bankAccount;
 	@Column(columnDefinition = "char")
-	private String bank_name;
+	private String bankName;
 	@Column(columnDefinition = "char")
-	private String bank_swift_code;
+	private String bankSwiftCode;
 	@Column(columnDefinition = "char")
-	private String line_account;
+	private String lineAccount;
 	@Column(columnDefinition = "char")
-	private String contact_person_num;
+	private String contactPersonNum;
 	@Column(columnDefinition = "char")
 	private String authority;
 
 
 
-
-	@Override
-	public String toString() {
-		return "AccountsBean [account_id=" + account_id + ", account=" + account + ", pass_w=" + pass_w
-				+ ", company_phone=" + company_phone + ", company_name=" + company_name + ", tax_id=" + tax_id
-				+ ", address=" + address + ", email=" + email + ", contact_person=" + contact_person + ", fax=" + fax
-				+ ", bank_account=" + bank_account + ", bank_name=" + bank_name + ", bank_swift_code=" + bank_swift_code
-				+ ", line_account=" + line_account + ", contact_person_num=" + contact_person_num + ", authority="
-				+ authority + "]";
+	public Integer getAccountId() {
+		return accountId;
 	}
 
-	public String getContactpersonnum() {
-		return contact_person_num;
-	}
-
-	public void setContactpersonnum(String contact_person_num) {
-		this.contact_person_num = contact_person_num;
-	}
-
-	public Integer getAccountid() {
-		return account_id;
-	}
-
-	public void setAccountid(Integer account_id) {
-		this.account_id = account_id;
+	public void setAccountId(Integer accountId) {
+		this.accountId = accountId;
 	}
 
 	public String getAccount() {
@@ -84,32 +65,36 @@ public class AccountsBean implements UserDetails {
 		this.account = account;
 	}
 
-	public String getPassw() {
-		return pass_w;
+	public String getPassW() {
+		return passW;
 	}
 
-	public void setPassw(String pass_w) {
-		this.pass_w = pass_w;
+	public void setPassW(String passW) {
+		this.passW = passW;
 	}
 
-	public String getCompanyphone() { return company_phone; }
-
-	public void setCompanyphone(String companyphone) { this.company_phone = company_phone; }
-
-	public String getCompanyname() {
-		return company_name;
+	public String getCompanyPhone() {
+		return companyPhone;
 	}
 
-	public void setCompanyname(String company_name) {
-		this.company_name = company_name;
+	public void setCompanyPhone(String companyPhone) {
+		this.companyPhone = companyPhone;
 	}
 
-	public String getTaxid() {
-		return tax_id;
+	public String getCompanyName() {
+		return companyName;
 	}
 
-	public void setTaxid(String taxid) {
-		this.tax_id = tax_id;
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public String getTaxId() {
+		return taxId;
+	}
+
+	public void setTaxId(String taxId) {
+		this.taxId = taxId;
 	}
 
 	public String getAddress() {
@@ -128,12 +113,12 @@ public class AccountsBean implements UserDetails {
 		this.email = email;
 	}
 
-	public String getContactperson() {
-		return contact_person;
+	public String getContactPerson() {
+		return contactPerson;
 	}
 
-	public void setContactperson(String contact_person) {
-		this.contact_person = contact_person;
+	public void setContactPerson(String contactPerson) {
+		this.contactPerson = contactPerson;
 	}
 
 	public String getFax() {
@@ -144,36 +129,44 @@ public class AccountsBean implements UserDetails {
 		this.fax = fax;
 	}
 
-	public String getBankaccount() {
-		return bank_account;
+	public String getBankAccount() {
+		return bankAccount;
 	}
 
-	public void setBankaccount(String bank_account) {
-		this.bank_account = bank_account;
+	public void setBankAccount(String bankAccount) {
+		this.bankAccount = bankAccount;
 	}
 
-	public String getBankname() {
-		return bank_name;
+	public String getBankName() {
+		return bankName;
 	}
 
-	public void setBankname(String bank_name) {
-		this.bank_name = bank_name;
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
 	}
 
-	public String getBankswiftcode() {
-		return bank_swift_code;
+	public String getBankSwiftCode() {
+		return bankSwiftCode;
 	}
 
-	public void setBankswiftcode(String bank_swift_code) {
-		this. bank_swift_code =  bank_swift_code;
+	public void setBankSwiftCode(String bankSwiftCode) {
+		this.bankSwiftCode = bankSwiftCode;
 	}
 
-	public String getLineaccount() {
-		return line_account;
+	public String getLineAccount() {
+		return lineAccount;
 	}
 
-	public void setLineaccount(String line_account) {
-		this.line_account = line_account;
+	public void setLineAccount(String lineAccount) {
+		this.lineAccount = lineAccount;
+	}
+
+	public String getContactPersonNum() {
+		return contactPersonNum;
+	}
+
+	public void setContactPersonNum(String contactPersonNum) {
+		this.contactPersonNum = contactPersonNum;
 	}
 
 	public String getAuthority() { return authority; }
@@ -187,11 +180,11 @@ public class AccountsBean implements UserDetails {
 
 	@JsonIgnore
 	@Override
-	public String getPassword() { return getPassw(); }
+	public String getPassword() { return getPassW(); }
 
 	@JsonIgnore
 	@Override
-	public String getUsername() { return Integer.toString(getAccountid()); }
+	public String getUsername() { return Integer.toString(getAccountId()); }
 
 	@JsonIgnore
 	@Override

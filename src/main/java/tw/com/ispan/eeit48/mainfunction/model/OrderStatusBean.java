@@ -12,25 +12,18 @@ import org.json.JSONObject;
 public class OrderStatusBean {
 
 	@Id
-	private Integer status_id;
+	private Integer statusId;
 	@Column(columnDefinition = "char")
 	private String status;
 
 
 
-	
-
-	@Override
-	public String toString() {
-		return "OrderStatusBean [status_id=" + status_id + ", status=" + status + "]";
+	public Integer getStatusId() {
+		return statusId;
 	}
 
-	public Integer getStatusid() {
-		return status_id;
-	}
-
-	public void setStatusid(Integer status_id) {
-		this.status_id = status_id;
+	public void setStatusId(Integer statusId) {
+		this.statusId = statusId;
 	}
 
 	public String getStatus() {

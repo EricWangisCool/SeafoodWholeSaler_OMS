@@ -11,25 +11,16 @@ import org.json.JSONObject;
 @Table(name = "t_auto_order_confirm_function_status")
 public class AutoOrderConfirmFunctionStatusBean {
 	@Id
-	private Integer status_id;
+	private Integer statusId;
 	@Column(columnDefinition = "char")
 	private String status;
 
-	
-
-	
-
-	@Override
-	public String toString() {
-		return "AutoOrderConfirmFunctionStatusBean [status_id=" + status_id + ", status=" + status + "]";
-	}
-
 	public Integer getStatusId() {
-		return status_id;
+		return statusId;
 	}
 
-	public void setStatusId(Integer status_id) {
-		this.status_id = status_id;
+	public void setStatusId(Integer statusId) {
+		this.statusId = statusId;
 	}
 
 	public String getStatus() {

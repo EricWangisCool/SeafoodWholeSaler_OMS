@@ -12,32 +12,20 @@ import org.json.JSONObject;
 public class ProductClassIficationBean {
 
 	@Id
-	private Integer class_id;
+	private Integer classId;
 	@Column(columnDefinition = "char")
-	private String class_desc;
-
-
-
-
-
-	@Override
-	public String toString() {
-		return "ProductClassIficationBean [class_id=" + class_id + ", class_desc=" + class_desc + "]";
+	private String classSesc;
+	public Integer getClassId() {
+		return classId;
+	}
+	public void setClassId(Integer classId) {
+		this.classId = classId;
+	}
+	public String getClassSesc() {
+		return classSesc;
+	}
+	public void setClassSesc(String classSesc) {
+		this.classSesc = classSesc;
 	}
 
-	public Integer getClassid() {
-		return class_id;
-	}
-
-	public void setClassid(Integer class_id) {
-		this.class_id = class_id;
-	}
-
-	public String getClassDesc() {
-		return class_desc;
-	}
-
-	public void setClassDesc(String class_desc) {
-		this.class_desc = class_desc;
-	}
 }

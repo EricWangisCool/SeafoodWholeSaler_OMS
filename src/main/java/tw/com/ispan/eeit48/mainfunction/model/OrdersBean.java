@@ -16,144 +16,108 @@ public class OrdersBean {
 	
 	@Id
 	@Column(columnDefinition = "char")
-	private String order_id;
-	private Integer buyer_id;
-	private Integer seller_id;
-	private Integer order_status;
+	private String orderId;
+	private Integer buyerId;
+	private Integer sellerId;
+	private Integer orderStatus;
 	@Column(columnDefinition = "char")
-	private String payment_terms;
+	private String paymentTerms;
 	@Column(columnDefinition = "char")
-	private String delivery_order_id;
+	private String deliveryOrderId;
 	@Column(columnDefinition = "char")
-	private String delivery_order_remark;
+	private String deliveryOrderRemark;
 	@Column(columnDefinition = "datetime")
-	private Date order_time;
+	private Date orderTime;
 	@Column(columnDefinition = "datetime")
-	private Date accept_order_time;
+	private Date acceptOrderTime;
 	@Column(columnDefinition = "datetime")
-	private Date export_time;
+	private Date exportTime;
 	@Column(columnDefinition = "datetime")
-	private Date arrive_order_time;
+	private Date arriveOrderTime;
 	@Column(columnDefinition = "datetime")
-	private Date complete_order_time;
+	private Date completeOrderTime;
 	@Column(columnDefinition = "datetime")
-	private Date cancel_order_time;
-
-
-
-	
-
-	@Override
-	public String toString() {
-		return "OrdersBean [order_id=" + order_id + ", buyer_id=" + buyer_id + ", seller_id=" + seller_id
-				+ ", order_status=" + order_status + ", payment_terms=" + payment_terms + ", delivery_order_id="
-				+ delivery_order_id + ", delivery_order_remark=" + delivery_order_remark + ", order_time=" + order_time
-				+ ", accept_order_time=" + accept_order_time + ", export_time=" + export_time + ", arrive_order_time="
-				+ arrive_order_time + ", complete_order_time=" + complete_order_time + ", cancel_order_time="
-				+ cancel_order_time + "]";
+	private Date cancelOrderTime;
+	public String getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+	public Integer getBuyerId() {
+		return buyerId;
+	}
+	public void setBuyerId(Integer buyerId) {
+		this.buyerId = buyerId;
+	}
+	public Integer getSellerId() {
+		return sellerId;
+	}
+	public void setSellerId(Integer sellerId) {
+		this.sellerId = sellerId;
+	}
+	public Integer getOrderStatus() {
+		return orderStatus;
+	}
+	public void setOrderStatus(Integer orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+	public String getPaymentTerms() {
+		return paymentTerms;
+	}
+	public void setPaymentTerms(String paymentTerms) {
+		this.paymentTerms = paymentTerms;
+	}
+	public String getDeliveryOrderId() {
+		return deliveryOrderId;
+	}
+	public void setDeliveryOrderId(String deliveryOrderId) {
+		this.deliveryOrderId = deliveryOrderId;
+	}
+	public String getDeliveryOrderRemark() {
+		return deliveryOrderRemark;
+	}
+	public void setDeliveryOrderRemark(String deliveryOrderRemark) {
+		this.deliveryOrderRemark = deliveryOrderRemark;
+	}
+	public Date getOrderTime() {
+		return orderTime;
+	}
+	public void setOrderTime(Date orderTime) {
+		this.orderTime = orderTime;
+	}
+	public Date getAcceptOrderTime() {
+		return acceptOrderTime;
+	}
+	public void setAcceptOrderTime(Date acceptOrderTime) {
+		this.acceptOrderTime = acceptOrderTime;
+	}
+	public Date getExportTime() {
+		return exportTime;
+	}
+	public void setExportTime(Date exportTime) {
+		this.exportTime = exportTime;
+	}
+	public Date getArriveOrderTime() {
+		return arriveOrderTime;
+	}
+	public void setArriveOrderTime(Date arriveOrderTime) {
+		this.arriveOrderTime = arriveOrderTime;
+	}
+	public Date getCompleteOrderTime() {
+		return completeOrderTime;
+	}
+	public void setCompleteOrderTime(Date completeOrderTime) {
+		this.completeOrderTime = completeOrderTime;
+	}
+	public Date getCancelOrderTime() {
+		return cancelOrderTime;
+	}
+	public void setCancelOrderTime(Date cancelOrderTime) {
+		this.cancelOrderTime = cancelOrderTime;
 	}
 
-	public String getOrderid() {
-		return order_id;
-	}
 
-	public void setOrderid(String order_id) {
-		this.order_id = order_id;
-	}
 
-	public Integer getBuyerid() {
-		return buyer_id;
-	}
 
-	public void setBuyerid(Integer buyer_id) {
-		this.buyer_id = buyer_id;
-	}
-
-	public Integer getSellerid() {
-		return seller_id;
-	}
-
-	public void setSellerid(Integer seller_id) {
-		this.seller_id = seller_id;
-	}
-
-	public Integer getOrderstatus() {
-		return order_status;
-	}
-
-	public void setOrderstatus(Integer order_status) {
-		this.order_status = order_status;
-	}
-
-	public String getPaymentterms() {
-		return payment_terms;
-	}
-
-	public void setPaymentterms(String payment_terms) {
-		this.payment_terms = payment_terms;
-	}
-
-	public String getDeliveryorderid() {
-		return delivery_order_id;
-	}
-
-	public void setDeliveryorderid(String delivery_order_id) {
-		this.delivery_order_id = delivery_order_id;
-	}
-
-	public String getDeliveryorderremark() {
-		return delivery_order_remark;
-	}
-
-	public void setDeliveryorderremark(String delivery_order_remark) {
-		this.delivery_order_remark = delivery_order_remark;
-	}
-
-	public Date getOrdertime() {
-		return order_time;
-	}
-
-	public void setOrdertime(Date order_time) {
-		this.order_time = order_time;
-	}
-
-	public Date getAcceptordertime() {
-		return accept_order_time;
-	}
-
-	public void setAcceptordertime(Date accept_order_time) {
-		this.accept_order_time = accept_order_time;
-	}
-
-	public Date getExporttime() {
-		return export_time;
-	}
-
-	public void setExporttime(Date export_time) {
-		this.export_time = export_time;
-	}
-
-	public Date getArriveordertime() {
-		return arrive_order_time;
-	}
-
-	public void setArriveordertime(Date arrive_order_time) {
-		this.arrive_order_time = arrive_order_time;
-	}
-
-	public Date getCompleteordertime() {
-		return complete_order_time;
-	}
-
-	public void setCompleteordertime(Date complete_order_time) {
-		this.complete_order_time = complete_order_time;
-	}
-
-	public Date getCancelordertime() {
-		return cancel_order_time;
-	}
-
-	public void setCancelordertime(Date cancel_order_time) {
-		this.cancel_order_time = cancel_order_time;
-	}
 }
