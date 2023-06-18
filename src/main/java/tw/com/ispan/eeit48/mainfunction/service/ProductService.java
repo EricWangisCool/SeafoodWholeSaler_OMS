@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tw.com.ispan.eeit48.mainfunction.model.ProductBean;
-import tw.com.ispan.eeit48.mainfunction.model.View_product_order_orderdetailsBean;
+import tw.com.ispan.eeit48.mainfunction.model.View_ProductOrder_OrderDetails_Bean;
 import tw.com.ispan.eeit48.mainfunction.model.SupplierProductForOwnerProductBean;
 import tw.com.ispan.eeit48.mainfunction.repository.AccountsRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.ProductRepository;
@@ -35,13 +35,13 @@ public class ProductService {
 
 	// 以商品ID找: 被訂購量(orderedQty)(接單狀態為3~5的總數)
 	public int findOrderedQtyByProductId(int productId) {
-		List<View_product_order_orderdetailsBean> beans = view_product_order_orderdetailsRepository
+		List<View_ProductOrder_OrderDetails_Bean> beans = view_product_order_orderdetailsRepository
 				.findAllByProductidAndOrderstatusBetween(productId, 3, 5);
 		// 裝所有被訂購的數量
 		int a = 0;
 		if (!beans.isEmpty()) {
 			JSONArray lista = new JSONArray();
-			for (View_product_order_orderdetailsBean bean : beans) {
+			for (View_ProductOrder_OrderDetails_Bean bean : beans) {
 				lista.put(bean.toJsonObject());
 			}
 			for (int i = 0; i < lista.length(); i++) {
@@ -79,12 +79,12 @@ public class ProductService {
 			for (SupplierProductForOwnerProductBean supplierProductIdbean : supplierProductIdBeans) {
 				if (supplierProductIdbean.getSupplierproductid() != null) {
 					// 以供應商產品ID搜尋訂購數量
-					List<View_product_order_orderdetailsBean> beans = view_product_order_orderdetailsRepository
+					List<View_ProductOrder_OrderDetails_Bean> beans = view_product_order_orderdetailsRepository
 							.findAllByProductidAndOrderstatusBetween(supplierProductIdbean.getSupplierproductid(), 2,
 									5);
 					if (!beans.isEmpty()) {
 						JSONArray lista = new JSONArray();
-						for (View_product_order_orderdetailsBean bean : beans) {
+						for (View_ProductOrder_OrderDetails_Bean bean : beans) {
 							if (bean != null) {
 								lista.put(bean.toJsonObject());
 							}

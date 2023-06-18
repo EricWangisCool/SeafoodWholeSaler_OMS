@@ -10,7 +10,7 @@ import tw.com.ispan.eeit48.mainfunction.model.CompanyFollowingListBean;
 import tw.com.ispan.eeit48.mainfunction.repository.AccountsRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.CompanyFollowingListRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.View_companyfollowinglist_accountsRepository;
-import tw.com.ispan.eeit48.mainfunction.model.View_companyfollowinglist_accountsBean;
+import tw.com.ispan.eeit48.mainfunction.model.View_CompanyFollowingList_Accounts_Bean;
 import static tw.com.ispan.eeit48.mainfunction.service.AuthService.getCurrentUserId;
 
 @Service
@@ -32,12 +32,12 @@ public class View_companyfollowinglist_accountsService {
 		int userId = getCurrentUserId();
 
 		JSONArray ListAll = new JSONArray();
-		List<View_companyfollowinglist_accountsBean> beans = view_companyfollowinglist_accountRepository
+		List<View_CompanyFollowingList_Accounts_Bean> beans = view_companyfollowinglist_accountRepository
 				.findAllByBuyerid(userId); //
 
 		if (beans != null) {
 			JSONArray ListofFriend = new JSONArray();
-			for (View_companyfollowinglist_accountsBean bean : beans) {
+			for (View_CompanyFollowingList_Accounts_Bean bean : beans) {
 				if (bean != null) {
 					ListofFriend.put(bean.toJsonObject()); // 把所有關聯場商找出來
 				}
@@ -126,12 +126,12 @@ public class View_companyfollowinglist_accountsService {
 			}
 
 			if (stepOne == true) {
-				List<View_companyfollowinglist_accountsBean> beans = view_companyfollowinglist_accountRepository
+				List<View_CompanyFollowingList_Accounts_Bean> beans = view_companyfollowinglist_accountRepository
 						.findAllByCompanyname(companyName);
 
 				if (beans != null) {
 					JSONArray lista = new JSONArray();
-					for (View_companyfollowinglist_accountsBean bean : beans) {
+					for (View_CompanyFollowingList_Accounts_Bean bean : beans) {
 						if (bean != null) {
 							lista.put(bean.toJsonObject()); // 把所有關聯場商找出來
 						}

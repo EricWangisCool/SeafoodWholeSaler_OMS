@@ -101,10 +101,10 @@ public class DataAnalyzeService {
 		ListofFindProduct.clear();
 		for (int i = 0; i < ListofOrderDetail.length(); i++) {
 
-			List<View_product_order_orderdetailsBean> vb = view_product_order_orderdetailsRepository
+			List<View_ProductOrder_OrderDetails_Bean> vb = view_product_order_orderdetailsRepository
 					.findAllByProductid(productid[i]); // 找到商品的資料
 			if (vb != null) {
-				for (View_product_order_orderdetailsBean bean : vb) {
+				for (View_ProductOrder_OrderDetails_Bean bean : vb) {
 					if (bean != null) {
 						ListofFindProduct.put(bean.toJsonObject());
 					}

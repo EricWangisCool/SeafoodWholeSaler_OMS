@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.json.JSONObject;
-
 @Entity
 @Table(name = "t_auto_order_confirm_function_status")
 public class AutoOrderConfirmFunctionStatusBean {

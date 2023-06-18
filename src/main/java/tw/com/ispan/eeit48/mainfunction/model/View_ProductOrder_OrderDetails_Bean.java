@@ -1,7 +1,6 @@
 package tw.com.ispan.eeit48.mainfunction.model;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,14 +8,13 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Immutable;
-import org.json.JSONObject;
 
 @Entity
 @Immutable
 @Table(name = "v_product_order_order_details")
-@IdClass(View_product_order_orderdetailsPK.class)
+@IdClass(View_ProductOrder_OrderDetails_PK.class)
 @DynamicUpdate
-public class View_product_order_orderdetailsBean implements Serializable {
+public class View_ProductOrder_OrderDetails_Bean implements Serializable {
 	@Id
 	private Integer productId;
 	@Column(columnDefinition = "char")

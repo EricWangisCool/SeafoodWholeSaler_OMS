@@ -8,14 +8,13 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Immutable;
-import org.json.JSONObject;
 
 @Entity
 @Immutable
 @Table(name = "v_company_following_list_accounts")
-@IdClass(View_companyfollowinglist_accountsPK.class)
+@IdClass(View_CompanyFollowingList_Accounts_PK.class)
 @DynamicUpdate
-public class View_companyfollowinglist_accountsBean implements Serializable {
+public class View_CompanyFollowingList_Accounts_Bean implements Serializable {
 	@Id
 	private Integer buyerId;
 	@Id
@@ -44,45 +43,6 @@ public class View_companyfollowinglist_accountsBean implements Serializable {
 	private String bankSwiftCode;
 	@Column(columnDefinition = "char")
 	private String lineAccount;
-
-
-	public String getContactpersonnum() {
-		return contactPersonNum;
-	}
-
-	public void setContactpersonnum(String contactpersonnum) {
-		this.contactPersonNum = contactpersonnum;
-	}
-
-	public Integer getBuyerid() {
-		return buyerId;
-	}
-
-	public void setBuyerid(Integer buyerid) {
-		this.buyerId = buyerid;
-	}
-
-	public Integer getSellerid() {
-		return sellerId;
-	}
-
-	public void setSellerid(Integer sellerid) {
-		this.sellerId = sellerid;
-	}
-
-	public String getCompanyphone() { return companyPhone; }
-
-	public void setCompanyphone(String companyphone) { this.companyPhone = companyphone; }
-
-	public String getCompanyname() {
-		return companyName;
-	}
-
-	public void setCompanyname(String companyname) {
-		this.companyName = companyname;
-	}
-
-	
 
 	public Integer getBuyerId() {
 		return buyerId;
@@ -124,6 +84,22 @@ public class View_companyfollowinglist_accountsBean implements Serializable {
 		this.companyPhone = companyPhone;
 	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getContactPerson() {
 		return contactPerson;
 	}
@@ -138,6 +114,14 @@ public class View_companyfollowinglist_accountsBean implements Serializable {
 
 	public void setContactPersonNum(String contactPersonNum) {
 		this.contactPersonNum = contactPersonNum;
+	}
+
+	public String getFax() {
+		return fax;
+	}
+
+	public void setFax(String fax) {
+		this.fax = fax;
 	}
 
 	public String getBankAccount() {
@@ -170,69 +154,5 @@ public class View_companyfollowinglist_accountsBean implements Serializable {
 
 	public void setLineAccount(String lineAccount) {
 		this.lineAccount = lineAccount;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getContactperson() {
-		return contactPerson;
-	}
-
-	public void setContactperson(String contactperson) {
-		this.contactPerson = contactperson;
-	}
-
-	public String getFax() {
-		return fax;
-	}
-
-	public void setFax(String fax) {
-		this.fax = fax;
-	}
-
-	public String getBankaccount() {
-		return bankAccount;
-	}
-
-	public void setBankaccount(String bankaccount) {
-		this.bankAccount = bankaccount;
-	}
-
-	public String getBankname() {
-		return bankName;
-	}
-
-	public void setBankname(String bankname) {
-		this.bankName = bankname;
-	}
-
-	public String getBankswiftcode() {
-		return bankSwiftCode;
-	}
-
-	public void setBankswiftcode(String bankswiftcode) {
-		this.bankSwiftCode = bankswiftcode;
-	}
-
-	public String getLineaccount() {
-		return lineAccount;
-	}
-
-	public void setLineaccount(String lineaccount) {
-		this.lineAccount = lineaccount;
 	}
 }

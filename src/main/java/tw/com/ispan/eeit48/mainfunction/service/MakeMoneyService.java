@@ -150,10 +150,10 @@ public class MakeMoneyService {
 		ListofFindOrder.clear();
 		for (int i = 0; i < ListofOrderid.length(); i++) {
 
-			List<View_product_order_orderdetailsBean> vb = view_product_order_orderdetailsRepository
+			List<View_ProductOrder_OrderDetails_Bean> vb = view_product_order_orderdetailsRepository
 					.findAllByOrderid(orderid[i]); // 找到單筆訂單的商品資料
 			if (vb != null) {
-				for (View_product_order_orderdetailsBean bean : vb) {
+				for (View_ProductOrder_OrderDetails_Bean bean : vb) {
 					if (bean != null) {
 						ListofFindOrder.put(bean.toJsonObject());
 					}

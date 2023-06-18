@@ -6,16 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
-
 import org.hibernate.annotations.DynamicUpdate;
-import org.json.JSONObject;
 
 @Entity
 @Table(name = " t_company_following_list")
 @IdClass(CompanyFollowingListPK.class)
 @DynamicUpdate
 public class CompanyFollowingListBean implements Serializable {
-
 	@Id
 	private Integer buyerId;
 	private Integer sellerId;
@@ -31,11 +28,5 @@ public class CompanyFollowingListBean implements Serializable {
 	public void setSellerId(Integer sellerId) {
 		this.sellerId = sellerId;
 	}
-
-	
-
-	
-
-
 
 }

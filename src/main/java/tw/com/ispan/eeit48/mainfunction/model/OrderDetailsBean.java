@@ -7,7 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicUpdate;
-import org.json.JSONObject;
 
 @Entity
 @Table(name = "t_order_details")
@@ -44,7 +43,5 @@ public class OrderDetailsBean implements Serializable {
 	public void setUnitDealPrice(Integer unitDealPrice) {
 		this.unitDealPrice = unitDealPrice;
 	}
-
-
 
 }

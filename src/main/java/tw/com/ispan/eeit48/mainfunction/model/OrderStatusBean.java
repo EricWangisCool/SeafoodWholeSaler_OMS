@@ -5,19 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.json.JSONObject;
-
 @Entity
 @Table(name = "t_order_status")
 public class OrderStatusBean {
-
 	@Id
 	private Integer statusId;
 	@Column(columnDefinition = "char")
 	private String status;
-
-
-
 	public Integer getStatusId() {
 		return statusId;
 	}

@@ -5,12 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.json.JSONObject;
-
 @Entity
 @Table(name = "t_product")
 public class ProductBean {
-
 	@Id
 	private Integer productId;
 	@Column(columnDefinition = "longtext")
@@ -128,9 +125,5 @@ public class ProductBean {
 	public void setProductNameSpec(String productNameSpec) {
 		this.productNameSpec = productNameSpec;
 	}
-
-
-
-	
 
 }

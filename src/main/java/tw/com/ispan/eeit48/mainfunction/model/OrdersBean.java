@@ -1,19 +1,14 @@
 package tw.com.ispan.eeit48.mainfunction.model;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.json.JSONObject;
-
 @Entity
 @Table(name = "t_orders")
 public class OrdersBean {
-	
 	@Id
 	@Column(columnDefinition = "char")
 	private String orderId;
@@ -116,8 +111,5 @@ public class OrdersBean {
 	public void setCancelOrderTime(Date cancelOrderTime) {
 		this.cancelOrderTime = cancelOrderTime;
 	}
-
-
-
 
 }

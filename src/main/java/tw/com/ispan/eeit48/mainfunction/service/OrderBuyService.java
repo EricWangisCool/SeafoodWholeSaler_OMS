@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tw.com.ispan.eeit48.mainfunction.model.ProductBean;
-import tw.com.ispan.eeit48.mainfunction.model.View_product_order_orderdetailsBean;
+import tw.com.ispan.eeit48.mainfunction.model.View_ProductOrder_OrderDetails_Bean;
 import tw.com.ispan.eeit48.mainfunction.model.OrderDetailsBean;
 import tw.com.ispan.eeit48.mainfunction.model.OrdersBean;
 import tw.com.ispan.eeit48.mainfunction.model.SortComparator;
@@ -161,10 +161,10 @@ public class OrderBuyService {
 	// 將一筆訂單內使用者所有商品進行入庫, 同時將各商品的UnitCost以平均單價更新, 將StockQty以"現在庫存數量加上訂單進貨數量"更新
 	public Boolean productsInStockByOrderId(String orderId) {
 		Boolean saveResult = false;
-		List<View_product_order_orderdetailsBean> beans = view_product_order_orderdetailsRepository
+		List<View_ProductOrder_OrderDetails_Bean> beans = view_product_order_orderdetailsRepository
 				.findAllByOrderid(orderId);
 		if (!beans.isEmpty()) {
-			for (View_product_order_orderdetailsBean bean : beans) {
+			for (View_ProductOrder_OrderDetails_Bean bean : beans) {
 				// 賣家與進貨單資訊
 				int sellerProductId = bean.getProductid();
 				int inStockPrice = bean.getUnitdealprice();
@@ -197,10 +197,10 @@ public class OrderBuyService {
 	// 將一筆訂單內供應商所有商品進行售出(StockQty以"現在庫存數量減去訂單進貨數量"更新)
 	public Boolean productsOutStockByOrderId(String orderId) {
 		Boolean saveResult = false;
-		List<View_product_order_orderdetailsBean> beans = view_product_order_orderdetailsRepository
+		List<View_ProductOrder_OrderDetails_Bean> beans = view_product_order_orderdetailsRepository
 				.findAllByOrderid(orderId);
 		if (!beans.isEmpty()) {
-			for (View_product_order_orderdetailsBean bean : beans) {
+			for (View_ProductOrder_OrderDetails_Bean bean : beans) {
 				// 賣家與進貨單資訊
 				int sellerProductId = bean.getProductid();
 				int outStockQty = bean.getOrderqty();

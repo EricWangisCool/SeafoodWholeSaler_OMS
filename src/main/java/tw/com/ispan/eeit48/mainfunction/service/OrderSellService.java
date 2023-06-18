@@ -48,11 +48,11 @@ public class OrderSellService {
         List<JSONObject> sellingOrdersJsonList = new ArrayList();
 
         // 拿到帳號所有交易狀態為2~7的售出訂單
-        List<View_product_order_orderdetailsBean> beans = view_product_order_orderdetailsRepository
+        List<View_ProductOrder_OrderDetails_Bean> beans = view_product_order_orderdetailsRepository
                 .findAllByOwneridAndOrderstatusBetween(userId, 2, 7);
 
         if (beans != null && !beans.isEmpty()) {
-            for (View_product_order_orderdetailsBean bean : beans) {
+            for (View_ProductOrder_OrderDetails_Bean bean : beans) {
                 if (bean != null) {
                     JSONObject beanJsonObject = bean.toJsonObject();
                     // 算出獲利(profit)及總售價(total)
@@ -121,7 +121,7 @@ public class OrderSellService {
                         ordersBean.setAcceptordertime(date);
                         subject = "叫貨/接單成功";
                         // 當賣家接單後，系統監控賣家所有開啟自動叫貨的productId是否有達到叫貨條件，有的話就自動叫貨
-                        List<View_product_order_orderdetailsBean> viewBeans = view_product_order_orderdetailsRepository
+                        List<View_ProductOrder_OrderDetails_Bean> viewBeans = view_product_order_orderdetailsRepository
                                 .findAllByOrderidAndOwnerid(orderId, sellerId);
 
                         viewBeans.forEach(product -> checkAutoOrderProduct(product.getProductid(), sellerId));

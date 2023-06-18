@@ -1,7 +1,6 @@
 package tw.com.ispan.eeit48.mainfunction.model;
 
 import java.util.Comparator;
-
 import org.json.JSONObject;
 
 public class SortComparator implements Comparator<JSONObject> {

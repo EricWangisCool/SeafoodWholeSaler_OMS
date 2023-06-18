@@ -1,15 +1,12 @@
 package tw.com.ispan.eeit48.mainfunction.model;
 
 import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
-
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Immutable;
-import org.json.JSONObject;
 
 @Entity
 @Immutable
