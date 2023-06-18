@@ -11,42 +11,38 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.json.JSONObject;
 
 @Entity
-@Table(name = " companyfollowinglist")
+@Table(name = " t_company_following_list")
 @IdClass(CompanyFollowingListPK.class)
 @DynamicUpdate
 public class CompanyFollowingListBean implements Serializable {
 
 	@Id
-	private Integer buyerid;
-	private Integer sellerid;
+	private Integer buyer_id;
+	private Integer seller_id;
+
+	
+
+	
 
 	@Override
 	public String toString() {
-		return "CompanyFollowingList [buyerId=" + buyerid + ", sellerId=" + sellerid + "]";
+		return "CompanyFollowingListBean [buyer_id=" + buyer_id + ", seller_id=" + seller_id + "]";
 	}
 
 	public Integer getBuyerId() {
-		return buyerid;
+		return buyer_id;
 	}
 
-	public void setBuyerId(Integer buyerId) {
-		this.buyerid = buyerId;
+	public void setBuyerId(Integer buyer_id) {
+		this.buyer_id = buyer_id;
 	}
 
 	public Integer getSellerId() {
-		return sellerid;
+		return seller_id;
 	}
 
-	public void setSellerId(Integer sellerId) {
-		this.sellerid = sellerId;
-	}
-
-	public JSONObject toJsonObject() {
-		JSONObject obj = new JSONObject();
-		obj.put("buyerid", buyerid);
-		obj.put("sellerid", sellerid);
-
-		return obj;
+	public void setSellerId(Integer seller_id) {
+		this.seller_id = seller_id;
 	}
 
 }

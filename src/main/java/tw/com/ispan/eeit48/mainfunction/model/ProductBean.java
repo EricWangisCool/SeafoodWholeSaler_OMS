@@ -5,156 +5,173 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.json.JSONObject;
+
 @Entity
-@Table(name = "Product")
+@Table(name = "t_product")
 public class ProductBean {
+
 	@Id
-	private Integer productId;
+	private Integer product_id;
 	@Column(columnDefinition = "longtext")
-	private String productPic;
-	private Integer productClassification;
-	private Integer unitCost;
-	private Integer stockQty;
-	private Integer warningQty;
+	private String product_pic;
+	private Integer product_classification;
+	private Integer unit_cost;
+	private Integer stock_qty;
+	private Integer warning_qty;
 	@Column(columnDefinition = "char")
-	private String autoOrderFunction;
-	private Integer safeQty;
-	private Integer unitSellPrice;
-	private Integer minSellQty;
+	private String auto_order_function;
+	private Integer safe_qty;
+	private Integer unit_sell_price;
+	private Integer min_sell_qty;
 	@Column(columnDefinition = "char")
-	private String productDesc;
-	private Integer onShelf;
-	private Integer autoOrderConfirmFunctionStatus;
-	private Integer reservedQty;
-	private Integer ownerId;
+	private String product_desc;
+	private Integer on_shelf;
+	private Integer auto_order_confirm_function_status;
+	private Integer reserved_qty;
+	private Integer owner_id;
 	@Column(columnDefinition = "char")
-	private String productNameSpec;
+	private String product_name_spec;
 
-	public Integer getProductId() {
-		return productId;
+
+
+	@Override
+	public String toString() {
+		return "ProductBean [product_id=" + product_id + ", product_pic=" + product_pic + ", product_classification="
+				+ product_classification + ", unit_cost=" + unit_cost + ", stock_qty=" + stock_qty + ", warning_qty="
+				+ warning_qty + ", auto_order_function=" + auto_order_function + ", safe_qty=" + safe_qty
+				+ ", unit_sell_price=" + unit_sell_price + ", min_sell_qty=" + min_sell_qty + ", product_desc="
+				+ product_desc + ", on_shelf=" + on_shelf + ", auto_order_confirm_function_status="
+				+ auto_order_confirm_function_status + ", reserved_qty=" + reserved_qty + ", owner_id=" + owner_id
+				+ ", product_name_spec=" + product_name_spec + "]";
 	}
 
-	public void setProductId(Integer productId) {
-		this.productId = productId;
+	public Integer getProductid() {
+		return product_id;
 	}
 
-	public String getProductPic() {
-		return productPic;
+	public void setProductid(Integer product_id) {
+		this.product_id = product_id;
 	}
 
-	public void setProductPic(String productPic) {
-		this.productPic = productPic;
+	public String getProductpic() {
+		return product_pic;
 	}
 
-	public Integer getProductClassification() {
-		return productClassification;
+	public void setProductpic(String product_pic) {
+		this.product_pic = product_pic;
 	}
 
-	public void setProductClassification(Integer productClassification) {
-		this.productClassification = productClassification;
+	public Integer getProductclassification() {
+		return product_classification;
 	}
 
-	public Integer getUnitCost() {
-		return unitCost;
+	public void setProductclassification(Integer product_classification) {
+		this.product_classification = product_classification;
 	}
 
-	public void setUnitCost(Integer unitCost) {
-		this.unitCost = unitCost;
+	public Integer getUnitcost() {
+		return unit_cost;
 	}
 
-	public Integer getStockQty() {
-		return stockQty;
+	public void setUnitcost(Integer unit_cost) {
+		this.unit_cost = unit_cost;
 	}
 
-	public void setStockQty(Integer stockQty) {
-		this.stockQty = stockQty;
+	public Integer getStockqty() {
+		return stock_qty;
 	}
 
-	public Integer getWarningQty() {
-		return warningQty;
+	public void setStockqty(Integer stock_qty) {
+		this.stock_qty = stock_qty;
 	}
 
-	public void setWarningQty(Integer warningQty) {
-		this.warningQty = warningQty;
+	public Integer getWarningqty() {
+		return warning_qty;
 	}
 
-	public String getAutoOrderFunction() {
-		return autoOrderFunction;
+	public void setWarningqty(Integer warning_qty) {
+		this.warning_qty = warning_qty;
 	}
 
-	public void setAutoOrderFunction(String autoOrderFunction) {
-		this.autoOrderFunction = autoOrderFunction;
+	public String getAutoorderfunction() {
+		return auto_order_function;
 	}
 
-	public Integer getSafeQty() {
-		return safeQty;
+	public void setAutoorderfunction(String auto_order_function) {
+		this.auto_order_function = auto_order_function;
 	}
 
-	public void setSafeQty(Integer safeQty) {
-		this.safeQty = safeQty;
+	public Integer getSafeqty() {
+		return safe_qty;
 	}
 
-	public Integer getUnitSellPrice() {
-		return unitSellPrice;
+	public void setSafeqty(Integer safe_qty) {
+		this.safe_qty = safe_qty;
 	}
 
-	public void setUnitSellPrice(Integer unitSellPrice) {
-		this.unitSellPrice = unitSellPrice;
+	public Integer getUnitsellprice() {
+		return unit_sell_price;
 	}
 
-	public Integer getMinSellQty() {
-		return minSellQty;
+	public void setUnitsellprice(Integer unit_sell_price) {
+		this.unit_sell_price = unit_sell_price;
 	}
 
-	public void setMinSellQty(Integer minSellQty) {
-		this.minSellQty = minSellQty;
+	public Integer getMinsellqty() {
+		return min_sell_qty;
 	}
 
-	public String getProductDesc() {
-		return productDesc;
+	public void setMinsellqty(Integer min_sell_qty) {
+		this.min_sell_qty = min_sell_qty;
 	}
 
-	public void setProductDesc(String productDesc) {
-		this.productDesc = productDesc;
+	public String getProductdesc() {
+		return product_desc;
 	}
 
-	public Integer getOnShelf() {
-		return onShelf;
+	public void setProductdesc(String product_desc) {
+		this.product_desc = product_desc;
 	}
 
-	public void setOnShelf(Integer onShelf) {
-		this.onShelf = onShelf;
+	public Integer getOnshelf() {
+		return on_shelf;
 	}
 
-	public Integer getAutoOrderConfirmFunctionStatus() {
-		return autoOrderConfirmFunctionStatus;
+	public void setOnshelf(Integer on_shelf) {
+		this.on_shelf = on_shelf;
 	}
 
-	public void setAutoOrderConfirmFunctionStatus(Integer autoOrderConfirmFunctionStatus) {
-		this.autoOrderConfirmFunctionStatus = autoOrderConfirmFunctionStatus;
+	public Integer getAutoorderconfirmfunctionstatus() {
+		return auto_order_confirm_function_status;
 	}
 
-	public Integer getReservedQty() {
-		return reservedQty;
+	public void setAutoorderconfirmfunctionstatus(Integer auto_order_confirm_function_status) {
+		this.auto_order_confirm_function_status = auto_order_confirm_function_status;
 	}
 
-	public void setReservedQty(Integer reservedQty) {
-		this.reservedQty = reservedQty;
+	public Integer getReservedqty() {
+		return reserved_qty;
 	}
 
-	public Integer getOwnerId() {
-		return ownerId;
+	public void setReservedqty(Integer reserved_qty) {
+		this.reserved_qty = reserved_qty;
 	}
 
-	public void setOwnerId(Integer ownerId) {
-		this.ownerId = ownerId;
+	public Integer getOwnerid() {
+		return owner_id;
 	}
 
-	public String getProductNameSpec() {
-		return productNameSpec;
+	public void setOwnerid(Integer owner_id) {
+		this.owner_id = owner_id;
 	}
 
-	public void setProductNameSpec(String productNameSpec) {
-		this.productNameSpec = productNameSpec;
+	public String getProductnamespec() {
+		return product_name_spec;
 	}
+
+	public void setProductnamespec(String product_name_spec) {
+		this.product_name_spec = product_name_spec;
+	}
+
 }

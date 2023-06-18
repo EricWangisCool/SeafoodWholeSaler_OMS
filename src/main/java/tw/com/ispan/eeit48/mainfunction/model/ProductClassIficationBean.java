@@ -8,40 +8,36 @@ import javax.persistence.Table;
 import org.json.JSONObject;
 
 @Entity
-@Table(name = "productclassification")
+@Table(name = "t_product_classification")
 public class ProductClassIficationBean {
 
 	@Id
-	private Integer classid;
+	private Integer class_id;
 	@Column(columnDefinition = "char")
-	private String classdesc;
+	private String class_desc;
+
+
+
+
 
 	@Override
 	public String toString() {
-		return "productclassificationBean[class=" + classid + ", ClassDesc=" + classdesc + "]";
+		return "ProductClassIficationBean [class_id=" + class_id + ", class_desc=" + class_desc + "]";
 	}
 
 	public Integer getClassid() {
-		return classid;
+		return class_id;
 	}
 
-	public void setClassid(Integer classid) {
-		this.classid = classid;
+	public void setClassid(Integer class_id) {
+		this.class_id = class_id;
 	}
 
 	public String getClassDesc() {
-		return classdesc;
+		return class_desc;
 	}
 
-	public void setClassDesc(String classDesc) {
-		this.classdesc = classDesc;
+	public void setClassDesc(String class_desc) {
+		this.class_desc = class_desc;
 	}
-
-	public JSONObject toJsonObject() {
-		JSONObject obj = new JSONObject();
-		obj.put("classid", classid);
-		obj.put("classdesc", classdesc);
-		return obj;
-	}
-
 }

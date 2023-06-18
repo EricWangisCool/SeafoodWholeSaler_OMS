@@ -8,24 +8,28 @@ import javax.persistence.Table;
 import org.json.JSONObject;
 
 @Entity
-@Table(name = "autoorderconfirmfunctionstatus")
+@Table(name = "t_auto_order_confirm_function_status")
 public class AutoOrderConfirmFunctionStatusBean {
 	@Id
-	private Integer statusid;
+	private Integer status_id;
 	@Column(columnDefinition = "char")
 	private String status;
 
+	
+
+	
+
 	@Override
 	public String toString() {
-		return "AutoOrderConfirmFunctionStatus [statusId=" + statusid + ", status=" + status + "]";
+		return "AutoOrderConfirmFunctionStatusBean [status_id=" + status_id + ", status=" + status + "]";
 	}
 
 	public Integer getStatusId() {
-		return statusid;
+		return status_id;
 	}
 
-	public void setStatusId(Integer statusId) {
-		this.statusid = statusId;
+	public void setStatusId(Integer status_id) {
+		this.status_id = status_id;
 	}
 
 	public String getStatus() {
@@ -36,10 +40,5 @@ public class AutoOrderConfirmFunctionStatusBean {
 		this.status = status;
 	}
 
-	public JSONObject toJsonObject() {
-		JSONObject obj = new JSONObject();
-		obj.put("statusid", statusid);
-		obj.put("account", status);
-		return obj;
-	}
+	
 }

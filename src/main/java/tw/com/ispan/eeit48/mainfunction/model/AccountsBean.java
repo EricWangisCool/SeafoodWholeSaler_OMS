@@ -12,82 +12,68 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.*;
 
 @Entity
-@Table(name = "accounts")
+@Table(name = "t_accounts")
 public class AccountsBean implements UserDetails {
 	@Id
-	private Integer accountid;
+	private Integer account_id;
 	@Column(columnDefinition = "char")
 	private String account;
 	@Column(columnDefinition = "char")
-	private String passw;
+	private String pass_w;
 	@Column(columnDefinition = "char")
-	private String companyphone;
+	private String company_phone;
 	@Column(columnDefinition = "char")
-	private String companyname;
+	private String company_name;
 	@Column(columnDefinition = "char")
-	private String taxid;
+	private String tax_id;
 	@Column(columnDefinition = "char")
 	private String address;
 	@Column(columnDefinition = "char")
 	private String email;
 	@Column(columnDefinition = "char")
-	private String contactperson;
+	private String contact_person;
 	@Column(columnDefinition = "char")
 	private String fax;
 	@Column(columnDefinition = "char")
-	private String bankaccount;
+	private String bank_account;
 	@Column(columnDefinition = "char")
-	private String bankname;
+	private String bank_name;
 	@Column(columnDefinition = "char")
-	private String bankswiftcode;
+	private String bank_swift_code;
 	@Column(columnDefinition = "char")
-	private String lineaccount;
+	private String line_account;
 	@Column(columnDefinition = "char")
-	private String contactpersonnum;
+	private String contact_person_num;
 	@Column(columnDefinition = "char")
 	private String authority;
 
+
+
+
 	@Override
 	public String toString() {
-		return "AccountsBean [accountid=" + accountid + ", account=" + account + ", password=" + passw + ", companyphone="
-				+ companyphone + ", companyname=" + companyname + ", taxid=" + taxid + ", address=" + address
-				+ ", email=" + email + ", contactperson=" + contactperson
-				+ ", fax=" + fax + ", bankaccount=" + bankaccount + ", bankname=" + bankname + ", bankswiftcode="
-				+ bankswiftcode + ", lineaccount=" + lineaccount + ", contactpersonnum=" + contactpersonnum + "]";
-	}
-
-	public JSONObject toJsonObject() {
-		JSONObject obj = new JSONObject();
-		obj.put("accountid", accountid);
-		obj.put("account", account);
-		obj.put("companyphone", companyphone);
-		obj.put("companyname", companyname);
-		obj.put("taxid", taxid);
-		obj.put("address", address);
-		obj.put("email", email);
-		obj.put("contactperson", contactperson);
-		obj.put("fax", fax);
-		obj.put("bankaccount", bankaccount);
-		obj.put("bankname", bankname);
-		obj.put("lineaccount", lineaccount);
-		obj.put("contactpersonnum", contactpersonnum);
-		return obj;
+		return "AccountsBean [account_id=" + account_id + ", account=" + account + ", pass_w=" + pass_w
+				+ ", company_phone=" + company_phone + ", company_name=" + company_name + ", tax_id=" + tax_id
+				+ ", address=" + address + ", email=" + email + ", contact_person=" + contact_person + ", fax=" + fax
+				+ ", bank_account=" + bank_account + ", bank_name=" + bank_name + ", bank_swift_code=" + bank_swift_code
+				+ ", line_account=" + line_account + ", contact_person_num=" + contact_person_num + ", authority="
+				+ authority + "]";
 	}
 
 	public String getContactpersonnum() {
-		return contactpersonnum;
+		return contact_person_num;
 	}
 
-	public void setContactpersonnum(String contactpersonnum) {
-		this.contactpersonnum = contactpersonnum;
+	public void setContactpersonnum(String contact_person_num) {
+		this.contact_person_num = contact_person_num;
 	}
 
 	public Integer getAccountid() {
-		return accountid;
+		return account_id;
 	}
 
-	public void setAccountid(Integer accountid) {
-		this.accountid = accountid;
+	public void setAccountid(Integer account_id) {
+		this.account_id = account_id;
 	}
 
 	public String getAccount() {
@@ -99,31 +85,31 @@ public class AccountsBean implements UserDetails {
 	}
 
 	public String getPassw() {
-		return passw;
+		return pass_w;
 	}
 
-	public void setPassw(String passw) {
-		this.passw = passw;
+	public void setPassw(String pass_w) {
+		this.pass_w = pass_w;
 	}
 
-	public String getCompanyphone() { return companyphone; }
+	public String getCompanyphone() { return company_phone; }
 
-	public void setCompanyphone(String companyphone) { this.companyphone = companyphone; }
+	public void setCompanyphone(String companyphone) { this.company_phone = company_phone; }
 
 	public String getCompanyname() {
-		return companyname;
+		return company_name;
 	}
 
-	public void setCompanyname(String companyname) {
-		this.companyname = companyname;
+	public void setCompanyname(String company_name) {
+		this.company_name = company_name;
 	}
 
 	public String getTaxid() {
-		return taxid;
+		return tax_id;
 	}
 
 	public void setTaxid(String taxid) {
-		this.taxid = taxid;
+		this.tax_id = tax_id;
 	}
 
 	public String getAddress() {
@@ -143,11 +129,11 @@ public class AccountsBean implements UserDetails {
 	}
 
 	public String getContactperson() {
-		return contactperson;
+		return contact_person;
 	}
 
-	public void setContactperson(String contactperson) {
-		this.contactperson = contactperson;
+	public void setContactperson(String contact_person) {
+		this.contact_person = contact_person;
 	}
 
 	public String getFax() {
@@ -159,35 +145,35 @@ public class AccountsBean implements UserDetails {
 	}
 
 	public String getBankaccount() {
-		return bankaccount;
+		return bank_account;
 	}
 
-	public void setBankaccount(String bankaccount) {
-		this.bankaccount = bankaccount;
+	public void setBankaccount(String bank_account) {
+		this.bank_account = bank_account;
 	}
 
 	public String getBankname() {
-		return bankname;
+		return bank_name;
 	}
 
-	public void setBankname(String bankname) {
-		this.bankname = bankname;
+	public void setBankname(String bank_name) {
+		this.bank_name = bank_name;
 	}
 
 	public String getBankswiftcode() {
-		return bankswiftcode;
+		return bank_swift_code;
 	}
 
-	public void setBankswiftcode(String bankswiftcode) {
-		this.bankswiftcode = bankswiftcode;
+	public void setBankswiftcode(String bank_swift_code) {
+		this. bank_swift_code =  bank_swift_code;
 	}
 
 	public String getLineaccount() {
-		return lineaccount;
+		return line_account;
 	}
 
-	public void setLineaccount(String lineaccount) {
-		this.lineaccount = lineaccount;
+	public void setLineaccount(String line_account) {
+		this.line_account = line_account;
 	}
 
 	public String getAuthority() { return authority; }

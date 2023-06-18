@@ -1,10 +1,12 @@
 package tw.com.ispan.eeit48.mainfunction.model;
 
 import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Immutable;
 import org.json.JSONObject;
@@ -13,50 +15,44 @@ import org.json.JSONObject;
 @Immutable
 @IdClass(SupplierProductForOwnerProductPK.class)
 @DynamicUpdate
-@Table(name = "supplierproductforownerproduct")
+@Table(name = "t_supplier_product_for_owner_product")
 public class SupplierProductForOwnerProductBean implements Serializable {
 	@Id
-	private Integer productid;
+	private Integer product_id;
 	@Id
-	private Integer supplierproductid;
-	private Integer supplierid;
+	private Integer supplier_product_id;
+	private Integer supplier_id;
+
+
+	
 
 	@Override
 	public String toString() {
-		return "SupplierProductForOwnerProductBean [productid=" + productid + ", supplierproductid=" + supplierproductid
-				+ ", supplierid=" + supplierid + "]";
+		return "SupplierProductForOwnerProductBean [product_id=" + product_id + ", supplier_product_id="
+				+ supplier_product_id + ", supplier_id=" + supplier_id + "]";
 	}
 
 	public Integer getProductid() {
-		return productid;
+		return product_id;
 	}
 
-	public void setProductid(Integer productid) {
-		this.productid = productid;
+	public void setProductid(Integer product_id) {
+		this.product_id = product_id;
 	}
 
 	public Integer getSupplierproductid() {
-		return supplierproductid;
+		return supplier_product_id;
 	}
 
-	public void setSupplierproductid(Integer supplierproductid) {
-		this.supplierproductid = supplierproductid;
+	public void setSupplierproductid(Integer supplier_product_id) {
+		this.supplier_product_id = supplier_product_id;
 	}
 
 	public Integer getSupplierid() {
-		return supplierid;
+		return supplier_id;
 	}
 
-	public void setSupplierid(Integer supplierid) {
-		this.supplierid = supplierid;
+	public void setSupplierid(Integer supplier_id) {
+		this.supplier_id = supplier_id;
 	}
-
-	public JSONObject toJsonObject() {
-		JSONObject obj = new JSONObject();
-		obj.put("productid", productid == null ? "null" : productid);
-		obj.put("supplierproductid", supplierproductid == null ? "null" : supplierproductid);
-		obj.put("supplierid", supplierid == null ? "null" : supplierid);
-		return obj;
-	}
-
 }

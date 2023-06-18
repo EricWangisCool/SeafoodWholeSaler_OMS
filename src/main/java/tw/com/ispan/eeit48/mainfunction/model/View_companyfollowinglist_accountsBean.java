@@ -12,82 +12,83 @@ import org.json.JSONObject;
 
 @Entity
 @Immutable
-@Table(name = "view_companyfollowinglist_accounts")
+@Table(name = "v_company_following_list_accounts")
 @IdClass(View_companyfollowinglist_accountsPK.class)
 @DynamicUpdate
 public class View_companyfollowinglist_accountsBean implements Serializable {
 	@Id
-	private Integer buyerid;
+	private Integer buyerId;
 	@Id
-	private Integer sellerid;
+	private Integer sellerId;
 	@Column(columnDefinition = "char")
-	private String companyname;
+	private String companyName;
 	@Column(columnDefinition = "char")
 	private String taxid;
 	@Column(columnDefinition = "char")
-	private String companyphone;
+	private String companyPhone;
 	@Column(columnDefinition = "char")
 	private String address;
 	@Column(columnDefinition = "char")
 	private String email;
 	@Column(columnDefinition = "char")
-	private String contactperson;
+	private String contactPerson;
 	@Column(columnDefinition = "char")
-	private String contactpersonnum;
+	private String contactPersonNum;
 	@Column(columnDefinition = "char")
 	private String fax;
 	@Column(columnDefinition = "char")
-	private String bankaccount;
+	private String bankAccount;
 	@Column(columnDefinition = "char")
-	private String bankname;
+	private String bankName;
 	@Column(columnDefinition = "char")
-	private String bankswiftcode;
+	private String bankSwiftCode;
 	@Column(columnDefinition = "char")
-	private String lineaccount;
+	private String lineAccount;
 
+	
 	@Override
 	public String toString() {
-		return "view_companyfollowinglist_accountsBean [buyerid=" + buyerid + ", sellerid=" + sellerid
-				+ ", companyname=" + companyname + ", taxid=" + taxid + ", companyphone=" + companyphone + ", address=" + address
-				+ ", email=" + email + ", contactperson=" + contactperson + ", contactpersonnum=" + contactpersonnum
-				+ ", fax=" + fax + ", bankaccount=" + bankaccount + ", bankname=" + bankname + ", bankswiftcode="
-				+ bankswiftcode + ", lineaccount=" + lineaccount + "]";
+		return "View_companyfollowinglist_accountsBean [buyerId=" + buyerId + ", sellerId=" + sellerId
+				+ ", companyName=" + companyName + ", taxid=" + taxid + ", companyPhone=" + companyPhone + ", address="
+				+ address + ", email=" + email + ", contactPerson=" + contactPerson + ", contactPersonNum="
+				+ contactPersonNum + ", fax=" + fax + ", bankAccount=" + bankAccount + ", bankName=" + bankName
+				+ ", bankSwiftCode=" + bankSwiftCode + ", lineAccount=" + lineAccount + "]";
 	}
 
 	public String getContactpersonnum() {
-		return contactpersonnum;
+		return contactPersonNum;
 	}
 
 	public void setContactpersonnum(String contactpersonnum) {
-		this.contactpersonnum = contactpersonnum;
+		this.contactPersonNum = contactpersonnum;
 	}
 
 	public Integer getBuyerid() {
-		return buyerid;
+		return buyerId;
 	}
 
 	public void setBuyerid(Integer buyerid) {
-		this.buyerid = buyerid;
+		this.buyerId = buyerid;
 	}
 
 	public Integer getSellerid() {
-		return sellerid;
+		return sellerId;
 	}
 
 	public void setSellerid(Integer sellerid) {
-		this.sellerid = sellerid;
+		this.sellerId = sellerid;
 	}
 
-	public String getCompanyphone() { return companyphone; }
+	public String getCompanyphone() { return companyPhone; }
 
-	public void setCompanyphone(String companyphone) { this.companyphone = companyphone; }
+	public void setCompanyphone(String companyphone) { this.companyPhone = companyphone; }
 
 	public String getCompanyname() {
-		return companyname;
+		return companyName;
 	}
 
 	public void setCompanyname(String companyname) {
-		this.companyname = companyname;
+		this.companyName = companyname;
 	}
 
 	public String getTaxid() {
@@ -115,11 +116,11 @@ public class View_companyfollowinglist_accountsBean implements Serializable {
 	}
 
 	public String getContactperson() {
-		return contactperson;
+		return contactPerson;
 	}
 
 	public void setContactperson(String contactperson) {
-		this.contactperson = contactperson;
+		this.contactPerson = contactperson;
 	}
 
 	public String getFax() {
@@ -131,54 +132,34 @@ public class View_companyfollowinglist_accountsBean implements Serializable {
 	}
 
 	public String getBankaccount() {
-		return bankaccount;
+		return bankAccount;
 	}
 
 	public void setBankaccount(String bankaccount) {
-		this.bankaccount = bankaccount;
+		this.bankAccount = bankaccount;
 	}
 
 	public String getBankname() {
-		return bankname;
+		return bankName;
 	}
 
 	public void setBankname(String bankname) {
-		this.bankname = bankname;
+		this.bankName = bankname;
 	}
 
 	public String getBankswiftcode() {
-		return bankswiftcode;
+		return bankSwiftCode;
 	}
 
 	public void setBankswiftcode(String bankswiftcode) {
-		this.bankswiftcode = bankswiftcode;
+		this.bankSwiftCode = bankswiftcode;
 	}
 
 	public String getLineaccount() {
-		return lineaccount;
+		return lineAccount;
 	}
 
 	public void setLineaccount(String lineaccount) {
-		this.lineaccount = lineaccount;
+		this.lineAccount = lineaccount;
 	}
-
-	public JSONObject toJsonObject() {
-		JSONObject obj = new JSONObject();
-		obj.put("buyerid", buyerid);
-		obj.put("sellerid", sellerid);
-		obj.put("companyphone", companyphone);
-		obj.put("companyname", companyname);
-		obj.put("taxid", taxid);
-		obj.put("address", address);
-		obj.put("email", email);
-		obj.put("contactperson", contactperson);
-		obj.put("contactpersonnum", contactpersonnum);
-		obj.put("fax", fax);
-		obj.put("bankaccount", bankaccount);
-		obj.put("bankname", bankname);
-		obj.put("lineaccount", lineaccount);
-		obj.put("bankswiftcode", bankswiftcode);
-		return obj;
-	}
-
 }

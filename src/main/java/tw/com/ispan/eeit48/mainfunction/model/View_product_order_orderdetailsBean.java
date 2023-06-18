@@ -13,340 +13,305 @@ import org.json.JSONObject;
 
 @Entity
 @Immutable
-@Table(name = "view_product_order_orderdetails")
+@Table(name = "v_product_order_order_details")
 @IdClass(View_product_order_orderdetailsPK.class)
 @DynamicUpdate
 public class View_product_order_orderdetailsBean implements Serializable {
 	@Id
-	private Integer productid;
+	private Integer product_id;
 	@Column(columnDefinition = "char")
-	private String orderid;
-	private Integer orderstatus;
-	private Integer stockqty;
-	private Integer warningqty;
-	private Integer orderqty;
-	private Integer buyerid;
-	private Integer ownerid;
-	private Integer unitdealprice;
-	private Integer safeqty;
+	private String order_id;
+	private Integer order_status;
+	private Integer stock_qty;
+	private Integer warning_qty;
+	private Integer order_qty;
+	private Integer buyer_id;
+	private Integer owner_id;
+	private Integer unit_deal_price;
+	private Integer safe_qty;
 	@Column(columnDefinition = "char")
-	private String companyname;
-	private Integer unitcost;
+	private String company_name;
+	private Integer unit_cost;
 	@Column(columnDefinition = "char")
-	private String paymentterms;
+	private String payment_terms;
 	@Column(columnDefinition = "char")
-	private String productnamespec;
+	private String product_name_spec;
 	@Column(columnDefinition = "char")
-	private String deliveryorderid;
+	private String delivery_order_id;
 	@Column(columnDefinition = "char")
-	private String deliveryorderremark;
+	private String delivery_order_remark;
 	@Column(columnDefinition = "datetime")
-	private String ordertime;
+	private String order_time;
 	@Column(columnDefinition = "datetime")
-	private String acceptordertime;
+	private String accept_order_time;
 	@Column(columnDefinition = "datetime")
-	private String exporttime;
+	private String export_time;
 	@Column(columnDefinition = "datetime")
-	private String arriveordertime;
+	private String arrive_order_time;
 	@Column(columnDefinition = "datetime")
-	private String completeordertime;
+	private String complete_order_time;
 	@Column(columnDefinition = "datetime")
-	private String cancelordertime;
+	private String cancel_order_time;
 	@Column(columnDefinition = "char")
-	private String autoorderfunction;
-	private Integer unitsellprice;
-	private Integer minsellqty;
+	private String auto_order_function;
+	private Integer unit_sell_price;
+	private Integer min_sell_qty;
 	@Column(columnDefinition = "char")
-	private String productdesc;
-	private Integer onshelf;
-	private Integer autoorderconfirmfunctionstatus;
-	private Integer reservedqty;
+	private String product_desc;
+	private Integer on_shelf;
+	private Integer auto_order_confirm_function_status;
+	private Integer reserved_qty;
 
 	
 
+
+
 	@Override
 	public String toString() {
-		return "View_product_order_orderdetailsBean [productid=" + productid + ", orderid=" + orderid + ", orderstatus="
-				+ orderstatus + ", stockqty=" + stockqty + ", warningqty=" + warningqty + ", orderqty=" + orderqty
-				+ ", buyerid=" + buyerid + ", ownerid=" + ownerid + ", unitdealprice=" + unitdealprice + ", safeqty="
-				+ safeqty + ", companyname=" + companyname + ", unitcost=" + unitcost + ", paymentterms=" + paymentterms
-				+ ", productnamespec=" + productnamespec + ", deliveryorderid=" + deliveryorderid
-				+ ", deliveryorderremark=" + deliveryorderremark + ", ordertime=" + ordertime + ", acceptordertime="
-				+ acceptordertime + ", exporttime=" + exporttime + ", arriveordertime=" + arriveordertime
-				+ ", completeordertime=" + completeordertime + ", cancelordertime=" + cancelordertime
-				+ ", autoorderfunction=" + autoorderfunction + ", unitsellprice=" + unitsellprice + ", minsellqty="
-				+ minsellqty + ", productdesc=" + productdesc + ", onshelf=" + onshelf
-				+ ", autoorderconfirmfunctionstatus=" + autoorderconfirmfunctionstatus + ", reservedqty=" + reservedqty
-				+ "]";
+		return "View_product_order_orderdetailsBean [product_id=" + product_id + ", order_id=" + order_id
+				+ ", order_status=" + order_status + ", stock_qty=" + stock_qty + ", warning_qty=" + warning_qty
+				+ ", order_qty=" + order_qty + ", buyer_id=" + buyer_id + ", owner_id=" + owner_id
+				+ ", unit_deal_price=" + unit_deal_price + ", safe_qty=" + safe_qty + ", company_name=" + company_name
+				+ ", unit_cost=" + unit_cost + ", payment_terms=" + payment_terms + ", product_name_spec="
+				+ product_name_spec + ", delivery_order_id=" + delivery_order_id + ", delivery_order_remark="
+				+ delivery_order_remark + ", order_time=" + order_time + ", accept_order_time=" + accept_order_time
+				+ ", export_time=" + export_time + ", arrive_order_time=" + arrive_order_time + ", complete_order_time="
+				+ complete_order_time + ", cancel_order_time=" + cancel_order_time + ", auto_order_function="
+				+ auto_order_function + ", unit_sell_price=" + unit_sell_price + ", min_sell_qty=" + min_sell_qty
+				+ ", product_desc=" + product_desc + ", on_shelf=" + on_shelf + ", auto_order_confirm_function_status="
+				+ auto_order_confirm_function_status + ", reserved_qty=" + reserved_qty + "]";
 	}
 
 	public String getCompanyname() {
-		return companyname;
+		return company_name;
 	}
 
-	public void setCompanyname(String companyname) {
-		this.companyname = companyname;
+	public void setCompanyname(String company_name) {
+		this.company_name = company_name;
 	}
 
 	public Integer getUnitcost() {
-		return unitcost;
+		return unit_cost;
 	}
 
-	public void setUnitcost(Integer unitcost) {
-		this.unitcost = unitcost;
+	public void setUnitcost(Integer unit_cost) {
+		this.unit_cost = unit_cost;
 	}
 
 	public String getPaymentterms() {
-		return paymentterms;
+		return payment_terms;
 	}
 
-	public void setPaymentterms(String paymentterms) {
-		this.paymentterms = paymentterms;
+	public void setPaymentterms(String payment_terms) {
+		this.payment_terms =payment_terms;
 	}
 
 	public Integer getOwnerid() {
-		return ownerid;
+		return owner_id;
 	}
 
-	public void setOwnerid(Integer ownerid) {
-		this.ownerid = ownerid;
+	public void setOwnerid(Integer  owner_id) {
+		this. owner_id=  owner_id;
 	}
 
 	public Integer getProductid() {
-		return productid;
+		return product_id;
 	}
 
-	public void setProductid(Integer productid) {
-		this.productid = productid;
+	public void setProductid(Integer product_id) {
+		this.product_id = product_id;
 	}
 
 	public String getOrderid() {
-		return orderid;
+		return order_id;
 	}
 
-	public void setOrderid(String orderid) {
-		this.orderid = orderid;
+	public void setOrderid(String order_id) {
+		this.order_id = order_id;
 	}
 
 	public Integer getOrderstatus() {
-		return orderstatus;
+		return order_status;
 	}
 
-	public void setOrderstatus(Integer orderstatus) {
-		this.orderstatus = orderstatus;
+	public void setOrderstatus(Integer order_status) {
+		this.order_status = order_status;
 	}
 
 	public Integer getStockqty() {
-		return stockqty;
+		return stock_qty;
 	}
 
-	public void setStockqty(Integer stockqty) {
-		this.stockqty = stockqty;
+	public void setStockqty(Integer stock_qty) {
+		this.stock_qty = stock_qty;
 	}
 
 	public Integer getWarningqty() {
-		return warningqty;
+		return warning_qty;
 	}
 
-	public void setWarningqty(Integer warningqty) {
-		this.warningqty = warningqty;
+	public void setWarningqty(Integer warning_qty) {
+		this.warning_qty = warning_qty;
 	}
 
 	public Integer getOrderqty() {
-		return orderqty;
+		return order_qty;
 	}
 
-	public void setOrderqty(Integer orderqty) {
-		this.orderqty = orderqty;
+	public void setOrderqty(Integer order_qty) {
+		this.order_qty = order_qty;
 	}
 
 	public Integer getBuyerid() {
-		return buyerid;
+		return buyer_id;
 	}
 
-	public void setBuyerid(Integer buyerid) {
-		this.buyerid = buyerid;
+	public void setBuyerid(Integer buyer_id) {
+		this.buyer_id = buyer_id;
 	}
 
 	public Integer getUnitdealprice() {
-		return unitdealprice;
+		return unit_deal_price;
 	}
 
-	public void setUnitdealprice(Integer unitdealprice) {
-		this.unitdealprice = unitdealprice;
+	public void setUnitdealprice(Integer unit_deal_price) {
+		this.unit_deal_price = unit_deal_price;
 	}
 
 	public Integer getSafeqty() {
-		return safeqty;
+		return safe_qty;
 	}
 
-	public void setSafeqty(Integer safeqty) {
-		this.safeqty = safeqty;
+	public void setSafeqty(Integer safe_qty) {
+		this.safe_qty = safe_qty;
 	}
 
 	public String getProductnamespec() {
-		return productnamespec;
+		return product_name_spec;
 	}
 
-	public void setProductnamespec(String productnamespec) {
-		this.productnamespec = productnamespec;
+	public void setProductnamespec(String product_name_spec) {
+		this.product_name_spec = product_name_spec;
 	}
 
 	public String getDeliveryorderid() {
-		return deliveryorderid;
+		return delivery_order_id;
 	}
 
-	public void setDeliveryorderid(String deliveryorderid) {
-		this.deliveryorderid = deliveryorderid;
+	public void setDeliveryorderid(String delivery_order_id) {
+		this.delivery_order_id = delivery_order_id;
 	}
 
 	public String getDeliveryorderremark() {
-		return deliveryorderremark;
+		return delivery_order_remark;
 	}
 
-	public void setDeliveryorderremark(String deliveryorderremark) {
-		this.deliveryorderremark = deliveryorderremark;
+	public void setDeliveryorderremark(String delivery_order_remark) {
+		this.delivery_order_remark = delivery_order_remark;
 	}
 
 	public String getOrdertime() {
-		return ordertime;
+		return order_time;
 	}
 
-	public void setOrdertime(String ordertime) {
-		this.ordertime = ordertime;
+	public void setOrdertime(String order_time) {
+		this.order_time = order_time;
 	}
 
 	public String getAcceptordertime() {
-		return acceptordertime;
+		return accept_order_time;
 	}
 
-	public void setAcceptordertime(String acceptordertime) {
-		this.acceptordertime = acceptordertime;
+	public void setAcceptordertime(String accept_order_time) {
+		this.accept_order_time = accept_order_time;
 	}
 
 	public String getExporttime() {
-		return exporttime;
+		return export_time;
 	}
 
-	public void setExporttime(String exporttime) {
-		this.exporttime = exporttime;
+	public void setExporttime(String export_time) {
+		this.export_time = export_time;
 	}
 
 	public String getArriveordertime() {
-		return arriveordertime;
+		return arrive_order_time;
 	}
 
-	public void setArriveordertime(String arriveordertime) {
-		this.arriveordertime = arriveordertime;
+	public void setArriveordertime(String arrive_order_time) {
+		this.arrive_order_time = arrive_order_time;
 	}
 
 	public String getCompleteordertime() {
-		return completeordertime;
+		return complete_order_time;
 	}
 
-	public void setCompleteordertime(String completeordertime) {
-		this.completeordertime = completeordertime;
+	public void setCompleteordertime(String complete_order_time) {
+		this.complete_order_time = complete_order_time;
 	}
 
 	public String getCancelordertime() {
-		return cancelordertime;
+		return cancel_order_time;
 	}
 
-	public void setCancelordertime(String cancelordertime) {
-		this.cancelordertime = cancelordertime;
+	public void setCancelordertime(String cancel_order_time) {
+		this.cancel_order_time = cancel_order_time;
 	}
 
 
 	public String getAutoorderfunction() {
-		return autoorderfunction;
+		return auto_order_function;
 	}
 
-	public void setAutoorderfunction(String autoorderfunction) {
-		this.autoorderfunction = autoorderfunction;
+	public void setAutoorderfunction(String auto_order_function) {
+		this.auto_order_function = auto_order_function;
 	}
 
 	public Integer getUnitsellprice() {
-		return unitsellprice;
+		return unit_sell_price;
 	}
 
-	public void setUnitsellprice(Integer unitsellprice) {
-		this.unitsellprice = unitsellprice;
+	public void setUnitsellprice(Integer unit_sell_price) {
+		this.unit_sell_price = unit_sell_price;
 	}
 
 	public Integer getMinsellqty() {
-		return minsellqty;
+		return min_sell_qty;
 	}
 
-	public void setMinsellqty(Integer minsellqty) {
-		this.minsellqty = minsellqty;
+	public void setMinsellqty(Integer min_sell_qty) {
+		this.min_sell_qty = min_sell_qty;
 	}
 
 	public String getProductdesc() {
-		return productdesc;
+		return product_desc;
 	}
 
-	public void setProductdesc(String productdesc) {
-		this.productdesc = productdesc;
+	public void setProductdesc(String product_desc) {
+		this.product_desc = product_desc;
 	}
 
 	public Integer getOnshelf() {
-		return onshelf;
+		return on_shelf;
 	}
 
-	public void setOnshelf(Integer onshelf) {
-		this.onshelf = onshelf;
+	public void setOnshelf(Integer on_shelf) {
+		this.on_shelf = on_shelf;
 	}
 
 	public Integer getAutoorderconfirmfunctionstatus() {
-		return autoorderconfirmfunctionstatus;
+		return auto_order_confirm_function_status;
 	}
 
-	public void setAutoorderconfirmfunctionstatus(Integer autoorderconfirmfunctionstatus) {
-		this.autoorderconfirmfunctionstatus = autoorderconfirmfunctionstatus;
+	public void setAutoorderconfirmfunctionstatus(Integer auto_order_confirm_function_status) {
+		this.auto_order_confirm_function_status = auto_order_confirm_function_status;
 	}
 
 	public Integer getReservedqty() {
-		return reservedqty;
+		return reserved_qty;
 	}
 
-	public void setReservedqty(Integer reservedqty) {
-		this.reservedqty = reservedqty;
+	public void setReservedqty(Integer reserved_qty) {
+		this.reserved_qty = reserved_qty;
 	}
-
-	public JSONObject toJsonObject() {
-		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		JSONObject obj = new JSONObject();
-		obj.put("productid", productid);
-		obj.put("orderid", orderid);
-		obj.put("orderstatus", orderstatus);
-		obj.put("stockqty", stockqty);
-		obj.put("warningqty", warningqty);
-		obj.put("orderqty", orderqty);
-		obj.put("buyerid", buyerid);
-		obj.put("unitdealprice", unitdealprice);
-		obj.put("safeqty", safeqty);
-		obj.put("autoorderfunction", autoorderfunction);
-		obj.put("productnamespec", productnamespec);
-		obj.put("deliveryorderid", deliveryorderid);
-		obj.put("deliveryorderremark", deliveryorderremark);
-		obj.put("autoorderfunction", autoorderfunction);
-		obj.put("unitsellprice", unitsellprice);
-		obj.put("minsellqty", minsellqty);
-		obj.put("productdesc", productdesc);
-		obj.put("onshelf", onshelf);
-		obj.put("autoorderconfirmfunctionstatus", autoorderconfirmfunctionstatus);
-		obj.put("reservedqty", reservedqty);
-		obj.put("ownerid", ownerid);
-		obj.put("unitcost", unitcost);
-		obj.put("paymentterms", paymentterms);
-		obj.put("companyname", companyname);
-		obj.put("ordertime", ordertime == null ? "null" : ordertime);
-		obj.put("acceptordertime", acceptordertime == null ? "null" : acceptordertime);
-		obj.put("exporttime", exporttime == null ? "null" : exporttime);
-		obj.put("arriveordertime", arriveordertime == null ? "null" : arriveordertime);
-		obj.put("completeordertime", completeordertime == null ? "null" : completeordertime);
-		obj.put("cancelordertime", cancelordertime == null ? "null" : cancelordertime);
-		return obj;
-	}
-
 }

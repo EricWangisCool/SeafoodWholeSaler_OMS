@@ -11,163 +11,149 @@ import javax.persistence.Table;
 import org.json.JSONObject;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "t_orders")
 public class OrdersBean {
 	
 	@Id
 	@Column(columnDefinition = "char")
-	private String orderid;
-	private Integer buyerid;
-	private Integer sellerid;
-	private Integer orderstatus;
+	private String order_id;
+	private Integer buyer_id;
+	private Integer seller_id;
+	private Integer order_status;
 	@Column(columnDefinition = "char")
-	private String paymentterms;
+	private String payment_terms;
 	@Column(columnDefinition = "char")
-	private String deliveryorderid;
+	private String delivery_order_id;
 	@Column(columnDefinition = "char")
-	private String deliveryorderremark;
+	private String delivery_order_remark;
 	@Column(columnDefinition = "datetime")
-	private Date ordertime;
+	private Date order_time;
 	@Column(columnDefinition = "datetime")
-	private Date acceptordertime;
+	private Date accept_order_time;
 	@Column(columnDefinition = "datetime")
-	private Date exporttime;
+	private Date export_time;
 	@Column(columnDefinition = "datetime")
-	private Date arriveordertime;
+	private Date arrive_order_time;
 	@Column(columnDefinition = "datetime")
-	private Date completeordertime;
+	private Date complete_order_time;
 	@Column(columnDefinition = "datetime")
-	private Date cancelordertime;
+	private Date cancel_order_time;
+
+
+
+	
 
 	@Override
 	public String toString() {
-		return "OrdersBean [orderid=" + orderid + ", buyerid=" + buyerid + ", sellerid=" + sellerid + ", orderstatus="
-				+ orderstatus + ", paymentterms=" + paymentterms + ", deliveryorderid=" + deliveryorderid
-				+ ", deliveryorderremark=" + deliveryorderremark + ", ordertime=" + ordertime + ", acceptordertime="
-				+ acceptordertime + ", exporttime=" + exporttime + ", arriveordertime=" + arriveordertime
-				+ ", completeordertime=" + completeordertime + ", cancelordertime=" + cancelordertime + "]";
+		return "OrdersBean [order_id=" + order_id + ", buyer_id=" + buyer_id + ", seller_id=" + seller_id
+				+ ", order_status=" + order_status + ", payment_terms=" + payment_terms + ", delivery_order_id="
+				+ delivery_order_id + ", delivery_order_remark=" + delivery_order_remark + ", order_time=" + order_time
+				+ ", accept_order_time=" + accept_order_time + ", export_time=" + export_time + ", arrive_order_time="
+				+ arrive_order_time + ", complete_order_time=" + complete_order_time + ", cancel_order_time="
+				+ cancel_order_time + "]";
 	}
 
 	public String getOrderid() {
-		return orderid;
+		return order_id;
 	}
 
-	public void setOrderid(String orderid) {
-		this.orderid = orderid;
+	public void setOrderid(String order_id) {
+		this.order_id = order_id;
 	}
 
 	public Integer getBuyerid() {
-		return buyerid;
+		return buyer_id;
 	}
 
-	public void setBuyerid(Integer buyerid) {
-		this.buyerid = buyerid;
+	public void setBuyerid(Integer buyer_id) {
+		this.buyer_id = buyer_id;
 	}
 
 	public Integer getSellerid() {
-		return sellerid;
+		return seller_id;
 	}
 
-	public void setSellerid(Integer sellerid) {
-		this.sellerid = sellerid;
+	public void setSellerid(Integer seller_id) {
+		this.seller_id = seller_id;
 	}
 
 	public Integer getOrderstatus() {
-		return orderstatus;
+		return order_status;
 	}
 
-	public void setOrderstatus(Integer orderstatus) {
-		this.orderstatus = orderstatus;
+	public void setOrderstatus(Integer order_status) {
+		this.order_status = order_status;
 	}
 
 	public String getPaymentterms() {
-		return paymentterms;
+		return payment_terms;
 	}
 
-	public void setPaymentterms(String paymentterms) {
-		this.paymentterms = paymentterms;
+	public void setPaymentterms(String payment_terms) {
+		this.payment_terms = payment_terms;
 	}
 
 	public String getDeliveryorderid() {
-		return deliveryorderid;
+		return delivery_order_id;
 	}
 
-	public void setDeliveryorderid(String deliveryorderid) {
-		this.deliveryorderid = deliveryorderid;
+	public void setDeliveryorderid(String delivery_order_id) {
+		this.delivery_order_id = delivery_order_id;
 	}
 
 	public String getDeliveryorderremark() {
-		return deliveryorderremark;
+		return delivery_order_remark;
 	}
 
-	public void setDeliveryorderremark(String deliveryorderremark) {
-		this.deliveryorderremark = deliveryorderremark;
+	public void setDeliveryorderremark(String delivery_order_remark) {
+		this.delivery_order_remark = delivery_order_remark;
 	}
 
 	public Date getOrdertime() {
-		return ordertime;
+		return order_time;
 	}
 
-	public void setOrdertime(Date ordertime) {
-		this.ordertime = ordertime;
+	public void setOrdertime(Date order_time) {
+		this.order_time = order_time;
 	}
 
 	public Date getAcceptordertime() {
-		return acceptordertime;
+		return accept_order_time;
 	}
 
-	public void setAcceptordertime(Date acceptordertime) {
-		this.acceptordertime = acceptordertime;
+	public void setAcceptordertime(Date accept_order_time) {
+		this.accept_order_time = accept_order_time;
 	}
 
 	public Date getExporttime() {
-		return exporttime;
+		return export_time;
 	}
 
-	public void setExporttime(Date exporttime) {
-		this.exporttime = exporttime;
+	public void setExporttime(Date export_time) {
+		this.export_time = export_time;
 	}
 
 	public Date getArriveordertime() {
-		return arriveordertime;
+		return arrive_order_time;
 	}
 
-	public void setArriveordertime(Date arriveordertime) {
-		this.arriveordertime = arriveordertime;
+	public void setArriveordertime(Date arrive_order_time) {
+		this.arrive_order_time = arrive_order_time;
 	}
 
 	public Date getCompleteordertime() {
-		return completeordertime;
+		return complete_order_time;
 	}
 
-	public void setCompleteordertime(Date completeordertime) {
-		this.completeordertime = completeordertime;
+	public void setCompleteordertime(Date complete_order_time) {
+		this.complete_order_time = complete_order_time;
 	}
 
 	public Date getCancelordertime() {
-		return cancelordertime;
+		return cancel_order_time;
 	}
 
-	public void setCancelordertime(Date cancelordertime) {
-		this.cancelordertime = cancelordertime;
-	}
-
-	public JSONObject toJsonObject() {
-		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		JSONObject obj = new JSONObject();
-		obj.put("orderid", orderid);
-		obj.put("buyerid", buyerid);
-		obj.put("sellerid", sellerid);
-		obj.put("orderstatus", orderstatus);
-		obj.put("paymentterms", paymentterms);
-		obj.put("deliveryorderid", deliveryorderid);
-		obj.put("deliveryorderremark", deliveryorderremark);
-		obj.put("ordertime", ordertime == null ? "null" : sdFormat.format(ordertime));
-		obj.put("acceptordertime", acceptordertime == null ? "null" : sdFormat.format(acceptordertime));
-		obj.put("exporttime", exporttime == null ? "null" : sdFormat.format(exporttime));
-		obj.put("arriveordertime", arriveordertime == null ? "null" : sdFormat.format(arriveordertime));
-		obj.put("completeordertime", completeordertime == null ? "null" : sdFormat.format(completeordertime));
-		obj.put("cancelordertime", cancelordertime == null ? "null" : sdFormat.format(cancelordertime));
-		return obj;
+	public void setCancelordertime(Date cancel_order_time) {
+		this.cancel_order_time = cancel_order_time;
 	}
 }
