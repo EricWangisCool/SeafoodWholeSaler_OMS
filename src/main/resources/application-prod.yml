@@ -26,8 +26,10 @@ spring:
     hibernate:
       ddl-auto: validate
       naming:
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        # implicit-strategy 負責模型對象層次的處理，將對像模型處理為邏輯名稱，當沒有使用@Table和@Column註解時，implicit-strategy配置項才會被使用，當對像模型中已經指定時，implicit-strategy並不會起作用。
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        # physical-strategy 負責映射成真實的數據名稱的處理，將上述的邏輯名稱處理為物理名稱，physical-strategy一定會被應用，與對像模型中是否顯式地指定列名或者已經被隱式決定無關。
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect

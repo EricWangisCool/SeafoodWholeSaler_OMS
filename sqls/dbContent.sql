@@ -21,6 +21,12 @@ SET time_zone = "+00:00";
 -- 資料庫: `nsy`
 --
 
+CREATE DATABASE `nsy`;
+
+USE `nsy`;
+
+GRANT ALL PRIVILEGES ON nsy.* TO 'root'@'%';
+
 -- --------------------------------------------------------
 
 --
