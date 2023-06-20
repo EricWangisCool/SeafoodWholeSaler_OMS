@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tw.com.ispan.eeit48.mainfunction.model.OrdersBean;
+import tw.com.ispan.eeit48.mainfunction.model.table.Order;
 import tw.com.ispan.eeit48.mainfunction.service.OrderSellService;
 
 @RestController
-@RequestMapping(path = {"/views/ordersell"})
+@RequestMapping(path = {"/views/orderSell"})
 public class OrderSellController {
     @Autowired
     OrderSellService orderSellService;
@@ -24,8 +24,8 @@ public class OrderSellController {
     }
 
     @PostMapping(path = {"/update"})
-    public ResponseEntity<?>  Update(@RequestBody OrdersBean ordersBean) {
-        String result = orderSellService.Update(ordersBean);
+    public ResponseEntity<?>  Update(@RequestBody Order order) {
+        String result = orderSellService.Update(order);
         return "OK".equals(result) ? ResponseEntity.ok().body(result) :
                 ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
     }

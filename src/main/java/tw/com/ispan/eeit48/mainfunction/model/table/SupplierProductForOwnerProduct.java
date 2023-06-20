@@ -1,4 +1,4 @@
-package tw.com.ispan.eeit48.mainfunction.model;
+package tw.com.ispan.eeit48.mainfunction.model.table;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -7,13 +7,14 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Immutable;
+import tw.com.ispan.eeit48.mainfunction.model.pk.SupplierProductForOwnerProductPK;
 
 @Entity
 @Immutable
 @IdClass(SupplierProductForOwnerProductPK.class)
 @DynamicUpdate
 @Table(name = "t_supplier_product_for_owner_product")
-public class SupplierProductForOwnerProductBean implements Serializable {
+public class SupplierProductForOwnerProduct implements Serializable {
 	@Id
 	private Integer productId;
 	@Id

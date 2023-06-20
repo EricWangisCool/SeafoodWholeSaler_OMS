@@ -1,4 +1,4 @@
-package tw.com.ispan.eeit48.mainfunction.model;
+package tw.com.ispan.eeit48.mainfunction.model.table;
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "t_orders")
-public class OrdersBean {
+public class Order {
 	@Id
 	@Column(columnDefinition = "char")
 	private String orderId;

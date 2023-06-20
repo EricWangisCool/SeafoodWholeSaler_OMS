@@ -1,4 +1,4 @@
-package tw.com.ispan.eeit48.mainfunction.model;
+package tw.com.ispan.eeit48.mainfunction.model.view;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -8,13 +8,14 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Immutable;
+import tw.com.ispan.eeit48.mainfunction.model.pk.CompanyFollowingList_AccountPK;
 
 @Entity
 @Immutable
 @Table(name = "v_company_following_list_accounts")
-@IdClass(View_CompanyFollowingList_Accounts_PK.class)
+@IdClass(CompanyFollowingList_AccountPK.class)
 @DynamicUpdate
-public class View_CompanyFollowingList_Accounts_Bean implements Serializable {
+public class CompanyFollowingList_Account implements Serializable {
 	@Id
 	private Integer buyerId;
 	@Id

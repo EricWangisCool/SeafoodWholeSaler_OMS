@@ -8,7 +8,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tw.com.ispan.eeit48.mainfunction.model.*;
+import tw.com.ispan.eeit48.mainfunction.model.table.Account;
+import tw.com.ispan.eeit48.mainfunction.model.table.OrderDetail;
+import tw.com.ispan.eeit48.mainfunction.model.table.Order;
+import tw.com.ispan.eeit48.mainfunction.model.table.Product;
+import tw.com.ispan.eeit48.mainfunction.model.view.ProductOrder_OrderDetail;
 import tw.com.ispan.eeit48.mainfunction.repository.AccountsRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.OrderDetailsRepositrory;
 import tw.com.ispan.eeit48.mainfunction.repository.OrdersRepository;
@@ -56,7 +60,7 @@ public class MakeMoneyService {
 		Date DateofOrdertime = new SimpleDateFormat("yyyy-MM-dd").parse(ordertime);
 		Date DateofCompleteOrdertime = new SimpleDateFormat("yyyy-MM-dd").parse(completeordertime);
 
-		List<OrdersBean> ob = ordersRepository
+		List<Order> ob = ordersRepository
 				.findAllBySelleridAndBuyeridAndOrderstatusAndOrdertimeBetweenAndCompleteordertimeBetween(userId,
 						buyerida, 6, DateofOrdertime, DateofCompleteOrdertime, DateofOrdertime,
 						DateofCompleteOrdertime); // 把所有完成的訂單放進去
@@ -64,7 +68,7 @@ public class MakeMoneyService {
 
 		JSONArray ListofOrderid = new JSONArray();
 		if (ob != null) {
-			for (OrdersBean bean : ob) {
+			for (Order bean : ob) {
 				if (bean != null) {
 					ListofOrderid.put(bean.toJsonObject());
 				}
@@ -83,9 +87,9 @@ public class MakeMoneyService {
 		JSONArray ListofOrderdetail = new JSONArray();
 		ListofOrderdetail.clear();
 		for (int b = 0; b < ListofOrderid.length(); b++) {
-			List<OrderDetailsBean> od = orderDetailsRepositrory.findAllByOrderid(orderid[b]); // 找到所有訂單的細項
+			List<OrderDetail> od = orderDetailsRepositrory.findAllByOrderid(orderid[b]); // 找到所有訂單的細項
 			if (ob != null) {
-				for (OrderDetailsBean bean : od) {
+				for (OrderDetail bean : od) {
 					if (bean != null) {
 						ListofOrderdetail.put(bean.toJsonObject());
 					}
@@ -118,9 +122,9 @@ public class MakeMoneyService {
 		JSONArray ListofBuyer = new JSONArray();
 		ListofBuyer.clear();
 
-		List<AccountsBean> oa = accountsRepository.findAllByAccountid(buyerid[0]); // 找到買家的資料
+		List<Account> oa = accountsRepository.findAllByAccountid(buyerid[0]); // 找到買家的資料
 		if (ob != null) {
-			for (AccountsBean bean : oa) {
+			for (Account bean : oa) {
 				if (bean != null) {
 					ListofBuyer.put(bean.toJsonObject());
 				}
@@ -131,9 +135,9 @@ public class MakeMoneyService {
 		ListofProduct.clear();
 		for (int v = 0; v < ListofOrderdetail.length(); v++) {
 
-			List<ProductBean> op = productRepository.findAllByProductId(productid[v]); // 找到商品的資料
+			List<Product> op = productRepository.findAllByProductId(productid[v]); // 找到商品的資料
 			if (ob != null) {
-				for (ProductBean bean : op) {
+				for (Product bean : op) {
 					if (bean != null) {
 						ListofProduct.put(convertObjectToMap(bean));
 					}
@@ -150,10 +154,10 @@ public class MakeMoneyService {
 		ListofFindOrder.clear();
 		for (int i = 0; i < ListofOrderid.length(); i++) {
 
-			List<View_ProductOrder_OrderDetails_Bean> vb = view_product_order_orderdetailsRepository
+			List<ProductOrder_OrderDetail> vb = view_product_order_orderdetailsRepository
 					.findAllByOrderid(orderid[i]); // 找到單筆訂單的商品資料
 			if (vb != null) {
-				for (View_ProductOrder_OrderDetails_Bean bean : vb) {
+				for (ProductOrder_OrderDetail bean : vb) {
 					if (bean != null) {
 						ListofFindOrder.put(bean.toJsonObject());
 					}

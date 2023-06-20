@@ -13,7 +13,7 @@ import static tw.com.ispan.eeit48.mainfunction.requestResponse.RequestResponseUt
  *  將庫存資訊 & 庫存補貨廠商資訊 進行CRUD
  */
 @RestController
-@RequestMapping(path = {"/views/addstock"})
+@RequestMapping(path = {"/views/addStock"})
 public class StockAPIController {
     @Autowired
     private StockService stockService;

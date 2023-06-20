@@ -1,4 +1,4 @@
-package tw.com.ispan.eeit48.mainfunction.model;
+package tw.com.ispan.eeit48.mainfunction.model.table;
 
 import java.io.Serializable;
 
@@ -7,12 +7,13 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicUpdate;
+import tw.com.ispan.eeit48.mainfunction.model.pk.CompanyFollowingListPK;
 
 @Entity
 @Table(name = " t_company_following_list")
 @IdClass(CompanyFollowingListPK.class)
 @DynamicUpdate
-public class CompanyFollowingListBean implements Serializable {
+public class CompanyFollowingList implements Serializable {
 	@Id
 	private Integer buyerId;
 	private Integer sellerId;

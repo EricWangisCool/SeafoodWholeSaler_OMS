@@ -1,25 +1,25 @@
 package tw.com.ispan.eeit48.mainfunction.requestResponse.model.request;
 
-import tw.com.ispan.eeit48.mainfunction.model.ProductBean;
-import tw.com.ispan.eeit48.mainfunction.model.SupplierProductForOwnerProductBean;
+import tw.com.ispan.eeit48.mainfunction.model.table.Product;
+import tw.com.ispan.eeit48.mainfunction.model.table.SupplierProductForOwnerProduct;
 
 public class ProductRequest {
-    ProductBean productInfo;
-    SupplierProductForOwnerProductBean supplierInfo;
+    Product productInfo;
+    SupplierProductForOwnerProduct supplierInfo;
 
-    public ProductBean getProductInfo() {
+    public Product getProductInfo() {
         return productInfo;
     }
 
-    public void setProductInfo(ProductBean productInfo) {
+    public void setProductInfo(Product productInfo) {
         this.productInfo = productInfo;
     }
 
-    public SupplierProductForOwnerProductBean getSupplierInfo() {
+    public SupplierProductForOwnerProduct getSupplierInfo() {
         return supplierInfo;
     }
 
-    public void setSupplierInfo(SupplierProductForOwnerProductBean supplierInfo) {
+    public void setSupplierInfo(SupplierProductForOwnerProduct supplierInfo) {
         this.supplierInfo = supplierInfo;
     }
 }

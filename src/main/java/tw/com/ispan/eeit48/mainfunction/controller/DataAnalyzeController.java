@@ -19,8 +19,8 @@ public class DataAnalyzeController {
         try {
             JSONObject jsonObject = new JSONObject(request);
             return analyzeService.getUserOrdersByTime(
-                    (String) jsonObject.get("ordertime"),
-                    (String) jsonObject.get("completeordertime")
+                    (String) jsonObject.get("orderTime"),
+                    (String) jsonObject.get("completeOrderTime")
             );
         } catch (Exception e) {
             return "NG";

@@ -1,4 +1,4 @@
-package tw.com.ispan.eeit48.mainfunction.model;
+package tw.com.ispan.eeit48.mainfunction.model.pk;
 
 import java.io.Serializable;
 

@@ -8,7 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tw.com.ispan.eeit48.mainfunction.model.*;
+import tw.com.ispan.eeit48.mainfunction.model.table.*;
+import tw.com.ispan.eeit48.mainfunction.model.view.ProductOrder_OrderDetail;
 import tw.com.ispan.eeit48.mainfunction.repository.AccountsRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.OrderDetailsRepositrory;
 import tw.com.ispan.eeit48.mainfunction.repository.OrdersRepository;
@@ -50,14 +51,14 @@ public class DataAnalyzeService {
 		int[] cost;
 		Date DateofOrdertime = new SimpleDateFormat("yyyy-MM-dd").parse(ordertime);
 		Date DateofCompleteOrdertime = new SimpleDateFormat("yyyy-MM-dd").parse(completeordertime);
-		List<OrdersBean> ob = ordersRepository
+		List<Order> ob = ordersRepository
 				.findAllBySelleridAndOrderstatusAndOrdertimeBetweenAndCompleteordertimeBetween(userId, 6,
 						DateofOrdertime, DateofCompleteOrdertime, DateofOrdertime, DateofCompleteOrdertime); // 把所有完成的訂單放進去
 
 		//找出帳號內特定時間內已完成的訂單
 		JSONArray LISTofFindOrderid = new JSONArray();
 		if (ob != null) {
-			for (OrdersBean bean : ob) {
+			for (Order bean : ob) {
 				if (bean != null) {
 					LISTofFindOrderid.put(bean.toJsonObject());
 				}
@@ -72,9 +73,9 @@ public class DataAnalyzeService {
 		JSONArray ListofOrderDetail = new JSONArray();
 		ListofOrderDetail.clear();
 		for (int b = 0; b < LISTofFindOrderid.length(); b++) {
-			List<OrderDetailsBean> od = orderDetailsRepositrory.findAllByOrderid(orderid[b]); // 找到所有訂單的細項
+			List<OrderDetail> od = orderDetailsRepositrory.findAllByOrderid(orderid[b]); // 找到所有訂單的細項
 			if (ob != null) {
-				for (OrderDetailsBean bean : od) {
+				for (OrderDetail bean : od) {
 					if (bean != null) {
 						ListofOrderDetail.put(bean.toJsonObject());
 					}
@@ -101,10 +102,10 @@ public class DataAnalyzeService {
 		ListofFindProduct.clear();
 		for (int i = 0; i < ListofOrderDetail.length(); i++) {
 
-			List<View_ProductOrder_OrderDetails_Bean> vb = view_product_order_orderdetailsRepository
+			List<ProductOrder_OrderDetail> vb = view_product_order_orderdetailsRepository
 					.findAllByProductid(productid[i]); // 找到商品的資料
 			if (vb != null) {
-				for (View_ProductOrder_OrderDetails_Bean bean : vb) {
+				for (ProductOrder_OrderDetail bean : vb) {
 					if (bean != null) {
 						ListofFindProduct.put(bean.toJsonObject());
 					}
@@ -123,9 +124,9 @@ public class DataAnalyzeService {
 		ListofAccount.clear();
 
 		for (int i = 0; i < ListofOrderDetail.length(); i++) {
-			List<AccountsBean> oa = accountsRepository.findAllByAccountid(buyerid[i]); // 找到買家的資料
+			List<Account> oa = accountsRepository.findAllByAccountid(buyerid[i]); // 找到買家的資料
 			if (ob != null) {
-				for (AccountsBean bean : oa) {
+				for (Account bean : oa) {
 					if (bean != null) {
 						ListofAccount.put(bean.toJsonObject());
 					}
@@ -140,9 +141,9 @@ public class DataAnalyzeService {
 		JSONArray ListofCount = new JSONArray();
 		ListofCount.clear();
 		for (int v = 0; v < ListofOrderDetail.length(); v++) {
-			List<ProductBean> op = productRepository.findAllByProductId(productid[v]); // 找到商品的資料
+			List<Product> op = productRepository.findAllByProductId(productid[v]); // 找到商品的資料
 			if (ob != null) {
-				for (ProductBean bean : op) {
+				for (Product bean : op) {
 					if (bean != null) {
 						ListofCount.put(convertObjectToMap(bean));
 					}
@@ -161,9 +162,9 @@ public class DataAnalyzeService {
 		JSONArray ListofClass = new JSONArray();
 		ListofClass.clear();
 		for (int z = 0; z < ListofOrderDetail.length(); z++) {
-			List<ProductClassIficationBean> oc = classIficationRepository.findAllByClassid(productclassification[z]); // 找到所有訂單的細項
+			List<ProductClassification> oc = classIficationRepository.findAllByClassid(productclassification[z]); // 找到所有訂單的細項
 			if (oc != null) {
-				for (ProductClassIficationBean bean : oc) {
+				for (ProductClassification bean : oc) {
 					if (bean != null) {
 						ListofClass.put(bean.toJsonObject());
 					}

@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tw.com.ispan.eeit48.mainfunction.model.View_CompanyFollowingList_Accounts_Bean;
+import tw.com.ispan.eeit48.mainfunction.model.view.CompanyFollowingList_Account;
 import tw.com.ispan.eeit48.mainfunction.service.View_companyfollowinglist_accountsService;
 
 @RestController
-@RequestMapping(path = { "/viwes/cooperate" })
+@RequestMapping(path = { "/views/cooperate" })
 public class CooperateAPIController {
 	@Autowired
 	View_companyfollowinglist_accountsService view_companyfollowinglist_accountsService;
@@ -24,7 +24,7 @@ public class CooperateAPIController {
 	}
 
 	@PostMapping(path = { "/insert" })
-	public void InsertNewFollowingList(@RequestBody View_CompanyFollowingList_Accounts_Bean dataRequest) {
-		view_companyfollowinglist_accountsService.userFollowNewCompany(dataRequest.getCompanyname());
+	public void InsertNewFollowingList(@RequestBody CompanyFollowingList_Account dataRequest) {
+		view_companyfollowinglist_accountsService.userFollowNewCompany(dataRequest.getCompanyName());
 	}
 }

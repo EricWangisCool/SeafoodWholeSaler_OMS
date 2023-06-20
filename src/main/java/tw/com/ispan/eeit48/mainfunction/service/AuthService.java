@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tw.com.ispan.eeit48.mainfunction.model.AccountsBean;
+import tw.com.ispan.eeit48.mainfunction.model.table.Account;
 import tw.com.ispan.eeit48.mainfunction.repository.AccountsRepository;
 import java.util.Optional;
 
@@ -24,7 +24,7 @@ public class AuthService implements UserDetailsService {
     public UserDetails loadUserByUsername(String account) throws UsernameNotFoundException {
         // 查詢用戶是否存在，存在的話就將用戶資訊回傳給Spring Security驗證密碼
         System.out.println("Authenticating account: " + account);
-        Optional<AccountsBean> user = accountsRepository.findOneByaccount(account);
+        Optional<Account> user = accountsRepository.findOneByaccount(account);
         if (user.isPresent()) {
             return user.get();
         }
@@ -32,8 +32,8 @@ public class AuthService implements UserDetailsService {
     }
 
     @Transactional(readOnly = true)
-    public AccountsBean findUserByAccount(String account) {
-        Optional<AccountsBean> result = accountsRepository.findOneByaccount(account);
+    public Account findUserByAccount(String account) {
+        Optional<Account> result = accountsRepository.findOneByaccount(account);
         if (result.isPresent()) {
             return result.get();
         } else {
@@ -43,8 +43,8 @@ public class AuthService implements UserDetailsService {
     }
 
     @Transactional(readOnly = true)
-    public AccountsBean findUserByEmail(String email) {
-        Optional<AccountsBean> result = accountsRepository.findOneByEmail(email);
+    public Account findUserByEmail(String email) {
+        Optional<Account> result = accountsRepository.findOneByEmail(email);
         if (result.isPresent()) {
             return result.get();
         } else {

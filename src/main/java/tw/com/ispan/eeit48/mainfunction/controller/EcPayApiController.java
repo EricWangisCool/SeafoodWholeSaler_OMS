@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ecpay.payment.integration.ExampleAllInOne;
 
 @RestController
-@RequestMapping(path = { "/ecpay" })
+@RequestMapping(path = { "/ecPay" })
 public class EcPayApiController {
 
 	@PostMapping

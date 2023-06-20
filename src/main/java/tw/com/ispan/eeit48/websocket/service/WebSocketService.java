@@ -9,7 +9,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.user.SimpUser;
 import org.springframework.messaging.simp.user.SimpUserRegistry;
 import org.springframework.stereotype.Service;
-import tw.com.ispan.eeit48.mainfunction.model.SystemNoticeMessageBean;
+import tw.com.ispan.eeit48.mainfunction.model.table.SystemNoticeMessage;
 import tw.com.ispan.eeit48.mainfunction.repository.SystemNoticeMessageRepository;
 
 
@@ -36,7 +36,7 @@ public class WebSocketService {
 					.anyMatch(name -> name.contains(userId));
 
 			if (isUserOnline) {
-				List<SystemNoticeMessageBean> messages =
+				List<SystemNoticeMessage> messages =
 						systemNoticeMessageRepository.findAllByReceiverIdOrderByMessageIdDesc(Integer.parseInt(userId));
 
 				wsTemplate.convertAndSendToUser(userId, DESTINATION, messages);

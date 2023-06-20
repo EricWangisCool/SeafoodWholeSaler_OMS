@@ -5,22 +5,22 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import tw.com.ispan.eeit48.mainfunction.model.AccountsBean;
+import tw.com.ispan.eeit48.mainfunction.model.table.Account;
 
 @Repository
-public interface AccountsRepository extends JpaRepository<AccountsBean, Integer> {
+public interface AccountsRepository extends JpaRepository<Account, Integer> {
 
-	Optional<AccountsBean> findOneByaccount(String string);
+	Optional<Account> findOneByaccount(String string);
 
-	Optional<AccountsBean> findOneByEmail(String email);
+	Optional<Account> findOneByEmail(String email);
 
-	List<AccountsBean> findAllByAccountid(int i);
+	List<Account> findAllByAccountid(int i);
 
-	List<AccountsBean> findAllByCompanyname(String companyname);
+	List<Account> findAllByCompanyname(String companyname);
 
-	AccountsBean findByaccount(String account);
+	Account findByaccount(String account);
 
-	AccountsBean findOneByAccountid(int accountId);
+	Account findOneByAccountid(int accountId);
 
 	@Query(value = "SELECT companyname FROM accounts WHERE accountid = ?1", nativeQuery = true)
 	String findCompanynameByAccountid(int accountId);

@@ -7,7 +7,12 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tw.com.ispan.eeit48.mainfunction.model.*;
+import tw.com.ispan.eeit48.common.util.SortComparator;
+import tw.com.ispan.eeit48.mainfunction.model.table.Account;
+import tw.com.ispan.eeit48.mainfunction.model.table.OrderDetail;
+import tw.com.ispan.eeit48.mainfunction.model.table.Order;
+import tw.com.ispan.eeit48.mainfunction.model.table.Product;
+import tw.com.ispan.eeit48.mainfunction.model.view.ProductOrder_OrderDetail;
 import tw.com.ispan.eeit48.mainfunction.repository.AccountsRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.OrderDetailsRepositrory;
 import tw.com.ispan.eeit48.mainfunction.repository.OrdersRepository;
@@ -48,11 +53,11 @@ public class OrderSellService {
         List<JSONObject> sellingOrdersJsonList = new ArrayList();
 
         // 拿到帳號所有交易狀態為2~7的售出訂單
-        List<View_ProductOrder_OrderDetails_Bean> beans = view_product_order_orderdetailsRepository
+        List<ProductOrder_OrderDetail> beans = view_product_order_orderdetailsRepository
                 .findAllByOwneridAndOrderstatusBetween(userId, 2, 7);
 
         if (beans != null && !beans.isEmpty()) {
-            for (View_ProductOrder_OrderDetails_Bean bean : beans) {
+            for (ProductOrder_OrderDetail bean : beans) {
                 if (bean != null) {
                     JSONObject beanJsonObject = bean.toJsonObject();
                     // 算出獲利(profit)及總售價(total)
@@ -64,7 +69,7 @@ public class OrderSellService {
                     beanJsonObject.put("orderDateSerial", (int) Long
                             .parseLong(bean.getOrdertime().replace(":", "").replace("-", "").replace(" ", "")));
                     // 找出買家聯絡資訊
-                    AccountsBean buyer = accountsRepository.findOneByAccountid(bean.getBuyerid());
+                    Account buyer = accountsRepository.findOneByAccountid(bean.getBuyerid());
                     beanJsonObject.put("contactperson", buyer.getContactperson());
                     beanJsonObject.put("address", buyer.getAddress());
                     beanJsonObject.put("companyphone", buyer.getCompanyphone());
@@ -96,16 +101,16 @@ public class OrderSellService {
         return jsonArray.toString();
     }
 
-    public String Update(OrdersBean ordersBean) {
+    public String Update(Order order) {
         int sellerId = getCurrentUserId();
 
-        Integer orderStatus = ordersBean.getOrderstatus();
+        Integer orderStatus = order.getOrderstatus();
         List<Integer> allowedStatuses = Arrays.asList(3, 4, 5, 7);
 
         try {
             if (allowedStatuses.contains(orderStatus)) {
-                Integer buyerId = ordersBean.getBuyerid();
-                String orderId = ordersBean.getOrderid();
+                Integer buyerId = order.getBuyerid();
+                String orderId = order.getOrderid();
                 String sellerCompanyName = accountsRepository.findCompanynameByAccountid(sellerId);
                 String buyerEmail = accountsRepository.findEmailByAccountid(buyerId);
 
@@ -115,31 +120,31 @@ public class OrderSellService {
                 String subject = "";
                 String text = sellerCompanyName + "，於".concat(sdf.format(date)) + "已將訂單編號<" + orderId + ">狀態調整為=> ";
 
-                ordersBean.setSellerid(sellerId);
+                order.setSellerid(sellerId);
                 switch (orderStatus) {
                     case 3 -> {
-                        ordersBean.setAcceptordertime(date);
+                        order.setAcceptordertime(date);
                         subject = "叫貨/接單成功";
                         // 當賣家接單後，系統監控賣家所有開啟自動叫貨的productId是否有達到叫貨條件，有的話就自動叫貨
-                        List<View_ProductOrder_OrderDetails_Bean> viewBeans = view_product_order_orderdetailsRepository
+                        List<ProductOrder_OrderDetail> viewBeans = view_product_order_orderdetailsRepository
                                 .findAllByOrderidAndOwnerid(orderId, sellerId);
 
                         viewBeans.forEach(product -> checkAutoOrderProduct(product.getProductid(), sellerId));
                     }
                     case 4 -> {
-                        ordersBean.setExporttime(date);
+                        order.setExporttime(date);
                         subject = "已出貨";
                     }
                     case 5 -> {
-                        ordersBean.setArriveordertime(date);
+                        order.setArriveordertime(date);
                         subject = "已送達指定地址";
                     }
                     case 7 -> {
-                        ordersBean.setCancelordertime(date);
+                        order.setCancelordertime(date);
                         subject = "已取消";
                     }
                 }
-                ordersRepository.save(ordersBean);
+                ordersRepository.save(order);
                 emailService.sendMail(buyerEmail, subject, "賣家".concat(text) + subject);
                 messageService.saveNewMessage("叫貨管理通知: 賣家".concat(text) + "\n".concat(subject), buyerId);
                 messageService.saveNewMessage("叫貨管理通知: 貴司".concat(text) + "\n".concat(subject), sellerId);
@@ -154,9 +159,9 @@ public class OrderSellService {
 
     // 當賣家接單後，系統監控賣家所有開啟自動叫貨的productId是否有達到叫貨條件，有的話就自動叫貨
     public void checkAutoOrderProduct(int productId, int accountId) {
-        List<ProductBean> autoBeans = productRepository.findAllByAutoOrderFunctionAndOwnerId("Y", accountId);
+        List<Product> autoBeans = productRepository.findAllByAutoOrderFunctionAndOwnerId("Y", accountId);
         if (autoBeans != null && !autoBeans.isEmpty()) {
-            for (ProductBean autoBean : autoBeans) {
+            for (Product autoBean : autoBeans) {
                 // 有開啟自動叫貨的productId
                 int autoProductId = autoBean.getProductId();
                 // 警示庫存數
@@ -182,7 +187,7 @@ public class OrderSellService {
 
                     // 新增一筆新order
                     Date now = new Date();
-                    OrdersBean ob = new OrdersBean();
+                    Order ob = new Order();
                     String newOrderId = orderBuyService.createNewBookingOrderId(accountId);
                     ob.setOrderid(newOrderId);
                     ob.setOrderstatus(2);
@@ -192,7 +197,7 @@ public class OrderSellService {
                     ob.setSellerid(supplierId);
                     ordersRepository.save(ob);
 
-                    OrderDetailsBean odb = new OrderDetailsBean();
+                    OrderDetail odb = new OrderDetail();
                     odb.setOrderid(newOrderId);
                     odb.setOrderqty(lackQty);
                     odb.setSellerproductid(supplierProductId);
@@ -200,12 +205,12 @@ public class OrderSellService {
                     orderDetailsRepositrory.save(odb);
 
                     // 自動叫貨的賣家
-                    AccountsBean autoSeller = accountsRepository.findOneByAccountid(supplierId);
+                    Account autoSeller = accountsRepository.findOneByAccountid(supplierId);
                     String autoSellerEmail = autoSeller.getEmail();
                     String autoSellerCompanyName = autoSeller.getCompanyname();
 
                     // 自動叫貨的買家
-                    AccountsBean autoBuyer = accountsRepository.findOneByAccountid(accountId);
+                    Account autoBuyer = accountsRepository.findOneByAccountid(accountId);
                     String autoBuyerEmail = autoBuyer.getEmail();
                     String autoBuyerCompanyName = autoBuyer.getCompanyname();
 

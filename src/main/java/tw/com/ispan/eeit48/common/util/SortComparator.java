@@ -1,4 +1,4 @@
-package tw.com.ispan.eeit48.mainfunction.model;
+package tw.com.ispan.eeit48.common.util;
 
 import java.util.Comparator;
 import org.json.JSONObject;

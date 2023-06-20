@@ -5,12 +5,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tw.com.ispan.eeit48.mainfunction.model.AccountsBean;
-import tw.com.ispan.eeit48.mainfunction.model.CompanyFollowingListBean;
+import tw.com.ispan.eeit48.mainfunction.model.table.Account;
+import tw.com.ispan.eeit48.mainfunction.model.table.CompanyFollowingList;
 import tw.com.ispan.eeit48.mainfunction.repository.AccountsRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.CompanyFollowingListRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.View_companyfollowinglist_accountsRepository;
-import tw.com.ispan.eeit48.mainfunction.model.View_CompanyFollowingList_Accounts_Bean;
+import tw.com.ispan.eeit48.mainfunction.model.view.CompanyFollowingList_Account;
 import static tw.com.ispan.eeit48.mainfunction.service.AuthService.getCurrentUserId;
 
 @Service
@@ -32,12 +32,12 @@ public class View_companyfollowinglist_accountsService {
 		int userId = getCurrentUserId();
 
 		JSONArray ListAll = new JSONArray();
-		List<View_CompanyFollowingList_Accounts_Bean> beans = view_companyfollowinglist_accountRepository
+		List<CompanyFollowingList_Account> beans = view_companyfollowinglist_accountRepository
 				.findAllByBuyerid(userId); //
 
 		if (beans != null) {
 			JSONArray ListofFriend = new JSONArray();
-			for (View_CompanyFollowingList_Accounts_Bean bean : beans) {
+			for (CompanyFollowingList_Account bean : beans) {
 				if (bean != null) {
 					ListofFriend.put(bean.toJsonObject()); // 把所有關聯場商找出來
 				}
@@ -106,11 +106,11 @@ public class View_companyfollowinglist_accountsService {
 		boolean stepOne = false;
 		int switchopen = 0;
 		int companyid;
-		List<AccountsBean> beana = accountsRepository.findAllByCompanyname(companyName);
+		List<Account> beana = accountsRepository.findAllByCompanyname(companyName);
 
 		if (beana != null) {
 			JSONArray ListofAccount = new JSONArray();
-			for (AccountsBean bean : beana) {
+			for (Account bean : beana) {
 				if (bean != null) {
 					ListofAccount.put(bean.toJsonObject()); // 把所有關聯場商找出來
 				}
@@ -118,7 +118,7 @@ public class View_companyfollowinglist_accountsService {
 			companyid = (int) ListofAccount.getJSONObject(0).get("accountid");
 
 			if (switchopen == 0) {
-				CompanyFollowingListBean in = new CompanyFollowingListBean();
+				CompanyFollowingList in = new CompanyFollowingList();
 				in.setBuyerId(userId);
 				in.setSellerId(companyid);
 				companyFollowingListReposutory.save(in);
@@ -126,12 +126,12 @@ public class View_companyfollowinglist_accountsService {
 			}
 
 			if (stepOne == true) {
-				List<View_CompanyFollowingList_Accounts_Bean> beans = view_companyfollowinglist_accountRepository
+				List<CompanyFollowingList_Account> beans = view_companyfollowinglist_accountRepository
 						.findAllByCompanyname(companyName);
 
 				if (beans != null) {
 					JSONArray lista = new JSONArray();
-					for (View_CompanyFollowingList_Accounts_Bean bean : beans) {
+					for (CompanyFollowingList_Account bean : beans) {
 						if (bean != null) {
 							lista.put(bean.toJsonObject()); // 把所有關聯場商找出來
 						}

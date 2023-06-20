@@ -1,4 +1,4 @@
-package tw.com.ispan.eeit48.mainfunction.model;
+package tw.com.ispan.eeit48.mainfunction.model.table;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "t_auto_order_confirm_function_status")
-public class AutoOrderConfirmFunctionStatusBean {
+public class AutoOrderConfirmFunctionStatus {
 	@Id
 	private Integer statusId;
 	@Column(columnDefinition = "char")

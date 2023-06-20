@@ -1,10 +1,10 @@
-package tw.com.ispan.eeit48.mainfunction.model;
+package tw.com.ispan.eeit48.mainfunction.model.table;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "t_system_notice_message")
-public class SystemNoticeMessageBean {
+public class SystemNoticeMessage {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer messageId;
@@ -14,9 +14,9 @@ public class SystemNoticeMessageBean {
 	@Column(columnDefinition = "char")
 	private String messageContent;
 
-	public SystemNoticeMessageBean() {}
+	public SystemNoticeMessage() {}
 
-	public SystemNoticeMessageBean(Integer messageId, Integer receiverId, String messageRead, String messageContent) {
+	public SystemNoticeMessage(Integer messageId, Integer receiverId, String messageRead, String messageContent) {
 		this.messageId = messageId;
 		this.receiverId = receiverId;
 		this.messageRead = messageRead;

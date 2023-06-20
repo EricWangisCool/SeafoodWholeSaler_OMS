@@ -1,4 +1,4 @@
-package tw.com.ispan.eeit48.mainfunction.model;
+package tw.com.ispan.eeit48.mainfunction.model.table;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -7,12 +7,13 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicUpdate;
+import tw.com.ispan.eeit48.mainfunction.model.pk.OrderDetailsPK;
 
 @Entity
 @Table(name = "t_order_details")
 @IdClass(OrderDetailsPK.class)
 @DynamicUpdate
-public class OrderDetailsBean implements Serializable {
+public class OrderDetail implements Serializable {
 	@Id
 	@Column(columnDefinition = "char")
 	private String orderId;

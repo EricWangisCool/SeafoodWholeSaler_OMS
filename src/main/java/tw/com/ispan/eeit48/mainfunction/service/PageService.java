@@ -11,9 +11,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tw.com.ispan.eeit48.mainfunction.model.ProductBean;
-import tw.com.ispan.eeit48.mainfunction.model.OrdersBean;
-import tw.com.ispan.eeit48.mainfunction.model.SortComparator;
+import tw.com.ispan.eeit48.mainfunction.model.table.Product;
+import tw.com.ispan.eeit48.mainfunction.model.table.Order;
+import tw.com.ispan.eeit48.common.util.SortComparator;
 import tw.com.ispan.eeit48.mainfunction.repository.AccountsRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.OrdersRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.View_product_order_orderdetailsRepository;
@@ -46,9 +46,9 @@ public class PageService {
 	public JSONArray returnPageList(int userId) {
 		JSONArray list = new JSONArray();
 		List<JSONObject> urgentOwnerProducts = new ArrayList<>();
-		List<ProductBean> ownerProducts = productService.findProductByOwnerid(userId);
+		List<Product> ownerProducts = productService.findProductByOwnerid(userId);
 		if (ownerProducts != null) {
-			for (ProductBean ownerProduct : ownerProducts) {
+			for (Product ownerProduct : ownerProducts) {
 				int ownerProductId = ownerProduct.getProductId();
 				// 可出現貨數(stockown)
 				int stockown = productService.findStockOwnByProductId(ownerProductId);
@@ -96,9 +96,9 @@ public class PageService {
 		TimeUnit time = TimeUnit.HOURS;
 
 		List<JSONObject> urgentBuyingOrders = new ArrayList<>();
-		List<OrdersBean> buyingOrders = ordersRepository.findAllByBuyerid(userId);
+		List<Order> buyingOrders = ordersRepository.findAllByBuyerid(userId);
 		if (buyingOrders != null) {
-			for (OrdersBean order : buyingOrders) {
+			for (Order order : buyingOrders) {
 				String orderId = order.getOrderid();
 				// 找出單筆訂單所有產品名稱
 				List<String> productNameSpecs = view_product_order_orderdetailsRepository
@@ -178,9 +178,9 @@ public class PageService {
 		TimeUnit time = TimeUnit.HOURS;
 
 		List<JSONObject> urgentSellingOrders = new ArrayList<>();
-		List<OrdersBean> sellingOrders = ordersRepository.findAllBySellerid(userId);
+		List<Order> sellingOrders = ordersRepository.findAllBySellerid(userId);
 		if (sellingOrders != null) {
-			for (OrdersBean order : sellingOrders) {
+			for (Order order : sellingOrders) {
 				String orderId = order.getOrderid();
 				// 找出單筆訂單所有產品名稱
 				List<String> productNameSpecs = view_product_order_orderdetailsRepository

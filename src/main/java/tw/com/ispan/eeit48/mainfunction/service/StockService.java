@@ -3,8 +3,8 @@ package tw.com.ispan.eeit48.mainfunction.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tw.com.ispan.eeit48.mainfunction.model.ProductBean;
-import tw.com.ispan.eeit48.mainfunction.model.SupplierProductForOwnerProductBean;
+import tw.com.ispan.eeit48.mainfunction.model.table.Product;
+import tw.com.ispan.eeit48.mainfunction.model.table.SupplierProductForOwnerProduct;
 import tw.com.ispan.eeit48.mainfunction.requestResponse.model.request.ProductRequest;
 import tw.com.ispan.eeit48.mainfunction.repository.ProductRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.SupplierProductForOwnerProductRepository;
@@ -19,8 +19,8 @@ public class StockService {
 	private SupplierProductForOwnerProductRepository supplierProductForOwnerProductRepository;
 
 	public void insertNewStock(ProductRequest request) {
-		ProductBean productInfo = request.getProductInfo();
-		SupplierProductForOwnerProductBean supplierInfo = request.getSupplierInfo();
+		Product productInfo = request.getProductInfo();
+		SupplierProductForOwnerProduct supplierInfo = request.getSupplierInfo();
 		int userId = getCurrentUserId();
 
 		int newProductId;
@@ -41,7 +41,7 @@ public class StockService {
 	}
 
 	public void updateStock(ProductRequest request) {
-		ProductBean productInfo = request.getProductInfo();
+		Product productInfo = request.getProductInfo();
 		Integer productId = productInfo.getProductId();
 
 		if (productId != null) {

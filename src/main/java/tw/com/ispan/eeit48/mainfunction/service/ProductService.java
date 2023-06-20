@@ -5,9 +5,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tw.com.ispan.eeit48.mainfunction.model.ProductBean;
-import tw.com.ispan.eeit48.mainfunction.model.View_ProductOrder_OrderDetails_Bean;
-import tw.com.ispan.eeit48.mainfunction.model.SupplierProductForOwnerProductBean;
+import tw.com.ispan.eeit48.mainfunction.model.table.Product;
+import tw.com.ispan.eeit48.mainfunction.model.view.ProductOrder_OrderDetail;
+import tw.com.ispan.eeit48.mainfunction.model.table.SupplierProductForOwnerProduct;
 import tw.com.ispan.eeit48.mainfunction.repository.AccountsRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.ProductRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.SupplierProductForOwnerProductRepository;
@@ -25,8 +25,8 @@ public class ProductService {
 	private SupplierProductForOwnerProductRepository supplierProductForOwnerProductRepository;
 
 	// 以商品OwnerId找: 產品資訊
-	public List<ProductBean> findProductByOwnerid(int OwnerId) {
-		List<ProductBean> beans = productRepository.findAllByOwnerIdByOrderByOwnerIdDesc(OwnerId);
+	public List<Product> findProductByOwnerid(int OwnerId) {
+		List<Product> beans = productRepository.findAllByOwnerIdByOrderByOwnerIdDesc(OwnerId);
 		if (!beans.isEmpty()) {
 			return beans;
 		}
@@ -35,13 +35,13 @@ public class ProductService {
 
 	// 以商品ID找: 被訂購量(orderedQty)(接單狀態為3~5的總數)
 	public int findOrderedQtyByProductId(int productId) {
-		List<View_ProductOrder_OrderDetails_Bean> beans = view_product_order_orderdetailsRepository
+		List<ProductOrder_OrderDetail> beans = view_product_order_orderdetailsRepository
 				.findAllByProductidAndOrderstatusBetween(productId, 3, 5);
 		// 裝所有被訂購的數量
 		int a = 0;
 		if (!beans.isEmpty()) {
 			JSONArray lista = new JSONArray();
-			for (View_ProductOrder_OrderDetails_Bean bean : beans) {
+			for (ProductOrder_OrderDetail bean : beans) {
 				lista.put(bean.toJsonObject());
 			}
 			for (int i = 0; i < lista.length(); i++) {
@@ -72,19 +72,19 @@ public class ProductService {
 		// 裝所有訂購的數量
 		int a = 0;
 		// 以使用者產品ID搜出供應商產品ID
-		List<SupplierProductForOwnerProductBean> supplierProductIdBeans = supplierProductForOwnerProductRepository
+		List<SupplierProductForOwnerProduct> supplierProductIdBeans = supplierProductForOwnerProductRepository
 				.findAllByProductid(productId);
 
 		if (!supplierProductIdBeans.isEmpty()) {
-			for (SupplierProductForOwnerProductBean supplierProductIdbean : supplierProductIdBeans) {
+			for (SupplierProductForOwnerProduct supplierProductIdbean : supplierProductIdBeans) {
 				if (supplierProductIdbean.getSupplierproductid() != null) {
 					// 以供應商產品ID搜尋訂購數量
-					List<View_ProductOrder_OrderDetails_Bean> beans = view_product_order_orderdetailsRepository
+					List<ProductOrder_OrderDetail> beans = view_product_order_orderdetailsRepository
 							.findAllByProductidAndOrderstatusBetween(supplierProductIdbean.getSupplierproductid(), 2,
 									5);
 					if (!beans.isEmpty()) {
 						JSONArray lista = new JSONArray();
-						for (View_ProductOrder_OrderDetails_Bean bean : beans) {
+						for (ProductOrder_OrderDetail bean : beans) {
 							if (bean != null) {
 								lista.put(bean.toJsonObject());
 							}
@@ -121,7 +121,7 @@ public class ProductService {
 
 	// 以使用者產品ID查找: 供應商資訊
 	public JSONObject findSupplierObjectByOwnerProductId(int ownerProductId) {
-		SupplierProductForOwnerProductBean supplier = supplierProductForOwnerProductRepository
+		SupplierProductForOwnerProduct supplier = supplierProductForOwnerProductRepository
 				.findOneByProductid(ownerProductId);
 		JSONObject supplierJsonObject = null;
 		if (supplier != null) {

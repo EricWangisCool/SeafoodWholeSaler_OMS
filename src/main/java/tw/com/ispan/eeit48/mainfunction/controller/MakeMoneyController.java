@@ -19,9 +19,9 @@ public class MakeMoneyController {
 		try {
 			JSONObject jsonObject = new JSONObject(body);
 			return makeMoneyService.ShowAll(
-					(String) jsonObject.get("ordertime"),
-					(String) jsonObject.get("completeordertime"),
-					(int) jsonObject.get("buyerid")
+					(String) jsonObject.get("orderTime"),
+					(String) jsonObject.get("completeOrderTime"),
+					(int) jsonObject.get("buyerId")
 			);
 		} catch (Exception e) {
 			return "NG";
