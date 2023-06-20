@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tw.com.ispan.eeit48.mainfunction.model.table.Product;
 import tw.com.ispan.eeit48.mainfunction.model.table.SupplierProductForOwnerProduct;
-import tw.com.ispan.eeit48.mainfunction.requestResponse.model.request.ProductRequest;
+import tw.com.ispan.eeit48.common.util.dto.request.ProductRequest;
 import tw.com.ispan.eeit48.mainfunction.repository.ProductRepository;
 import tw.com.ispan.eeit48.mainfunction.repository.SupplierProductForOwnerProductRepository;
 import static tw.com.ispan.eeit48.mainfunction.service.AuthService.getCurrentUserId;

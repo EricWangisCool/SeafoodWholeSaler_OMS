@@ -1,4 +1,4 @@
-package tw.com.ispan.eeit48.mainfunction.requestResponse.model.response;
+package tw.com.ispan.eeit48.common.util.dto.response;
 
 public class CommonResponse {
     Object data;

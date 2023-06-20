@@ -1,4 +1,4 @@
-package tw.com.ispan.eeit48.mainfunction.requestResponse.model.request;
+package tw.com.ispan.eeit48.common.util.dto.request;
 
 import tw.com.ispan.eeit48.mainfunction.model.table.Product;
 import tw.com.ispan.eeit48.mainfunction.model.table.SupplierProductForOwnerProduct;

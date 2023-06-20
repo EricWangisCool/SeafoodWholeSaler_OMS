@@ -1,8 +1,8 @@
-package tw.com.ispan.eeit48.mainfunction.requestResponse;
+package tw.com.ispan.eeit48.common.util;
 
-import tw.com.ispan.eeit48.mainfunction.requestResponse.model.response.CommonResponse;
-import tw.com.ispan.eeit48.mainfunction.requestResponse.model.response.Exception;
-import tw.com.ispan.eeit48.mainfunction.requestResponse.model.response.StatusInfo;
+import tw.com.ispan.eeit48.common.util.dto.response.CommonResponse;
+import tw.com.ispan.eeit48.common.util.dto.response.Exception;
+import tw.com.ispan.eeit48.common.util.dto.response.StatusInfo;
 
 public class RequestResponseUtil {
     public enum ErrorFrom {

@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tw.com.ispan.eeit48.mainfunction.requestResponse.model.request.ProductRequest;
+import tw.com.ispan.eeit48.common.util.dto.request.ProductRequest;
 import tw.com.ispan.eeit48.mainfunction.service.StockService;
-import tw.com.ispan.eeit48.mainfunction.requestResponse.RequestResponseUtil;
-import static tw.com.ispan.eeit48.mainfunction.requestResponse.RequestResponseUtil.*;
+import tw.com.ispan.eeit48.common.util.RequestResponseUtil;
+import static tw.com.ispan.eeit48.common.util.RequestResponseUtil.*;
 
 /**
  *  將庫存資訊 & 庫存補貨廠商資訊 進行CRUD
