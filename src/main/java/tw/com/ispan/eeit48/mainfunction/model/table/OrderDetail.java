@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicUpdate;
-import tw.com.ispan.eeit48.mainfunction.model.pk.OrderDetailsPK;
+import tw.com.ispan.eeit48.mainfunction.model.table.pk.OrderDetailsPK;
 
 @Entity
 @Table(name = "t_order_details")

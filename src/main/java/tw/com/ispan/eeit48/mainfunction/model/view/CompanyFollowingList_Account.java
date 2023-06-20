@@ -8,7 +8,7 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Immutable;
-import tw.com.ispan.eeit48.mainfunction.model.pk.CompanyFollowingList_AccountPK;
+import tw.com.ispan.eeit48.mainfunction.model.view.pk.CompanyFollowingList_AccountPK;
 
 @Entity
 @Immutable
