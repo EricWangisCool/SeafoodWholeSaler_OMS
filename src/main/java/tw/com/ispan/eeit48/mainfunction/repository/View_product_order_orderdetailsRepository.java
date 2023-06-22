@@ -17,7 +17,11 @@ public interface View_product_order_orderdetailsRepository extends PagingAndSort
 
 	List<ProductOrder_OrderDetail> findAllByOrderid(String orderId);
 
-	@Query(value = "SELECT productnamespec FROM view_product_order_orderdetails WHERE orderid = ?1", nativeQuery = true)
+	@Query(value = """
+			SELECT productnamespec 
+			FROM view_product_order_orderdetails 
+			WHERE orderid = ?1
+			""", nativeQuery = true)
 	List<String> findProductnamespecByOrderid(String orderId);
 
 	List<ProductOrder_OrderDetail> findAllByOrderidAndOwnerid(String orderid, int accountid);
