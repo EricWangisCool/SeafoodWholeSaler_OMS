@@ -17,43 +17,43 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	boolean existsById(int id);
 
 	@Query(value = """
-			SELECT productNameSpec
-			  FROM Product
-			 WHERE productId = ?1
+			SELECT product_name_spec
+			  FROM t_product
+			 WHERE product_id = ?1
 			"""
 			, nativeQuery = true)
 	String findProductNameSpecByProductId(Integer productId);
 
 	@Query(value = """
-			SELECT stockQty		
-			  FROM Product  		
-			 WHERE productId = ?1	
+			SELECT stock_qty		
+			  FROM t_product  		
+			 WHERE product_id = ?1	
 			"""
 			, nativeQuery = true)
 	int findStockQtyByProductId(Integer productId);
 
 	@Query(value = """
-			SELECT safeQty         
-			  FROM Product 			
-			 WHERE productId = ?1	
+			SELECT safe_qty         
+			  FROM t_product 			
+			 WHERE product_id = ?1	
 			"""
 			, nativeQuery = true)
 	Integer findSafeQtyByProductId(Integer productId);
 
 	@Query(value = """
 			SELECT * 				 
-			  FROM Product 		     
-			 WHERE ownerId = ?1 	 
-			 ORDER BY productId DESC 
+			  FROM t_product 		     
+			 WHERE owner_id = ?1 	 
+			 ORDER BY product_id DESC 
 			"""
 			, nativeQuery = true)
 	List<Product> findAllByOwnerIdByOrderByOwnerIdDesc(int ownerId);
 
 	@Query(value = """
-            SELECT productId 
-              FROM Product 
-             WHERE ownerId = ?1 
-             ORDER BY ProductId DESC 
+            SELECT product_id 
+              FROM t_product 
+             WHERE owner_id = ?1 
+             ORDER BY Product_id DESC 
              LIMIT 1
              """
 			, nativeQuery = true)

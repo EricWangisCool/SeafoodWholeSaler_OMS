@@ -9,21 +9,21 @@ import tw.com.ispan.eeit48.mainfunction.model.view.ProductOrder_OrderDetail;
 @Repository
 public interface View_product_order_orderdetailsRepository extends PagingAndSortingRepository<ProductOrder_OrderDetail, Integer> {
 
-	List<ProductOrder_OrderDetail> findAllByProductid(int productid);
+	List<ProductOrder_OrderDetail> findAllByProductId(int productId);
 
-	List<ProductOrder_OrderDetail> findAllByProductidAndOrderstatusBetween(int productid, int x, int y);
+	List<ProductOrder_OrderDetail> findAllByProductIdAndOrderstatusBetween(int productId, int x, int y);
 
-	List<ProductOrder_OrderDetail> findAllByOwneridAndOrderstatusBetween(Integer accountid, int x, int y);
+	List<ProductOrder_OrderDetail> findAllByOwnerIdAndOrderstatusBetween(Integer accountId, int x, int y);
 
-	List<ProductOrder_OrderDetail> findAllByOrderid(String orderId);
+	List<ProductOrder_OrderDetail> findAllByOrderId(String orderId);
 
 	@Query(value = """
-			SELECT productnamespec 
-			FROM view_product_order_orderdetails 
-			WHERE orderid = ?1
+			SELECT product_names_pec 
+			FROM v_product_order_order_details 
+			WHERE order_id = ?1
 			""", nativeQuery = true)
-	List<String> findProductnamespecByOrderid(String orderId);
+	List<String> findProductNameSpecByOrderId(String orderId);
 
-	List<ProductOrder_OrderDetail> findAllByOrderidAndOwnerid(String orderid, int accountid);
+	List<ProductOrder_OrderDetail> findAllByOrderIdAndOwnerId(String orderId, int accountId);
 
 }

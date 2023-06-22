@@ -10,6 +10,6 @@ import tw.com.ispan.eeit48.mainfunction.model.table.OrderDetail;
 @Repository
 public interface OrderDetailsRepositrory extends JpaRepository<OrderDetail, String> {
 
-	List<OrderDetail> findAllByOrderid(String orderid);
+	List<OrderDetail> findAllByOrderId(String orderId);
 
 }

@@ -8,22 +8,22 @@ import tw.com.ispan.eeit48.mainfunction.model.table.Order;
 
 @Repository
 public interface OrdersRepository extends JpaRepository<Order, String> {
-	List<Order> findAllBySellerid(int sellerid);
+	List<Order> findAllBySellerId(int sellerId);
 
-	List<Order> findAllByBuyerid(int userId);
+	List<Order> findAllByBuyerId(int userId);
 
-	Order findOneByOrderid(String orderId);
+	Order findOneByOrderId(String orderId);
 
-	List<Order> findAllByOrderid(String orderid);
+	List<Order> findAllByOrderId(String orderId);
 
-	void deleteByOrderid(String orderid);
+	void deleteByOrderId(String orderId);
 
-	List<Order> findAllBySelleridAndBuyeridAndOrderstatusAndOrdertimeBetweenAndCompleteordertimeBetween(
-			Integer accountid, int buyerida, int i, Date dateofOrdertime, Date dateofCompleteOrdertime,
-			Date dateofOrdertime2, Date dateofCompleteOrdertime2);
+	List<Order> findAllBySellerIdAndBuyerIdAndOrderStatusAndOrderTimeBetweenAndCompleteOrderTimeBetween(
+			Integer accountId, int buyerId, int i, Date dateofOrderTime, Date dateofCompleteOrderTime,
+			Date dateofOrderTime2, Date dateofCompleteOrderTime2);
 
-	List<Order> findAllBySelleridAndOrderstatusAndOrdertimeBetweenAndCompleteordertimeBetween(Integer accountid,
-																							  int i, Date dateofOrdertime, Date dateofCompleteOrdertime, Date dateofOrdertime2,
-																							  Date dateofCompleteOrdertime2);
+	List<Order> findAllBySellerIdAndOrderStatusAndOrderTimeBetweenAndCompleteOrdertimeBetween(Integer accountId,
+																							  int i, Date dateofOrderTime, Date dateofCompleteOrderTime, Date dateofOrderTime2,
+																							  Date dateofCompleteOrderTime2);
 
 }

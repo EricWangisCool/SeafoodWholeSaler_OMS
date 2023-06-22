@@ -8,6 +8,6 @@ import tw.com.ispan.eeit48.mainfunction.model.table.CompanyFollowingList;
 @Repository
 public interface CompanyFollowingListRepository extends JpaRepository<CompanyFollowingList, Integer> {
 	
-	List<CompanyFollowingList> findAllByBuyerid(int buyerid);
+	List<CompanyFollowingList> findAllByBuyerId(int buyerId);
 	
 }

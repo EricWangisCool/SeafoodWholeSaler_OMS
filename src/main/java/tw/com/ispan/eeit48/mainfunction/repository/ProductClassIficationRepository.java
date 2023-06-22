@@ -8,6 +8,6 @@ import tw.com.ispan.eeit48.mainfunction.model.table.ProductClassification;
 @Repository
 public interface ProductClassIficationRepository extends JpaRepository<ProductClassification, Integer> {
 
-	List<ProductClassification> findAllByClassid(int i);
+	List<ProductClassification> findAllByClassId(int classId);
 
 }

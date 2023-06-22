@@ -23,16 +23,16 @@ public interface AccountsRepository extends JpaRepository<Account, Integer> {
 	Account findOneByAccountid(int accountId);
 
 	@Query(value = """
-			SELECT companyname 
-			FROM accounts 
-			WHERE accountid = ?1
+			SELECT company_name 
+			FROM t_accounts 
+			WHERE account_id = ?1
 			""", nativeQuery = true)
 	String findCompanynameByAccountid(int accountId);
 
 	@Query(value = """
 			SELECT email 
-			FROM accounts 
-			WHERE accountid = ?1
+			FROM t_accounts 
+			WHERE account_id = ?1
 			""", nativeQuery = true)
 	String findEmailByAccountid(int accountId);
 

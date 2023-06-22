@@ -12,12 +12,12 @@ public interface SupplierProductForOwnerProductRepository extends JpaRepository<
 	List<SupplierProductForOwnerProduct> findAllByProductid(int productId);
 
 	@Query(value = """
-			SELECT productid 
-			FROM supplierproductforownerproduct 
-			WHERE supplierproductid = ?1
+			SELECT product_id 
+			FROM t_supplier_product_for_owner_product 
+			WHERE supplier_product_id = ?1
 			""", nativeQuery = true)
 	List<Integer> findProductIdBySupplierProductId(Integer supplierProductId);
 
-	SupplierProductForOwnerProduct findOneByProductid(int ownerProductId);
+	SupplierProductForOwnerProduct findOneByProductId(int ownerProductId);
 
 }
