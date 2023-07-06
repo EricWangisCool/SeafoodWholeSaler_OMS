@@ -1,19 +1,33 @@
 package tw.com.ispan.eeit48.common.util;
 
-import tw.com.ispan.eeit48.common.util.dto.response.CommonResponse;
-import tw.com.ispan.eeit48.common.util.dto.response.Exception;
-import tw.com.ispan.eeit48.common.util.dto.response.StatusInfo;
+import tw.com.ispan.eeit48.common.dto.response.CommonResponse;
+import tw.com.ispan.eeit48.common.dto.response.Exception;
+import tw.com.ispan.eeit48.common.dto.response.StatusInfo;
 
 public class RequestResponseUtil {
     public enum ErrorFrom {
-        API, // API 调用失败(请求发送失败)的错误, 例如 A100 表示 URL 非法
-        HTTP, // HTTP 异常状态的错误, 例如 H404 表示 HTTP 请求404错误
-        BACKEND_OR_BUSINESS, // 接口调用失败的错误, 例如 B100 业务A错误, B200 业务B错误
-        CLIENT // 客户端错误, 例如 C100 表示解析 JSON 失败
+        API("A"), // API 调用失败(请求发送失败)的错误, 例如 A100 表示 URL 非法
+        HTTP("H"), // HTTP 异常状态的错误, 例如 H404 表示 HTTP 请求404错误
+        BACKEND_OR_BUSINESS("B"), // 接口调用失败的错误, 例如 B100 业务A错误, B101 业务B错误
+        CLIENT("C"); // 客户端错误, 例如 C100 表示解析 JSON 失败
+        private final String errorFromCode;
+        ErrorFrom(String errorFrom) {this.errorFromCode = errorFrom; }
+        public String getErrorFromCode() {
+            return errorFromCode;
+        }
     }
 
+    /**
+     * Error from which controller, StockController for example will be 'STOCK'
+     */
     public enum BusinessType {
-        STOCK // StockAPIController
+        STOCK("10"),
+        EC_PAY("20");
+        private final String businessTypeCode;
+        BusinessType(String businessType) {this.businessTypeCode = businessType; }
+        public String getBusinessTypeCode() {
+            return businessTypeCode;
+        }
     }
 
 
@@ -31,23 +45,13 @@ public class RequestResponseUtil {
 
     /**
      *  如果需要將資料傳給前端，就提供物件參數，否則由方法自動產生
-     *  @Param errorFrom - 哪層出錯
-     *  @Param businessType - 哪個接口调用失败
+     *  @Param errorFromCode - 哪層出錯
+     *  @Param businessTypeCode - 哪個接口调用失败
      *  @Param exceptionStr - exception字串
      */
-    public static CommonResponse createErrorResponse(ErrorFrom errorFrom, BusinessType businessType, String exceptionStr) {
+    public static CommonResponse createErrorResponse(String errorFromCode, String businessTypeCode, String exceptionStr) {
         CommonResponse response = new CommonResponse();
-        String status = "";
-        switch (errorFrom) {
-            case BACKEND_OR_BUSINESS -> status += "B";
-            case API -> status += "A";
-            case HTTP -> status += "H";
-            case CLIENT -> status += "C";
-        }
-        switch (businessType) {
-            case STOCK -> status += "100";
-        }
-        response.setStatus(status);
+        response.setStatus(errorFromCode + businessTypeCode);
 
         Exception exception = new Exception();
         exception.setException(exceptionStr);

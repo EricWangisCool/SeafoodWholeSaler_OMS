@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- 主機： localhost:3306
--- 產生時間： 2023-06-16 16:40:35
--- 伺服器版本： 5.7.24
--- PHP 版本： 8.0.1
+-- Host: localhost:8889
+-- Generation Time: Jun 23, 2023 at 06:04 AM
+-- Server version: 5.7.34
+-- PHP Version: 7.4.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 資料庫: `nsy`
+-- Database: `nsy`
 --
 
 CREATE DATABASE `nsy`;
@@ -30,13 +30,13 @@ GRANT ALL PRIVILEGES ON nsy.* TO 'root'@'%';
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `t_accounts`
+-- Table structure for table `t_accounts`
 --
 
 CREATE TABLE `t_accounts` (
   `account_id` int(11) NOT NULL,
   `account` char(30) NOT NULL,
-  `pass_w` char(255) NOT NULL,
+  `pass_word` char(255) NOT NULL,
   `company_phone` char(30) NOT NULL,
   `company_name` char(60) NOT NULL,
   `tax_id` char(20) DEFAULT NULL,
@@ -53,10 +53,10 @@ CREATE TABLE `t_accounts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 傾印資料表的資料 `t_accounts`
+-- Dumping data for table `t_accounts`
 --
 
-INSERT INTO `t_accounts` (`account_id`, `account`, `pass_w`, `company_phone`, `company_name`, `tax_id`, `address`, `email`, `contact_person`, `contact_person_num`, `fax`, `bank_account`, `bank_name`, `bank_swift_code`, `line_account`, `authority`) VALUES
+INSERT INTO `t_accounts` (`account_id`, `account`, `pass_word`, `company_phone`, `company_name`, `tax_id`, `address`, `email`, `contact_person`, `contact_person_num`, `fax`, `bank_account`, `bank_name`, `bank_swift_code`, `line_account`, `authority`) VALUES
 (1, 'foo1234', '$2a$10$9NqBtZU4CXP4VPCwi131keJF.M0fZTQ2zE5kvuugvS2ypJ.vSZqTS', '04-22125864', '極鮮家', '99115599', '台中市南屯區公益路二段115號', 'foo1234@gmail.com', '黃楷綸', '0987654321', '04-23265860', '12345678914524', '台北富邦', '012', 'foo12341234', 'ROLE_BOSS'),
 (2, 'eric2345', '$2a$10$erJabeym6V.03C7tR3obsOeNnb/w2R056WY/mBOOtKNxYurCaBh56', '04-21387891', '千萬屋', '88314578', '台中市西屯區至善路211號', 'eric2345@gmail.com', '王小明', '0988969123', '04-23365555', '98765432142579', '中國信託', '822', 'eric23452345', 'ROLE_BOSS'),
 (3, 'dou3456', '$2a$10$7p0VvmCp85fTUx6up18QKOceikJ8qN9Uh5F2QD8ymW4kW0nWUTj7.', '04-23899612', '魚吃魚海產', '92414562', '台中市北屯區文心路四段702號', 'dou3456@gmail.com', '豆郭興', '0968666999', '04-22127517', '54789632146972', '台新銀行', '812', 'dou34563456', 'ROLE_BOSS'),
@@ -66,7 +66,7 @@ INSERT INTO `t_accounts` (`account_id`, `account`, `pass_w`, `company_phone`, `c
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `t_auto_order_confirm_function_status`
+-- Table structure for table `t_auto_order_confirm_function_status`
 --
 
 CREATE TABLE `t_auto_order_confirm_function_status` (
@@ -75,7 +75,7 @@ CREATE TABLE `t_auto_order_confirm_function_status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 傾印資料表的資料 `t_auto_order_confirm_function_status`
+-- Dumping data for table `t_auto_order_confirm_function_status`
 --
 
 INSERT INTO `t_auto_order_confirm_function_status` (`status_id`, `status`) VALUES
@@ -87,7 +87,7 @@ INSERT INTO `t_auto_order_confirm_function_status` (`status_id`, `status`) VALUE
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `t_company_following_list`
+-- Table structure for table `t_company_following_list`
 --
 
 CREATE TABLE `t_company_following_list` (
@@ -96,7 +96,7 @@ CREATE TABLE `t_company_following_list` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 傾印資料表的資料 `t_company_following_list`
+-- Dumping data for table `t_company_following_list`
 --
 
 INSERT INTO `t_company_following_list` (`buyer_id`, `seller_id`) VALUES
@@ -112,7 +112,7 @@ INSERT INTO `t_company_following_list` (`buyer_id`, `seller_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `t_orders`
+-- Table structure for table `t_orders`
 --
 
 CREATE TABLE `t_orders` (
@@ -132,7 +132,7 @@ CREATE TABLE `t_orders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 傾印資料表的資料 `t_orders`
+-- Dumping data for table `t_orders`
 --
 
 INSERT INTO `t_orders` (`order_id`, `buyer_id`, `seller_id`, `order_status`, `payment_terms`, `delivery_order_id`, `delivery_order_remark`, `order_time`, `accept_order_time`, `export_time`, `arrive_order_time`, `complete_order_time`, `cancel_order_time`) VALUES
@@ -169,7 +169,7 @@ INSERT INTO `t_orders` (`order_id`, `buyer_id`, `seller_id`, `order_status`, `pa
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `t_order_details`
+-- Table structure for table `t_order_details`
 --
 
 CREATE TABLE `t_order_details` (
@@ -180,7 +180,7 @@ CREATE TABLE `t_order_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 傾印資料表的資料 `t_order_details`
+-- Dumping data for table `t_order_details`
 --
 
 INSERT INTO `t_order_details` (`order_id`, `seller_product_id`, `order_qty`, `unit_deal_price`) VALUES
@@ -230,7 +230,7 @@ INSERT INTO `t_order_details` (`order_id`, `seller_product_id`, `order_qty`, `un
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `t_order_status`
+-- Table structure for table `t_order_status`
 --
 
 CREATE TABLE `t_order_status` (
@@ -239,7 +239,7 @@ CREATE TABLE `t_order_status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 傾印資料表的資料 `t_order_status`
+-- Dumping data for table `t_order_status`
 --
 
 INSERT INTO `t_order_status` (`status_id`, `status`) VALUES
@@ -254,7 +254,7 @@ INSERT INTO `t_order_status` (`status_id`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `t_product`
+-- Table structure for table `t_product`
 --
 
 CREATE TABLE `t_product` (
@@ -277,7 +277,7 @@ CREATE TABLE `t_product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 傾印資料表的資料 `t_product`
+-- Dumping data for table `t_product`
 --
 
 INSERT INTO `t_product` (`product_id`, `owner_id`, `product_name_spec`, `product_pic`, `product_classification`, `unit_cost`, `stock_qty`, `warning_qty`, `auto_order_function`, `safe_qty`, `unit_sell_price`, `min_sell_qty`, `product_desc`, `on_shelf`, `auto_order_confirm_function_status`, `reserved_qty`) VALUES
@@ -308,7 +308,7 @@ INSERT INTO `t_product` (`product_id`, `owner_id`, `product_name_spec`, `product
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `t_product_classification`
+-- Table structure for table `t_product_classification`
 --
 
 CREATE TABLE `t_product_classification` (
@@ -317,7 +317,7 @@ CREATE TABLE `t_product_classification` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 傾印資料表的資料 `t_product_classification`
+-- Dumping data for table `t_product_classification`
 --
 
 INSERT INTO `t_product_classification` (`class_id`, `class_desc`) VALUES
@@ -330,7 +330,7 @@ INSERT INTO `t_product_classification` (`class_id`, `class_desc`) VALUES
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `t_supplier_product_for_owner_product`
+-- Table structure for table `t_supplier_product_for_owner_product`
 --
 
 CREATE TABLE `t_supplier_product_for_owner_product` (
@@ -340,7 +340,7 @@ CREATE TABLE `t_supplier_product_for_owner_product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 傾印資料表的資料 `t_supplier_product_for_owner_product`
+-- Dumping data for table `t_supplier_product_for_owner_product`
 --
 
 INSERT INTO `t_supplier_product_for_owner_product` (`product_id`, `supplier_product_id`, `supplier_id`) VALUES
@@ -360,7 +360,7 @@ INSERT INTO `t_supplier_product_for_owner_product` (`product_id`, `supplier_prod
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `t_system_notice_message`
+-- Table structure for table `t_system_notice_message`
 --
 
 CREATE TABLE `t_system_notice_message` (
@@ -371,7 +371,7 @@ CREATE TABLE `t_system_notice_message` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- 傾印資料表的資料 `t_system_notice_message`
+-- Dumping data for table `t_system_notice_message`
 --
 
 INSERT INTO `t_system_notice_message` (`message_id`, `message_content`, `receiver_id`, `message_read`) VALUES
@@ -384,11 +384,11 @@ INSERT INTO `t_system_notice_message` (`message_id`, `message_content`, `receive
 -- --------------------------------------------------------
 
 --
--- 替換檢視表以便查看 `view_companyfollowinglist_accounts`
--- (請參考以下實際畫面)
+-- Stand-in structure for view `v_company_following_list_accounts`
+-- (See below for the actual view)
 --
 CREATE TABLE `v_company_following_list_accounts` (
-  `buyer_id` int(11)
+`buyer_id` int(11)
 ,`seller_id` int(11)
 ,`company_name` char(60)
 ,`company_phone` char(30)
@@ -407,12 +407,12 @@ CREATE TABLE `v_company_following_list_accounts` (
 -- --------------------------------------------------------
 
 --
--- 替換檢視表以便查看 `view_product_order_orderdetails`
--- (請參考以下實際畫面)
+-- Stand-in structure for view `v_product_order_order_details`
+-- (See below for the actual view)
 --
 CREATE TABLE `v_product_order_order_details` (
-  `product_id` int(11)
-,`Ccmpany_name` char(60)
+`product_id` int(11)
+,`company_name` char(60)
 ,`order_id` char(60)
 ,`order_status` int(11)
 ,`owner_id` int(11)
@@ -431,7 +431,7 @@ CREATE TABLE `v_product_order_order_details` (
 ,`export_time` datetime
 ,`arrive_order_time` datetime
 ,`complete_order_time` datetime
-,`cancel_ordertime` datetime
+,`cancel_order_time` datetime
 ,`auto_order_function` char(30)
 ,`unit_sell_price` int(11)
 ,`min_sell_qty` int(11)
@@ -445,47 +445,47 @@ CREATE TABLE `v_product_order_order_details` (
 -- --------------------------------------------------------
 
 --
--- 檢視表結構 `v_company_following_list_accounts`
+-- Structure for view `v_company_following_list_accounts`
 --
 DROP TABLE IF EXISTS `v_company_following_list_accounts`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_company_following_list_accounts`  AS SELECT `t_company_following_list`.`buyer_id` AS `buyer_id`, `t_company_following_list`.`seller_id` AS `seller_id`, `t_accounts`.`company_name` AS `company_name`, `t_accounts`.`company_phone` AS `company_phone`, `t_accounts`.`tax_id` AS `tax_id`, `t_accounts`.`address` AS `address`, `t_accounts`.`email` AS `email`, `t_accounts`.`contact_person` AS `contact_person`, `t_accounts`.`contact_person_num` AS `contact_person_num`, `t_accounts`.`fax` AS `fax`, `t_accounts`.`bank_account` AS `bank_account`, `t_accounts`.`bank_name` AS `bank_name`, `t_accounts`.`bank_swift_code` AS `bank_swift_code`, `t_accounts`.`line_account` AS `line_account` FROM (`t_company_following_list` left join `t_accounts` on((`t_company_following_list`.`seller_id` = `t_accounts`.`account_id`)))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_company_following_list_accounts`  AS SELECT `t_company_following_list`.`buyer_id` AS `buyer_id`, `t_company_following_list`.`seller_id` AS `seller_id`, `t_accounts`.`company_name` AS `company_name`, `t_accounts`.`company_phone` AS `company_phone`, `t_accounts`.`tax_id` AS `tax_id`, `t_accounts`.`address` AS `address`, `t_accounts`.`email` AS `email`, `t_accounts`.`contact_person` AS `contact_person`, `t_accounts`.`contact_person_num` AS `contact_person_num`, `t_accounts`.`fax` AS `fax`, `t_accounts`.`bank_account` AS `bank_account`, `t_accounts`.`bank_name` AS `bank_name`, `t_accounts`.`bank_swift_code` AS `bank_swift_code`, `t_accounts`.`line_account` AS `line_account` FROM (`t_company_following_list` left join `t_accounts` on((`t_company_following_list`.`seller_id` = `t_accounts`.`account_id`))) ;
 
 -- --------------------------------------------------------
 
 --
--- 檢視表結構 `v_product_order_order_details`
+-- Structure for view `v_product_order_order_details`
 --
 DROP TABLE IF EXISTS `v_product_order_order_details`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_product_order_order_details`  AS SELECT `t_product`.`product_id` AS `product_id`, `t_accounts`.`company_name` AS `company_name`, `t_orders`.`order_id` AS `order_id`, `t_orders`.`order_status` AS `order_status`, `t_product`.`owner_id` AS `owner_id`, `t_product`.`unit_cost` AS `unit_cost`, `t_product`.`stock_qty` AS `stock_qty`, `t_product`.`warning_qty` AS `warning_qty`, `t_order_details`.`order_qty` AS `order_qty`, `t_orders`.`buyer_id` AS `buyer_id`, `t_order_details`.`unit_deal_price` AS `unit_deal_price`, `t_product`.`safe_qty` AS `safe_qty`, `t_product`.`product_name_spec` AS `product_name_spec`, `t_orders`.`delivery_order_id` AS `delivery_order_id`, `t_orders`.`delivery_order_remark` AS `delivery_order_remark`, `t_orders`.`order_time` AS `order_time`, `t_orders`.`accept_order_time` AS `accept_order_time`, `t_orders`.`export_time` AS `export_time`, `t_orders`.`arrive_order_time` AS `arrive_order_time`, `t_orders`.`complete_order_time` AS `complete_order_time`, `t_orders`.`cancel_order_time` AS `cancel_order_time`, `t_product`.`auto_order_function` AS `auto_order_function`, `t_product`.`unit_sell_price` AS `unit_sell_price`, `t_product`.`min_sell_qty` AS `min_sell_qty`, `t_product`.`product_desc` AS `product_desc`, `t_product`.`on_shelf` AS `on_shelf`, `t_product`.`auto_order_confirm_function_status` AS `auto_order_confirm_function_status`, `t_product`.`reserved_qty` AS `reserved_qty`, `t_orders`.`payment_terms` AS `payment_terms` FROM (((`t_product` left join `t_order_details` on((`t_product`.`product_id` = `t_order_details`.`seller_product_id`))) left join `t_orders` on((`t_order_details`.`order_id` = `t_orders`.`order_id`))) left join `t_accounts` on((`t_orders`.`buyer_id` = `t_accounts`.`account_id`)))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_product_order_order_details`  AS SELECT `t_product`.`product_id` AS `product_id`, `t_accounts`.`company_name` AS `company_name`, `t_orders`.`order_id` AS `order_id`, `t_orders`.`order_status` AS `order_status`, `t_product`.`owner_id` AS `owner_id`, `t_product`.`unit_cost` AS `unit_cost`, `t_product`.`stock_qty` AS `stock_qty`, `t_product`.`warning_qty` AS `warning_qty`, `t_order_details`.`order_qty` AS `order_qty`, `t_orders`.`buyer_id` AS `buyer_id`, `t_order_details`.`unit_deal_price` AS `unit_deal_price`, `t_product`.`safe_qty` AS `safe_qty`, `t_product`.`product_name_spec` AS `product_name_spec`, `t_orders`.`delivery_order_id` AS `delivery_order_id`, `t_orders`.`delivery_order_remark` AS `delivery_order_remark`, `t_orders`.`order_time` AS `order_time`, `t_orders`.`accept_order_time` AS `accept_order_time`, `t_orders`.`export_time` AS `export_time`, `t_orders`.`arrive_order_time` AS `arrive_order_time`, `t_orders`.`complete_order_time` AS `complete_order_time`, `t_orders`.`cancel_order_time` AS `cancel_order_time`, `t_product`.`auto_order_function` AS `auto_order_function`, `t_product`.`unit_sell_price` AS `unit_sell_price`, `t_product`.`min_sell_qty` AS `min_sell_qty`, `t_product`.`product_desc` AS `product_desc`, `t_product`.`on_shelf` AS `on_shelf`, `t_product`.`auto_order_confirm_function_status` AS `auto_order_confirm_function_status`, `t_product`.`reserved_qty` AS `reserved_qty`, `t_orders`.`payment_terms` AS `payment_terms` FROM (((`t_product` left join `t_order_details` on((`t_product`.`product_id` = `t_order_details`.`seller_product_id`))) left join `t_orders` on((`t_order_details`.`order_id` = `t_orders`.`order_id`))) left join `t_accounts` on((`t_orders`.`buyer_id` = `t_accounts`.`account_id`))) ;
 
 --
--- 已傾印資料表的索引
+-- Indexes for dumped tables
 --
 
 --
--- 資料表索引 `t_accounts`
+-- Indexes for table `t_accounts`
 --
 ALTER TABLE `t_accounts`
   ADD PRIMARY KEY (`account_id`),
   ADD UNIQUE KEY `Account` (`account`);
 
 --
--- 資料表索引 `t_auto_order_confirm_function_status`
+-- Indexes for table `t_auto_order_confirm_function_status`
 --
 ALTER TABLE `t_auto_order_confirm_function_status`
   ADD PRIMARY KEY (`status_id`);
 
 --
--- 資料表索引 `t_company_following_list`
+-- Indexes for table `t_company_following_list`
 --
 ALTER TABLE `t_company_following_list`
   ADD PRIMARY KEY (`buyer_id`,`seller_id`),
   ADD KEY `SellerFollowFk` (`seller_id`);
 
 --
--- 資料表索引 `t_orders`
+-- Indexes for table `t_orders`
 --
 ALTER TABLE `t_orders`
   ADD PRIMARY KEY (`order_id`),
@@ -494,20 +494,20 @@ ALTER TABLE `t_orders`
   ADD KEY `Fkseller_id` (`seller_id`);
 
 --
--- 資料表索引 `t_order_details`
+-- Indexes for table `t_order_details`
 --
 ALTER TABLE `t_order_details`
   ADD PRIMARY KEY (`order_id`,`seller_product_id`),
   ADD KEY `FkSellerProductId` (`seller_product_id`);
 
 --
--- 資料表索引 `t_order_status`
+-- Indexes for table `t_order_status`
 --
 ALTER TABLE `t_order_status`
   ADD PRIMARY KEY (`status_id`);
 
 --
--- 資料表索引 `t_product`
+-- Indexes for table `t_product`
 --
 ALTER TABLE `t_product`
   ADD PRIMARY KEY (`product_id`),
@@ -516,13 +516,13 @@ ALTER TABLE `t_product`
   ADD KEY `cahainclass` (`product_classification`);
 
 --
--- 資料表索引 `t_product_classification`
+-- Indexes for table `t_product_classification`
 --
 ALTER TABLE `t_product_classification`
   ADD PRIMARY KEY (`class_id`);
 
 --
--- 資料表索引 `t_supplier_product_for_owner_product`
+-- Indexes for table `t_supplier_product_for_owner_product`
 --
 ALTER TABLE `t_supplier_product_for_owner_product`
   ADD PRIMARY KEY (`product_id`,`supplier_product_id`),
@@ -531,59 +531,59 @@ ALTER TABLE `t_supplier_product_for_owner_product`
   ADD KEY `chain2` (`supplier_product_id`);
 
 --
--- 資料表索引 `t_system_notice_message`
+-- Indexes for table `t_system_notice_message`
 --
 ALTER TABLE `t_system_notice_message`
   ADD PRIMARY KEY (`message_id`),
   ADD KEY `NoticeFk` (`receiver_id`);
 
 --
--- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `t_accounts`
+-- AUTO_INCREMENT for table `t_accounts`
 --
 ALTER TABLE `t_accounts`
   MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `t_auto_order_confirm_function_status`
+-- AUTO_INCREMENT for table `t_auto_order_confirm_function_status`
 --
 ALTER TABLE `t_auto_order_confirm_function_status`
   MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `t_order_status`
+-- AUTO_INCREMENT for table `t_order_status`
 --
 ALTER TABLE `t_order_status`
   MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `t_product_classification`
+-- AUTO_INCREMENT for table `t_product_classification`
 --
 ALTER TABLE `t_product_classification`
   MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `t_system_notice_message`
+-- AUTO_INCREMENT for table `t_system_notice_message`
 --
 ALTER TABLE `t_system_notice_message`
   MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- 已傾印資料表的限制式
+-- Constraints for dumped tables
 --
 
 --
--- 資料表的限制式 `t_company_following_list`
+-- Constraints for table `t_company_following_list`
 --
 ALTER TABLE `t_company_following_list`
   ADD CONSTRAINT `BuyerFollowFk` FOREIGN KEY (`buyer_id`) REFERENCES `t_accounts` (`account_id`),
   ADD CONSTRAINT `SellerFollowFk` FOREIGN KEY (`seller_id`) REFERENCES `t_accounts` (`account_id`);
 
 --
--- 資料表的限制式 `t_orders`
+-- Constraints for table `t_orders`
 --
 ALTER TABLE `t_orders`
   ADD CONSTRAINT `FkBuyerId` FOREIGN KEY (`buyer_id`) REFERENCES `t_accounts` (`account_id`),
@@ -591,14 +591,14 @@ ALTER TABLE `t_orders`
   ADD CONSTRAINT `Fkseller_id` FOREIGN KEY (`seller_id`) REFERENCES `t_accounts` (`account_id`);
 
 --
--- 資料表的限制式 `t_order_details`
+-- Constraints for table `t_order_details`
 --
 ALTER TABLE `t_order_details`
   ADD CONSTRAINT `FkOrderId` FOREIGN KEY (`order_id`) REFERENCES `t_orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FkSellerProductId` FOREIGN KEY (`seller_product_id`) REFERENCES `t_product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- 資料表的限制式 `t_product`
+-- Constraints for table `t_product`
 --
 ALTER TABLE `t_product`
   ADD CONSTRAINT `cahainclass` FOREIGN KEY (`product_classification`) REFERENCES `t_product_classification` (`class_id`),
@@ -606,7 +606,7 @@ ALTER TABLE `t_product`
   ADD CONSTRAINT `cahainstatus` FOREIGN KEY (`auto_order_confirm_function_status`) REFERENCES `t_auto_order_confirm_function_status` (`status_id`);
 
 --
--- 資料表的限制式 `t_supplier_product_for_owner_product`
+-- Constraints for table `t_supplier_product_for_owner_product`
 --
 ALTER TABLE `t_supplier_product_for_owner_product`
   ADD CONSTRAINT `chain` FOREIGN KEY (`supplier_id`) REFERENCES `t_accounts` (`account_id`) ON DELETE CASCADE,
@@ -614,7 +614,7 @@ ALTER TABLE `t_supplier_product_for_owner_product`
   ADD CONSTRAINT `chainofproductid` FOREIGN KEY (`product_id`) REFERENCES `t_product` (`product_id`) ON DELETE CASCADE;
 
 --
--- 資料表的限制式 `t_system_notice_message`
+-- Constraints for table `t_system_notice_message`
 --
 ALTER TABLE `t_system_notice_message`
   ADD CONSTRAINT `NoticeFk` FOREIGN KEY (`receiver_id`) REFERENCES `t_accounts` (`account_id`);

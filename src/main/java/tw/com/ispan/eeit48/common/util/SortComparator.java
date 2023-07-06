@@ -1,9 +1,9 @@
 package tw.com.ispan.eeit48.common.util;
 
 import java.util.Comparator;
-import org.json.JSONObject;
+import java.util.Map;
 
-public class SortComparator implements Comparator<JSONObject> {
+public class SortComparator implements Comparator<Map<String, Object>> {
 
 	private String sortItem;
 	private String sortType;
@@ -16,7 +16,7 @@ public class SortComparator implements Comparator<JSONObject> {
 	}
 
 	@Override
-	public int compare(JSONObject o1, JSONObject o2) {
+	public int compare(Map<String, Object> o1, Map<String, Object> o2) {
 		int value1 = (int) o1.get(sortItem);
 		int value2 = (int) o2.get(sortItem);
 		if ("int".equalsIgnoreCase(this.sortType)) { // int sort
