@@ -8,7 +8,7 @@ public class RequestResponseUtil {
     public enum ErrorFrom {
         API("A"), // API 调用失败(请求发送失败)的错误, 例如 A100 表示 URL 非法
         HTTP("H"), // HTTP 异常状态的错误, 例如 H404 表示 HTTP 请求404错误
-        BACKEND_OR_BUSINESS("B"), // 接口调用失败的错误, 例如 B100 业务A错误, B101 业务B错误
+        BACKEND_OR_BUSINESS("B"), // 接口调用失败的错误, 例如 B100 业务A错误, B200 业务B错误
         CLIENT("C"); // 客户端错误, 例如 C100 表示解析 JSON 失败
         private final String errorFromCode;
         ErrorFrom(String errorFrom) {this.errorFromCode = errorFrom; }
@@ -21,8 +21,17 @@ public class RequestResponseUtil {
      * Error from which controller, StockController for example will be 'STOCK'
      */
     public enum BusinessType {
-        STOCK("10"),
-        EC_PAY("20");
+        COOPERATE("100"),
+        DATA_ANALYZE("200"),
+        EC_PAY("300"),
+        GOODS("400"),
+        LOGIN("500"),
+        NEWS("600"),
+        ORDER_BUY("700"),
+        ORDER_SELL("800"),
+        PAGE("900"),
+        STATEMENT("1000"),
+        STOCK("1100");
         private final String businessTypeCode;
         BusinessType(String businessType) {this.businessTypeCode = businessType; }
         public String getBusinessTypeCode() {

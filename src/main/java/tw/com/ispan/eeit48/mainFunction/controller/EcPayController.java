@@ -24,7 +24,7 @@ public class EcPayController {
 		} catch (Exception e){
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
 					createErrorResponse(RequestResponseUtil.ErrorFrom.BACKEND_OR_BUSINESS.getErrorFromCode(),
-							RequestResponseUtil.BusinessType.EC_PAY.getBusinessTypeCode() + "0", e.toString())
+							RequestResponseUtil.BusinessType.EC_PAY.getBusinessTypeCode() + "-0", e.toString())
 			);
 		}
 	}

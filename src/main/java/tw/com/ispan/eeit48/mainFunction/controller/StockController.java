@@ -23,7 +23,7 @@ public class StockController {
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                     createErrorResponse(RequestResponseUtil.ErrorFrom.BACKEND_OR_BUSINESS.getErrorFromCode(),
-                            RequestResponseUtil.BusinessType.STOCK.getBusinessTypeCode() + "0", e.toString())
+                            RequestResponseUtil.BusinessType.STOCK.getBusinessTypeCode() + "-0", e.toString())
             );
         }
     }
@@ -36,7 +36,7 @@ public class StockController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                     createErrorResponse(RequestResponseUtil.ErrorFrom.BACKEND_OR_BUSINESS.getErrorFromCode(),
-                            RequestResponseUtil.BusinessType.STOCK.getBusinessTypeCode() + "1", e.toString())
+                            RequestResponseUtil.BusinessType.STOCK.getBusinessTypeCode() + "-1", e.toString())
             );
         }
     }
@@ -49,7 +49,7 @@ public class StockController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                     createErrorResponse(RequestResponseUtil.ErrorFrom.BACKEND_OR_BUSINESS.getErrorFromCode(),
-                            RequestResponseUtil.BusinessType.STOCK.getBusinessTypeCode() + "2", e.toString())
+                            RequestResponseUtil.BusinessType.STOCK.getBusinessTypeCode() + "-2", e.toString())
             );
         }
     }
@@ -62,7 +62,7 @@ public class StockController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                     createErrorResponse(RequestResponseUtil.ErrorFrom.BACKEND_OR_BUSINESS.getErrorFromCode(),
-                            RequestResponseUtil.BusinessType.STOCK.getBusinessTypeCode() + "3", e.toString())
+                            RequestResponseUtil.BusinessType.STOCK.getBusinessTypeCode() + "-3", e.toString())
             );
         }
     }
