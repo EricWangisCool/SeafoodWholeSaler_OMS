@@ -53,7 +53,6 @@ public class RequestResponseUtil {
 
 
     /**
-     *  如果需要將資料傳給前端，就提供物件參數，否則由方法自動產生
      *  @Param errorFromCode - 哪層出錯
      *  @Param businessTypeCode - 哪個接口调用失败
      *  @Param exceptionStr - exception字串
