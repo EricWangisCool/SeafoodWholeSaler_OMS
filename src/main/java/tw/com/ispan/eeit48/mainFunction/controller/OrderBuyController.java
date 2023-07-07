@@ -2,7 +2,6 @@ package tw.com.ispan.eeit48.mainFunction.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import tw.com.ispan.eeit48.common.dto.request.OrderRequest;
 import tw.com.ispan.eeit48.common.dto.request.UpdateOrderRequest;
 import tw.com.ispan.eeit48.mainFunction.service.OrderBuyService;
 
@@ -22,9 +21,9 @@ public class OrderBuyController {
     }
 
     @GetMapping(path = "/orderDetail")
-    public void findOrderDetailByOrderId(@RequestBody OrderRequest request) {
+    public void findOrderDetailByOrderId(@RequestBody String orderId) {
         try {
-            orderBuyService.findOrderDetailByOrderId(request.getOrderId());
+            orderBuyService.findOrderDetailByOrderId(orderId);
         } catch (Exception e) {
 
         }

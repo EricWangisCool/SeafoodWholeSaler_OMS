@@ -2,7 +2,6 @@ package tw.com.ispan.eeit48.mainFunction.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import tw.com.ispan.eeit48.common.dto.request.StatementRequest;
 import tw.com.ispan.eeit48.mainFunction.service.StatementService;
 
 @RestController
@@ -12,13 +11,10 @@ public class StatementController {
     private StatementService statementService;
 
 	@GetMapping
-	public void getStatement(@RequestBody StatementRequest request) {
+	public void getStatement(
+			@RequestParam String orderTime, @RequestParam String completeOrderTime, @RequestParam int buyerId) {
 		try {
-			statementService.getStatement(
-					request.getOrderTime(),
-					request.getCompleteOrderTime(),
-					request.getBuyerId()
-			);
+			statementService.getStatement(orderTime, completeOrderTime, buyerId);
 		} catch (Exception e) {
 
 		}

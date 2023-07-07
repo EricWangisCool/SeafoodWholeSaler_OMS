@@ -4,8 +4,8 @@ import tw.com.ispan.eeit48.mainFunction.model.table.Product;
 import tw.com.ispan.eeit48.mainFunction.model.table.SupplierProductForOwnerProduct;
 
 public class ProductRequest {
-    Product productInfo;
-    SupplierProductForOwnerProduct supplierInfo;
+    private Product productInfo;
+    private SupplierProductForOwnerProduct supplierInfo;
 
     public Product getProductInfo() {
         return productInfo;

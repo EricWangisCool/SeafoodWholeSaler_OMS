@@ -12,7 +12,7 @@ public class GoodsController {
     private GoodsService goodsService;
 
     @GetMapping
-    public void getSupplierProductInfo(@RequestBody Integer supplierAccountId) {
+    public void getSupplierProductInfo(@RequestParam Integer supplierAccountId) {
         try {
             goodsService.getSupplierProductInfo(supplierAccountId);
         } catch (Exception e) {

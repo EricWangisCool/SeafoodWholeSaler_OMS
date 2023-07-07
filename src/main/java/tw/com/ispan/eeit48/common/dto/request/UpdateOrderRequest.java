@@ -2,7 +2,9 @@ package tw.com.ispan.eeit48.common.dto.request;
 
 import org.springframework.lang.NonNull;
 
-public class UpdateOrderRequest extends OrderRequest {
+public class UpdateOrderRequest {
+    @NonNull
+    private String orderId;
     @NonNull
     private Integer orderStatus;
     private String deliveryOrderRemark;
@@ -21,5 +23,11 @@ public class UpdateOrderRequest extends OrderRequest {
 
     public void setDeliveryOrderRemark(String deliveryOrderRemark) {
         this.deliveryOrderRemark = deliveryOrderRemark;
+    }
+    public String getOrderId() {
+        return orderId;
+    }
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 }

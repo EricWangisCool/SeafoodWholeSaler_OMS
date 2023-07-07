@@ -3,8 +3,8 @@ package tw.com.ispan.eeit48.common.dto.request;
 import java.util.List;
 
 public class CreateOrderRequest {
-    Integer sellerId;
-    List<Product> products;
+    private Integer sellerId;
+    private List<Product> products;
 
     public Integer getSellerId() {
         return sellerId;

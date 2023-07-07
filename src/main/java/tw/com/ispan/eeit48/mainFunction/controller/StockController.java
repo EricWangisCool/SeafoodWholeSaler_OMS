@@ -54,8 +54,8 @@ public class StockController {
         }
     }
 
-    @DeleteMapping
-    public ResponseEntity<?> deleteProduct(@RequestBody Integer productId) {
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Integer productId) {
         try {
             stockService.deleteStock(productId);
             return ResponseEntity.ok().body(createSuccessResponse(null));

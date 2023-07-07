@@ -1,11 +1,10 @@
 package tw.com.ispan.eeit48.common.dto.request;
 
-import javax.persistence.criteria.CriteriaBuilder;
 
 public class Product {
-    Integer sellerProductId;
-    Integer orderQty;
-    Integer unitDealPrice;
+    private Integer sellerProductId;
+    private Integer orderQty;
+    private Integer unitDealPrice;
 
     public Integer getSellerProductId() {
         return sellerProductId;
