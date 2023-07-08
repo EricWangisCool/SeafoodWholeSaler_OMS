@@ -59,7 +59,7 @@ public class PageService {
 
 				// 如果 ( "可出現貨" + "已叫現貨") < "警戒庫存", 就放入緊急庫存清單
 				if (sellableAndRequestedQty < warningQty) {
-					// "缺貨數"(outStock) = "安全庫存數"（safeQty) -  ("可出現貨" + "已叫現貨")(stockOwnAndCallShipping)
+					// "缺貨數"(outStock) = "安全庫存數"（safeQty) -  ("可出現貨" + "已叫現貨")(sellableAndRequestedQty)
 					int safeQty = ownerProduct.getSafeQty();
 					int outStock = safeQty - sellableAndRequestedQty;
 

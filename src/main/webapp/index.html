@@ -689,7 +689,7 @@
                     
                     userObj = await login({
                         account: enterAccount,
-                        passw: enterPassWord
+                        passWord: enterPassWord
                     });
                 } else {
                     Swal.fire({
@@ -705,7 +705,7 @@
             
             if (isReturnObjectCorrect(userObj)) {
                 localStorage.setItem("jwtToken", userObj.responseToken);
-                companyName = userObj.responseText;
+                companyName = userObj.responseObj.data;
                 $("#containerSign div.column-33 span")[0].innerHTML = companyName;
                 return true;
             } else {

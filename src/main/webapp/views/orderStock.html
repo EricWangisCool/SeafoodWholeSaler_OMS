@@ -242,7 +242,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="height: 700px;">
-                    <iframe id="ifrm" style="width: 100%; flex: 1; height: 700px;" src="./goods.html"></iframe>
+                    <!-- 20230707TODO  開發完成時要開啟-->
+                    <!-- <iframe id="ifrm" style="width: 100%; flex: 1; height: 700px;" src="./goods.html"></iframe> -->
                 </div>
                 <div class="modal-footer">
                 </div>
@@ -295,29 +296,7 @@
                     break;
             }
 
-        })
-
-
-        // 呼叫父頁面的changepage方法
-        function callParent(transferData, editStock) {
-            if (window.parent && window.parent.changepage) {
-                let href = '';
-
-                // 0：庫存概況、1：叫貨管理、2：接單管理、3：新增庫存、4：叫貨管理
-                switch (transferData) {
-                    case 3:
-                        href = "http://localhost:8080/views/addStock.html";
-                        break;
-                    case 4:
-                        href = "http://localhost:8080/views/orderBuy.html";
-                        break;
-                    default:
-                        console.log("href error");
-                        break;
-                }
-                window.parent.changepage(href, editStock);	//呼叫父頁面的SetComponent方法
-            }
-        }
+        });
 
 
         // 是否跳轉至新增庫存頁面-------------------------------------
@@ -337,6 +316,28 @@
                 }
             })
         });
+
+
+         // 呼叫父頁面的changepage方法，作用類似setComponent
+        function callParent(transferData, editStock) {
+            if (window.parent && window.parent.changepage) {
+                let href = '';
+
+                // 0：庫存概況、1：叫貨管理、2：接單管理、3：新增庫存、4：叫貨管理
+                switch (transferData) {
+                    case 3:
+                        href = "http://localhost:8080/views/addStock.html";
+                        break;
+                    case 4:
+                        href = "http://localhost:8080/views/orderBuy.html";
+                        break;
+                    default:
+                        console.log("href error");
+                        break;
+                }
+                window.parent.changepage(href, editStock);
+            }
+        }
 
 
         // JSON假資料  ----------------------------------------------------------------------------------------------------------------------
@@ -395,23 +396,23 @@
         // 欄位中文名稱對應
         let stockListName = [
             {
-                ProductPicl: "圖片",
-                ProductNameSpec: "品名規格",
-                StockQty: "庫存數",
-                Noshipping: "已訂未出",
-                StockOwn: "可出現貨",
-                CallShipping: "已叫現貨",
-                SaveQty: "安全庫存",
-                WarningQty: "警示庫存"
+                productPic: "圖片",
+                productNameSpec: "品名規格",
+                stockQty: "庫存數",
+                orderedQty: "已訂未出",
+                sellableQty: "可出現貨",
+                requestedQty: "已叫現貨",
+                safeQty: "安全庫存",
+                warningQty: "警示庫存"
             }
         ]
 
 
         // 撈資料(使用非同步資料的方式撈)。
         async function downloadData() {
-            returnObj = await viewsorderstock(null);
+            returnObj = await callGetStock(null);
             if (isReturnObjectCorrect(returnObj)) {
-                allStockList = returnObj.responseObj;
+                allStockList = returnObj.responseObj.data;
                 reNewData();
             } else {
                 console.log("orderStock.html downloadData function error");
@@ -458,18 +459,16 @@
                 }
 
                 // 創造<tr>的Html格式，並將資料帶入。
-                // img 抓法 ${allStockList[i].ProductPicl} 
-                // <span class="d-inline-flex align-items-center"><i class="fas ${autoConfirm} me-1"></i>自動確認</span><br>
                 let trHtmlData =
                     `   <tr>
-                            <td data-label=${allStockList[0].ProductPicl}><img src="${(allStockList[i].productPic == undefined) ? '/img/01.jpg' : allStockList[i].productPic}" onerror="this.src='/img/01.jpg'"></td>
-                            <td data-label=${allStockList[0].ProductNameSpec}>${allStockList[i].productNameSpec}</td>
-                            <td data-label=${allStockList[0].StockQty}>${allStockList[i].stockQty}</td>
-                            <td data-label=${allStockList[0].Noshipping}>${allStockList[i].noShipping}</td>
-                            <td data-label=${allStockList[0].StockOwn}>${allStockList[i].stockOwn}</td>
-                            <td data-label=${allStockList[0].CallShipping}>${allStockList[i].callShipping}</td>
-                            <td data-label=${allStockList[0].SaveQty}>${(allStockList[i].safeQty == undefined) ? "未設定" : allStockList[i].safeQty}</td>
-                            <td data-label=${allStockList[0].WarningQty}>${allStockList[i].warningQty}</td>
+                            <td data-label=${allStockList[i].productPic}><img src="${(allStockList[i].productPic == undefined) ? '/img/01.jpg' : allStockList[i].productPic}" onerror="this.src='/img/01.jpg'"></td>
+                            <td data-label=${allStockList[i].productNameSpec}>${allStockList[i].productNameSpec}</td>
+                            <td data-label=${allStockList[i].stockQty}>${allStockList[i].stockQty}</td>
+                            <td data-label=${allStockList[i].orderedQty}>${allStockList[i].orderedQty}</td>
+                            <td data-label=${allStockList[i].sellableQty}>${allStockList[i].sellableQty}</td>
+                            <td data-label=${allStockList[i].requestedQty}>${allStockList[i].requestedQty}</td>
+                            <td data-label=${allStockList[i].safeQty}>${(allStockList[i].safeQty == undefined) ? "未設定" : allStockList[i].safeQty}</td>
+                            <td data-label=${allStockList[i].warningQty}>${allStockList[i].warningQty}</td>
                             <td data-label="操作">
                                 <div class="nav-item dropstart mb-2">
                                     <button class="nav-link dropdown-toggle orderSet m-auto" id="navbarDropdown"
@@ -484,7 +483,6 @@
                             </td>
                         </tr>
                     `
-
                 // 把製作完的tr放回去tabel中。
                 $(".orderStocktable").append(trHtmlData);
             };
@@ -501,11 +499,9 @@
 
         // 刪除庫存 -----------------------------------------------------------------------------------------------
         function delTableRow(state) {
+            
             if (state != 0 && state != 1) {
-                // 要刪除的產品id
-                let productidData = {
-                    "productid": state
-                };
+                let productId = state;
 
                 Swal.fire({
                     title: '請確認是否要刪除該筆庫存？',
@@ -518,8 +514,7 @@
                     cancelButtonText: '取消'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // 呼叫server
-                        deleteData(productidData);
+                        deleteStock(productId);
                     }
                 });
             } else if (state == 0) {
@@ -541,8 +536,8 @@
         };
 
 
-        async function deleteData(deleteproductid) {
-            returnObj = await viewsaddstockdelete(deleteproductid);
+        async function deleteStock(productId) {
+            returnObj = await callDeleteStock(productId);
             if (isReturnObjectCorrect(returnObj)) {
                 delTableRow(1);
             } else {

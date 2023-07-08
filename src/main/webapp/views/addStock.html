@@ -870,6 +870,14 @@
         // 編輯產品的id
         let editStockProductid = 0;
 
+        // 呼叫父類別方法(先去檢查是否要更改為編輯庫存)
+        callParent();
+        function callParent() {
+            if (window.parent && window.parent.checkAddStock) {
+                window.parent.checkAddStock();
+            }
+        }
+
         // 資料重置
         function addStockinit(state) {
             if (state == 0) {
@@ -887,38 +895,38 @@
 
                 // 資料傳入-------------------------------------------------------
 
-                editStockProductid = state.productid;  // 產品id                
-                $("#productnamespec").prop('value', state.productnamespec);  // 品名
+                editStockProductid = state.productId;  // 產品id                
+                $("#productnamespec").prop('value', state.productNameSpec);  // 品名
                 // 圖片
                 $("#display-image").css('display', "block");
-                $("#display-image").css('background-image', 'url(' + state.productpic + ')');
-                productPicObj = state.productpic;
+                $("#display-image").css('background-image', 'url(' + state.productPic + ')');
+                productPicObj = state.productPic;
                 // 供應商
-                cooperateObj.supplierproductid = state.supplierproductid;
-                cooperateObj.supplierid = state.supplierid;
-                cooperateObj.supplierproduct = state.supplierproductname;
-                cooperateObj.supplier = state.suppliercompanyname;
+                cooperateObj.supplierProductId = state.supplierProductId;
+                cooperateObj.supplierId = state.supplierId;
+                cooperateObj.supplierProduct = state.supplierProductName;
+                cooperateObj.supplier = state.supplierCompanyName;
                 // 產品分類
                 $($("#productclassification").find("li")[0]).removeClass("mdc-list-item--selected");
-                $($("#productclassification").find("li")[state.productclassification]).addClass("mdc-list-item--selected");
+                $($("#productclassification").find("li")[state.productClassification]).addClass("mdc-list-item--selected");
                 initializeSelect();
 
-                $("#unitcost").prop('value', state.unitcost);  // 成本單價                
-                $("#stockqty").prop('value', state.stockqty);  // 庫存數                
-                $("#warningqty").prop('value', state.warningqty);  // 警示庫存數                
-                $("#safeqty").prop('value', state.safeqty);  // 安全庫存數
+                $("#unitcost").prop('value', state.unitCost);  // 成本單價                
+                $("#stockqty").prop('value', state.stockQty);  // 庫存數                
+                $("#warningqty").prop('value', state.warningQty);  // 警示庫存數                
+                $("#safeqty").prop('value', state.safeQty);  // 安全庫存數
                 // 是否上架                
-                state.onshelf == 1 ? $($('#flexSwitchCheckChecked-online')[0]).prop("checked", true) : $($('#flexSwitchCheckChecked-online')[0]).prop("checked", false);
+                state.onShelf == 1 ? $($('#flexSwitchCheckChecked-online')[0]).prop("checked", true) : $($('#flexSwitchCheckChecked-online')[0]).prop("checked", false);
 
-                $("#unitsellprice").prop('value', state.unitsellprice);  // 銷售單價
-                $("#minsellqty").prop('value', state.minsellqty);  // 最低訂購數量
-                $("#productdesc").prop('value', state.productdesc);  // 產品說明
+                $("#unitsellprice").prop('value', state.unitSellPrice);  // 銷售單價
+                $("#minsellqty").prop('value', state.minSellQty);  // 最低訂購數量
+                $("#productdesc").prop('value', state.productDesc);  // 產品說明
                 // 是否自動叫貨
-                state.autoorderfunction == "Y" ? $($('#flexSwitchCheckChecked-autocall')[0]).prop("checked", true) : $($('#flexSwitchCheckChecked-autocall')[0]).prop("checked", false);
+                state.autoOrderFunction == "Y" ? $($('#flexSwitchCheckChecked-autocall')[0]).prop("checked", true) : $($('#flexSwitchCheckChecked-autocall')[0]).prop("checked", false);
                 // 是否自動交易
-                state.autoorderconfirmfunctionstatus > 1 ? $($('#flexSwitchCheckChecked-autoconfirm')[0]).prop("checked", true) : $($('#flexSwitchCheckChecked-autoconfirm')[0]).prop("checked", false);
-                state.autoorderconfirmfunctionstatus > 1 ? $($(".autoconfirmdetail").find("input.mdc-radio__native-control")[state.autoorderconfirmfunctionstatus - 2]).prop("checked", true) : $($(".autoconfirmdetail").find("input.mdc-radio__native-control")[0]).prop("checked", true);
-                $("#reservedqty").prop('value', state.reservedqty);
+                state.autoOrderConfirmFunctionStatus > 1 ? $($('#flexSwitchCheckChecked-autoconfirm')[0]).prop("checked", true) : $($('#flexSwitchCheckChecked-autoconfirm')[0]).prop("checked", false);
+                state.autoOrderConfirmFunctionStatus > 1 ? $($(".autoconfirmdetail").find("input.mdc-radio__native-control")[state.autoOrderConfirmFunctionStatus - 2]).prop("checked", true) : $($(".autoconfirmdetail").find("input.mdc-radio__native-control")[0]).prop("checked", true);
+                $("#reservedqty").prop('value', state.reservedQty);
             }
             // 確認Switch狀態
             checkSwitch();
@@ -926,7 +934,6 @@
             // 確認新增供應商表格
             checkCooperate();
         }
-        addStockinit(0);
 
         // 檔案上傳，暫時先做到可以顯示圖片在畫面上。
         const image_input = document.querySelector("#file");
@@ -1014,44 +1021,43 @@
 
             allValueList = {
                 "productInfo": {
-                    "productid": null,
-                    "ownerid": null,
-                    "productnamespec": $("#productnamespec").prop('value'),
-                    "productpic": productPicObj,
-                    "productclassification": $("#productclassification").find("li.mdc-list-item--selected").index(),
-                    "unitcost": parseInt($("#unitcost").prop('value')),
-                    "stockqty": parseInt($("#stockqty").prop('value')),
-                    "warningqty": parseInt($("#warningqty").prop('value')),
-                    "safeqty": parseInt($("#safeqty").prop('value')),
-                    "onshelf": $('#flexSwitchCheckChecked-online')[0].checked ? 1 : 0,
-                    "unitsellprice": parseInt($("#unitsellprice").prop('value')),
-                    "minsellqty": parseInt($("#minsellqty").prop('value')),
-                    "productdesc": $("#productdesc").prop('value'),
-                    "autoorderfunction": $('#flexSwitchCheckChecked-autocall')[0].checked ? "Y" : "N",
-                    "autoorderconfirmfunctionstatus": 1,
-                    "reservedqty": 0
+                    "productId": null,
+                    "ownerId": null,
+                    "productNameSpec": $("#productnamespec").prop('value'),
+                    "productPic": productPicObj,
+                    "productClassification": $("#productclassification").find("li.mdc-list-item--selected").index(),
+                    "unitCost": parseInt($("#unitcost").prop('value')),
+                    "stockQty": parseInt($("#stockqty").prop('value')),
+                    "warningQty": parseInt($("#warningqty").prop('value')),
+                    "safeQty": parseInt($("#safeqty").prop('value')),
+                    "onShelf": $('#flexSwitchCheckChecked-online')[0].checked ? 1 : 0,
+                    "unitSellPrice": parseInt($("#unitsellprice").prop('value')),
+                    "minSellQty": parseInt($("#minsellqty").prop('value')),
+                    "productDesc": $("#productdesc").prop('value'),
+                    "autoOrderFunction": $('#flexSwitchCheckChecked-autocall')[0].checked ? "Y" : "N",
+                    "autoOrderConfirmFunctionStatus": 1,
+                    "reservedQty": 0
                 },
                 "supplierInfo": {
-                    "productid": null,
-                    "supplierproductid": cooperateObj.supplierproductid == 0 ? 99999 : cooperateObj.supplierproductid,
-                    "supplierid": cooperateObj.supplierid == 0 ? 99999 : parseInt(cooperateObj.supplierid)
+                    "productId": null,
+                    "supplierProductId": cooperateObj.supplierProductId == 0 ? 99999 : cooperateObj.supplierProductId,
+                    "supplierId": cooperateObj.supplierId == 0 ? 99999 : parseInt(cooperateObj.supplierId)
                 }
             };
 
             if (pageState == 0) { // 新增庫存
                 insertData();
             } else {              // 編輯庫存 (pageState = 1)
-                allValueList.productBean.productid = editStockProductid;
+                allValueList.productInfo.productId = editStockProductid;
                 updateData();
             };
         };
 
 
         // 新增庫存-----------------------------------------------------------------------
-        var errorMessage = "Error from addStock.html";
-
+        var errorMessage = "Error from addStock.html: ";
         async function insertData() {
-            returnObj = await viewsaddstockinsert(allValueList);
+            returnObj = await callInsertStock(allValueList);
             if (isReturnObjectCorrect(returnObj)) {
                 ajaxalert(1, '庫存新增');
             } else {
@@ -1064,7 +1070,7 @@
         // 更新庫存-----------------------------------------------------------------------
         // 傳資料(使用非同步資料的方式傳)。
         async function updateData() {
-            returnObj = await viewsaddstockupdate(allValueList);
+            returnObj = await callUpdateStock(allValueList);
             if (isReturnObjectCorrect(returnObj)) {
                 ajaxalert(2, '編輯庫存');
             } else {

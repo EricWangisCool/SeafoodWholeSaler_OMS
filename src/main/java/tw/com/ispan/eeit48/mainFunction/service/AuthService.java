@@ -32,25 +32,35 @@ public class AuthService implements UserDetailsService {
     }
 
     @Transactional(readOnly = true)
-    public Account findUserByAccount(String account) {
+    public Account findUserByAccount(String account) throws Exception {
         Optional<Account> result = accountRepository.findOneByAccount(account);
         if (result.isPresent()) {
             return result.get();
         } else {
-            System.out.println("select bean not exist");
+            throw new Exception("Wrong account or password");
         }
-        return null;
     }
 
-    @Transactional(readOnly = true)
-    public Account findUserByEmail(String email) {
-        Optional<Account> result = accountRepository.findOneByEmail(email);
-        if (result.isPresent()) {
-            return result.get();
+    public Account thirdPartyLogin(String email) throws Exception {
+        if (email == null || email.length() == 0) {
+            throw new Exception("Requested email is required");
         } else {
-            System.out.println("select bean not exist");
+            Optional<Account> result = accountRepository.findOneByEmail(email);
+            if (result.isEmpty()) {
+                throw new Exception("Requested email does not exist");
+            } else {
+                return result.get();
+            }
         }
-        return null;
+    }
+
+    public String getUserAccount() throws Exception {
+        Optional<Account> account = accountRepository.findOneByAccountId(getCurrentUserId());
+        if (account.isPresent()) {
+            return account.get().getAccount();
+        } else {
+            throw new Exception("Unknown reason finding current user account");
+        }
     }
 
     public static int getCurrentUserId() {

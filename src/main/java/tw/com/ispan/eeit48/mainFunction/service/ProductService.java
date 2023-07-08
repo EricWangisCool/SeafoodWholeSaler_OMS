@@ -49,16 +49,16 @@ public class ProductService {
 		List<SupplierProductForOwnerProduct> supplierProductsInfo = supplierProductForOwnerProductRepository
 				.findAllByProductId(productId);
 
-		int callShipping = 0;
+		int requestedQty = 0;
 		for (SupplierProductForOwnerProduct supplierProductInfo : supplierProductsInfo) {
 			List<Product_Order_OrderDetail> orderedOrdersInfo = productOrderOrderDetailRepository
 					.findAllByProductIdAndOrderStatusBetween(supplierProductInfo.getSupplierProductId(), 2, 5);
 
 			for (Product_Order_OrderDetail orderedOrderInfo : orderedOrdersInfo) {
 				int orderQty = orderedOrderInfo.getOrderQty() == null ? 0 : orderedOrderInfo.getOrderQty();
-				callShipping += orderQty;
+				requestedQty += orderQty;
 			}
 		}
-		return callShipping;
+		return requestedQty;
 	}
 }

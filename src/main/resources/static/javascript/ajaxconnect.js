@@ -13,166 +13,154 @@ function createAuthorizationTokenHeader() {
     }
  }
 
-// -------------- AJAX url setting method ----------------------------------- 
-// 登入
+// -------------- AJAX method ----------------------------------- 
+// Login API ----------------------------------- 
 async function login(data) {
     let connurl = "login";
-    return await ajaxmethod(connurl, data);
+    let httpMethod = "post";
+    return await ajaxmethod(connurl, data, httpMethod);
 }
 
 
-// 註冊
-async function logininsert(data) {
-    let connurl = "login/insert";
-    return await ajaxmethod(connurl, data);
-}
-
-
-// 首頁Account顯示
 async function getUserAccount(data) {
-    let connurl = "../login/getUserAccount";
-    return await ajaxmethod(connurl, data);
+    let connurl = "../login";
+    let httpMethod = "get";
+    return await ajaxmethod(connurl, null, httpMethod);
 }
 
 
-// 後臺首頁
+// 後臺首頁 Page API ----------------------------------- 
 async function viewspage(data) {
-    let connurl = "../views/page";
-    return await ajaxmethod(connurl, data);
+    let connurl = "../page";
+    let httpMethod = "get";
+    return await ajaxmethod(connurl, null, httpMethod);
 }
 
 
-// 個人資訊相關
-async function viewsaccount(data) {
-    let connurl = "../views/account";
-    return await ajaxmethod(connurl, data);
-}
-
-async function viewsaccountupdate(data) {
-    let connurl = "../views/account/update";
-    return await ajaxmethod(connurl, data);
+// Stock API ------------------------------------------
+async function callGetStock(data) {
+    let connurl = "../stock";
+    let httpMethod = "get";
+    return await ajaxmethod(connurl, null, httpMethod);
 }
 
 
-// 通知與概況
-async function viewsnews(data) {
-    let connurl = "../views/news";
-    return await ajaxmethod(connurl, data);
+async function callInsertStock(data) {
+    let connurl = "../stock";
+    let httpMethod = "post";
+    return await ajaxmethod(connurl, data, httpMethod);
+}
+
+async function callUpdateStock(data) {
+    let connurl = "../stock";
+    let httpMethod = "put";
+    return await ajaxmethod(connurl, data, httpMethod);
+}
+
+async function callDeleteStock(data) {
+    let connurl = "../stock/" + data;
+    let httpMethod = "delete";
+    return await ajaxmethod(connurl, null, httpMethod);
 }
 
 
-// 庫存概況
-async function viewsorderstock(data) {
-    let connurl = "../views/orderstock";
-    return await ajaxmethod(connurl, data);
-}
-
-// 新增庫存相關
-async function viewsaddstockinsert(data) {
-    let connurl = "../views/addstock/insert";
-    return await ajaxmethod(connurl, data);
-}
-
-async function viewsaddstockupdate(data) {
-    let connurl = "../views/addstock/update";
-    return await ajaxmethod(connurl, data);
-}
-
-async function viewsaddstockdelete(data) {
-    let connurl = "../views/addstock/delete";
-    return await ajaxmethod(connurl, data);
-}
-
-
-// 建立叫貨單相關
+// 建立叫貨單相關 Goods API  ------------------------------------------
 async function viewsgoods(data) {
-    let connurl = "../views/goods";
-    return await ajaxmethod(connurl, data);
+    let connurl = "../goods" + "?supplierAccountId=" + data.supplierAccountId;
+    let httpMethod = "get";
+    return await ajaxmethod(connurl, null, httpMethod);
 }
 
 async function viewsgoodsinsert(data) {
-    let connurl = "../views/goods/insert";
-    return await ajaxmethod(connurl, data);
+    let connurl = "../goods";
+    let httpMethod = "post";
+    return await ajaxmethod(connurl, data, httpMethod);
 }
 
 
-// 叫貨管理相關
+// 叫貨管理相關 OrderBuy API  ------------------------------------------
 async function viewsorderbuy(data) {
-    let connurl = "../views/orderbuy";
-    return await ajaxmethod(connurl, data);
+    let connurl = "../orderbuy";
+    let httpMethod = "get";
+    return await ajaxmethod(connurl, null, httpMethod);
 }
 
 async function viewsorderbuychildTable(data) {
-    let connurl = "../views/orderbuy/childTable";
-    return await ajaxmethod(connurl, data);
+    let connurl = "../orderbuy/orderDetail" + "?orderId=" + data.orderId;
+    let httpMethod = "get";
+    return await ajaxmethod(connurl, null, httpMethod);
 }
 
 async function viewsorderbuyupdate(data) {
-    let connurl = "../views/orderbuy/update";
-    return await ajaxmethod(connurl, data);
+    let connurl = "../orderbuy";
+    let httpMethod = "put";
+    return await ajaxmethod(connurl, data, httpMethod);
 }
 
 
-// 接單管理相關
+// 接單管理相關 OrderSell API  ------------------------------------------
 async function viewsordersell(data) {
-    let connurl = "../views/ordersell";
-    return await ajaxmethod(connurl, data);
+    let connurl = "../orderSell";
+    let httpMethod = "get";
+    return await ajaxmethod(connurl, null, httpMethod);
 }
 
 async function viewsordersellupdate(data) {
-    let connurl = "../views/ordersell/update";
-    return await ajaxmethod(connurl, data);
+    let connurl = "../orderSell";
+    let httpMethod = "put";
+    return await ajaxmethod(connurl, data, httpMethod);
 }
 
 
-// 廠商管理相關
+// 廠商管理相關 Cooperate API  ------------------------------------------
 async function viewscooperate(data) {
-    let connurl = "../viwes/cooperate";
-    return await ajaxmethod(connurl, data);
+    let connurl = "../cooperate";
+    let httpMethod = "get";
+    return await ajaxmethod(connurl, null, httpMethod);
 }
 
 async function viewscooperateinsert(data) {
-    let connurl = "../viwes/cooperate/insert";
-    return await ajaxmethod(connurl, data);
+    let connurl = "../cooperate";
+    let httpMethod = "post";
+    return await ajaxmethod(connurl, data, httpMethod);
 }
 
-// 對帳單
+// 對帳單 Statement API  ------------------------------------------
 async function viewstatement(data) {
-    let connurl = "../views/statement";
-    return await ajaxmethod(connurl, data);
+    let connurl = "../statement" + "?orderTime=" + data.orderTime + "&completeOrderTime=" + data.completeOrderTime + "&buyerId=" + data.buyerId;
+    let httpMethod = "get";
+    return await ajaxmethod(connurl, null, httpMethod);
 }
 
-// 第三方金流
+// 第三方金流 EcPay API  ------------------------------------------
 async function ecpay() {
     let connurl = "../ecpay";
-    data = "";
-    return await ajaxmethod(connurl, data);
+    let httpMethod = "get";
+    return await ajaxmethod(connurl, null, httpMethod);
 }
 
 
-// 數據中心
+// 數據中心 Data analyze API  ------------------------------------------
 async function viewsanalyze(data) {
-    let connurl = "../views/analyze";
-    return await ajaxmethod(connurl, data);
+    let connurl = "../analyze" + "?orderTime=" + data.orderTime + "&completeOrderTime=" + data.completeOrderTime;
+    let httpMethod = "get";
+    return await ajaxmethod(connurl, null, httpMethod);
 }
 
 
-// 最新消息
-async function viewsnews(data) {
-    let connurl = "../views/news";
-    return await ajaxmethod(connurl, data);
-}
-
+// News API  ------------------------------------------
 async function viewsnewsupdate(data) {
-    let connurl = "../views/news/update";
-    return await ajaxmethod(connurl, data);
+    let connurl = "../news";
+    let httpMethod = "put";
+    return await ajaxmethod(connurl, data, httpMethod);
 }
 
 
+// Common API  ------------------------------------------
 function getContextPath() {
-    let connurl = "../common/getContextPath";
-    data = "";
-    return sync_ajaxmethod(connurl, data);
+    let connurl = "../common/contextPath";
+    let httpMethod = "get";
+    return sync_ajaxmethod(connurl, null, httpMethod);
 }
 
 
@@ -191,10 +179,10 @@ function initReturnObject() {
 }
 
 
-function getAjaxObject(isAsync, connurl, data) {
+function getAjaxObject(isAsync, connurl, data, httpMethod) {
     initReturnObject();
     return {
-        type: 'post',
+        type: httpMethod,
         url: connurl,
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(data),
@@ -220,10 +208,10 @@ function getAjaxObject(isAsync, connurl, data) {
 };
 
 
-async function ajaxmethod(connurl, data) {
+async function ajaxmethod(connurl, data, httpMethod) {
     initReturnObject();
     try {
-        await $.ajax(getAjaxObject(true, connurl, data));
+        await $.ajax(getAjaxObject(true, connurl, data, httpMethod));
     } catch (err) {
         console.log(err);
     }
@@ -231,30 +219,30 @@ async function ajaxmethod(connurl, data) {
 };
 
 
-function sync_ajaxmethod(connurl, data) {
+function sync_ajaxmethod(connurl, data, httpMethod) {
     initReturnObject();
     try {
-        $.ajax(getAjaxObject(false, connurl, data));
+        $.ajax(getAjaxObject(false, connurl, data, httpMethod));
     } catch (err) {
         console.log(err);
     }
     return returnObj;
 };
+
 
 function isReturnObjectCorrect(returnObj) {
     var body = returnObj.responseObj;
+    if (body.status == "0" && returnObj.responseStatus == 200) {
+        console.log(body.data);
+        return true;
     
-    // <important>後端實作restful後就不用檢測body.status</important>
-    if (body.status != null) {
-        if (!body.status) {
-            // status 为 0 或者没有 status 字段时表示接口成功返回了数据
-            console.log(body.data);
-        } else {
-            // 失败
-            console.error(body.status, body.statusInfo);
-            // 统一由服务端返回给用户的提示信息
-            alert(body.statusInfo.message + ":\n" + body.statusInfo.detail.exception);
-        }
+    // 除了登入失敗不用alert，其他都要
+    } else if (body.status  == "B500-0" || returnObj.responseStatus == 401) { 
+        return false;        
+    } else {
+        console.error(body.status, body.statusInfo);
+        // 统一由服务端返回给用户的提示信息
+        alert(body.statusInfo.message + ":\n" + body.statusInfo.detail.exception);
+        return false;
     }
-    return ((returnObj.responseStatus == 200) && (returnObj.responseText != null));
 };

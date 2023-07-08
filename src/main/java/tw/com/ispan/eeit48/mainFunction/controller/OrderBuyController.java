@@ -21,7 +21,7 @@ public class OrderBuyController {
     }
 
     @GetMapping(path = "/orderDetail")
-    public void findOrderDetailByOrderId(@RequestBody String orderId) {
+    public void findOrderDetailByOrderId(@RequestParam String orderId) {
         try {
             orderBuyService.findOrderDetailByOrderId(orderId);
         } catch (Exception e) {

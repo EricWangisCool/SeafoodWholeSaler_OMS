@@ -155,7 +155,7 @@
             let userAccountObj = {};
             userAccountObj = await getUserAccount("");
             if (isReturnObjectCorrect(userAccountObj)) {
-                $("#navbarSupportedContent a")[0].innerHTML = userAccountObj.responseText;
+                $("#navbarSupportedContent a")[0].innerHTML = userAccountObj.responseObj.data;
             } else {
                 Swal.fire({
                     title: '登入權限已過期，請重新登入',
@@ -213,7 +213,6 @@
 
         
         // 讀取iframe轉址------------------------------------------------------------------------------
-        // 新增庫存的連結：
         let addStockHref = "http://localhost:8080/views/addStock.html";
         let pageHref = "http://localhost:8080/views/page.html";
 
@@ -248,6 +247,12 @@
             } else {
                 loadIframe('ifrm', transferData);
             }
+        }
+
+        // addStock.html會呼叫這個方法
+        let addStockState = 0;
+        function checkAddStock() {
+            $("#ifrm").get(0).contentWindow.addStockinit(addStockState);
         }
 
 
