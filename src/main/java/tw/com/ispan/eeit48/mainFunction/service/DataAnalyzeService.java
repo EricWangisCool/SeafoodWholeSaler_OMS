@@ -25,7 +25,7 @@ public class DataAnalyzeService {
 	private ProductClassificationRepository productClassificationRepository;
 	private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-	public List<Map<String, Object>> getUserOrdersByTime(String orderTime, String completeOrderTime) throws ParseException {
+	public List<Map<String, Object>> getUserOrdersByTime(String orderTime, String completeOrderTime) throws Exception {
 		int userId = getCurrentUserId();
 		List<Map<String, Object>> userOrders = new ArrayList<>();
 		Date dateOfOrderTime = sdf.parse(orderTime);

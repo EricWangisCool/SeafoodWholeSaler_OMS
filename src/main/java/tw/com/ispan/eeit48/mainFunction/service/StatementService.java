@@ -19,7 +19,7 @@ public class StatementService {
 	private AccountRepository accountRepository;
 	private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-	public List<Map<String, Object>> getStatement(String orderTime, String completeOrderTime, int buyerId) throws ParseException {
+	public List<Map<String, Object>> getStatement(String orderTime, String completeOrderTime, int buyerId) throws Exception {
 		int userId = getCurrentUserId();
 		List<Map<String, Object>> list = new ArrayList<>();
 		Date dateOfOrderTime = sdf.parse(orderTime);

@@ -236,13 +236,13 @@ function isReturnObjectCorrect(returnObj) {
         console.log(body.data);
         return true;
     
-    // 除了登入失敗不用alert，其他都要
-    } else if (body.status  == "B500-0" || returnObj.responseStatus == 401) { 
+    // 除了登入失敗或jwt過期不用alert以外，其他都要
+    } else if (returnObj.responseStatus == 401) { 
         return false;        
     } else {
         console.error(body.status, body.statusInfo);
         // 统一由服务端返回给用户的提示信息
-        alert(body.statusInfo.message + ":\n" + body.statusInfo.detail.exception);
+        alert(body.statusInfo.message + ":\n\n[" + body.status + "]" + body.statusInfo.detail.exception);
         return false;
     }
 };

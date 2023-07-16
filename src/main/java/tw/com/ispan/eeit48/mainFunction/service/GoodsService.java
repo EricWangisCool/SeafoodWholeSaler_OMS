@@ -61,7 +61,7 @@ public class GoodsService {
 	}
 
 	@Transactional
-	public void createNewOrder(CreateOrderRequest request) {
+	public void createNewOrder(CreateOrderRequest request) throws Exception {
 		int userId = getCurrentUserId();
 		String newOrderId = orderSellService.createNewOrderId(userId);
 

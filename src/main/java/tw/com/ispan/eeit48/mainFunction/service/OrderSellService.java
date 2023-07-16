@@ -42,7 +42,7 @@ public class OrderSellService {
     private EmailService emailService;
 
     // 拿到帳號所有交易狀態為2~7的售出訂單
-    public List<Map<String, Object>> getUserSellingOrdersInfo() {
+    public List<Map<String, Object>> getUserSellingOrdersInfo() throws Exception {
         List<Product_Order_OrderDetail> ordersInfo = productOrderOrderDetailRepository
                 .findAllByOwnerIdAndOrderStatusBetweenOrderByOrderTimeDesc(getCurrentUserId(), 2, 7);
 

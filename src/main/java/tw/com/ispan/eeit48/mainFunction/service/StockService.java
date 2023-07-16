@@ -26,7 +26,7 @@ public class StockService {
 	@Autowired
 	private AccountRepository accountRepository;
 
-	public List<Map<String, Object>> getProduct() {
+	public List<Map<String, Object>> getProduct() throws Exception {
 		List<Map<String, Object>> list = new ArrayList<>();
 		List<Product> products = productRepository.findAllByOwnerIdByOrderByOwnerIdDesc(getCurrentUserId());
 		for (Product product : products) {
@@ -85,7 +85,7 @@ public class StockService {
 	}
 
 	@Transactional
-	public void insertNewStock(ProductRequest request) {
+	public void insertNewStock(ProductRequest request) throws Exception {
 		Product productInfo = request.getProductInfo();
 		SupplierProductForOwnerProduct supplierInfo = request.getSupplierInfo();
 		int userId = getCurrentUserId();
@@ -108,7 +108,7 @@ public class StockService {
 	}
 
 	@Transactional
-	public void updateStock(ProductRequest request) {
+	public void updateStock(ProductRequest request) throws Exception {
 		Product productInfo = request.getProductInfo();
 		Integer productId = productInfo.getProductId();
 

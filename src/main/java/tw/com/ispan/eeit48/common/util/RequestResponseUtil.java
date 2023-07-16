@@ -1,5 +1,8 @@
 package tw.com.ispan.eeit48.common.util;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import tw.com.ispan.eeit48.common.dto.response.CommonResponse;
 import tw.com.ispan.eeit48.common.dto.response.Exception;
 import tw.com.ispan.eeit48.common.dto.response.StatusInfo;
@@ -69,5 +72,13 @@ public class RequestResponseUtil {
         statusInfo.setDetail(exception);
         response.setStatusInfo(statusInfo);
         return response;
+    }
+
+    public static HttpStatus returnHttpStatusByException(java.lang.Exception e) {
+        if (e instanceof BadCredentialsException || e instanceof ExpiredJwtException) {
+            return HttpStatus.UNAUTHORIZED;
+        } else {
+            return HttpStatus.INTERNAL_SERVER_ERROR;
+        }
     }
 }
