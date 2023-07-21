@@ -20,7 +20,7 @@ public interface Product_Order_OrderDetailRepository extends PagingAndSortingRep
 	List<Product_Order_OrderDetail> findAllByOrderId(String orderId);
 
 	@Query(value = """
-			SELECT product_names_pec 
+			SELECT product_name_spec 
 			FROM v_product_order_order_details 
 			WHERE order_id = ?1
 			""", nativeQuery = true)
