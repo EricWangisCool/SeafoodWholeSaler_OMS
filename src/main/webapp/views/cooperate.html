@@ -240,8 +240,9 @@
                 console.log("cooperateList getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
                 console.log(returnObj.responseObj);
             } else {
-                // 處理及判斷邏輯：                
-                cooperateList = returnObj.responseObj;
+                // 處理及判斷邏輯：       
+                console.log(returnObj)         
+                cooperateList = returnObj.responseObj.data;
 
                 // 撈完後更新畫面內容。
                 reNewData();
@@ -256,33 +257,33 @@
             for (let i = 0; i < cooperateList.length; i++) {
 
                 let singleCooperateData = `
-                <button class="accordion">${cooperateList[i].suppliercompanyname}</button>
+                <button class="accordion">${cooperateList[i].companyName}</button>
                     <div class="panel mb-4">
                         <table class="cooperateTable">
                             <tr><th colspan="4" class="title">廠商基本資料</th></tr>
                             <tr>
                                 <th>${cooperateListName[0].CompanyName}</th>
-                                <td>${cooperateList[i].suppliercompanyname}</td>
+                                <td>${cooperateList[i].companyName}</td>
                                 <th>${cooperateListName[0].TaxId}</th>
-                                <td>${cooperateList[i].taxid}</td>
+                                <td>${cooperateList[i].taxId}</td>
                             </tr>
                             <tr>
                                 <th>${cooperateListName[0].companyphone}</th>
-                                <td>${cooperateList[i].companyphone}</td>
+                                <td>${cooperateList[i].companyPhone}</td>
                                 <th>${cooperateListName[0].Fax}</th>
                                 <td>${cooperateList[i].fax}</td>    
                             </tr>
                             <tr>
                                 <th>${cooperateListName[0].ContactPerson}</th>
-                                <td>${cooperateList[i].contactperson}</td>
+                                <td>${cooperateList[i].contactPerson}</td>
                                 <th>${cooperateListName[0].ContactPersonNum}</th>
-                                <td>${cooperateList[i].contactpersonnum}</td>
+                                <td>${cooperateList[i].contactPersonNum}</td>
                             </tr>
                             <tr>
                                 <th>${cooperateListName[0].Email}</th>
                                 <td>${cooperateList[i].email}</td>
                                 <th>${cooperateListName[0].LineAccount}</th>
-                                <td>${cooperateList[i].lineaccount}</td>
+                                <td>${cooperateList[i].lineAccount}</td>
                             </tr>
                             <tr>
                                 <th>${cooperateListName[0].Address}</th>
@@ -291,7 +292,7 @@
                             <tr><th colspan="4" class="title">付款資料</th></tr>
                             <tr>
                                 <th>${cooperateListName[0].BankName}</th>
-                                <td>${cooperateList[i].bankname}</td>
+                                <td>${cooperateList[i].bankName}</td>
                                 <th>${cooperateListName[0].payMethod}</th>
                                 <td>
                                     <select class="w-100">
@@ -303,7 +304,7 @@
                             </tr>
                             <tr>
                                 <th>${cooperateListName[0].BankAccount}</th>
-                                <td>${cooperateList[i].bankaccount}</td>
+                                <td>${cooperateList[i].bankAccount}</td>
                                 <th>${cooperateListName[0].PaymentTerms}</th>
                                 <td>
                                     <select class="w-100">
