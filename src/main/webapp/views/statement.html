@@ -450,8 +450,7 @@
                 console.log(returnObj.responseObj);
             } else {
                 // 處理及判斷邏輯：                
-                cooperateList = returnObj.responseObj;
-
+                cooperateList = returnObj.responseObj.data;
                 // 撈完後更新畫面內容。
                 reNewCooperateData();
             }
@@ -461,9 +460,9 @@
         function reNewCooperateData() {
             for (let i = 0; i < cooperateList.length; i++) {
                 let ulHtml = `
-                <li class="mdc-list-item py-2" data-value="${cooperateList[i].supplierid}">
+                <li class="mdc-list-item py-2" data-value="${cooperateList[i].sellerId}">
                     <span class="mdc-list-item__ripple"></span>
-                    <span class="mdc-list-item__text">${cooperateList[i].suppliercompanyname}</span>
+                    <span class="mdc-list-item__text">${cooperateList[i].companyName}</span>
                 </li>`;
 
                 $("#productclassification ul").append(ulHtml);
@@ -478,16 +477,19 @@
         // AJAX點擊搜尋後，顯示指定廠商的期間對帳單------------------------------------------------------------------------------------------------------
         async function downloadData() {
             // 跟server要對應廠商的資料
-            theDate.ordertime = $("#startDate").val();
-            theDate.completeordertime = $("#byeDate").val();
-            theDate.buyerid = parseInt($("#productclassification").find("li.mdc-list-item--selected").attr('data-value'));
+            theDate.orderTime = $("#startDate").val();
+            theDate.completeOrderTime = $("#byeDate").val();
+            theDate.buyerId = parseInt($("#productclassification").find("li.mdc-list-item--selected").attr('data-value'));
+            console.log(theDate)
             returnObj = await viewstatement(theDate);
-            let ordertimeList = new Array(returnObj.responseObj.length);
+            let ordertimeList = [];
+            console.log(returnObj)
             for (let i = 0; i < ordertimeList.length; i++) {
-                ordertimeList[i] = JSON.parse(returnObj.responseText)[i].ordertime;
+                ordertimeList.push(returnObj.responseObj.data[i].orderTime);
             }
 
-            let temp = JSON.parse(returnObj.responseText);
+
+			let temp = returnObj.responseObj.data;
             if (returnObj.responseStatus != 200) {
                 console.log("cooperateProductList getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
             } else {
@@ -503,12 +505,12 @@
             await downloadData();
             //上方廠商詳細資訊--------------------------------------
             let trHtmlData =
-                `<td>${cooperateListName[0].CompanyName}：${stateList[0].companyname}</td>
-                    <td>${cooperateListName[0].ContactPerson}：${stateList[0].contactperson}</td>`;
+                `<td>${cooperateListName[0].CompanyName}：${stateList[0].companyName}</td>
+                    <td>${cooperateListName[0].ContactPerson}：${stateList[0].contactPerson}</td>`;
 
             let trHtmlData2 =
-                `<td>${cooperateListName[0].TaxId}：${stateList[0].taxid}</td>
-                    <td>${cooperateListName[0].companyphone}：${stateList[0].companyphone}</td>`;
+                `<td>${cooperateListName[0].TaxId}：${stateList[0].taxId}</td>
+                    <td>${cooperateListName[0].companyphone}：${stateList[0].companyPhone}</td>`;
 
             let trHtmlData3 =
                 `<td>${cooperateListName[0].Address}：${stateList[0].address}</td>
@@ -547,18 +549,18 @@
 
                 // 日期總額
                 let noRepeatDate;
-                if (i > 0 && stateList[i].orderid.substr(2,8) != stateList[i - 1].orderid.substr(2,8)) {
+                if (i > 0 && stateList[i].orderId.substr(2,8) != stateList[i - 1].orderId.substr(2,8)) {
                     dateCount++;
-                } else if(i > 0 && stateList[i].orderid.substr(2,8) == stateList[i - 1].orderid.substr(2,8)) {
+                } else if(i > 0 && stateList[i].orderId.substr(2,8) == stateList[i - 1].orderId.substr(2,8)) {
                     singleDateResult[dateCount] = "";
                 }
 
                 let trHtmlData5 =
                     `<td>${singleDateResult[dateCount] != undefined ? singleDateResult[dateCount] : ""}</td>
-                    <td>${stateList[i].orderid}</td>
-                    <td>${stateList[i].productnamespec}</td>
-                    <td>${costFix(stateList[i].orderqty)}</td>
-                    <td>${costFix(stateList[i].unitdealprice)}</td>
+                    <td>${stateList[i].orderId}</td>
+                    <td>${stateList[i].productNameSpec}</td>
+                    <td>${costFix(stateList[i].orderQty)}</td>
+                    <td>${costFix(stateList[i].unitDealPrice)}</td>
                     <td>${costFix(stateList[i].detail)}</td>
                     <td>${costFix(todayTotal)}</td>`;
 

@@ -17,9 +17,9 @@ public class StatementController {
 
 	@GetMapping
 	public ResponseEntity<?> getStatement(
-			@RequestParam String orderTime, @RequestParam String completeOrderTime, @RequestParam int buyerId) {
+			@RequestParam String orderTime, @RequestParam String completeOrderTime, @RequestParam String buyerId) {
 		try {
-			return ResponseEntity.ok().body(createSuccessResponse(statementService.getStatement(orderTime, completeOrderTime, buyerId)));
+			return ResponseEntity.ok().body(createSuccessResponse(statementService.getStatement(orderTime, completeOrderTime,Integer.valueOf(buyerId))));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                     createErrorResponse(RequestResponseUtil.ErrorFrom.BACKEND_OR_BUSINESS.getErrorFromCode(),
