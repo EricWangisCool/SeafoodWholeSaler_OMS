@@ -1,6 +1,8 @@
 package tw.com.ispan.eeit48.mainFunction.model.view;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -40,17 +42,17 @@ public class Product_Order_OrderDetail implements Serializable {
 	@Column(columnDefinition = "char")
 	private String deliveryOrderRemark;
 	@Column(columnDefinition = "datetime")
-	private String orderTime;
+	private Date orderTime;
 	@Column(columnDefinition = "datetime")
-	private String acceptOrderTime;
+	private Date acceptOrderTime;
 	@Column(columnDefinition = "datetime")
-	private String exportTime;
+	private Date exportTime;
 	@Column(columnDefinition = "datetime")
-	private String arriveOrderTime;
+	private Date arriveOrderTime;
 	@Column(columnDefinition = "datetime")
-	private String completeOrderTime;
+	private Date completeOrderTime;
 	@Column(columnDefinition = "datetime")
-	private String cancelOrderTime;
+	private Date cancelOrderTime;
 	@Column(columnDefinition = "char")
 	private String autoOrderFunction;
 	private Integer unitSellPrice;
@@ -156,42 +158,6 @@ public class Product_Order_OrderDetail implements Serializable {
 	public void setDeliveryOrderRemark(String deliveryOrderRemark) {
 		this.deliveryOrderRemark = deliveryOrderRemark;
 	}
-	public String getOrderTime() {
-		return orderTime;
-	}
-	public void setOrderTime(String orderTime) {
-		this.orderTime = orderTime;
-	}
-	public String getAcceptOrderTime() {
-		return acceptOrderTime;
-	}
-	public void setAcceptOrderTime(String acceptOrderTime) {
-		this.acceptOrderTime = acceptOrderTime;
-	}
-	public String getExportTime() {
-		return exportTime;
-	}
-	public void setExportTime(String exportTime) {
-		this.exportTime = exportTime;
-	}
-	public String getArriveOrderTime() {
-		return arriveOrderTime;
-	}
-	public void setArriveOrderTime(String arriveOrderTime) {
-		this.arriveOrderTime = arriveOrderTime;
-	}
-	public String getCompleteOrderTime() {
-		return completeOrderTime;
-	}
-	public void setCompleteOrderTime(String completeOrderTime) {
-		this.completeOrderTime = completeOrderTime;
-	}
-	public String getCancelOrderTime() {
-		return cancelOrderTime;
-	}
-	public void setCancelOrderTime(String cancelOrderTime) {
-		this.cancelOrderTime = cancelOrderTime;
-	}
 	public String getAutoOrderFunction() {
 		return autoOrderFunction;
 	}
@@ -234,6 +200,42 @@ public class Product_Order_OrderDetail implements Serializable {
 	public void setReservedQty(Integer reservedQty) {
 		this.reservedQty = reservedQty;
 	}
-
+	public Date getOrderTime() {
+		return orderTime;
+	}
+	public void setOrderTime(Date orderTime) {
+		this.orderTime = orderTime;
+	}
+	public Date getAcceptOrderTime() {
+		return acceptOrderTime;
+	}
+	public void setAcceptOrderTime(Date acceptOrderTime) {
+		this.acceptOrderTime = acceptOrderTime;
+	}
+	public Date getExportTime() {
+		return exportTime;
+	}
+	public void setExportTime(Date exportTime) {
+		this.exportTime = exportTime;
+	}
+	public Date getArriveOrderTime() {
+		return arriveOrderTime;
+	}
+	public void setArriveOrderTime(Date arriveOrderTime) {
+		this.arriveOrderTime = arriveOrderTime;
+	}
+	public Date getCompleteOrderTime() {
+		return completeOrderTime;
+	}
+	public void setCompleteOrderTime(Date completeOrderTime) {
+		this.completeOrderTime = completeOrderTime;
+	}
+	public Date getCancelOrderTime() {
+		return cancelOrderTime;
+	}
+	public void setCancelOrderTime(Date cancelOrderTime) {
+		this.cancelOrderTime = cancelOrderTime;
+	}
+	
 	
 }
