@@ -35,12 +35,10 @@ public class PageService {
 	public List<Map<String, Object>> getUserMainPageInfo() throws Exception {
 		int userId = getCurrentUserId();
 		List<Map<String, Object>> list = new ArrayList<>();
-		list.add(new HashMap<>() {{
-			put("pageList", returnPageList(userId));
-			put("pageBuyList", returnPageBuyList(userId));
-			put("pageSellList", returnPageSellList(userId));
-			put("userCompanyName", accountRepository.findCompanyNameByAccountId(userId));
-		}});
+		list.add(new HashMap<>(){{ put("pageList", returnPageList(userId));}});
+		list.add(new HashMap<>(){{ put("pageBuyList", returnPageBuyList(userId));}});
+		list.add(new HashMap<>(){{ put("pageSellList", returnPageSellList(userId));}});
+		list.add(new HashMap<>(){{ put("userCompanyName", accountRepository.findCompanyNameByAccountId(userId));}});
 		return list;
 	}
 

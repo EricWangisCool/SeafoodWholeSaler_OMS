@@ -80,19 +80,19 @@ async function viewsgoodsinsert(data) {
 
 // 叫貨管理相關 OrderBuy API  ------------------------------------------
 async function viewsorderbuy(data) {
-    let connurl = "../orderbuy";
+    let connurl = "../orderBuy";
     let httpMethod = "get";
     return await ajaxmethod(connurl, null, httpMethod);
 }
 
 async function viewsorderbuychildTable(data) {
-    let connurl = "../orderbuy/orderDetail" + "?orderId=" + data.orderId;
+    let connurl = "../orderBuy/orderDetail" + "?orderId=" + data.orderId;
     let httpMethod = "get";
     return await ajaxmethod(connurl, null, httpMethod);
 }
 
 async function viewsorderbuyupdate(data) {
-    let connurl = "../orderbuy";
+    let connurl = "../orderBuy";
     let httpMethod = "put";
     return await ajaxmethod(connurl, data, httpMethod);
 }
@@ -231,9 +231,14 @@ function sync_ajaxmethod(connurl, data, httpMethod) {
 
 
 function isReturnObjectCorrect(returnObj) {
+    console.error(returnObj);
+    
     var body = returnObj.responseObj;
     if (body.status == "0" && returnObj.responseStatus == 200) {
         console.log(body.data);
+        if (body.data == "Request has been processed successfully") {
+            body.data = [];
+        };
         return true;
     
     // 除了登入失敗或jwt過期不用alert以外，其他都要

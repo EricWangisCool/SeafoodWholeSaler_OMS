@@ -405,53 +405,45 @@
         //緊急庫存清單
         let pageListName = [
             {
-                ProductNameSpec: "品名規格",
-                StockOwn: "可出現貨",
+                productNameSpec: "品名規格",
+                stockOwn: "可出現貨",
                 warningqty: "警示庫存",
-                CallShipping: "已叫現貨",
-                SaveQty: "安全庫存"
+                callShipping: "已叫現貨",
+                saveQty: "安全庫存"
             }
         ]
 
         //叫貨清單
         let pageBuyListName = [
             {
-                ProductNameSpec: "品項",
-                OrderId: "叫貨編號",
-                CompanyName: "供應商",
-                OrderStatus: "當前狀態",
-                overtime: "逾時"
+                productNameSpec: "品項",
+                orderId: "叫貨編號",
+                companyName: "供應商",
+                orderStatus: "當前狀態",
+                overTime: "逾時"
             }
         ]
 
         //接單清單
         let pageSellListName = [
             {
-                ProductNameSpec: "品項",
-                OrderId: "接單編號",
-                CompanyName: "採購商",
-                OrderStatus: "當前狀態",
-                overtime: "逾時"
+                productNameSpec: "品項",
+                orderId: "接單編號",
+                companyName: "採購商",
+                orderStatus: "當前狀態",
+                overTime: "逾時"
             }
         ]
 
         // 撈資料(使用非同步資料的方式撈)。
         downloadData();
         async function downloadData() {
-            // 與Server對接的ajax。
-            // 邊撈同時進行後續動作。
             returnObj = await viewspage(null);
-
-            if (returnObj.responseStatus != 200) {
-                // 撈完後解析假資料並更新畫面內容。
+            if (isReturnObjectCorrect(returnObj)) {
+                allPageList = returnObj.responseObj.data;
                 reNewData();
-                // 沒接到資料
-                console.log("page getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                console.log(returnObj.responseObj);
             } else {
-                // 處理及判斷邏輯：                
-                allPageList = returnObj.responseObj;
-                // 撈完後解析假資料並更新畫面內容。
+                console.log("page.html downloadData error");
                 reNewData();
             }
         }
@@ -484,7 +476,7 @@
             // </tr>`;
             $(".pageTable1 table.pageTable")[0].innerHTML = `
             <tr class="stockTable">
-                <th style="width: 20%;">${pageListName[0].ProductNameSpec}</th>
+                <th style="width: 20%;">${pageListName[0].productNameSpec}</th>
                 <th style="width: 15%;">缺貨數(A) <br> <span class="fs-4">&#127313; - &#127314;</span></th>
                 <th style="width: 15%;">安全庫存(B)</th>
                 <th style="width: 18%;">可出現貨 + 已叫現貨(C) <br> <span class="fs-4">&#127314; &lsaquo; &#127315;</span></th>
@@ -495,22 +487,22 @@
             // 叫貨欄位
             $(".pageTable2 table.pageTable")[0].innerHTML = `
             <tr class="buyTable">
-                <th style="width: 16%;">${pageBuyListName[0].OrderId}</th>
-                <th style="width: 12%;">${pageBuyListName[0].CompanyName}</th>
-                <th style="width: 20%;">${pageBuyListName[0].ProductNameSpec}</th>
-                <th colspan="2"style="width: 35%;">${pageBuyListName[0].OrderStatus}</th>
-                <th style="width: 12%;">${pageBuyListName[0].overtime}</th>
+                <th style="width: 16%;">${pageBuyListName[0].orderId}</th>
+                <th style="width: 12%;">${pageBuyListName[0].companyName}</th>
+                <th style="width: 20%;">${pageBuyListName[0].productNameSpec}</th>
+                <th colspan="2"style="width: 35%;">${pageBuyListName[0].orderStatus}</th>
+                <th style="width: 12%;">${pageBuyListName[0].overTime}</th>
             </tr>`;
 
 
             // 接單欄位
             $(".pageTable3 table.pageTable")[0].innerHTML = `
             <tr class="sellTable">
-                <th style="width: 16%;">${pageSellListName[0].OrderId}</th>
-                <th style="width: 12%;">${pageSellListName[0].CompanyName}</th>
-                <th style="width: 20%;">${pageSellListName[0].ProductNameSpec}</th>
-                <th colspan="2"style="width: 35%;">${pageSellListName[0].OrderStatus}</th>
-                <th style="width: 12%;">${pageSellListName[0].overtime}</th>
+                <th style="width: 16%;">${pageSellListName[0].orderId}</th>
+                <th style="width: 12%;">${pageSellListName[0].companyName}</th>
+                <th style="width: 20%;">${pageSellListName[0].productNameSpec}</th>
+                <th colspan="2"style="width: 35%;">${pageSellListName[0].orderStatus}</th>
+                <th style="width: 12%;">${pageSellListName[0].overTime}</th>
             </tr>`;
 
 
@@ -519,11 +511,11 @@
                 // 08
                 let trHtmlData = `
                 <tr>
-                    <td>${allPageList[0].pageList[i].productnamespec}</td>
-                    <td style="border-left: 1px solid var(--color-border);"><span class="${allPageList[0].pageList[i].outstock >= 50 ? 'dangerTd' : 'warningTd'}">${allPageList[0].pageList[i].outstock}</span></td>                    
-                    <td style="border-left: 1px solid var(--color-border);">${allPageList[0].pageList[i].safeqty}</td>
-                    <td>${allPageList[0].pageList[i].stockownandcallshipping}</td>   
-                    <td>${allPageList[0].pageList[i].warningqty}</td>                  
+                    <td>${allPageList[0].pageList[i].productNameSpec}</td>
+                    <td style="border-left: 1px solid var(--color-border);"><span class="${allPageList[0].pageList[i].outStock >= 50 ? 'dangerTd' : 'warningTd'}">${allPageList[0].pageList[i].outStock}</span></td>                    
+                    <td style="border-left: 1px solid var(--color-border);">${allPageList[0].pageList[i].safeQty}</td>
+                    <td>${allPageList[0].pageList[i].sellableAndRequestedQty}</td>   
+                    <td>${allPageList[0].pageList[i].warningQty}</td>                  
                 </tr>`
 
                 // 把製作完的tr放回去tabel中。
@@ -534,10 +526,10 @@
 
             for (let i = 0; i < (allPageList[1].pageBuyList.length <= 3 ? allPageList[1].pageBuyList.length : 3); i++) {
                 // 當前狀態
-                let returnbuystatus = checkstatus(0, allPageList[1].pageBuyList[i].orderstatus);
+                let returnbuystatus = checkstatus(0, allPageList[1].pageBuyList[i].orderStatus);
 
                 // 判斷商品字串
-                let productStr = allPageList[1].pageBuyList[i].productnamespec;
+                let productStr = allPageList[1].pageBuyList[i].productNameSpec;
                 let productCount = (productStr.match(/<BR>/g) || []).length;
                 let fixProductStr = "";
 
@@ -560,8 +552,8 @@
                 // 創造<tr>的Html格式，並將資料帶入。
                 let trHtmlData2 = `
                 <tr>
-                    <td>${allPageList[1].pageBuyList[i].orderid}</td>
-                    <td>${allPageList[1].pageBuyList[i].companyname}</td>
+                    <td>${allPageList[1].pageBuyList[i].orderId}</td>
+                    <td>${allPageList[1].pageBuyList[i].companyName}</td>
                     <td style="text-align:center;">
                         <div class="w-100 my-2">
                             <span>${fixProductStr}</span>
@@ -576,12 +568,12 @@
                                 <li class="active">
                                     <span class="point d-block"></span>
                                     <span class="diplome d-block">${returnbuystatus.prev}</span>
-                                    <span class="timestamp d-block">${(allPageList[1].pageBuyList[i].statustime).replace(" ", "<br>")}</span>
+                                    <span class="timestamp d-block">${(allPageList[1].pageBuyList[i].statusTime).replace(" ", "<br>")}</span>
                                 </li>
                                 <li>
                                     <span class="point d-block"></span>
                                     <span class="diplome d-block">${returnbuystatus.now}</span>
-                                    <span class="timestamp d-block">${timeCounter(allPageList[1].pageBuyList[i].statustime, allPageList[1].pageBuyList[i].orderstatus)}</span>
+                                    <span class="timestamp d-block">${timeCounter(allPageList[1].pageBuyList[i].statusTime, allPageList[1].pageBuyList[i].orderStatus)}</span>
                                 </li>
                             </ol>
                         </div>
@@ -594,7 +586,7 @@
 
 
                 //緊急叫貨清單逾時
-                var dateBuy = new Date(`${(timeCounter(allPageList[1].pageBuyList[i].statustime)).replace("<br>", " ")}`);// 過去時間
+                var dateBuy = new Date(`${(timeCounter(allPageList[1].pageBuyList[i].statusTime)).replace("<br>", " ")}`);// 過去時間
                 var dateNow = new Date();//現在時間
                 var sOne = dateBuy.getTime(), sTwo = dateNow.getTime();
 
@@ -607,10 +599,10 @@
 
 
             for (let i = 0; i < (allPageList[2].pageSellList.length <= 3 ? allPageList[2].pageSellList.length : 3); i++) {
-                let returnsellstatus = checkstatus(1, allPageList[2].pageSellList[i].orderstatus);
+                let returnsellstatus = checkstatus(1, allPageList[2].pageSellList[i].orderStatus);
 
                 // 判斷商品字串
-                let productStr = allPageList[2].pageSellList[i].productnamespec;
+                let productStr = allPageList[2].pageSellList[i].productNameSpec;
                 let productCount = (productStr.match(/<BR>/g) || []).length;
                 let fixProductStr = "";
 
@@ -632,8 +624,8 @@
                 // 創造<tr>的Html格式，並將資料帶入。
                 let trHtmlData3 = `
                 <tr>
-                    <td>${allPageList[2].pageSellList[i].orderid}</td>
-                    <td>${allPageList[2].pageSellList[i].companyname}</td>
+                    <td>${allPageList[2].pageSellList[i].orderId}</td>
+                    <td>${allPageList[2].pageSellList[i].companyName}</td>
                     <td style="text-align:center;">
                         <div class="w-100 my-2">
                             <span>${fixProductStr}</span>
@@ -648,12 +640,12 @@
                                 <li class="active">
                                     <span class="point d-block"></span>
                                     <span class="diplome d-block">${returnsellstatus.prev}</span>
-                                    <span class="timestamp d-block">${(allPageList[2].pageSellList[i].statustime).replace(" ", "<br>")}</span>
+                                    <span class="timestamp d-block">${(allPageList[2].pageSellList[i].statusTime).replace(" ", "<br>")}</span>
                                 </li>
                                 <li>
                                     <span class="point d-block"></span>
                                     <span class="diplome d-block">${returnsellstatus.now}</span>
-                                    <span class="timestamp d-block">${timeCounter(allPageList[2].pageSellList[i].statustime, allPageList[2].pageSellList[i].orderstatus)}</span>                                            
+                                    <span class="timestamp d-block">${timeCounter(allPageList[2].pageSellList[i].statusTime, allPageList[2].pageSellList[i].orderStatus)}</span>                                            
                                 </li>
                             </ol>
                         </div>
@@ -666,7 +658,7 @@
 
 
                 //緊急接單清單逾時
-                var dateSell = new Date(`${(timeCounter(allPageList[2].pageSellList[i].statustime)).replace("<br>", " ")}`);// 過去時間
+                var dateSell = new Date(`${(timeCounter(allPageList[2].pageSellList[i].statusTime)).replace("<br>", " ")}`);// 過去時間
                 var dateNow2 = new Date();//現在時間
                 var s1 = dateSell.getTime(), s2 = dateNow2.getTime();
 

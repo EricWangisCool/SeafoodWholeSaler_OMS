@@ -286,12 +286,26 @@ function timeCounter(basicTime, status) {
 
     let deadlineStr = "";
     if (status == 1 || status == 6 || status == 7 || status == null || status == undefined || status == "") {
-        deadlineStr = "";
+        deadlineStr = "<BR>";
     } else {
-        deadlineStr = "(最晚)"
+        deadlineStr = "(最晚)<BR>"
     }
 
     let returnTime = `${deadlineStr}${d.getFullYear()}-${
+        (parseInt(d.getMonth()) + 1) < 10 ? "0" + (parseInt(d.getMonth()) + 1) : (parseInt(d.getMonth()) + 1)}-${
+            d.getDate() < 10 ? "0" + d.getDate() : d.getDate()}<br>${
+                d.getHours() < 10 ? "0" + d.getHours() : d.getHours()}:${
+                    d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes()}:${
+                        d.getSeconds() < 10 ? "0" + d.getSeconds() : d.getSeconds()}`;
+
+    return returnTime;
+}
+
+function timeToString(basicTime) {
+    // 格式：2022-09-22 13:14:17
+    let d = new Date(basicTime);
+
+    let returnTime = `${d.getFullYear()}-${
         (parseInt(d.getMonth()) + 1) < 10 ? "0" + (parseInt(d.getMonth()) + 1) : (parseInt(d.getMonth()) + 1)}-${
             d.getDate() < 10 ? "0" + d.getDate() : d.getDate()}<br>${
                 d.getHours() < 10 ? "0" + d.getHours() : d.getHours()}:${

@@ -324,24 +324,23 @@
         // OrderId(叫貨編號)、CompanyName(供應商)、OrderTime(叫貨時間)、OrderStatus(交易狀態)、?total(大總價)、PaymentTerms(付款方式)
         // ProductNameSpec(品名規格)、OrderQty(叫貨數量)、OrderQty(到貨數量)、UnitSellPrice(成本單價)、?detailTotal(明細總價)
         // 時間軸：Status(狀態)、訂單時間：OrderTime(訂單送出時間)、AcceptOrderTime(訂單接受時間)、ExportTime(訂單出貨時間)、SellerEstimatedArriveTime(賣家預計到貨時間)、ArriveOrderTime(貨物送達時間)、CompleteOrderTime(訂單完成時間)、CancelOrderTime(訂單不完成時間)
-
         // OrderStatus(交易狀態)：1是尚未送出叫貨單_還沒送出訂單、2是待確認_訂單送出、3是待出貨_訂單成立、4是出貨中、5是待收貨_待收貨入庫、6是訂單完成_入庫完成、7是訂單不成立_賣家或買家取消
 
         var allBuyList =
             [
                 {
-                    acceptordertime: "null",
-                    arriveordertime: "null",
-                    buyerid: 1,
-                    cancelordertime: "null",
-                    companyname: "千萬屋",
-                    completeordertime: "null",
-                    exporttime: "null",
-                    orderid: "1D202209090001",
-                    orderstatus: 1,
-                    ordertime: "2022-09-22 13:14:17",
-                    paymentterms: "月結",
-                    sellerid: 2,
+                    acceptOrderTime: "null",
+                    arriveOrderTime: "null",
+                    buyerId: 1,
+                    cancelOrderTime: "null",
+                    companyName: "千萬屋",
+                    completeOrderTime: "null",
+                    exportTime: "null",
+                    orderId: "1D202209090001",
+                    orderStatus: 1,
+                    orderTime: "2022-09-22 13:14:17",
+                    paymentTerms: "月結",
+                    sellerId: 2,
                     total: 0
                 }
 
@@ -349,12 +348,12 @@
 
         var allBuyListDetail = [
             {
-                detailtotal: 0,
-                orderid: "1D202209090001",
-                orderqty: 30,
-                productnamespec: "2號的秋刀魚",
-                sellerproductid: 200001,
-                unitdealprice: 0
+                detailTotal: 0,
+                orderId: "1D202209090001",
+                orderQty: 30,
+                productNameSpec: "2號的秋刀魚",
+                sellerProductId: 200001,
+                unitDealPrice: 0
             }
         ]
 
@@ -362,16 +361,16 @@
         // 欄位中文名稱對應
         let buyListName = [
             {
-                ProductNameSpec: "品項",
-                OrderId: "叫貨編號",
-                CompanyName: "供應商",
-                OrderTime: "叫貨時間",
-                OrderStatus: "當前狀態",
+                productNameSpec: "品項",
+                orderId: "叫貨編號",
+                companyName: "供應商",
+                orderTime: "叫貨時間",
+                orderStatus: "當前狀態",
                 total: "總價",
-                PaymentTerms: "付款方式",
-                ProductNameSpec: "品名規格",
-                OrderQty: "叫貨數量",
-                UnitSellPrice: "成本單價",
+                paymentTerms: "付款方式",
+                productNameSpec: "品名規格",
+                orderQty: "叫貨數量",
+                unitSellPrice: "成本單價",
                 detailTotal: "總價",
                 controller: "操作"
             }
@@ -379,40 +378,30 @@
 
         let buyListStatusName = [
             {
-                OrderTime: "待供應商確認",
-                AcceptOrderTime: "待供應商出貨",
-                ExportTime: "供應商出貨中",
-                ArriveOrderTime: "待我方收貨",
-                CompleteOrderTime: "訂單完成",
-                CancelOrderTime: "不成立"
+                orderTime: "待供應商確認",
+                acceptOrderTime: "待供應商出貨",
+                exportTime: "供應商出貨中",
+                arriveOrderTime: "待我方收貨",
+                completeOrderTime: "訂單完成",
+                cancelOrderTime: "不成立"
             }
         ]
 
-        // 撈資料(使用非同步資料的方式撈)。
         downloadData();
         async function downloadData() {
-
             returnObj = await viewsorderbuy(null);
-
-            if (returnObj.responseStatus != 200) {
-                // 沒接到資料                
+            if (isReturnObjectCorrect(returnObj)) {
+                allBuyList = returnObj.responseObj.data;
                 reNewData();
-
-                console.log("orderStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                console.log(returnObj.responseObj);
             } else {
-                // 處理及判斷邏輯：          
-                allBuyList = returnObj.responseObj;
-
                 reNewData();
-            }
-
-        }
+                console.log("orderBuy.html downloadData method failed");
+            };
+        };
 
 
 
         function reNewData() {
-
             let totalTr = ``;
             for (let i = 0; i < allBuyList.length; i++) {
                 let singleTr = `
@@ -424,10 +413,10 @@
             $(".orderBuytable")[0].innerHTML = `
             <thead>
                 <tr>
-                    <th style="width: 16%;">${buyListName[0].OrderId}</th>
-                    <th style="width: 15%;">${buyListName[0].CompanyName}</th>
-                    <th style="width: 16%;">${buyListName[0].ProductNameSpec}</th>
-                    <th colspan="2" style="width: 30%;">${buyListName[0].OrderStatus}</th>
+                    <th style="width: 16%;">${buyListName[0].orderId}</th>
+                    <th style="width: 15%;">${buyListName[0].companyName}</th>
+                    <th style="width: 16%;">${buyListName[0].productNameSpec}</th>
+                    <th colspan="2" style="width: 30%;">${buyListName[0].orderStatus}</th>
                     <th style="width: 10%;">${buyListName[0].total}</th>
                     <th style="width: 15%;">${buyListName[0].controller}</th>
                 </tr>
@@ -439,33 +428,33 @@
                 // 判斷幾個按鈕狀態
                 // 送出叫貨單=送出叫貨單按鈕+刪除叫貨單按鈕
                 let sentOrder =
-                    `<button class="orderBtn mdc-button mdc-button--raised mb-2" onclick="sweetalertShow(2,this)" data-value="${allBuyList[i].orderid}">
+                    `<button class="orderBtn mdc-button mdc-button--raised mb-2" onclick="sweetalertShow(2,this)" data-value="${allBuyList[i].orderId}">
                     <span class="mdc-button__label fs-5 fw-normal">送出叫貨單</span>
                 </button><br>
-                <button class="orderBtnDel mdc-button mdc-button--outlined mb-2" onclick="sweetalertShow(8,this)" data-value="${allBuyList[i].orderid}">
+                <button class="orderBtnDel mdc-button mdc-button--outlined mb-2" onclick="sweetalertShow(8,this)" data-value="${allBuyList[i].orderId}">
                     <span class="mdc-button__ripple"></span>
                     <span class="mdc-button__label fs-5 fw-normal">刪除叫貨單</span>
                 </button><br>`;
 
                 let cancelOrder =
-                    `<button class="orderBtnDel mdc-button mdc-button--outlined mb-2" onclick="sweetalertShow(7,this)" data-value="${allBuyList[i].orderid}">
+                    `<button class="orderBtnDel mdc-button mdc-button--outlined mb-2" onclick="sweetalertShow(7,this)" data-value="${allBuyList[i].orderId}">
                     <span class="mdc-button__ripple"></span>
                     <span class="mdc-button__label fs-5 fw-normal">取消叫貨單</span>
                 </button><br>`;
 
                 let checkOrder =
-                    `<button class="detail mdc-button" onclick="detailBtnCheck(this)" data-value="${allBuyList[i].orderid}">
+                    `<button class="detail mdc-button" onclick="detailBtnCheck(this)" data-value="${allBuyList[i].orderId}">
                     <span class="mdc-button__ripple"></span>
                     <span class="mdc-button__label fs-5 fw-normal">查看明細</span>
                 </button>`;
 
                 let intoStock =
-                    `<button class="orderBtn mdc-button mdc-button--raised mb-2" onclick="sweetalertShow(6,this)" data-value="${allBuyList[i].orderid}">
+                    `<button class="orderBtn mdc-button mdc-button--raised mb-2" onclick="sweetalertShow(6,this)" data-value="${allBuyList[i].orderId}">
                     <span class="mdc-button__label fs-5 fw-normal">確認入庫</span>
                 </button><br>`;
 
                 let theButton = null;
-                switch (allBuyList[i].orderstatus) {
+                switch (allBuyList[i].orderStatus) {
                     case 1:
                         theButton = sentOrder + checkOrder;
                         break;
@@ -485,10 +474,10 @@
 
 
                 // 判斷時間軸
-                let returnTimeLineStatus = checkTimeLine(0, allBuyList[i].orderstatus);
+                let returnTimeLineStatus = checkTimeLine(0, allBuyList[i].orderStatus);
 
                 let thetimeLine = null;
-                switch (allBuyList[i].orderstatus) {
+                switch (allBuyList[i].orderStatus) {
                     case 1: case 7:
                         thetimeLine = ``;
                         break;
@@ -499,27 +488,27 @@
                                     <li class="fullstate active">
                                         <span class="point d-block"></span>
                                         <span class="diplome d-block">${returnTimeLineStatus.step1}</span>
-                                        <span class="timestamp d-block">${allBuyList[i].ordertime}</span>
+                                        <span class="timestamp d-block">${allBuyList[i].orderTime}</span>
                                     </li>
-                                    <li class="fullstate ${allBuyList[i].acceptordertime == "null" ? "" : "active"}">
+                                    <li class="fullstate ${allBuyList[i].acceptOrderTime == "null" ? "" : "active"}">
                                         <span class="point d-block"></span>
                                         <span class="diplome d-block">${returnTimeLineStatus.step2}</span>
-                                        <span class="timestamp d-block">${allBuyList[i].acceptordertime == "null" ? "" : allBuyList[i].acceptordertime}</span>
+                                        <span class="timestamp d-block">${allBuyList[i].acceptOrderTime == "null" ? "" : allBuyList[i].acceptOrderTime}</span>
                                     </li>
-                                    <li class="fullstate ${allBuyList[i].exporttime == "null" ? "" : "active"}">
+                                    <li class="fullstate ${allBuyList[i].exportTime == "null" ? "" : "active"}">
                                         <span class="point d-block"></span>
                                         <span class="diplome d-block">${returnTimeLineStatus.step3}</span>
-                                        <span class="timestamp d-block">${allBuyList[i].exporttime == "null" ? "" : allBuyList[i].exporttime}</span>
+                                        <span class="timestamp d-block">${allBuyList[i].exportTime == "null" ? "" : allBuyList[i].exportTime}</span>
                                     </li>
-                                    <li class="fullstate ${allBuyList[i].arriveordertime == "null" ? "" : "active"}">
+                                    <li class="fullstate ${allBuyList[i].arriveOrderTime == "null" ? "" : "active"}">
                                         <span class="point d-block"></span>
                                         <span class="diplome d-block">${returnTimeLineStatus.step4}</span>
-                                        <span class="timestamp d-block">${allBuyList[i].arriveordertime == "null" ? "" : allBuyList[i].arriveordertime}</span>
+                                        <span class="timestamp d-block">${allBuyList[i].arriveOrderTime == "null" ? "" : allBuyList[i].arriveOrderTime}</span>
                                     </li>
-                                    <li class="fullstate ${allBuyList[i].completeordertime == "null" ? "" : "active"}">
+                                    <li class="fullstate ${allBuyList[i].completeOrderTime == "null" ? "" : "active"}">
                                         <span class="point d-block"></span>
                                         <span class="diplome d-block">${returnTimeLineStatus.step5}</span>
-                                        <span class="timestamp d-block">${allBuyList[i].completeordertime == "null" ? "" : allBuyList[i].completeordertime}</span>
+                                        <span class="timestamp d-block">${allBuyList[i].completeOrderTime == "null" ? "" : allBuyList[i].completeOrderTime}</span>
                                     </li>                                    
                                 </ol>
                             </div>`;
@@ -533,29 +522,29 @@
 
                 // 創造<tr>的Html格式，並將資料帶入。
                 // 檢查當前狀態，0代入叫貨
-                let returnbuystatus = checkstatus(0, allBuyList[i].orderstatus);
+                let returnbuystatus = checkstatus(0, allBuyList[i].orderStatus);
                 let finalStatusTime = "";
-                switch (allBuyList[i].orderstatus) {
+                switch (allBuyList[i].orderStatus) {
                     case 1:
                         finalStatusTime = "";
                         break;
                     case 2:
-                        finalStatusTime = allBuyList[i].ordertime;
+                        finalStatusTime = allBuyList[i].orderTime;
                         break;
                     case 3:
-                        finalStatusTime = allBuyList[i].acceptordertime;
+                        finalStatusTime = allBuyList[i].acceptOrderTime;
                         break;
                     case 4:
-                        finalStatusTime = allBuyList[i].exporttime;
+                        finalStatusTime = allBuyList[i].exportTime;
                         break;
                     case 5:
-                        finalStatusTime = allBuyList[i].arriveordertime;
+                        finalStatusTime = allBuyList[i].arriveOrderTime;
                         break;
                     case 6:
-                        finalStatusTime = allBuyList[i].completeordertime;
+                        finalStatusTime = allBuyList[i].completeOrderTime;
                         break;
                     case 7:
-                        finalStatusTime = allBuyList[i].cancelordertime;
+                        finalStatusTime = allBuyList[i].cancelOrderTime;
                         break;
                     default:
                         console.log("finalStatusTime error");
@@ -563,7 +552,7 @@
                 }
 
                 // 判斷商品字串
-                let productStr = allBuyList[i].productnamespec;
+                let productStr = allBuyList[i].productNameSpec;
                 let productCount = (productStr.match(/<BR>/g) || []).length;
                 let fixProductStr = "";
 
@@ -583,8 +572,8 @@
                 }
 
                 let toptrHtmlData = `
-                    <td data-label="">${allBuyList[i].orderid}</td>
-                    <td data-label="">${allBuyList[i].companyname}</td>
+                    <td data-label="">${allBuyList[i].orderId}</td>
+                    <td data-label="">${allBuyList[i].companyName}</td>
                     <td style="text-align:center;">
                         <div class="w-100 my-2">
                             <span>${fixProductStr}</span>
@@ -599,12 +588,12 @@
                                 <li class="active">
                                     <span class="point d-block"></span>
                                     <span class="diplome d-block">${returnbuystatus.prev}</span>
-                                    <span class="timestamp d-block">${finalStatusTime.replace(" ", "<br>")}</span>
+                                    <span class="timestamp d-block">${timeToString(finalStatusTime).replace(" ", "<br>")}</span>
                                 </li>
                                 <li class="point">
                                     <span class="point d-block"></span>
-                                    <span class="diplome d-block">${allBuyList[i].orderstatus == 7 || allBuyList[i].orderstatus == 1 || allBuyList[i].orderstatus == 6 ? "" : returnbuystatus.now}</span>
-                                    <span class="timestamp d-block">${allBuyList[i].orderstatus == 7 || allBuyList[i].orderstatus == 1 || allBuyList[i].orderstatus == 6 ? "" : timeCounter(finalStatusTime, allBuyList[i].orderstatus)}</span>
+                                    <span class="diplome d-block">${allBuyList[i].orderStatus == 7 || allBuyList[i].orderStatus == 1 || allBuyList[i].orderStatus == 6 ? "" : returnbuystatus.now}</span>
+                                    <span class="timestamp d-block">${allBuyList[i].orderStatus == 7 || allBuyList[i].orderStatus == 1 || allBuyList[i].orderStatus == 6 ? "" : timeCounter(finalStatusTime, allBuyList[i].orderStatus)}</span>
                                 </li>
                             </ol>
                         </div>
@@ -616,13 +605,13 @@
 
                 let bottomtrHtmlData = `
                     <td colspan="7">
-                        <div class="childTableHidden px-4" data-value="${allBuyList[i].orderstatus}">
+                        <div class="childTableHidden px-4" data-value="${allBuyList[i].orderStatus}">
                             <table class="fs-5 fw-normal mb-4 w-100 my-4">
                                 <thead>
                                     <tr>
-                                        <th style="width: 20%;">${buyListName[0].ProductNameSpec}</th>
-                                        <th style="width: 15%;">${buyListName[0].OrderQty}</th>
-                                        <th style="width: 15%;">${buyListName[0].UnitSellPrice}</th>
+                                        <th style="width: 20%;">${buyListName[0].productNameSpec}</th>
+                                        <th style="width: 15%;">${buyListName[0].orderQty}</th>
+                                        <th style="width: 15%;">${buyListName[0].unitSellPrice}</th>
                                         <th style="width: 15%;">${buyListName[0].detailTotal}</th>
                                     </tr>
                                 </thead>
@@ -636,7 +625,7 @@
                         </div>
                     </td>`;
 
-                $($(".hiddenRowControll")[i]).attr("data-state", allBuyList[i].orderstatus);
+                $($(".hiddenRowControll")[i]).attr("data-state", allBuyList[i].orderStatus);
                 $(".hiddenRowControll")[i].innerHTML = toptrHtmlData;
                 $(".childRow")[i].innerHTML = bottomtrHtmlData;
 
@@ -654,11 +643,9 @@
 
         // ajax取得詳細資料
         async function downloadDetailData(requestData, showDetailPosition) {
-
             let data = {
-                orderid: requestData
+                orderId: requestData
             }
-
             returnObj = await viewsorderbuychildTable(data);
 
             if (returnObj.responseStatus != 200) {
@@ -723,23 +710,20 @@
 
         async function updateData(state, btn) {
             let data = {
-                orderid: $(btn).attr('data-value'),
-                orderstatus: state
-            }
+                orderId: $(btn).attr('data-value'),
+                orderStatus: state
+            };
+
+            console.log(data);
 
             returnObj = await viewsorderbuyupdate(data);
-
-            if (returnObj.responseStatus != 200) {
-                // 沒接到資料
-
-                sweetalertShow((state + 10));
-
-                console.log("orderStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                console.log(returnObj.responseObj);
-            } else {
-                // 處理及判斷邏輯：          
+            
+            if (isReturnObjectCorrect(returnObj)) {
                 closeComponent();
-            }
+            } else {
+                console.log("orderBuy updateData error");
+                sweetalertShow((state + 10));
+            };
         }
 
         // sweetalert提示
