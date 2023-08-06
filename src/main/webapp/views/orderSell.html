@@ -487,11 +487,11 @@
         // 欄位中文名稱對應
         let sellListName = [
             {
-                ProductNameSpec: "品項",
-                OrderId: "接單編號",
-                CompanyName: "採購商",
-                OrderTime: "下單時間",
-                OrderStatus: "當前狀態",
+                productNameSpec: "品項",
+                orderId: "接單編號",
+                companyName: "採購商",
+                orderTime: "下單時間",
+                orderStatus: "當前狀態",
                 total: "銷售合計",
                 profit: "利潤",
                 controller: "操作"
@@ -502,14 +502,11 @@
         downloadData();
         async function downloadData() {
             returnObj = await viewsordersell(null);
-            if (returnObj.responseStatus != 200) {
-                // 沒接到資料                
-                reNewData();
-                console.log("orderStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                console.log(returnObj.responseObj);
+            if (isReturnObjectCorrect(returnObj)) {
+                allSellList = returnObj.responseObj.data;
+                reNewData();                
             } else {
-                // 處理及判斷邏輯：          
-                allSellList = returnObj.responseObj;
+                console.log("orderSell.html downloadData error");
                 reNewData();
             }
         }
@@ -527,10 +524,10 @@
             $(".orderSelltable")[0].innerHTML = `
             <thead>
                 <tr>
-                    <th style="width: 16%;">${sellListName[0].OrderId}</th>
-                    <th style="width: 15%;">${sellListName[0].CompanyName}</th>
-                    <th style="width: 18%;">${sellListName[0].ProductNameSpec}</th>
-                    <th colspan="2" style="width: 33%;">${sellListName[0].OrderStatus}</th>
+                    <th style="width: 16%;">${sellListName[0].orderId}</th>
+                    <th style="width: 15%;">${sellListName[0].companyName}</th>
+                    <th style="width: 18%;">${sellListName[0].productNameSpec}</th>
+                    <th colspan="2" style="width: 33%;">${sellListName[0].orderStatus}</th>
                     <th style="width: 10%;">${sellListName[0].total}</th>
                     <th style="width: 12%;">${sellListName[0].controller}</th>
                 </tr>
@@ -540,15 +537,15 @@
 
                 // 判斷幾個按鈕
                 let confirmOrder = `
-                    <button class="orderBtn mdc-button mdc-button--raised mb-2" onclick="sweetalertShow(3,this)" data-value="${tidyAllSellList[i - 1].orderid}">
+                    <button class="orderBtn mdc-button mdc-button--raised mb-2" onclick="sweetalertShow(3,this)" data-value="${tidyAllSellList[i - 1].orderId}">
                         <span class="mdc-button__label fs-5 fw-normal">確認訂單</span>
                     </button><br>`;
                 let exportOrder = `
-                    <button class="orderBtn mdc-button mdc-button--raised mb-2" onclick="sweetalertShow(4,this)" data-value="${tidyAllSellList[i - 1].orderid}">
+                    <button class="orderBtn mdc-button mdc-button--raised mb-2" onclick="sweetalertShow(4,this)" data-value="${tidyAllSellList[i - 1].orderId}">
                         <span class="mdc-button__label fs-5 fw-normal">全配出貨</span>
                     </button><br>`;
                 let cancelOrder = `
-                    <button class="orderBtnDel mdc-button mdc-button--outlined mb-2" onclick="sweetalertShow(7,this)" data-value="${tidyAllSellList[i - 1].orderid}">
+                    <button class="orderBtnDel mdc-button mdc-button--outlined mb-2" onclick="sweetalertShow(7,this)" data-value="${tidyAllSellList[i - 1].orderId}">
                         <span class="mdc-button__ripple"></span>
                         <span class="mdc-button__label fs-5 fw-normal">取消訂單</span>
                     </button><br>`;
@@ -559,7 +556,7 @@
                     </button>`;
 
                 let theButton = null;
-                switch (tidyAllSellList[i - 1].orderstatus) {
+                switch (tidyAllSellList[i - 1].orderStatus) {
                     case 2:
                         theButton = confirmOrder + cancelOrder + checkOrder;
                         break;
@@ -579,26 +576,26 @@
 
 
                 // 判斷主頁時間軸
-                let returnSellstatus = checkstatus(1, tidyAllSellList[i - 1].orderstatus);
+                let returnSellstatus = checkstatus(1, tidyAllSellList[i - 1].orderStatus);
                 let finalStatusTime = "";
-                switch (tidyAllSellList[i - 1].orderstatus) {
+                switch (tidyAllSellList[i - 1].orderStatus) {
                     case 2:
-                        finalStatusTime = tidyAllSellList[i - 1].ordertime;
+                        finalStatusTime = tidyAllSellList[i - 1].orderTime;
                         break;
                     case 3:
-                        finalStatusTime = tidyAllSellList[i - 1].acceptordertime;
+                        finalStatusTime = tidyAllSellList[i - 1].acceptOrderTime;
                         break;
                     case 4:
-                        finalStatusTime = tidyAllSellList[i - 1].exporttime;
+                        finalStatusTime = tidyAllSellList[i - 1].exportTime;
                         break;
                     case 5:
-                        finalStatusTime = tidyAllSellList[i - 1].arriveordertime;
+                        finalStatusTime = tidyAllSellList[i - 1].arriveOrderTime;
                         break;
                     case 6:
-                        finalStatusTime = tidyAllSellList[i - 1].completeordertime;
+                        finalStatusTime = tidyAllSellList[i - 1].completeOrderTime;
                         break;
                     case 7:
-                        finalStatusTime = tidyAllSellList[i - 1].cancelordertime;
+                        finalStatusTime = tidyAllSellList[i - 1].cancelOrderTime;
                         break;
                     default:
                         console.log("finalStatusTime error");
@@ -609,7 +606,7 @@
                 // 組合商品字串
                 let groupStr = "";
                 for(let k = 0; k < tidyAllSellList[i - 1].product.length; k++){
-                    groupStr += tidyAllSellList[i - 1].product[k].productnamespec + "<BR>";
+                    groupStr += tidyAllSellList[i - 1].product[k].productNameSpec + "<BR>";
                 }
 
                 // 判斷商品字串
@@ -634,8 +631,8 @@
 
                 // 創造<tr>的Html格式，並將資料帶入。
                 let trHtmlData =
-                    `<td data-label="">${tidyAllSellList[i - 1].orderid}</td>
-                    <td data-label="">${tidyAllSellList[i - 1].companyname}</td>
+                    `<td data-label="">${tidyAllSellList[i - 1].orderId}</td>
+                    <td data-label="">${tidyAllSellList[i - 1].companyName}</td>
                     <td style="text-align:center;">
                         <div class="w-100 my-2">
                             <span>${fixProductStr}</span>
@@ -650,12 +647,12 @@
                                 <li class="active">
                                     <span class="point d-block"></span>
                                     <span class="diplome d-block">${returnSellstatus.prev}</span>
-                                    <span class="timestamp d-block">${finalStatusTime.replace(" ", "<br>")}</span>
+                                    <span class="timestamp d-block">${timeToString(finalStatusTime).replace(" ", "<br>")}</span>
                                 </li>
                                 <li class="point">
                                     <span class="point d-block"></span>
-                                    <span class="diplome d-block">${tidyAllSellList[i - 1].orderstatus == 7 || tidyAllSellList[i - 1].orderstatus == 6 ? "" : returnSellstatus.now}</span>
-                                    <span class="timestamp d-block">${tidyAllSellList[i - 1].orderstatus == 7 || tidyAllSellList[i - 1].orderstatus == 6 ? "" : timeCounter(finalStatusTime, tidyAllSellList[i - 1].orderstatus)}</span>
+                                    <span class="diplome d-block">${tidyAllSellList[i - 1].orderStatus == 7 || tidyAllSellList[i - 1].orderStatus == 6 ? "" : returnSellstatus.now}</span>
+                                    <span class="timestamp d-block">${tidyAllSellList[i - 1].orderStatus == 7 || tidyAllSellList[i - 1].orderStatus == 6 ? "" : timeCounter(finalStatusTime, tidyAllSellList[i - 1].orderStatus)}</span>
                                 </li>
                             </ol>
                         </div>
@@ -664,7 +661,7 @@
                     <td data-label="">${theButton}</td>`;
 
                 // 把製作完的tr放回去tabel中。
-                $($(".orderSelltable tr")[i]).attr("data-state", tidyAllSellList[i - 1].orderstatus);
+                $($(".orderSelltable tr")[i]).attr("data-state", tidyAllSellList[i - 1].orderStatus);
                 $(".orderSelltable tr")[i].innerHTML = trHtmlData;
 
                 document.querySelectorAll('.mdc-button').forEach(
@@ -678,7 +675,7 @@
 
             let allSellListOrderid = new Array(allSellList.length);
             for (let i = 0; i < allSellList.length; i++) {
-                allSellListOrderid[i] = allSellList[i].orderid;
+                allSellListOrderid[i] = allSellList[i].orderId;
             }
 
 
@@ -691,7 +688,7 @@
 
                 let productCount = 0;
                 for (let k = 0; k < allSellList.length; k++) {
-                    if (allSellListOrderidResult[i] == allSellList[k].orderid) {
+                    if (allSellListOrderidResult[i] == allSellList[k].orderId) {
                         productCount++;
                     }
                 }
@@ -708,34 +705,34 @@
                 let singleTotal = 0;
                 let singleProfit = 0;
                 for (let k = 0; k < allSellList.length; k++) {
-                    if (allSellListOrderidResult[i] == allSellList[k].orderid) {
+                    if (allSellListOrderidResult[i] == allSellList[k].orderId) {
 
-                        tidyAllSellList[i].companyname = allSellList[k].companyname;
-                        tidyAllSellList[i].buyerid = allSellList[k].buyerid;
-                        tidyAllSellList[i].cancelordertime = allSellList[k].cancelordertime;
-                        tidyAllSellList[i].contactperson = allSellList[k].contactperson;
+                        tidyAllSellList[i].companyName = allSellList[k].companyName;
+                        tidyAllSellList[i].buyerId = allSellList[k].buyerId;
+                        tidyAllSellList[i].cancelOrderTime = allSellList[k].cancelOrderTime;
+                        tidyAllSellList[i].contactPerson = allSellList[k].contactPerson;
                         tidyAllSellList[i].address = allSellList[k].address;
-                        tidyAllSellList[i].paymentterms = allSellList[k].paymentterms;
-                        tidyAllSellList[i].orderstatus = allSellList[k].orderstatus;
-                        tidyAllSellList[i].orderid = allSellList[k].orderid;
-                        tidyAllSellList[i].acceptordertime = allSellList[k].acceptordertime;
-                        tidyAllSellList[i].exporttime = allSellList[k].exporttime;
-                        tidyAllSellList[i].companyphone = allSellList[k].companyphone;
-                        tidyAllSellList[i].ordertime = allSellList[k].ordertime;
-                        tidyAllSellList[i].completeordertime = allSellList[k].completeordertime;
-                        tidyAllSellList[i].arriveordertime = allSellList[k].arriveordertime;
-                        tidyAllSellList[i].taxid = allSellList[k].taxid;
+                        tidyAllSellList[i].paymentTerms = allSellList[k].paymentTerms;
+                        tidyAllSellList[i].orderStatus = allSellList[k].orderStatus;
+                        tidyAllSellList[i].orderId = allSellList[k].orderId;
+                        tidyAllSellList[i].acceptOrderTime = allSellList[k].acceptOrderTime;
+                        tidyAllSellList[i].exportTime = allSellList[k].exportTime;
+                        tidyAllSellList[i].companyPhone = allSellList[k].companyPhone;
+                        tidyAllSellList[i].orderTime = allSellList[k].orderTime;
+                        tidyAllSellList[i].completeOrderTime = allSellList[k].completeOrderTime;
+                        tidyAllSellList[i].arriveOrderTime = allSellList[k].arriveOrderTime;
+                        tidyAllSellList[i].taxId = allSellList[k].taxId;
                         tidyAllSellList[i].profit = "";
                         tidyAllSellList[i].total = "";
 
                         tidyAllSellList[i].product[productCount] = {};
-                        tidyAllSellList[i].product[productCount].productid = allSellList[k].productid;
-                        tidyAllSellList[i].product[productCount].cansell = allSellList[k].cansell;
+                        tidyAllSellList[i].product[productCount].productId = allSellList[k].productId;
+                        tidyAllSellList[i].product[productCount].canSell = allSellList[k].canSell;
                         tidyAllSellList[i].product[productCount].total = allSellList[k].total;
-                        tidyAllSellList[i].product[productCount].orderqty = allSellList[k].orderqty;
-                        tidyAllSellList[i].product[productCount].productnamespec = allSellList[k].productnamespec;
+                        tidyAllSellList[i].product[productCount].orderQty = allSellList[k].orderQty;
+                        tidyAllSellList[i].product[productCount].productNameSpec = allSellList[k].productNameSpec;
                         tidyAllSellList[i].product[productCount].profit = allSellList[k].profit;
-                        tidyAllSellList[i].product[productCount].unitsellprice = allSellList[k].unitsellprice;
+                        tidyAllSellList[i].product[productCount].unitSellPrice = allSellList[k].unitSellPrice;
                         singleTotal += tidyAllSellList[i].product[productCount].total;
                         singleProfit += tidyAllSellList[i].product[productCount].profit;
                         productCount++;
@@ -752,11 +749,9 @@
             // 狀態3時，檢查庫存可配數是否足夠，如果cancell < orderqty，就不給訂購。
             if (state == 3) {
                 for (let i = 0; i < tidyAllSellList.length; i++) {
-                    if ($(btn).attr('data-value') == tidyAllSellList[i].orderid) {
+                    if ($(btn).attr('data-value') == tidyAllSellList[i].orderId) {
                         for (let k = 0; k < tidyAllSellList[i].product.length; k++) {
-
-                            if (tidyAllSellList[i].product[k].cansell < tidyAllSellList[i].product[k].orderqty) {
-
+                            if (tidyAllSellList[i].product[k].canSell < tidyAllSellList[i].product[k].orderQty) {
                                 sweetalertShow((state + 10));
                                 return;
                             }
@@ -768,30 +763,30 @@
 
             // 基本結構
             let sentData = {
-                "orderid": $(btn).attr('data-value'),
-                "orderstatus": state,
-                "buyerid": "",
-                "sellerid": "",
-                "paymentterms": "",
-                "ordertime": "",
-                "acceptordertime": "",
-                "exporttime": "",
-                "arriveordertime": "",
-                "completeordertime": "",
-                "cancelordertime": ""
+                "orderId": $(btn).attr('data-value'),
+                "orderStatus": state,
+                "buyerId": "",
+                "sellerId": "",
+                "paymentTerms": "",
+                "orderTime": "",
+                "acceptOrderTime": "",
+                "exportTime": "",
+                "arriveOrderTime": "",
+                "completeOrderTime": "",
+                "cancelOrderTime": ""
             }
 
             // 用for迴圈將結構內的缺值填入
             for (let i = 0; i < tidyAllSellList.length; i++) {
-                if ($(btn).attr('data-value') == tidyAllSellList[i].orderid) {
-                    sentData.buyerid = tidyAllSellList[i].buyerid;
-                    sentData.paymentterms = tidyAllSellList[i].paymentterms;
-                    sentData.ordertime = (tidyAllSellList[i].ordertime == "null" ? "null" : Date.parse(tidyAllSellList[i].ordertime));
-                    sentData.acceptordertime = (tidyAllSellList[i].acceptordertime == "null" ? "null" : Date.parse(tidyAllSellList[i].acceptordertime));
-                    sentData.exporttime = (tidyAllSellList[i].exporttime == "null" ? "null" : Date.parse(tidyAllSellList[i].exporttime));
-                    sentData.arriveordertime = (tidyAllSellList[i].arriveordertime == "null" ? "null" : Date.parse(tidyAllSellList[i].arriveordertime));
-                    sentData.completeordertime = (tidyAllSellList[i].completeordertime == "null" ? "null" : Date.parse(tidyAllSellList[i].completeordertime));
-                    sentData.cancelordertime = (tidyAllSellList[i].cancelordertime == "null" ? "null" : Date.parse(tidyAllSellList[i].cancelordertime));
+                if ($(btn).attr('data-value') == tidyAllSellList[i].orderId) {
+                    sentData.buyerId = tidyAllSellList[i].buyerId;
+                    sentData.paymentTerms = tidyAllSellList[i].paymentTerms;
+                    sentData.orderTime = (tidyAllSellList[i].orderTime == "null" ? "null" : Date.parse(tidyAllSellList[i].orderTime));
+                    sentData.acceptOrderTime = (tidyAllSellList[i].acceptOrderTime == "null" ? "null" : Date.parse(tidyAllSellList[i].acceptOrderTime));
+                    sentData.exportTime = (tidyAllSellList[i].exportTime == "null" ? "null" : Date.parse(tidyAllSellList[i].exportTime));
+                    sentData.arriveOrderTime = (tidyAllSellList[i].arriveOrderTime == "null" ? "null" : Date.parse(tidyAllSellList[i].arriveOrderTime));
+                    sentData.completeOrderTime = (tidyAllSellList[i].completeOrderTime == "null" ? "null" : Date.parse(tidyAllSellList[i].completeOrderTime));
+                    sentData.cancelOrderTime = (tidyAllSellList[i].cancelOrderTime == "null" ? "null" : Date.parse(tidyAllSellList[i].cancelOrderTime));
                     break;
                 }
             }
@@ -800,7 +795,7 @@
             if (isReturnObjectCorrect(returnObj)) {
                 // 點選全配及出貨，呼叫父頁面送貨模擬方法
                 if (state == 4) {
-                    sentData.orderstatus = 5;
+                    sentData.orderStatus = 5;
                     parent.simulateArriveTime(sentData);
                 };
                 window.location.replace(location.href);

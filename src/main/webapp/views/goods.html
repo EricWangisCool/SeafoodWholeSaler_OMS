@@ -245,118 +245,46 @@
 
         var cooperateList = [
             {
-                supplierid: 10001,
-                suppliercompanyname: "順慶商行(id:10001)"
+                supplierId: 10001,
+                supplierCompanyName: "順慶商行(id:10001)"
             },
             {
-                supplierid: 10003,
-                suppliercompanyname: "達克生鮮股份有限公司(id:10003)"
+                supplierId: 10003,
+                supplierCompanyName: "達克生鮮股份有限公司(id:10003)"
             },
             {
-                supplierid: 10005,
-                suppliercompanyname: "國亨企業社(id:10005)"
+                supplierId: 10005,
+                supplierCompanyName: "國亨企業社(id:10005)"
             },
             {
-                supplierid: 10007,
-                suppliercompanyname: "華的來股份有限公司(id:10007)"
+                supplierId: 10007,
+                supplierCompanyName: "華的來股份有限公司(id:10007)"
             },
             {
-                supplierid: 10009,
-                suppliercompanyname: "聖祿食品股份有限公司(id:10009)"
+                supplierId: 10009,
+                supplierCompanyName: "聖祿食品股份有限公司(id:10009)"
             },
         ]
 
         var allStockList =
             [
                 {
-                    "productid": 200001,
-                    "unitcost": 500,
-                    "onshelf": 1,
-                    "productpic": "../img/05.jpg",
-                    "stockqty": 600,
-                    "warningqty": 0,
-                    "ownerid": 2,
-                    "productclassification": 3,
-                    "owneroutstock": 450,
-                    "minsellqty": 50,
-                    "autoorderconfirmfunctionstatus": 1,
-                    "autoorderfunction": "N",
-                    "safeqty": 450,
-                    "productnamespec": "2號的秋刀魚",
-                    "productdesc": "好吃喔",
-                    "unitsellprice": 10
-                },
-                {
-                    "productid": 200005,
-                    "unitcost": 40,
-                    "onshelf": 1,
-                    "productpic": "../img/01.jpg",
-                    "stockqty": 600,
-                    "warningqty": 0,
-                    "ownerid": 2,
-                    "productclassification": 3,
-                    "owneroutstock": 20,
-                    "minsellqty": 50,
-                    "autoorderconfirmfunctionstatus": 1,
-                    "autoorderfunction": "N",
-                    "safeqty": 450,
-                    "productnamespec": "牛奶貝/1斤",
-                    "productdesc": "新鮮現撈/產地直送",
-                    "unitsellprice": 25
-                },
-                {
-                    "productid": 200097,
-                    "unitcost": 400,
-                    "onshelf": 1,
-                    "productpic": "../img/02.jpg",
-                    "stockqty": 500,
-                    "warningqty": 0,
-                    "ownerid": 2,
-                    "productclassification": 4,
-                    "owneroutstock": 70,
-                    "minsellqty": 50,
-                    "autoorderconfirmfunctionstatus": 1,
-                    "autoorderfunction": "N",
-                    "safeqty": 450,
-                    "productnamespec": "2號的魷魚",
-                    "productdesc": "很好吃喔",
-                    "unitsellprice": 5
-                },
-                {
-                    "productid": 200098,
-                    "unitcost": 400,
-                    "onshelf": 1,
-                    "productpic": "../img/02.jpg",
-                    "stockqty": 500,
-                    "warningqty": 0,
-                    "ownerid": 2,
-                    "productclassification": 4,
-                    "owneroutstock": 5,
-                    "minsellqty": 50,
-                    "autoorderconfirmfunctionstatus": 1,
-                    "autoorderfunction": "N",
-                    "safeqty": 450,
-                    "productnamespec": "3號的魷魚",
-                    "productdesc": "很好吃喔",
-                    "unitsellprice": 50
-                },
-                {
-                    "productid": 200099,
-                    "unitcost": 400,
-                    "onshelf": 1,
-                    "productpic": "../img/02.jpg",
-                    "stockqty": 500,
-                    "warningqty": 0,
-                    "ownerid": 2,
-                    "productclassification": 4,
-                    "owneroutstock": 15,
-                    "minsellqty": 50,
-                    "autoorderconfirmfunctionstatus": 1,
-                    "autoorderfunction": "N",
-                    "safeqty": 450,
-                    "productnamespec": "4號的魷魚",
-                    "productdesc": "很好吃喔",
-                    "unitsellprice": 15
+                    "productId": 200001,
+                    "unitCost": 500,
+                    "onShelf": 1,
+                    "productPic": "../img/05.jpg",
+                    "stockQty": 600,
+                    "warningQty": 0,
+                    "ownerId": 2,
+                    "productClassification": 3,
+                    "ownerOutStock": 450,
+                    "minSellQty": 50,
+                    "autoOrderConfirmFunctionStatus": 1,
+                    "autoOrderFunction": "N",
+                    "safeQty": 450,
+                    "productNameSpec": "2號的秋刀魚",
+                    "productDesc": "好吃喔",
+                    "unitSellPrice": 10
                 }
             ];
 
@@ -379,18 +307,11 @@
         downloadCooperateData();
         async function downloadCooperateData() {
             returnObj = await viewscooperate(null);
-            if (returnObj.responseStatus != 200) {
-                // 撈完後更新畫面內容。
-                // reNewCooperateData();
-
-                console.log("cooperateList getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                console.log(returnObj.responseObj);
-            } else {
-                // 處理及判斷邏輯：                
-                cooperateList = returnObj.responseObj;
-
-                // 撈完後更新畫面內容。
+            if (isReturnObjectCorrect(returnObj)) {
+                cooperateList = returnObj.responseObj.data;
                 reNewCooperateData();
+            } else {
+                console.log("goods.html downloadCooperateData error");
             }
         }
 
@@ -399,11 +320,11 @@
         function reNewCooperateData() {
 
             for (let i = 0; i < cooperateList.length; i++) {
-
+                console.log(cooperateList)
                 let ulHtml = `
-                    <li class="mdc-list-item py-2" data-value="${cooperateList[i].supplierid}">
+                    <li class="mdc-list-item py-2" data-value="${cooperateList[i].supplierId}">
                         <span class="mdc-list-item__ripple"></span>
-                        <span class="mdc-list-item__text">${cooperateList[i].suppliercompanyname}</span>
+                        <span class="mdc-list-item__text">${cooperateList[i].supplierCompanyName}</span>
                     </li>
                 `;
 
@@ -417,45 +338,29 @@
 
         // AJAX點擊搜尋後，顯示廠商的產品------------------------------------------------------------------------------------------------------
         async function downloadProductData() {
-
-            let cooperateId = {
-                accountid: ""
-            }
-
+            let chosenSupplierId = null;
             if ($("#productclassification").find("li.mdc-list-item--selected").index() == 0) {
                 // 使用者沒選擇廠商
                 sweetalertShow(0);
                 return;
             } else {
-                cooperateId.accountid = parseInt($("#productclassification").find("li.mdc-list-item--selected").attr('data-value'));
+                chosenSupplierId = parseInt($("#productclassification").find("li.mdc-list-item--selected").attr('data-value'));
             }
 
             // 跟server要對應廠商的資料
-            returnObj = await viewsgoods(cooperateId);
-            console.log(returnObj);
-
-            if (returnObj.responseStatus != 200) {
-
-                // 撈完後更新畫面內容。
-                sweetalertShow(1);
-                // reNewData();
-                // $(".sectionBackground").hide();
-                // $(".sectionTable").show();
-                chooseSupplier.supplierId = $("#productclassification").find("li.mdc-list-item--selected").attr('data-value');
-                chooseSupplier.supplier = $("#productclassification").find("li.mdc-list-item--selected span")[1].innerHTML;
-
-                console.log("cooperateProductList getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                console.log(returnObj.responseObj);
-            } else {
-                // 處理及判斷邏輯：                
-                allStockList = returnObj.responseObj;
-
-                // 撈完後更新畫面內容。
+            returnObj = await viewsgoods(chosenSupplierId);
+            if (isReturnObjectCorrect(returnObj)) {
+                allStockList = returnObj.responseObj.data;
                 reNewData();
                 $(".sectionBackground").hide();
                 $(".sectionTable").show();
                 chooseSupplier.supplierId = $("#productclassification").find("li.mdc-list-item--selected").attr('data-value');
                 chooseSupplier.supplier = $("#productclassification").find("li.mdc-list-item--selected span")[1].innerHTML;
+            } else {
+                sweetalertShow(1);
+                chooseSupplier.supplierId = $("#productclassification").find("li.mdc-list-item--selected").attr('data-value');
+                chooseSupplier.supplier = $("#productclassification").find("li.mdc-list-item--selected span")[1].innerHTML;
+                console.log("goods.html downloadProductData error");
             }
         }
 
@@ -491,7 +396,6 @@
             }
 
 
-
             for (let i = 0; i < allStockList.length; i++) {
                 let trHtmlData = "";
                 // 創造<tr>的Html格式，並將資料帶入。
@@ -518,11 +422,11 @@
                         <td data-label="">${allStockList[i].productNameSpec}</td>
                         <td data-label="">${allStockList[i].productDesc}</td>
                         <td data-label="">${costFix(allStockList[i].unitSellPrice)}</td>
-                        <td data-label="">${allStockList[i].minsellQty}</td>
-                        <td data-label="">${allStockList[i].ownerOutStock}</td>
+                        <td data-label="">${allStockList[i].minSellQty}</td>
+                        <td data-label="">${allStockList[i].userOutStock}</td>
                         <td data-label="">
                             <input type='button' value='-' class='qtyminus' field='${allStockList[i].productId}' />
-                            <input type='text' name='${allStockList[i].productId}' value=${allStockList[i].ownerOutStock} class='qty' />
+                            <input type='text' name='${allStockList[i].productId}' value=${allStockList[i].userOutStock} class='qty' />
                             <input type='button' value='+' class='qtyplus' field='${allStockList[i].productId}' />
                         </td>
                     </tr>`
@@ -688,12 +592,11 @@
                 }
 
                 addStockObj.supplier = chooseSupplier.supplier;
-                addStockObj.supplierid = chooseSupplier.supplierId;
-                addStockObj.supplierproductid = productId;
+                addStockObj.supplierId = chooseSupplier.supplierId;
+                addStockObj.supplierproductId = productId;
 
                 // 呼叫父類方法，並把資料傳回去。
                 callParent(addStockObj);
-
             }
         }
 
@@ -711,16 +614,16 @@
 
                     let dealprice = 0;
                     for (let k = 0; k < allStockList.length; k++) {
-                        if (allStockList[k].productid == $($("input[type='text']")[i]).attr("name")) {
-                            dealprice = allStockList[k].unitsellprice;
+                        if (allStockList[k].productId == $($("input[type='text']")[i]).attr("name")) {
+                            dealPrice = allStockList[k].unitSellPrice;
                             break;
                         }
                     }
 
                     let goodsDataObj = {
-                        "sellerproductid": parseInt($($("input[type='text']")[i]).attr("name")),
-                        "orderqty": parseInt($($("input[type='text']")[i]).val()),
-                        "unitdealprice": dealprice
+                        "sellerProductId": parseInt($($("input[type='text']")[i]).attr("name")),
+                        "orderQty": parseInt($($("input[type='text']")[i]).val()),
+                        "unitDealPrice": dealPrice
                     }
 
                     createGoodsArr[createGoodsCounter] = goodsDataObj;
@@ -729,7 +632,7 @@
             }
 
             combinationAjaxData = {
-                "sellerid": parseInt(chooseSupplier.supplierid),
+                "sellerId": parseInt(chooseSupplier.supplierId),
                 "products": createGoodsArr
             }
 
@@ -739,30 +642,19 @@
 
         async function postGoodsData(data) {
             returnObj = await viewsgoodsinsert(data);
-
-            console.log(returnObj);
-
-            if (returnObj.responseStatus != 200) {
-                // 撈完後更新畫面內容。
+            if (isReturnObjectCorrect(returnObj)) {             
                 if (parentPage == 1) {
                     sweetalertShow(3);
                 } else if (parentPage == 2) {
                     sweetalertShow(4);
                 }
-
-                console.log("cooperateList getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                console.log(returnObj.responseObj);
             } else {
-                // 處理及判斷邏輯：                
-                let successObj = returnObj.responseText;
-                if (successObj == "OK") {
-                    // 成功
-                    if (parentPage == 1) {
-                        sweetalertShow(3);
-                    } else if (parentPage == 2) {
-                        sweetalertShow(4);
-                    }
+                if (parentPage == 1) {
+                    sweetalertShow(3);
+                } else if (parentPage == 2) {
+                    sweetalertShow(4);
                 }
+                console.log("goods.html postGoodsData error");
             }
         }
 

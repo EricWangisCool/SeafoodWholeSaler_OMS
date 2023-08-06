@@ -490,25 +490,25 @@
                                         <span class="diplome d-block">${returnTimeLineStatus.step1}</span>
                                         <span class="timestamp d-block">${allBuyList[i].orderTime}</span>
                                     </li>
-                                    <li class="fullstate ${allBuyList[i].acceptOrderTime == "null" ? "" : "active"}">
+                                    <li class="fullstate ${allBuyList[i].acceptOrderTime == null ? "" : "active"}">
                                         <span class="point d-block"></span>
                                         <span class="diplome d-block">${returnTimeLineStatus.step2}</span>
-                                        <span class="timestamp d-block">${allBuyList[i].acceptOrderTime == "null" ? "" : allBuyList[i].acceptOrderTime}</span>
+                                        <span class="timestamp d-block">${allBuyList[i].acceptOrderTime == null ? "" : allBuyList[i].acceptOrderTime}</span>
                                     </li>
-                                    <li class="fullstate ${allBuyList[i].exportTime == "null" ? "" : "active"}">
+                                    <li class="fullstate ${allBuyList[i].exportTime == null ? "" : "active"}">
                                         <span class="point d-block"></span>
                                         <span class="diplome d-block">${returnTimeLineStatus.step3}</span>
-                                        <span class="timestamp d-block">${allBuyList[i].exportTime == "null" ? "" : allBuyList[i].exportTime}</span>
+                                        <span class="timestamp d-block">${allBuyList[i].exportTime == null ? "" : allBuyList[i].exportTime}</span>
                                     </li>
-                                    <li class="fullstate ${allBuyList[i].arriveOrderTime == "null" ? "" : "active"}">
+                                    <li class="fullstate ${allBuyList[i].arriveOrderTime == null ? "" : "active"}">
                                         <span class="point d-block"></span>
                                         <span class="diplome d-block">${returnTimeLineStatus.step4}</span>
-                                        <span class="timestamp d-block">${allBuyList[i].arriveOrderTime == "null" ? "" : allBuyList[i].arriveOrderTime}</span>
+                                        <span class="timestamp d-block">${allBuyList[i].arriveOrderTime == null ? "" : allBuyList[i].arriveOrderTime}</span>
                                     </li>
-                                    <li class="fullstate ${allBuyList[i].completeOrderTime == "null" ? "" : "active"}">
+                                    <li class="fullstate ${allBuyList[i].completeOrderTime == null ? "" : "active"}">
                                         <span class="point d-block"></span>
                                         <span class="diplome d-block">${returnTimeLineStatus.step5}</span>
-                                        <span class="timestamp d-block">${allBuyList[i].completeOrderTime == "null" ? "" : allBuyList[i].completeOrderTime}</span>
+                                        <span class="timestamp d-block">${allBuyList[i].completeOrderTime == null ? "" : allBuyList[i].completeOrderTime}</span>
                                     </li>                                    
                                 </ol>
                             </div>`;
@@ -648,42 +648,33 @@
             }
             returnObj = await viewsorderbuychildTable(data);
 
-            if (returnObj.responseStatus != 200) {
-                // 沒接到資料                
-                sweetalertShow(0);
-
-                console.log("orderStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                console.log(returnObj.responseObj);
+            if (isReturnObjectCorrect(returnObj)) {
+                allBuyListDetail = returnObj.responseObj.data;
+                reNewDetailData(showDetailPosition);           
             } else {
-                // 處理及判斷邏輯：          
-                allBuyListDetail = returnObj.responseObj;
-
-                reNewDetailData(showDetailPosition);
+                console.log("orderBuy.html downloadDetailData error");
+                sweetalertShow(0);
             }
-
         }
 
         // 展開詳細資料
         function reNewDetailData(detailPosition) {
-
             let detailHtml = "";
             for (let i = 0; i < allBuyListDetail.length; i++) {
                 let singleDetail = `
                     <tr>
-                        <td data-label="">${allBuyListDetail[i].productnamespec}</td>
-                        <td data-label="">${allBuyListDetail[i].orderqty}</td>
-                        <td data-label="">${costFix(allBuyListDetail[i].unitdealprice)}</td>
-                        <td data-label="總價">${costFix(allBuyListDetail[i].detailtotal)}</td>
+                        <td data-label="">${allBuyListDetail[i].productNameSpec}</td>
+                        <td data-label="">${allBuyListDetail[i].orderQty}</td>
+                        <td data-label="">${costFix(allBuyListDetail[i].unitDealPrice)}</td>
+                        <td data-label="總價">${costFix(allBuyListDetail[i].detailTotal)}</td>
                     </tr>
                 `;
                 detailHtml += singleDetail;
             }
 
             $(detailPosition).find("tbody")[0].innerHTML = detailHtml;
-
-
+            
             let divHeight = detailPosition.style.height;
-
 
             if (divHeight == 0 || divHeight == "0px") {
                 let divHeightCount = "";
@@ -701,7 +692,6 @@
                         divHeightCount = 270 + "px";
                     }
                 }
-
                 $(detailPosition).css("height", divHeightCount);
             } else {
                 $(detailPosition).css("height", "0px");

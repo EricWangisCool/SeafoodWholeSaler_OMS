@@ -66,7 +66,7 @@ async function callDeleteStock(data) {
 
 // 建立叫貨單相關 Goods API  ------------------------------------------
 async function viewsgoods(data) {
-    let connurl = "../goods" + "?supplierAccountId=" + data.supplierAccountId;
+    let connurl = "../goods" + "?supplierAccountId=" + data;
     let httpMethod = "get";
     return await ajaxmethod(connurl, null, httpMethod);
 }
@@ -231,7 +231,7 @@ function sync_ajaxmethod(connurl, data, httpMethod) {
 
 
 function isReturnObjectCorrect(returnObj) {
-    console.error(returnObj);
+    console.log(returnObj);
     
     var body = returnObj.responseObj;
     if (body.status == "0" && returnObj.responseStatus == 200) {

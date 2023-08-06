@@ -342,15 +342,15 @@
 
         function reNewData() {
 
-            if (detailList.orderstatus == 2) {
+            if (detailList.orderStatus == 2) {
                 // 清空Table，把除了<th>內部<tr>之外的所有<tr>清空。
                 $(".orderStocktable")[0].innerHTML = `
                     <thead>
                         <tr>
-                            <th>${detailItemListName[0].ProductNameSpec}</th>
-                            <th style="width: 18%;">${detailItemListName[0].CallShipping}</th>
-                            <th style="width: 18%;">${detailItemListName[0].UnitSellPrice}</th>
-                            <th style="width: 18%; color: var(--color-secfont);">${detailItemListName[0].StockOwn}</th>
+                            <th>${detailItemListName[0].productNameSpec}</th>
+                            <th style="width: 18%;">${detailItemListName[0].callShipping}</th>
+                            <th style="width: 18%;">${detailItemListName[0].unitSellPrice}</th>
+                            <th style="width: 18%; color: var(--color-secfont);">${detailItemListName[0].stockOwn}</th>
                             <th style="width: 18%;">${detailItemListName[0].detailTotal}</th>
                         </tr>
                     </thead>`;
@@ -360,10 +360,10 @@
                 for (let i = 0; i < detailList.product.length; i++) {
                     let singleTrHtmlData = `
                     <tr>
-                        <td data-label="">${detailList.product[i].productnamespec}</td>
-                        <td data-label="">${detailList.product[i].orderqty}</td>
-                        <td data-label="">${costFix(detailList.product[i].unitsellprice)}</td>
-                        <td data-label="">${detailList.product[i].cansell}</td>
+                        <td data-label="">${detailList.product[i].productNameSpec}</td>
+                        <td data-label="">${detailList.product[i].orderQty}</td>
+                        <td data-label="">${costFix(detailList.product[i].unitSellPrice)}</td>
+                        <td data-label="">${detailList.product[i].canSell}</td>
                         <td data-label="">${costFix(detailList.product[i].total)}</td>
                     </tr>`;
                     trHtmlData += singleTrHtmlData;
@@ -377,9 +377,9 @@
                 $(".orderStocktable")[0].innerHTML = `
                     <thead>
                         <tr>
-                            <th>${detailItemListName[0].ProductNameSpec}</th>
-                            <th style="width: 22%;">${detailItemListName[0].CallShipping}</th>
-                            <th style="width: 22%;">${detailItemListName[0].UnitSellPrice}</th>
+                            <th>${detailItemListName[0].productNameSpec}</th>
+                            <th style="width: 22%;">${detailItemListName[0].callShipping}</th>
+                            <th style="width: 22%;">${detailItemListName[0].unitSellPrice}</th>
                             <th style="width: 22%;">${detailItemListName[0].detailTotal}</th>
                         </tr>
                     </thead>`;
@@ -389,9 +389,9 @@
                 for (let i = 0; i < detailList.product.length; i++) {
                     let singleTrHtmlData = `
                     <tr>
-                        <td data-label="">${detailList.product[i].productnamespec}</td>
-                        <td data-label="">${detailList.product[i].orderqty}</td>
-                        <td data-label="">${costFix(detailList.product[i].unitsellprice)}</td>
+                        <td data-label="">${detailList.product[i].productNameSpec}</td>
+                        <td data-label="">${detailList.product[i].orderQty}</td>
+                        <td data-label="">${costFix(detailList.product[i].unitSellPrice)}</td>
                         <td data-label="">${costFix(detailList.product[i].total)}</td>
                     </tr>`;
                     trHtmlData += singleTrHtmlData;
@@ -404,10 +404,10 @@
 
 
             // 判斷時間軸
-            let returnTimeLineStatus = checkTimeLine(1, detailList.orderstatus);
+            let returnTimeLineStatus = checkTimeLine(1, detailList.orderStatus);
 
             let thetimeLine = null;
-            switch (detailList.orderstatus) {
+            switch (detailList.orderStatus) {
                 case 1: case 7:
                     thetimeLine = ``;
                     break;
@@ -418,27 +418,27 @@
                             <li class="fullstate active">
                                 <span class="point d-block"></span>
                                 <span class="diplome d-block">${returnTimeLineStatus.step1}</span>
-                                <span class="timestamp d-block">${detailList.ordertime}</span>
+                                <span class="timestamp d-block">${detailList.orderTime}</span>
                             </li>
-                            <li class="fullstate ${detailList.acceptordertime == "null" ? "" : "active"}">
+                            <li class="fullstate ${detailList.acceptOrderTime == "null" ? "" : "active"}">
                                 <span class="point d-block"></span>
                                 <span class="diplome d-block">${returnTimeLineStatus.step2}</span>
-                                <span class="timestamp d-block">${detailList.acceptordertime == "null" ? "" : detailList.acceptordertime}</span>
+                                <span class="timestamp d-block">${detailList.acceptOrderTime == "null" ? "" : detailList.acceptOrderTime}</span>
                             </li>
-                            <li class="fullstate ${detailList.exporttime == "null" ? "" : "active"}">
+                            <li class="fullstate ${detailList.exportTime == "null" ? "" : "active"}">
                                 <span class="point d-block"></span>
                                 <span class="diplome d-block">${returnTimeLineStatus.step3}</span>
-                                <span class="timestamp d-block">${detailList.exporttime == "null" ? "" : detailList.exporttime}</span>
+                                <span class="timestamp d-block">${detailList.exportTime == "null" ? "" : detailList.exportTime}</span>
                             </li>
-                            <li class="fullstate ${detailList.arriveordertime == "null" ? "" : "active"}">
+                            <li class="fullstate ${detailList.arriveOrderTime == "null" ? "" : "active"}">
                                 <span class="point d-block"></span>
                                 <span class="diplome d-block">${returnTimeLineStatus.step4}</span>
-                                <span class="timestamp d-block">${detailList.arriveordertime == "null" ? "" : detailList.arriveordertime}</span>
+                                <span class="timestamp d-block">${detailList.arriveOrderTime == "null" ? "" : detailList.arriveOrderTime}</span>
                             </li>
-                            <li class="fullstate ${detailList.completeordertime == "null" ? "" : "active"}">
+                            <li class="fullstate ${detailList.completeOrderTime == "null" ? "" : "active"}">
                                 <span class="point d-block"></span>
                                 <span class="diplome d-block">${returnTimeLineStatus.step5}</span>
-                                <span class="timestamp d-block">${detailList.completeordertime == "null" ? "" : detailList.completeordertime}</span>
+                                <span class="timestamp d-block">${detailList.completeOrderTime == "null" ? "" : detailList.completeOrderTime}</span>
                             </li>                                    
                         </ol>
                     </div>`;
@@ -453,20 +453,20 @@
             // 出貨資訊----------------------------------------------------------
 
             // 其他
-            $(".mdc-text-field__input")[0].value = detailList.contactperson;
-            $(".mdc-text-field__input")[1].value = detailList.companyphone;
+            $(".mdc-text-field__input")[0].value = detailList.contactPerson;
+            $(".mdc-text-field__input")[1].value = detailList.companyPhone;
             $(".mdc-text-field__input")[2].value = detailList.address;
-            $(".mdc-text-field__input")[3].value = detailList.paymentterms;
-            $(".mdc-text-field__input")[4].value = detailList.taxid;
+            $(".mdc-text-field__input")[3].value = detailList.paymentTerms;
+            $(".mdc-text-field__input")[4].value = detailList.taxId;
             $(".mdc-text-field__input")[5].value = costFix(detailList.total);
-            $($("#dataContentBtn button")[2]).attr("data-value", detailList.orderid);
-            $($("#dataContentBtn button")[3]).attr("data-value", detailList.orderid);
+            $($("#dataContentBtn button")[2]).attr("data-value", detailList.orderId);
+            $($("#dataContentBtn button")[3]).attr("data-value", detailList.orderId);
         }
 
 
         // iframe的外部父類會呼叫這個function
         function parentCall(tidy) {
-            switch (tidy.orderstatus) {
+            switch (tidy.orderStatus) {
                 case 2:
                     $("#failContent").hide();
                     $("#dataContentMore").hide();
@@ -543,9 +543,9 @@
                         <td>5</td>
                     </tr>
                     <tr>
-                        <td>${detailList.contactperson}</td>
+                        <td>${detailList.contactPerson}</td>
                         <td>9</td>
-                        <td>${detailList.companyphone}</td>
+                        <td>${detailList.companyPhone}</td>
                         <td>9</td>
                         <td>9</td>
                     </tr>

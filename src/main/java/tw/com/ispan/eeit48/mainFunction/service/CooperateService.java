@@ -1,6 +1,10 @@
 package tw.com.ispan.eeit48.mainFunction.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tw.com.ispan.eeit48.mainFunction.model.table.Account;
@@ -23,11 +27,16 @@ public class CooperateService {
 	/**
 	 * 找到使用者的關聯廠商
 	 */
-	public List<CompanyFollowingList_Account> getUserFollowList() throws Exception {
+	public List<Map<String, Object>> getUserFollowList() throws Exception {
 		int userId = getCurrentUserId();
 		List<CompanyFollowingList_Account> beans = companyFollowingList_AccountRepository.findAllByBuyerId(userId);
 		if (beans != null && !beans.isEmpty()) {
-			return beans;
+			List<Map<String, Object>> list = new ArrayList<>();
+			beans.forEach(bean -> list.add(new HashMap<>(){{
+				put("supplierId", bean.getSellerId());
+				put("supplierCompanyName", bean.getCompanyName());
+			}}));
+			return list;
 		} else {
 			throw new Exception("Following list not found!");
 		}

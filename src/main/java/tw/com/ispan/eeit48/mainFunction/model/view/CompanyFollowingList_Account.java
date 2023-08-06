@@ -10,6 +10,9 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Immutable;
 import tw.com.ispan.eeit48.mainFunction.model.view.pk.CompanyFollowingList_AccountPK;
 
+/**
+ * 由company_following_list為主，將sellerId與account資訊join在一起的view
+ */
 @Entity
 @Immutable
 @Table(name = "v_company_following_list_accounts")
