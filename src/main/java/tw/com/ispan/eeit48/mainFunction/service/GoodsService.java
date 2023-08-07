@@ -71,6 +71,7 @@ public class GoodsService {
 		newOrder.setSellerId(request.getSellerId());
 		newOrder.setOrderStatus(1);  // 買方按下[新增商品]建立叫貨單, 訂單暫存未送出(orderStatus = 1)
 		newOrder.setPaymentTerms("銀行轉帳<br>月結(TT30)");
+		newOrder.setCreateTime(new Date());
 
 		List<OrderDetail> newOrderDetails = new ArrayList<>();
 		request.getProducts().forEach(product -> {

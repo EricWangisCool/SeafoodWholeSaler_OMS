@@ -22,6 +22,8 @@ public class Order {
 	@Column(columnDefinition = "char")
 	private String deliveryOrderRemark;
 	@Column(columnDefinition = "datetime")
+	private Date createTime;
+	@Column(columnDefinition = "datetime")
 	private Date orderTime;
 	@Column(columnDefinition = "datetime")
 	private Date acceptOrderTime;
@@ -75,6 +77,15 @@ public class Order {
 	public void setDeliveryOrderRemark(String deliveryOrderRemark) {
 		this.deliveryOrderRemark = deliveryOrderRemark;
 	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
 	public Date getOrderTime() {
 		return orderTime;
 	}

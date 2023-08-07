@@ -30,6 +30,6 @@ public interface OrderRepository extends JpaRepository<Order, String> {
 
 	void deleteByOrderId(String orderId);
 
-	List<Order> findAllByBuyerIdOrderByOrderTimeDesc(int buyerId);
+	List<Order> findAllByBuyerIdOrderByCreateTimeDesc(int buyerId);
 
 }

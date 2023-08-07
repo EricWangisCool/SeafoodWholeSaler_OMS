@@ -44,7 +44,7 @@ public class OrderSellService {
     // 拿到帳號所有交易狀態為2~7的售出訂單
     public List<Map<String, Object>> getUserSellingOrdersInfo() {
         List<Product_Order_OrderDetail> ordersInfo = productOrderOrderDetailRepository
-                .findAllByOwnerIdAndOrderStatusBetweenOrderByOrderTimeDesc(getCurrentUserId(), 2, 7);
+                .findAllByOwnerIdAndOrderStatusBetweenOrderByCreateTimeDesc(getCurrentUserId(), 2, 7);
 
         List<Map<String, Object>> list = new ArrayList<>();
         if (ordersInfo != null && !ordersInfo.isEmpty()) {
@@ -157,6 +157,7 @@ public class OrderSellService {
                 order.setOrderId(newOrderId);
                 order.setOrderStatus(2);
                 order.setPaymentTerms("月結");
+                order.setCreateTime(today);
                 order.setOrderTime(today);
                 order.setBuyerId(accountId);
                 order.setSellerId(supplierId);
