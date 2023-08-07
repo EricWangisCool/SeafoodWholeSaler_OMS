@@ -2,7 +2,6 @@ package tw.com.ispan.eeit48.mainFunction.model.view;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -41,6 +40,8 @@ public class Product_Order_OrderDetail implements Serializable {
 	private String deliveryOrderId;
 	@Column(columnDefinition = "char")
 	private String deliveryOrderRemark;
+	@Column(columnDefinition = "datetime")
+	private Date createTime;
 	@Column(columnDefinition = "datetime")
 	private Date orderTime;
 	@Column(columnDefinition = "datetime")
@@ -200,6 +201,15 @@ public class Product_Order_OrderDetail implements Serializable {
 	public void setReservedQty(Integer reservedQty) {
 		this.reservedQty = reservedQty;
 	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
 	public Date getOrderTime() {
 		return orderTime;
 	}

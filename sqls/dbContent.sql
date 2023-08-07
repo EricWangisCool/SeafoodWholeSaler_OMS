@@ -1,9 +1,8 @@
 -- phpMyAdmin SQL Dump
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
---
 -- Host: localhost:8889
--- Generation Time: Aug 06, 2023 at 03:01 PM
+-- Generation Time: Aug 07, 2023 at 02:31 AM
 -- Server version: 5.7.34
 -- PHP Version: 7.4.21
 
@@ -123,6 +122,7 @@ CREATE TABLE `t_orders` (
   `payment_terms` char(30) NOT NULL DEFAULT '月結',
   `delivery_order_id` char(60) DEFAULT NULL,
   `delivery_order_remark` char(60) DEFAULT NULL,
+  `create_time` datetime NOT NULL,
   `order_time` datetime DEFAULT NULL,
   `accept_order_time` datetime DEFAULT NULL,
   `export_time` datetime DEFAULT NULL,
@@ -135,36 +135,36 @@ CREATE TABLE `t_orders` (
 -- Dumping data for table `t_orders`
 --
 
-INSERT INTO `t_orders` (`order_id`, `buyer_id`, `seller_id`, `order_status`, `payment_terms`, `delivery_order_id`, `delivery_order_remark`, `order_time`, `accept_order_time`, `export_time`, `arrive_order_time`, `complete_order_time`, `cancel_order_time`) VALUES
-('1D202210110001', 1, 2, 6, '月結', NULL, NULL, '2022-10-11 11:50:55', '2022-10-18 15:35:01', '2022-10-19 05:35:02', '2022-10-18 15:35:06', '2022-10-18 15:35:16', NULL),
-('1D202210130001', 1, 2, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-13 20:09:14', '2022-10-18 20:09:42', '2022-10-19 10:09:44', '2022-10-18 20:09:48', '2022-10-18 20:09:57', NULL),
-('1D202210130002', 1, 2, 2, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-13 22:41:48', NULL, NULL, NULL, NULL, NULL),
-('1D202210140001', 1, 2, 2, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-14 20:38:20', NULL, NULL, NULL, NULL, NULL),
-('1D202210140002', 1, 2, 2, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-14 22:18:37', NULL, NULL, NULL, NULL, NULL),
-('1D202210150001', 1, 2, 2, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-15 07:39:13', NULL, NULL, NULL, NULL, NULL),
-('1D202210150002', 1, 2, 2, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-15 10:41:50', NULL, NULL, NULL, NULL, NULL),
-('1D202210160001', 1, 2, 2, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-16 10:51:47', NULL, NULL, NULL, NULL, NULL),
-('3D202210160001', 3, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-16 22:20:27', '2022-10-18 14:21:25', '2022-10-19 04:21:32', '2022-10-18 14:21:35', '2022-10-18 14:21:53', NULL),
-('3D202210170001', 3, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-17 10:10:44', '2022-10-18 14:10:52', '2022-10-19 04:10:55', '2022-10-18 14:10:59', '2022-10-18 14:11:02', NULL),
-('3D202210180001', 3, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 11:50:13', '2022-10-18 11:50:53', '2022-10-19 01:51:14', '2022-10-18 11:51:17', '2022-10-18 11:51:26', NULL),
-('3D202210180002', 3, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 11:50:25', '2022-10-18 11:51:02', '2022-10-19 01:51:17', '2022-10-18 11:51:21', '2022-10-18 11:51:24', NULL),
-('3D202210180003', 3, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 11:52:33', '2022-10-18 11:52:43', '2022-10-19 01:52:47', '2022-10-18 11:52:50', '2022-10-18 11:52:56', NULL),
-('3D202210180004', 3, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 11:55:10', '2022-10-18 11:55:17', '2022-10-19 01:55:21', '2022-10-18 11:55:25', '2022-10-18 11:55:27', NULL),
-('4D202210120001', 4, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-12 15:11:03', '2022-10-18 20:11:17', '2022-10-19 10:11:32', '2022-10-18 20:11:36', '2022-10-18 20:12:05', NULL),
-('4D202210140001', 4, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-14 10:30:29', '2022-10-18 20:32:17', '2022-10-19 10:32:41', '2022-10-18 20:32:45', '2022-10-18 20:34:09', NULL),
-('4D202210150001', 4, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-15 16:11:02', '2022-10-18 20:11:25', '2022-10-19 10:11:46', '2022-10-18 20:11:50', '2022-10-18 20:12:03', NULL),
-('4D202210150002', 4, 1, 2, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-15 18:31:45', NULL, NULL, NULL, NULL, NULL),
-('4D202210160001', 4, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-16 15:30:15', '2022-10-18 20:31:36', '2022-10-19 10:33:02', '2022-10-18 20:33:05', '2022-10-18 20:34:11', NULL),
-('4D202210160002', 4, 1, 2, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-16 20:45:06', NULL, NULL, NULL, NULL, NULL),
-('4D202210180001', 4, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 16:22:06', '2022-10-18 18:06:42', '2022-10-19 08:07:18', '2022-10-18 18:07:21', '2022-10-18 19:47:21', NULL),
-('4D202210180002', 4, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 18:05:19', '2022-10-18 18:06:50', '2022-10-19 08:07:13', '2022-10-18 18:07:16', '2022-10-18 19:47:19', NULL),
-('4D202210180003', 4, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 20:14:26', '2022-10-18 20:15:21', '2022-10-19 10:15:57', '2022-10-18 20:16:01', '2022-10-18 20:16:18', NULL),
-('4D202210180004', 4, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 20:14:43', '2022-10-18 20:15:04', '2022-10-19 10:15:45', '2022-10-18 20:15:48', '2022-10-18 20:16:16', NULL),
-('4D202210180005', 4, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 20:30:14', '2022-10-18 20:31:09', '2022-10-19 10:33:42', '2022-10-18 20:33:46', '2022-10-18 20:34:12', NULL),
-('5D202210150001', 5, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-15 15:20:43', '2022-10-18 20:22:42', '2022-10-19 10:23:07', '2022-10-18 20:23:11', '2022-10-18 20:23:50', NULL),
-('5D202210160001', 5, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-16 10:20:59', '2022-10-18 20:22:26', '2022-10-19 10:23:24', '2022-10-18 20:23:28', '2022-10-18 20:23:51', NULL),
-('5D202210160002', 5, 1, 2, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-16 10:50:45', NULL, NULL, NULL, NULL, NULL),
-('5D202210180001', 5, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 18:06:14', '2022-10-18 18:07:00', '2022-10-19 08:07:06', '2022-10-18 18:07:10', '2022-10-18 19:49:02', NULL);
+INSERT INTO `t_orders` (`order_id`, `buyer_id`, `seller_id`, `order_status`, `payment_terms`, `delivery_order_id`, `delivery_order_remark`, `create_time`, `order_time`, `accept_order_time`, `export_time`, `arrive_order_time`, `complete_order_time`, `cancel_order_time`) VALUES
+('1D202210110001', 1, 2, 6, '月結', NULL, NULL, '2022-10-11 11:50:55', '2022-10-11 11:50:55', '2022-10-18 15:35:01', '2022-10-19 05:35:02', '2022-10-18 15:35:06', '2022-10-18 15:35:16', NULL),
+('1D202210130001', 1, 2, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-13 20:09:14', '2022-10-13 20:09:14', '2022-10-18 20:09:42', '2022-10-19 10:09:44', '2022-10-18 20:09:48', '2022-10-18 20:09:57', NULL),
+('1D202210130002', 1, 2, 2, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-13 22:41:48', '2022-10-13 22:41:48', NULL, NULL, NULL, NULL, NULL),
+('1D202210140001', 1, 2, 2, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-14 20:38:20', '2022-10-14 20:38:20', NULL, NULL, NULL, NULL, NULL),
+('1D202210140002', 1, 2, 2, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-14 22:18:37', '2022-10-14 22:18:37', NULL, NULL, NULL, NULL, NULL),
+('1D202210150001', 1, 2, 2, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-15 07:39:13', '2022-10-15 07:39:13', NULL, NULL, NULL, NULL, NULL),
+('1D202210150002', 1, 2, 2, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-15 10:41:50', '2022-10-15 10:41:50', NULL, NULL, NULL, NULL, NULL),
+('1D202210160001', 1, 2, 2, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-16 10:51:47', '2022-10-16 10:51:47', NULL, NULL, NULL, NULL, NULL),
+('3D202210160001', 3, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-16 22:20:27', '2022-10-16 22:20:27', '2022-10-18 14:21:25', '2022-10-19 04:21:32', '2022-10-18 14:21:35', '2022-10-18 14:21:53', NULL),
+('3D202210170001', 3, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-17 10:10:44', '2022-10-17 10:10:44', '2022-10-18 14:10:52', '2022-10-19 04:10:55', '2022-10-18 14:10:59', '2022-10-18 14:11:02', NULL),
+('3D202210180001', 3, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 11:50:13', '2022-10-18 11:50:13', '2022-10-18 11:50:53', '2022-10-19 01:51:14', '2022-10-18 11:51:17', '2022-10-18 11:51:26', NULL),
+('3D202210180002', 3, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 11:50:25', '2022-10-18 11:50:25', '2022-10-18 11:51:02', '2022-10-19 01:51:17', '2022-10-18 11:51:21', '2022-10-18 11:51:24', NULL),
+('3D202210180003', 3, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 11:52:33', '2022-10-18 11:52:33', '2022-10-18 11:52:43', '2022-10-19 01:52:47', '2022-10-18 11:52:50', '2022-10-18 11:52:56', NULL),
+('3D202210180004', 3, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 11:55:10', '2022-10-18 11:55:10', '2022-10-18 11:55:17', '2022-10-19 01:55:21', '2022-10-18 11:55:25', '2022-10-18 11:55:27', NULL),
+('4D202210120001', 4, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-12 15:11:03', '2022-10-12 15:11:03', '2022-10-18 20:11:17', '2022-10-19 10:11:32', '2022-10-18 20:11:36', '2022-10-18 20:12:05', NULL),
+('4D202210140001', 4, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-14 10:30:29', '2022-10-14 10:30:29', '2022-10-18 20:32:17', '2022-10-19 10:32:41', '2022-10-18 20:32:45', '2022-10-18 20:34:09', NULL),
+('4D202210150001', 4, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-15 16:11:02', '2022-10-15 16:11:02', '2022-10-18 20:11:25', '2022-10-19 10:11:46', '2022-10-18 20:11:50', '2022-10-18 20:12:03', NULL),
+('4D202210150002', 4, 1, 2, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-15 18:31:45', '2022-10-15 18:31:45', NULL, NULL, NULL, NULL, NULL),
+('4D202210160001', 4, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-16 15:30:15', '2022-10-16 15:30:15', '2022-10-18 20:31:36', '2022-10-19 10:33:02', '2022-10-18 20:33:05', '2022-10-18 20:34:11', NULL),
+('4D202210160002', 4, 1, 2, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-16 20:45:06', '2022-10-16 20:45:06', NULL, NULL, NULL, NULL, NULL),
+('4D202210180001', 4, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 16:22:06', '2022-10-18 16:22:06', '2022-10-18 18:06:42', '2022-10-19 08:07:18', '2022-10-18 18:07:21', '2022-10-18 19:47:21', NULL),
+('4D202210180002', 4, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 18:05:19', '2022-10-18 18:05:19', '2022-10-18 18:06:50', '2022-10-19 08:07:13', '2022-10-18 18:07:16', '2022-10-18 19:47:19', NULL),
+('4D202210180003', 4, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 20:14:26', '2022-10-18 20:14:26', '2022-10-18 20:15:21', '2022-10-19 10:15:57', '2022-10-18 20:16:01', '2022-10-18 20:16:18', NULL),
+('4D202210180004', 4, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 20:14:43', '2022-10-18 20:14:43', '2022-10-18 20:15:04', '2022-10-19 10:15:45', '2022-10-18 20:15:48', '2022-10-18 20:16:16', NULL),
+('4D202210180005', 4, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 20:30:14', '2022-10-18 20:30:14', '2022-10-18 20:31:09', '2022-10-19 10:33:42', '2022-10-18 20:33:46', '2022-10-18 20:34:12', NULL),
+('5D202210150001', 5, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-15 15:20:43', '2022-10-15 15:20:43', '2022-10-18 20:22:42', '2022-10-19 10:23:07', '2022-10-18 20:23:11', '2022-10-18 20:23:50', NULL),
+('5D202210160001', 5, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-16 10:20:59', '2022-10-16 10:20:59', '2022-10-18 20:22:26', '2022-10-19 10:23:24', '2022-10-18 20:23:28', '2022-10-18 20:23:51', NULL),
+('5D202210160002', 5, 1, 2, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-16 10:50:45', '2022-10-16 10:50:45', NULL, NULL, NULL, NULL, NULL),
+('5D202210180001', 5, 1, 6, '銀行轉帳<br>月結(TT30)', NULL, NULL, '2022-10-18 18:06:14', '2022-10-18 18:06:14', '2022-10-18 18:07:00', '2022-10-19 08:07:06', '2022-10-18 18:07:10', '2022-10-18 19:49:02', NULL);
 
 -- --------------------------------------------------------
 
@@ -426,6 +426,7 @@ CREATE TABLE `v_product_order_order_details` (
 ,`product_name_spec` char(30)
 ,`delivery_order_id` char(60)
 ,`delivery_order_remark` char(60)
+,`create_time` datetime
 ,`order_time` datetime
 ,`accept_order_time` datetime
 ,`export_time` datetime
@@ -449,7 +450,7 @@ CREATE TABLE `v_product_order_order_details` (
 --
 DROP TABLE IF EXISTS `v_company_following_list_accounts`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_company_following_list_accounts`  AS SELECT `t_company_following_list`.`buyer_id` AS `buyer_id`, `t_company_following_list`.`seller_id` AS `seller_id`, `t_accounts`.`company_name` AS `company_name`, `t_accounts`.`company_phone` AS `company_phone`, `t_accounts`.`tax_id` AS `tax_id`, `t_accounts`.`address` AS `address`, `t_accounts`.`email` AS `email`, `t_accounts`.`contact_person` AS `contact_person`, `t_accounts`.`contact_person_num` AS `contact_person_num`, `t_accounts`.`fax` AS `fax`, `t_accounts`.`bank_account` AS `bank_account`, `t_accounts`.`bank_name` AS `bank_name`, `t_accounts`.`bank_swift_code` AS `bank_swift_code`, `t_accounts`.`line_account` AS `line_account` FROM (`t_company_following_list` left join `t_accounts` on((`t_company_following_list`.`seller_id` = `t_accounts`.`account_id`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_company_following_list_accounts`  AS SELECT `t_company_following_list`.`buyer_id` AS `buyer_id`, `t_company_following_list`.`seller_id` AS `seller_id`, `t_accounts`.`company_name` AS `company_name`, `t_accounts`.`company_phone` AS `company_phone`, `t_accounts`.`tax_id` AS `tax_id`, `t_accounts`.`address` AS `address`, `t_accounts`.`email` AS `email`, `t_accounts`.`contact_person` AS `contact_person`, `t_accounts`.`contact_person_num` AS `contact_person_num`, `t_accounts`.`fax` AS `fax`, `t_accounts`.`bank_account` AS `bank_account`, `t_accounts`.`bank_name` AS `bank_name`, `t_accounts`.`bank_swift_code` AS `bank_swift_code`, `t_accounts`.`line_account` AS `line_account` FROM (`t_company_following_list` left join `t_accounts` on((`t_company_following_list`.`seller_id` = `t_accounts`.`account_id`)))  ;
 
 -- --------------------------------------------------------
 
@@ -458,7 +459,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_product_order_order_details`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_product_order_order_details`  AS SELECT `t_product`.`product_id` AS `product_id`, `t_accounts`.`company_name` AS `company_name`, `t_orders`.`order_id` AS `order_id`, `t_orders`.`order_status` AS `order_status`, `t_product`.`owner_id` AS `owner_id`, `t_product`.`unit_cost` AS `unit_cost`, `t_product`.`stock_qty` AS `stock_qty`, `t_product`.`warning_qty` AS `warning_qty`, `t_order_details`.`order_qty` AS `order_qty`, `t_orders`.`buyer_id` AS `buyer_id`, `t_order_details`.`unit_deal_price` AS `unit_deal_price`, `t_product`.`safe_qty` AS `safe_qty`, `t_product`.`product_name_spec` AS `product_name_spec`, `t_orders`.`delivery_order_id` AS `delivery_order_id`, `t_orders`.`delivery_order_remark` AS `delivery_order_remark`, `t_orders`.`order_time` AS `order_time`, `t_orders`.`accept_order_time` AS `accept_order_time`, `t_orders`.`export_time` AS `export_time`, `t_orders`.`arrive_order_time` AS `arrive_order_time`, `t_orders`.`complete_order_time` AS `complete_order_time`, `t_orders`.`cancel_order_time` AS `cancel_order_time`, `t_product`.`auto_order_function` AS `auto_order_function`, `t_product`.`unit_sell_price` AS `unit_sell_price`, `t_product`.`min_sell_qty` AS `min_sell_qty`, `t_product`.`product_desc` AS `product_desc`, `t_product`.`on_shelf` AS `on_shelf`, `t_product`.`auto_order_confirm_function_status` AS `auto_order_confirm_function_status`, `t_product`.`reserved_qty` AS `reserved_qty`, `t_orders`.`payment_terms` AS `payment_terms` FROM (((`t_product` left join `t_order_details` on((`t_product`.`product_id` = `t_order_details`.`seller_product_id`))) left join `t_orders` on((`t_order_details`.`order_id` = `t_orders`.`order_id`))) left join `t_accounts` on((`t_orders`.`buyer_id` = `t_accounts`.`account_id`))) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_product_order_order_details`  AS SELECT `t_product`.`product_id` AS `product_id`, `t_accounts`.`company_name` AS `company_name`, `t_orders`.`order_id` AS `order_id`, `t_orders`.`order_status` AS `order_status`, `t_product`.`owner_id` AS `owner_id`, `t_product`.`unit_cost` AS `unit_cost`, `t_product`.`stock_qty` AS `stock_qty`, `t_product`.`warning_qty` AS `warning_qty`, `t_order_details`.`order_qty` AS `order_qty`, `t_orders`.`buyer_id` AS `buyer_id`, `t_order_details`.`unit_deal_price` AS `unit_deal_price`, `t_product`.`safe_qty` AS `safe_qty`, `t_product`.`product_name_spec` AS `product_name_spec`, `t_orders`.`delivery_order_id` AS `delivery_order_id`, `t_orders`.`delivery_order_remark` AS `delivery_order_remark`, `t_orders`.`create_time` AS `create_time`, `t_orders`.`order_time` AS `order_time`, `t_orders`.`accept_order_time` AS `accept_order_time`, `t_orders`.`export_time` AS `export_time`, `t_orders`.`arrive_order_time` AS `arrive_order_time`, `t_orders`.`complete_order_time` AS `complete_order_time`, `t_orders`.`cancel_order_time` AS `cancel_order_time`, `t_product`.`auto_order_function` AS `auto_order_function`, `t_product`.`unit_sell_price` AS `unit_sell_price`, `t_product`.`min_sell_qty` AS `min_sell_qty`, `t_product`.`product_desc` AS `product_desc`, `t_product`.`on_shelf` AS `on_shelf`, `t_product`.`auto_order_confirm_function_status` AS `auto_order_confirm_function_status`, `t_product`.`reserved_qty` AS `reserved_qty`, `t_orders`.`payment_terms` AS `payment_terms` FROM (((`t_product` left join `t_order_details` on((`t_product`.`product_id` = `t_order_details`.`seller_product_id`))) left join `t_orders` on((`t_order_details`.`order_id` = `t_orders`.`order_id`))) left join `t_accounts` on((`t_orders`.`buyer_id` = `t_accounts`.`account_id`)))  ;
 
 --
 -- Indexes for dumped tables

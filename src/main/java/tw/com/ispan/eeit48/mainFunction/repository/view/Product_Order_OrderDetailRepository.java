@@ -15,7 +15,7 @@ public interface Product_Order_OrderDetailRepository extends PagingAndSortingRep
 
 	List<Product_Order_OrderDetail> findAllByProductIdAndOrderStatusBetween(String productId, int statusStart, int statusEnd);
 
-	List<Product_Order_OrderDetail> findAllByOwnerIdAndOrderStatusBetweenOrderByOrderTimeDesc(int accountId, int orderStatusStart, int orderStatusEnd);
+	List<Product_Order_OrderDetail> findAllByOwnerIdAndOrderStatusBetweenOrderByCreateTimeDesc(int accountId, int orderStatusStart, int orderStatusEnd);
 
 	List<Product_Order_OrderDetail> findAllByOrderId(String orderId);
 
