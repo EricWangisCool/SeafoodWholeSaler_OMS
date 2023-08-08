@@ -1,10 +1,7 @@
 package tw.com.ispan.eeit48.mainFunction.model.table;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import javax.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Immutable;
 import tw.com.ispan.eeit48.mainFunction.model.table.pk.SupplierProductForOwnerProductPK;
@@ -16,22 +13,27 @@ import tw.com.ispan.eeit48.mainFunction.model.table.pk.SupplierProductForOwnerPr
 @Table(name = "t_supplier_product_for_owner_product")
 public class SupplierProductForOwnerProduct implements Serializable {
 	@Id
-	private Integer productId;
+	private String productId;
 	@Id
-	private Integer supplierProductId;
+	private String supplierProductId;
 	private Integer supplierId;
-	public Integer getProductId() {
+
+	public String getProductId() {
 		return productId;
 	}
-	public void setProductId(Integer productId) {
+
+	public void setProductId(String productId) {
 		this.productId = productId;
 	}
-	public Integer getSupplierProductId() {
+
+	public String getSupplierProductId() {
 		return supplierProductId;
 	}
-	public void setSupplierProductId(Integer supplierProductId) {
+
+	public void setSupplierProductId(String supplierProductId) {
 		this.supplierProductId = supplierProductId;
 	}
+
 	public Integer getSupplierId() {
 		return supplierId;
 	}

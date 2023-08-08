@@ -49,7 +49,7 @@ public class PageService {
 		List<Product> ownerProducts = productRepository.findAllByOwnerIdByOrderByOwnerIdDesc(userId);
 		if (ownerProducts != null) {
 			for (Product ownerProduct : ownerProducts) {
-				int ownerProductId = ownerProduct.getProductId();
+				String ownerProductId = ownerProduct.getProductId();
 				int sellableQty = productService.findSellableQtyByProductId(ownerProductId);
 				int requestedQty = productService.findRequestedQtyByProductId(ownerProductId);
 				int sellableAndRequestedQty = sellableQty + requestedQty;

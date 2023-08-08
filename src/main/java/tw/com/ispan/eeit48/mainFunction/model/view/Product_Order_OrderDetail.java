@@ -19,7 +19,7 @@ import tw.com.ispan.eeit48.mainFunction.model.view.pk.Product_Order_OrderDetailP
 @DynamicUpdate
 public class Product_Order_OrderDetail implements Serializable {
 	@Id
-	private Integer productId;
+	private String productId;
 	@Column(columnDefinition = "char")
 	private String orderId;
 	private Integer orderStatus;
@@ -62,10 +62,10 @@ public class Product_Order_OrderDetail implements Serializable {
 	private Integer onShelf;
 	private Integer autoOrderConfirmFunctionStatus;
 	private Integer reservedQty;
-	public Integer getProductId() {
+	public String getProductId() {
 		return productId;
 	}
-	public void setProductId(Integer productId) {
+	public void setProductId(String productId) {
 		this.productId = productId;
 	}
 	public String getOrderId() {

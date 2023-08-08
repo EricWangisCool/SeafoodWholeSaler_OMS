@@ -488,27 +488,27 @@
                                     <li class="fullstate active">
                                         <span class="point d-block"></span>
                                         <span class="diplome d-block">${returnTimeLineStatus.step1}</span>
-                                        <span class="timestamp d-block">${allBuyList[i].orderTime}</span>
+                                        <span class="timestamp d-block">${timeToString(allBuyList[i].orderTime)}</span>
                                     </li>
                                     <li class="fullstate ${allBuyList[i].acceptOrderTime == null ? "" : "active"}">
                                         <span class="point d-block"></span>
                                         <span class="diplome d-block">${returnTimeLineStatus.step2}</span>
-                                        <span class="timestamp d-block">${allBuyList[i].acceptOrderTime == null ? "" : allBuyList[i].acceptOrderTime}</span>
+                                        <span class="timestamp d-block">${allBuyList[i].acceptOrderTime == null ? "" : timeToString(allBuyList[i].acceptOrderTime)}</span>
                                     </li>
                                     <li class="fullstate ${allBuyList[i].exportTime == null ? "" : "active"}">
                                         <span class="point d-block"></span>
                                         <span class="diplome d-block">${returnTimeLineStatus.step3}</span>
-                                        <span class="timestamp d-block">${allBuyList[i].exportTime == null ? "" : allBuyList[i].exportTime}</span>
+                                        <span class="timestamp d-block">${allBuyList[i].exportTime == null ? "" : timeToString(allBuyList[i].exportTime)}</span>
                                     </li>
                                     <li class="fullstate ${allBuyList[i].arriveOrderTime == null ? "" : "active"}">
                                         <span class="point d-block"></span>
                                         <span class="diplome d-block">${returnTimeLineStatus.step4}</span>
-                                        <span class="timestamp d-block">${allBuyList[i].arriveOrderTime == null ? "" : allBuyList[i].arriveOrderTime}</span>
+                                        <span class="timestamp d-block">${allBuyList[i].arriveOrderTime == null ? "" : timeToString(allBuyList[i].arriveOrderTime)}</span>
                                     </li>
                                     <li class="fullstate ${allBuyList[i].completeOrderTime == null ? "" : "active"}">
                                         <span class="point d-block"></span>
                                         <span class="diplome d-block">${returnTimeLineStatus.step5}</span>
-                                        <span class="timestamp d-block">${allBuyList[i].completeOrderTime == null ? "" : allBuyList[i].completeOrderTime}</span>
+                                        <span class="timestamp d-block">${allBuyList[i].completeOrderTime == null ? "" : timeToString(allBuyList[i].completeOrderTime)}</span>
                                     </li>                                    
                                 </ol>
                             </div>`;

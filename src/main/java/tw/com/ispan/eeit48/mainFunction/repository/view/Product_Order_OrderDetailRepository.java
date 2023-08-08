@@ -13,7 +13,7 @@ import tw.com.ispan.eeit48.mainFunction.model.view.Product_Order_OrderDetail;
 @Repository
 public interface Product_Order_OrderDetailRepository extends PagingAndSortingRepository<Product_Order_OrderDetail, Integer> {
 
-	List<Product_Order_OrderDetail> findAllByProductIdAndOrderStatusBetween(int productId, int x, int y);
+	List<Product_Order_OrderDetail> findAllByProductIdAndOrderStatusBetween(String productId, int statusStart, int statusEnd);
 
 	List<Product_Order_OrderDetail> findAllByOwnerIdAndOrderStatusBetweenOrderByOrderTimeDesc(int accountId, int orderStatusStart, int orderStatusEnd);
 

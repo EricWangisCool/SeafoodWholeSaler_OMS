@@ -2,15 +2,15 @@ package tw.com.ispan.eeit48.common.dto.request;
 
 
 public class Product {
-    private Integer sellerProductId;
+    private String sellerProductId;
     private Integer orderQty;
     private Integer unitDealPrice;
 
-    public Integer getSellerProductId() {
+    public String getSellerProductId() {
         return sellerProductId;
     }
 
-    public void setSellerProductId(Integer sellerProductId) {
+    public void setSellerProductId(String sellerProductId) {
         this.sellerProductId = sellerProductId;
     }
 

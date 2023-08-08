@@ -21,7 +21,7 @@ public class ProductService {
 	/**
 	 * 可出現貨sellableQty = 產品庫存數 - 被訂購量
 	 */
-	public int findSellableQtyByProductId(int productId) {
+	public int findSellableQtyByProductId(String productId) {
 		int stockQty = productRepository.findStockQtyByProductId(productId);
 		int orderedQty = findOrderedQtyByProductId(productId);
 		return stockQty - orderedQty;
@@ -30,7 +30,7 @@ public class ProductService {
 	/**
 	 * 被訂購量orderedQty = 接單狀態為3~5的總數
 	 */
-	public int findOrderedQtyByProductId(int productId) {
+	public int findOrderedQtyByProductId(String productId) {
 		List<Product_Order_OrderDetail> orderedOrdersInfo = productOrderOrderDetailRepository
 				.findAllByProductIdAndOrderStatusBetween(productId, 3, 5);
 
@@ -45,7 +45,7 @@ public class ProductService {
 	/**
 	 * 已叫現貨數requestedQty = 叫貨狀態為2~5的總數
 	 */
-	public int findRequestedQtyByProductId(int productId) {
+	public int findRequestedQtyByProductId(String productId) {
 		List<SupplierProductForOwnerProduct> supplierProductsInfo = supplierProductForOwnerProductRepository
 				.findAllByProductId(productId);
 

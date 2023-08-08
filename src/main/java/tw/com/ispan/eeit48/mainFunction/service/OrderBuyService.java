@@ -130,14 +130,14 @@ public class OrderBuyService {
 		List<Product_Order_OrderDetail> ordersInfo = productOrderOrderDetailRepository.findAllByOrderId(orderId);
 
 		ordersInfo.forEach(orderInfo -> {
-			int sellerProductId = orderInfo.getProductId();
+			String sellerProductId = orderInfo.getProductId();
 			int inStockPrice = orderInfo.getUnitDealPrice();
 			int inStockQty = orderInfo.getOrderQty();
 			int originalStockQty;
 			int newStockQty;
 
 			// User stock
-			int userProductId = supplierProductForOwnerProductRepository.findUserProductIdBySupplierProductId(sellerProductId);
+			String userProductId = supplierProductForOwnerProductRepository.findUserProductIdBySupplierProductId(sellerProductId);
 			Product userProduct = productRepository.findOneByProductId(userProductId);
 
 			int originalUnitCost = userProduct.getUnitCost();

@@ -37,7 +37,7 @@ public class GoodsService {
 		supplierProducts.forEach(supplierProduct -> {
 			// 從單筆供應商productId, 查看是否為自己productId的補貨對象, 是的話回傳缺貨數(outStock), 不是的話回傳0
 			int userOutStock = 0;
-			Integer userProductId = supplierProductForOwnerProductRepository
+			String userProductId = supplierProductForOwnerProductRepository
 					.findUserProductIdBySupplierProductId(supplierProduct.getProductId());
 			if (userProductId != null) {
 				userOutStock += findOutStockByProductId(userProductId);
@@ -53,7 +53,7 @@ public class GoodsService {
 	}
 
 	// 缺貨數outStock = 安全庫存 - 可出現貨 - 已叫現貨
-	private int findOutStockByProductId(Integer productId) {
+	private int findOutStockByProductId(String productId) {
 		int safeQty = productRepository.findSafeQtyByProductId(productId);
 		int sellableQty = productService.findSellableQtyByProductId(productId);
 		int requestedQty = productService.findRequestedQtyByProductId(productId);

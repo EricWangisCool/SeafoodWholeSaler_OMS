@@ -31,7 +31,7 @@ public class StockService {
 		List<Product> products = productRepository.findAllByOwnerIdByOrderByOwnerIdDesc(getCurrentUserId());
 		for (Product product : products) {
 			// 運用尋訪出的單個產品資訊, 找出productId, 用來找底下三個數量, 和供應商相關資訊
-			int productId = product.getProductId();
+			String productId = product.getProductId();
 			// 1. 被訂購量
 			int OrderedQty = productService.findOrderedQtyByProductId(productId);
 			// 2. 可出現貨數
@@ -67,7 +67,7 @@ public class StockService {
 		return list;
 	}
 
-	private Map<String, Object> findSupplierObjectByOwnerProductId(int ownerProductId) {
+	private Map<String, Object> findSupplierObjectByOwnerProductId(String ownerProductId) {
 		SupplierProductForOwnerProduct supplier = supplierProductForOwnerProductRepository
 				.findOneByProductId(ownerProductId);
 		Map<String, Object> supplierMap = null;
@@ -85,53 +85,60 @@ public class StockService {
 	}
 
 	@Transactional
-	public void insertNewStock(ProductRequest request) throws Exception {
+	public void insertNewStock(ProductRequest request) {
 		Product productInfo = request.getProductInfo();
 		SupplierProductForOwnerProduct supplierInfo = request.getSupplierInfo();
 		int userId = getCurrentUserId();
 
-		int newProductId;
-		Integer lastProductId = productRepository.findLastProductIdByOwnerId(userId);
+		String newProductId;
+		String lastProductId = productRepository.findLastProductIdByOwnerId(userId);
 		if (lastProductId != null) {
-			newProductId = lastProductId + 1;
+			newProductId = String.valueOf(Integer.parseInt(lastProductId) + 1);
 		} else {
 			// 預設以 userId + 00001 作為第一筆productId
-			newProductId = Integer.parseInt(String.format("%d%05d", userId, 1));
+			newProductId = String.format("%d%05d", userId, 1);
 		}
 
+		if (productInfo.getOnShelf() == 0) {
+			productInfo.setMinSellQty(0);
+			productInfo.setUnitSellPrice(0);
+			productInfo.setProductDesc("");
+		}
 		productInfo.setOwnerId(userId);
 		productInfo.setProductId(newProductId);
-		supplierInfo.setProductId(newProductId);
+		Product savedProduct = productRepository.save(productInfo);
 
-		productRepository.save(productInfo);
+		supplierInfo.setProductId(savedProduct.getProductId());
 		supplierProductForOwnerProductRepository.save(supplierInfo);
 	}
 
 	@Transactional
-	public void updateStock(ProductRequest request) throws Exception {
+	public void updateStock(ProductRequest request) {
 		Product productInfo = request.getProductInfo();
-		Integer productId = productInfo.getProductId();
+		String productId = productInfo.getProductId();
 
 		if (productId != null) {
-			if (productRepository.existsById(productId)) {
-				productInfo.setOwnerId(getCurrentUserId());
+			if (productRepository.existsByProductId(productId)) {
 				productRepository.save(productInfo);
+				supplierProductForOwnerProductRepository.save(request.getSupplierInfo());
+			} else {
+				throw new RuntimeException("Requested product id does not exist");
 			}
-			throw new RuntimeException("ProductId does not exist");
+		} else {
+			throw new RuntimeException("Requested product id is null");
 		}
-		throw new RuntimeException("ProductId is null");
 	}
 
 	@Transactional
-	public void deleteStock(Integer productId) {
+	public void deleteStock(String productId) {
 		if (productId != null) {
-			if (productRepository.existsById(productId)) {
-				if (productRepository.deleteByProductId(productId) < 1) {
-					throw new RuntimeException("Delete quantity does not match request");
-				}
+			if (productRepository.existsByProductId(productId)) {
+				productRepository.deleteByProductId(productId);
+			} else {
+				throw new RuntimeException("Requested product id does not exist");
 			}
-			throw new RuntimeException("Requested product id does not exist");
+		} else {
+			throw new RuntimeException("Requested product id is null");
 		}
-		throw new RuntimeException("Requested product id is null");
 	}
 }

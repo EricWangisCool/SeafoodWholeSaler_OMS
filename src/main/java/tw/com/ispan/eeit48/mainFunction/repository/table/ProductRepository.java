@@ -10,10 +10,10 @@ import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
-	int deleteByProductId(Integer productId);
-	Product findOneByProductId(int productId);
-	Optional<Product> findOneByProductIdAndAutoOrderFunction(int productId, String autoOrderFunction);
-	boolean existsById(int id);
+	int deleteByProductId(String productId);
+	Product findOneByProductId(String productId);
+	Optional<Product> findOneByProductIdAndAutoOrderFunction(String productId, String autoOrderFunction);
+	boolean existsByProductId(String productId);
 
 	@Query(value = """
 			SELECT product_name_spec
@@ -21,7 +21,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 			 WHERE product_id = ?1
 			"""
 			, nativeQuery = true)
-	String findProductNameSpecByProductId(Integer productId);
+	String findProductNameSpecByProductId(String productId);
 
 	@Query(value = """
 			SELECT stock_qty		
@@ -29,7 +29,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 			 WHERE product_id = ?1	
 			"""
 			, nativeQuery = true)
-	int findStockQtyByProductId(Integer productId);
+	int findStockQtyByProductId(String productId);
 
 	@Query(value = """
 			SELECT safe_qty         
@@ -37,7 +37,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 			 WHERE product_id = ?1	
 			"""
 			, nativeQuery = true)
-	Integer findSafeQtyByProductId(Integer productId);
+	Integer findSafeQtyByProductId(String productId);
 
 	@Query(value = """
 			SELECT * 				 
@@ -56,6 +56,5 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
              LIMIT 1
              """
 			, nativeQuery = true)
-	Integer findLastProductIdByOwnerId(int ownerId);
-
+	String findLastProductIdByOwnerId(int ownerId);
 }

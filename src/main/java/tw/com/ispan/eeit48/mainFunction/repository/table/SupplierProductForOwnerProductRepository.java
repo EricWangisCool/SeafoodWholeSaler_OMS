@@ -9,7 +9,7 @@ import tw.com.ispan.eeit48.mainFunction.model.table.SupplierProductForOwnerProdu
 @Repository
 public interface SupplierProductForOwnerProductRepository extends JpaRepository<SupplierProductForOwnerProduct, Integer> {
 
-	List<SupplierProductForOwnerProduct> findAllByProductId(int productId);
+	List<SupplierProductForOwnerProduct> findAllByProductId(String productId);
 
 	@Query(value = """
 			SELECT product_id 
@@ -17,8 +17,8 @@ public interface SupplierProductForOwnerProductRepository extends JpaRepository<
 			WHERE supplier_product_id = ?1
 			LIMIT 1
 			""", nativeQuery = true)
-	Integer findUserProductIdBySupplierProductId(Integer supplierProductId);
+	String findUserProductIdBySupplierProductId(String supplierProductId);
 
-	SupplierProductForOwnerProduct findOneByProductId(int ownerProductId);
+	SupplierProductForOwnerProduct findOneByProductId(String ownerProductId);
 
 }

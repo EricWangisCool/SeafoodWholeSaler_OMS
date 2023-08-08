@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name = "t_product")
 public class Product {
 	@Id
-	private Integer productId;
+	private String productId;
 	@Column(columnDefinition = "longtext")
 	private String productPic;
 	private Integer productClassification;
@@ -29,10 +29,10 @@ public class Product {
 	private Integer ownerId;
 	@Column(columnDefinition = "char")
 	private String productNameSpec;
-	public Integer getProductId() {
+	public String getProductId() {
 		return productId;
 	}
-	public void setProductId(Integer productId) {
+	public void setProductId(String productId) {
 		this.productId = productId;
 	}
 	public String getProductPic() {

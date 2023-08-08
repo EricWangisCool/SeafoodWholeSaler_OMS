@@ -17,7 +17,7 @@ public class OrderDetail implements Serializable {
 	@Id
 	@Column(columnDefinition = "char")
 	private String orderId;
-	private Integer sellerProductId;
+	private String sellerProductId;
 	private Integer orderQty;
 	private Integer unitDealPrice;
 	public String getOrderId() {
@@ -26,10 +26,10 @@ public class OrderDetail implements Serializable {
 	public void setOrderId(String orderId) {
 		this.orderId = orderId;
 	}
-	public Integer getSellerProductId() {
+	public String getSellerProductId() {
 		return sellerProductId;
 	}
-	public void setSellerProductId(Integer sellerProductId) {
+	public void setSellerProductId(String sellerProductId) {
 		this.sellerProductId = sellerProductId;
 	}
 	public Integer getOrderQty() {

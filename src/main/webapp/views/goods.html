@@ -529,7 +529,7 @@
         let parentPage = null;
 
         let addStockObj = {
-            supplierProductId: 20001,
+            supplierProductId: "20001",
             supplierId: 10000,
             supplierProduct: "新鮮牛奶貝 / 5斤",
             supplier: "達克三角洲有限公司"
@@ -593,7 +593,7 @@
 
                 addStockObj.supplier = chooseSupplier.supplier;
                 addStockObj.supplierId = chooseSupplier.supplierId;
-                addStockObj.supplierproductId = productId;
+                addStockObj.supplierProductId = productId;
 
                 // 呼叫父類方法，並把資料傳回去。
                 callParent(addStockObj);

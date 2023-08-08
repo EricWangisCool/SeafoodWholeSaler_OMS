@@ -401,7 +401,7 @@
                                         <span class="mdc-notched-outline__leading"></span>
                                         <span class="mdc-notched-outline__trailing"></span>
                                     </span>
-                                    <input id="productnamespec" type="text" class="mdc-text-field__input"
+                                    <input id="productNameSpec" type="text" class="mdc-text-field__input"
                                         placeholder="例如：比目魚/10斤">
                                 </label>
                             </td>
@@ -415,11 +415,11 @@
                                         <span class="mdc-notched-outline__trailing"></span>
                                     </span>
                                     <span class="mdc-text-field__affix mdc-text-field__affix--prefix">NT$</span>
-                                    <input id="unitcost" type="number" class="mdc-text-field__input"
-                                        aria-controls="my-helper-unitcost" aria-describedby="my-helper-unitcost">
+                                    <input id="unitCost" type="number" class="mdc-text-field__input"
+                                        aria-controls="my-helper-unitCost" aria-describedby="my-helper-unitCost">
                                 </label>
                                 <div class="mdc-text-field-helper-line">
-                                    <div class="mdc-text-field-helper-text fs-5 fw-normal" id="my-helper-unitcost"
+                                    <div class="mdc-text-field-helper-text fs-5 fw-normal" id="my-helper-unitCost"
                                         aria-hidden="true">首次設定後，系統將自動平均叫貨成本</div>
                                 </div>
 
@@ -441,7 +441,7 @@
                                         <span class="mdc-notched-outline__leading"></span>
                                         <span class="mdc-notched-outline__trailing"></span>
                                     </span>
-                                    <input id="stockqty" type="number" class="mdc-text-field__input">
+                                    <input id="stockQty" type="number" class="mdc-text-field__input">
                                 </label>
                             </td>
                             <td></td>
@@ -453,11 +453,11 @@
                                         <span class="mdc-notched-outline__leading"></span>
                                         <span class="mdc-notched-outline__trailing"></span>
                                     </span>
-                                    <input id="warningqty" type="number" class="mdc-text-field__input"
-                                        aria-controls="my-helper-warningqty" aria-describedby="my-helper-warningqty">
+                                    <input id="warningQty" type="number" class="mdc-text-field__input"
+                                        aria-controls="my-helper-warningQty" aria-describedby="my-helper-warningQty">
                                 </label>
                                 <div class="mdc-text-field-helper-line">
-                                    <div class="mdc-text-field-helper-text fs-5 fw-normal" id="my-helper-warningqty"
+                                    <div class="mdc-text-field-helper-text fs-5 fw-normal" id="my-helper-warningQty"
                                         aria-hidden="true">若庫存數低於此值，則需進行叫貨</div>
                                 </div>
                             </td>
@@ -858,9 +858,9 @@
 
         // 供應商表格物件
         let cooperateObj = {
-            supplierproductid: 0,
-            supplierid: 0,
-            supplierproduct: "",
+            supplierProductId: "0",
+            supplierId: 0,
+            supplierProduct: "",
             supplier: ""
         };
         // JSON假資料物件
@@ -868,7 +868,7 @@
         // 使用者上傳的圖片
         let productPicObj = null;
         // 編輯產品的id
-        let editStockProductid = 0;
+        let editStockProductId = 0;
 
         // 呼叫父類別方法(先去檢查是否要更改為編輯庫存)
         callParent();
@@ -895,8 +895,9 @@
 
                 // 資料傳入-------------------------------------------------------
 
-                editStockProductid = state.productId;  // 產品id                
-                $("#productnamespec").prop('value', state.productNameSpec);  // 品名
+                editStockProductId = state.productId;  
+                editOwnerId = state.ownerId;  
+                $("#productNameSpec").prop('value', state.productNameSpec); 
                 // 圖片
                 $("#display-image").css('display', "block");
                 $("#display-image").css('background-image', 'url(' + state.productPic + ')');
@@ -911,9 +912,9 @@
                 $($("#productclassification").find("li")[state.productClassification]).addClass("mdc-list-item--selected");
                 initializeSelect();
 
-                $("#unitcost").prop('value', state.unitCost);  // 成本單價                
-                $("#stockqty").prop('value', state.stockQty);  // 庫存數                
-                $("#warningqty").prop('value', state.warningQty);  // 警示庫存數                
+                $("#unitCost").prop('value', state.unitCost);  // 成本單價                
+                $("#stockQty").prop('value', state.stockQty);  // 庫存數                
+                $("#warningQty").prop('value', state.warningQty);  // 警示庫存數                
                 $("#safeqty").prop('value', state.safeQty);  // 安全庫存數
                 // 是否上架                
                 state.onShelf == 1 ? $($('#flexSwitchCheckChecked-online')[0]).prop("checked", true) : $($('#flexSwitchCheckChecked-online')[0]).prop("checked", false);
@@ -961,7 +962,7 @@
                 $(".cooperatetable").hide();
             } else {
                 $(".cooperatetable tr:nth-child(1) td").html(cooperateObj.supplier);
-                $(".cooperatetable tr:nth-child(2) td").html(cooperateObj.supplierproduct);
+                $(".cooperatetable tr:nth-child(2) td").html(cooperateObj.supplierProduct);
                 $(".cooperatetable").show();
                 $("#cooperatebtn").html("編輯供應商");
             }
@@ -1023,12 +1024,12 @@
                 "productInfo": {
                     "productId": null,
                     "ownerId": null,
-                    "productNameSpec": $("#productnamespec").prop('value'),
+                    "productNameSpec": $("#productNameSpec").prop('value'),
                     "productPic": productPicObj,
                     "productClassification": $("#productclassification").find("li.mdc-list-item--selected").index(),
-                    "unitCost": parseInt($("#unitcost").prop('value')),
-                    "stockQty": parseInt($("#stockqty").prop('value')),
-                    "warningQty": parseInt($("#warningqty").prop('value')),
+                    "unitCost": parseInt($("#unitCost").prop('value')),
+                    "stockQty": parseInt($("#stockQty").prop('value')),
+                    "warningQty": parseInt($("#warningQty").prop('value')),
                     "safeQty": parseInt($("#safeqty").prop('value')),
                     "onShelf": $('#flexSwitchCheckChecked-online')[0].checked ? 1 : 0,
                     "unitSellPrice": parseInt($("#unitsellprice").prop('value')),
@@ -1040,7 +1041,7 @@
                 },
                 "supplierInfo": {
                     "productId": null,
-                    "supplierProductId": cooperateObj.supplierProductId == 0 ? 99999 : cooperateObj.supplierProductId,
+                    "supplierProductId": cooperateObj.supplierProductId == "0" ? "99999" : cooperateObj.supplierProductId,
                     "supplierId": cooperateObj.supplierId == 0 ? 99999 : parseInt(cooperateObj.supplierId)
                 }
             };
@@ -1048,7 +1049,9 @@
             if (pageState == 0) { // 新增庫存
                 insertData();
             } else {              // 編輯庫存 (pageState = 1)
-                allValueList.productInfo.productId = editStockProductid;
+                allValueList.productInfo.productId = editStockProductId;
+                allValueList.productInfo.ownerId = editOwnerId;
+                allValueList.supplierInfo.productId = editStockProductId;
                 updateData();
             };
         };

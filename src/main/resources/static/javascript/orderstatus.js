@@ -306,7 +306,7 @@ function timeToString(basicTime) {
     let returnTime = "";
     if (basicTime != null) {
         let d = new Date(basicTime);
-        let returnTime = `${d.getFullYear()}-${
+        returnTime = `${d.getFullYear()}-${
             (parseInt(d.getMonth()) + 1) < 10 ? "0" + (parseInt(d.getMonth()) + 1) : (parseInt(d.getMonth()) + 1)}-${
                 d.getDate() < 10 ? "0" + d.getDate() : d.getDate()}<br>${
                     d.getHours() < 10 ? "0" + d.getHours() : d.getHours()}:${

@@ -260,7 +260,7 @@
                         </button>
 
                         <button class="mdc-button mdc-button--raised me-2"
-                            onclick="callParent((detailList.orderstatus+1),this)" data-value="">
+                            onclick="callParent((detailList.orderStatus+1),this)" data-value="">
                             <span class="mdc-button__label fs-5 fw-normal">確認訂單</span>
                         </button>
 
@@ -282,59 +282,59 @@
     <script src="../javascript/materialdesigninit.js"></script>
     <script src="../javascript/ajaxconnect.js"></script>
     <script src="../javascript/orderstatus.js"></script>
+    <script src="../javascript/tools.js"></script>
     <script>
         // JSON假資料  ----------------------------------------------------------------------------------------------------------------------
         // ProductNameSpec(品名規格)、?CallShipping(訂購數量)、UnitSellPrice(銷售單價)
-        // ?Noshipping(未配數)、?StockOwn(庫存可配數)、?detailTotal(明細總金額)
+        // ?Noshipping(未配數)、?sellableQty(可出現貨)、?detailTotal(明細總金額)
         // 時間軸：Status(狀態)、訂單時間：OrderStatus(交易狀態)、OrderTime(訂單送出時間)、AcceptOrderTime(訂單接受時間)、ExportTime(訂單出貨時間)、SellerEstimatedArriveTime(賣家預計到貨時間)、ArriveOrderTime(貨物送達時間)、CompleteOrderTime(訂單完成時間)、CancelOrderTime(訂單不完成時間)
         // OrderStatus(交易狀態)：1是尚未送出叫貨單_還沒送出訂單、2是待確認_訂單送出、3是待出貨_訂單成立、4是出貨中、5是待收貨_待收貨入庫、6是訂單完成_入庫完成、7是訂單不成立_賣家或買家取消
 
         var detailList =
             [
                 {
-                    orderid: "",
-                    ContactPerson: "蘇沐橙",
-                    Address: "408台中市南屯區公益路二段51號18樓",
-                    companyphone: "04-22134646",
+                    orderId: "",
+                    contactPerson: "蘇沐橙",
+                    address: "408台中市南屯區公益路二段51號18樓",
+                    companyPhone: "04-22134646",
                     payMethod: "銀行轉帳/月結30(Net30)",
-                    TaxId: "05076416",
-                    SellerExpectTime: null,
+                    taxId: "05076416",
+                    sellerExpectTime: null,
                     total: 5960,
-
-                    OrderStatus: 2,
-                    OrderTime: "09/23 12:51",
-                    AcceptOrderTime: "09/26 12:51",
-                    ExportTime: "09/27 11:22",
-                    ArriveOrderTime: "09/28 13:33",
-                    CompleteOrderTime: "09/29 14:49"
+                    orderStatus: 2,
+                    orderTime: "09/23 12:51",
+                    acceptOrderTime: "09/26 12:51",
+                    exportTime: "09/27 11:22",
+                    arriveOrderTime: "09/28 13:33",
+                    completeOrderTime: "09/29 14:49"
                 }
             ];
 
         // 欄位中文名稱對應
         let detailListName = [
             {
-                ContactPerson: "收貨人姓名",
-                Address: "收件地址",
-                companyphone: "收貨公司電話",
+                contactPerson: "收貨人姓名",
+                address: "收件地址",
+                companyPhone: "收貨公司電話",
                 payMethod: "付款方式",
-                TaxId: "統一編號",
-                SellerExpectTime: "預計出貨日期",
+                taxId: "統一編號",
+                sellerExpectTime: "預計出貨日期",
                 total: "銷售合計",
-                OrderTime: "待我方確認",
-                AcceptOrderTime: "待我方出貨",
-                ExportTime: "我方出貨中",
-                ArriveOrderTime: "待採購商收貨",
-                CompleteOrderTime: "訂單完成",
-                CancelOrderTime: "不成立"
+                orderTime: "待我方確認",
+                acceptOrderTime: "待我方出貨",
+                exportTime: "我方出貨中",
+                arriveOrderTime: "待採購商收貨",
+                completeOrderTime: "訂單完成",
+                cancelOrderTime: "不成立"
             }
         ]
 
         let detailItemListName = [
             {
-                ProductNameSpec: "品名規格",
-                CallShipping: "訂購數量",
-                UnitSellPrice: "銷售單價",
-                StockOwn: "可出現貨",
+                productNameSpec: "品名規格",
+                callShipping: "訂購數量",
+                unitSellPrice: "銷售單價",
+                sellableQty: "可出現貨",
                 detailTotal: "總金額"
             }
         ]
@@ -350,7 +350,7 @@
                             <th>${detailItemListName[0].productNameSpec}</th>
                             <th style="width: 18%;">${detailItemListName[0].callShipping}</th>
                             <th style="width: 18%;">${detailItemListName[0].unitSellPrice}</th>
-                            <th style="width: 18%; color: var(--color-secfont);">${detailItemListName[0].stockOwn}</th>
+                            <th style="width: 18%; color: var(--color-secfont);">${detailItemListName[0].sellableQty}</th>
                             <th style="width: 18%;">${detailItemListName[0].detailTotal}</th>
                         </tr>
                     </thead>`;
@@ -363,7 +363,7 @@
                         <td data-label="">${detailList.product[i].productNameSpec}</td>
                         <td data-label="">${detailList.product[i].orderQty}</td>
                         <td data-label="">${costFix(detailList.product[i].unitSellPrice)}</td>
-                        <td data-label="">${detailList.product[i].canSell}</td>
+                        <td data-label="">${detailList.product[i].sellableQty}</td>
                         <td data-label="">${costFix(detailList.product[i].total)}</td>
                     </tr>`;
                     trHtmlData += singleTrHtmlData;
@@ -418,27 +418,27 @@
                             <li class="fullstate active">
                                 <span class="point d-block"></span>
                                 <span class="diplome d-block">${returnTimeLineStatus.step1}</span>
-                                <span class="timestamp d-block">${detailList.orderTime}</span>
+                                <span class="timestamp d-block">${timeToString(detailList.orderTime)}</span>
                             </li>
                             <li class="fullstate ${detailList.acceptOrderTime == "null" ? "" : "active"}">
                                 <span class="point d-block"></span>
                                 <span class="diplome d-block">${returnTimeLineStatus.step2}</span>
-                                <span class="timestamp d-block">${detailList.acceptOrderTime == "null" ? "" : detailList.acceptOrderTime}</span>
+                                <span class="timestamp d-block">${detailList.acceptOrderTime == "null" ? "" : timeToString(detailList.acceptOrderTime)}</span>
                             </li>
                             <li class="fullstate ${detailList.exportTime == "null" ? "" : "active"}">
                                 <span class="point d-block"></span>
                                 <span class="diplome d-block">${returnTimeLineStatus.step3}</span>
-                                <span class="timestamp d-block">${detailList.exportTime == "null" ? "" : detailList.exportTime}</span>
+                                <span class="timestamp d-block">${detailList.exportTime == "null" ? "" : timeToString(detailList.exportTime)}</span>
                             </li>
                             <li class="fullstate ${detailList.arriveOrderTime == "null" ? "" : "active"}">
                                 <span class="point d-block"></span>
                                 <span class="diplome d-block">${returnTimeLineStatus.step4}</span>
-                                <span class="timestamp d-block">${detailList.arriveOrderTime == "null" ? "" : detailList.arriveOrderTime}</span>
+                                <span class="timestamp d-block">${detailList.arriveOrderTime == "null" ? "" : timeToString(detailList.arriveOrderTime)}</span>
                             </li>
                             <li class="fullstate ${detailList.completeOrderTime == "null" ? "" : "active"}">
                                 <span class="point d-block"></span>
                                 <span class="diplome d-block">${returnTimeLineStatus.step5}</span>
-                                <span class="timestamp d-block">${detailList.completeOrderTime == "null" ? "" : detailList.completeOrderTime}</span>
+                                <span class="timestamp d-block">${detailList.completeOrderTime == "null" ? "" : timeToString(detailList.completeOrderTime)}</span>
                             </li>                                    
                         </ol>
                     </div>`;

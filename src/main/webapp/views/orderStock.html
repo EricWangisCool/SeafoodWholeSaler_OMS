@@ -343,10 +343,10 @@
         // JSON假資料  ----------------------------------------------------------------------------------------------------------------------
         var allStockList = [
             {
-                productId: 100001,
+                productId: "100001",
                 productNameSpec: "牛奶貝 / 5斤",
                 productPic: "../img/05.jpg",
-                supplierProductId: 200001,
+                supplierProductId: "200001",
                 supplierId: 10000,
                 supplierProductName: "新鮮牛奶貝 / 5斤",
                 supplierCompanyName: "達克三角洲有限公司",
@@ -367,10 +367,10 @@
                 callShipping: 0
             },
             {
-                productId: 100002,
+                productId: "100002",
                 productNameSpec: "珍珠龍膽/5條",
                 productPic: "../img/02.jpg",
-                supplierProductId: 200001,
+                supplierProductId: "200001",
                 supplierId: 10000,
                 supplierProductName: "第二牛奶貝 / 5斤",
                 supplierCompanyName: "達克公司",
@@ -461,7 +461,7 @@
                 // 創造<tr>的Html格式，並將資料帶入。
                 let trHtmlData =
                     `   <tr>
-                            <td data-label=${allStockList[i].productPic}><img src="${(allStockList[i].productPic == undefined) ? '/img/01.jpg' : allStockList[i].productPic}" onerror="this.src='/img/01.jpg'"></td>
+                            <td data-label=${allStockList[i].productPic}><img src="${(allStockList[i].productPic == undefined) ? '/img/noImage.jpg' : allStockList[i].productPic}" onerror="this.src='/img/noImage.jpg'"></td>
                             <td data-label=${allStockList[i].productNameSpec}>${allStockList[i].productNameSpec}</td>
                             <td data-label=${allStockList[i].stockQty}>${allStockList[i].stockQty}</td>
                             <td data-label=${allStockList[i].orderedQty}>${allStockList[i].orderedQty}</td>

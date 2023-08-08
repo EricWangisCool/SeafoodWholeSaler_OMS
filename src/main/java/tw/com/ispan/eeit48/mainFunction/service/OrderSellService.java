@@ -42,7 +42,7 @@ public class OrderSellService {
     private EmailService emailService;
 
     // 拿到帳號所有交易狀態為2~7的售出訂單
-    public List<Map<String, Object>> getUserSellingOrdersInfo() throws Exception {
+    public List<Map<String, Object>> getUserSellingOrdersInfo() {
         List<Product_Order_OrderDetail> ordersInfo = productOrderOrderDetailRepository
                 .findAllByOwnerIdAndOrderStatusBetweenOrderByOrderTimeDesc(getCurrentUserId(), 2, 7);
 
@@ -131,11 +131,11 @@ public class OrderSellService {
     }
 
     // 當賣家接單後，系統監控賣家所有開啟自動叫貨的productId是否有達到叫貨條件((可出現貨 + 已叫現貨數) < 警示庫存)，有的話就自動叫貨
-    public void checkAutoOrderProduct(int sellerProductId, int accountId) {
+    public void checkAutoOrderProduct(String sellerProductId, int accountId) {
         Optional<Product> product = productRepository.findOneByProductIdAndAutoOrderFunction(sellerProductId, "Y");
         if (product.isPresent()) {
             Product autoBuyProduct = product.get();
-            int autoProductId = autoBuyProduct.getProductId();
+            String autoProductId = autoBuyProduct.getProductId();
             int warningQty = autoBuyProduct.getWarningQty();
             int safeQty = autoBuyProduct.getSafeQty();
             int sellableQty = productService.findSellableQtyByProductId(autoProductId);
@@ -145,7 +145,7 @@ public class OrderSellService {
                 int lackQty = safeQty - (sellableQty + requestedQty);
                 int supplierId =
                         supplierProductForOwnerProductRepository.findOneByProductId(autoProductId).getSupplierId();
-                int supplierProductId =
+                String supplierProductId =
                         supplierProductForOwnerProductRepository.findOneByProductId(autoProductId).getSupplierProductId();
                 int supplierProductUnitPrice =
                         productRepository.findOneByProductId(supplierProductId).getUnitSellPrice();
