@@ -302,6 +302,7 @@
                     "acceptOrderTime": "2022-09-23 10:14:18",
                     "exportTime": "null",
                     "companyPhone": "0968145698",
+                    "createTime": "2022-09-22 13:14:17",
                     "orderTime": "2022-09-22 13:14:17",
                     "sellableQty": 100,
                     "completeOrderTime": "null",
@@ -551,6 +552,7 @@
                         tidyAllSellList[i].exportTime = allSellList[k].exportTime;
                         tidyAllSellList[i].companyPhone = allSellList[k].companyPhone;
                         tidyAllSellList[i].orderTime = allSellList[k].orderTime;
+                        tidyAllSellList[i].createTime = allSellList[k].createTime;
                         tidyAllSellList[i].completeOrderTime = allSellList[k].completeOrderTime;
                         tidyAllSellList[i].arriveOrderTime = allSellList[k].arriveOrderTime;
                         tidyAllSellList[i].taxId = allSellList[k].taxId;
@@ -600,6 +602,7 @@
                 "buyerId": "",
                 "sellerId": "",
                 "paymentTerms": "",
+                "createTime": "",
                 "orderTime": "",
                 "acceptOrderTime": "",
                 "exportTime": "",
@@ -613,12 +616,13 @@
                 if ($(btn).attr('data-value') == tidyAllSellList[i].orderId) {
                     sentData.buyerId = tidyAllSellList[i].buyerId;
                     sentData.paymentTerms = tidyAllSellList[i].paymentTerms;
-                    sentData.orderTime = (tidyAllSellList[i].orderTime == "null" ? "null" : Date.parse(tidyAllSellList[i].orderTime));
-                    sentData.acceptOrderTime = (tidyAllSellList[i].acceptOrderTime == "null" ? "null" : Date.parse(tidyAllSellList[i].acceptOrderTime));
-                    sentData.exportTime = (tidyAllSellList[i].exportTime == "null" ? "null" : Date.parse(tidyAllSellList[i].exportTime));
-                    sentData.arriveOrderTime = (tidyAllSellList[i].arriveOrderTime == "null" ? "null" : Date.parse(tidyAllSellList[i].arriveOrderTime));
-                    sentData.completeOrderTime = (tidyAllSellList[i].completeOrderTime == "null" ? "null" : Date.parse(tidyAllSellList[i].completeOrderTime));
-                    sentData.cancelOrderTime = (tidyAllSellList[i].cancelOrderTime == "null" ? "null" : Date.parse(tidyAllSellList[i].cancelOrderTime));
+                    sentData.createTime = (tidyAllSellList[i].createTime == "null" ? "null" : new Date(tidyAllSellList[i].createTime));
+                    sentData.orderTime = (tidyAllSellList[i].orderTime == "null" ? "null" : new Date(tidyAllSellList[i].orderTime));
+                    sentData.acceptOrderTime = (tidyAllSellList[i].acceptOrderTime == "null" ? "null" : new Date(tidyAllSellList[i].acceptOrderTime));
+                    sentData.exportTime = (tidyAllSellList[i].exportTime == "null" ? "null" : new Date(tidyAllSellList[i].exportTime));
+                    sentData.arriveOrderTime = (tidyAllSellList[i].arriveOrderTime == "null" ? "null" : new Date(tidyAllSellList[i].arriveOrderTime));
+                    sentData.completeOrderTime = (tidyAllSellList[i].completeOrderTime == "null" ? "null" : new Date(tidyAllSellList[i].completeOrderTime));
+                    sentData.cancelOrderTime = (tidyAllSellList[i].cancelOrderTime == "null" ? "null" : new Date(tidyAllSellList[i].cancelOrderTime));
                     break;
                 }
             }
