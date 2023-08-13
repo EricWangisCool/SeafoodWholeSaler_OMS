@@ -55,7 +55,9 @@ public class OrderSellService {
                     orderInfoMap.put("profit", orderInfo.getOrderQty() * (orderInfo.getUnitSellPrice() - orderInfo.getUnitCost()));
                     orderInfoMap.put("sellableQty", productService.findSellableQtyByProductId(orderInfo.getProductId()));
 
-                    Account buyer = accountRepository.findOneByAccountId(orderInfo.getBuyerId()).get();
+                    Optional<Account> buyerOptional = accountRepository.findOneByAccountId(orderInfo.getBuyerId());
+                    Account buyer = buyerOptional.orElseThrow(() -> new RuntimeException("Buyer account not found in system"));
+
                     orderInfoMap.put("contactPerson", buyer.getContactPerson());
                     orderInfoMap.put("address", buyer.getAddress());
                     orderInfoMap.put("companyPhone", buyer.getCompanyPhone());
@@ -143,8 +145,10 @@ public class OrderSellService {
 
             if ((sellableQty + requestedQty) < warningQty) {
                 int lackQty = safeQty - (sellableQty + requestedQty);
-                int supplierId =
+                Integer supplierId =
                         supplierProductForOwnerProductRepository.findOneByProductId(autoProductId).getSupplierId();
+                if (supplierId == null) return;
+
                 String supplierProductId =
                         supplierProductForOwnerProductRepository.findOneByProductId(autoProductId).getSupplierProductId();
                 int supplierProductUnitPrice =

@@ -28,7 +28,7 @@ public class OrderBuyService {
 	private SupplierProductForOwnerProductRepository supplierProductForOwnerProductRepository;
 
 	// 找出使用者的所有叫貨訂單資訊
-	public List<Map<String, Object>> findUserRequestedOrders() throws Exception {
+	public List<Map<String, Object>> findUserRequestedOrders() {
 		List<Order> orders = orderRepository.findAllByBuyerIdOrderByCreateTimeDesc(getCurrentUserId());
 		if (orders.isEmpty()) return null;
 
