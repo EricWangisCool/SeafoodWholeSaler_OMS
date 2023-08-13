@@ -12,10 +12,12 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-latest.pack.js"></script>
 	<script>
 		async function ecPay() {
-			let returnobj = await 
-			ecpay();
-			console.log(returnobj.responseObj["key"]);
-			$('#ecpay').html(returnobj.responseObj["key"]);
+			let returnobj = await ecpay();
+			if (isReturnObjectCorrect(returnobj)) {
+				$('#ecpay').html(returnobj.responseObj.data["key"]);
+			} else {
+				console.log("Ecpay.html ecPay() function error");
+			}
 		}
 	</script>
 </body>

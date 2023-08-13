@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests()
                 // 不需要被認證的API
                 .antMatchers("/login").permitAll()
-                .antMatchers("/ecpay").permitAll()
+                .antMatchers("/ecPay").permitAll()
                 // 必須要有特殊權限才可以訪問的API
                 .antMatchers("/views/analyze").hasRole("BOSS")
                 // 其他頁面必須要有驗證才能訪問
