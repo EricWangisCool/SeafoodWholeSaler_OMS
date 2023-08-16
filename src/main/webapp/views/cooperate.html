@@ -233,18 +233,11 @@
         downloadData();
         async function downloadData() {
             returnObj = await viewscooperate(null);
-            if (returnObj.responseStatus != 200) {
-                // 撈完後更新畫面內容。
-                reNewData();
-
-                console.log("cooperateList getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                console.log(returnObj.responseObj);
-            } else {
-                // 處理及判斷邏輯：       
-                console.log(returnObj)         
+            if (isReturnObjectCorrect(returnObj)) {
                 cooperateList = returnObj.responseObj.data;
-
-                // 撈完後更新畫面內容。
+                reNewData();
+            } else {
+                console.log("cooperateList getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
                 reNewData();
             }
         }

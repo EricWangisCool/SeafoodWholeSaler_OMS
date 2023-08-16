@@ -1,10 +1,8 @@
 package tw.com.ispan.eeit48.mainFunction.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tw.com.ispan.eeit48.mainFunction.model.table.Account;
@@ -13,6 +11,7 @@ import tw.com.ispan.eeit48.mainFunction.repository.table.AccountRepository;
 import tw.com.ispan.eeit48.mainFunction.repository.table.CompanyFollowingListRepository;
 import tw.com.ispan.eeit48.mainFunction.repository.view.CompanyFollowingList_AccountRepository;
 import tw.com.ispan.eeit48.mainFunction.model.view.CompanyFollowingList_Account;
+import static tw.com.ispan.eeit48.common.util.CommonUtil.convertObjectToMap;
 import static tw.com.ispan.eeit48.mainFunction.service.AuthService.getCurrentUserId;
 
 @Service
@@ -32,10 +31,12 @@ public class CooperateService {
 		List<CompanyFollowingList_Account> beans = companyFollowingList_AccountRepository.findAllByBuyerId(userId);
 		if (beans != null && !beans.isEmpty()) {
 			List<Map<String, Object>> list = new ArrayList<>();
-			beans.forEach(bean -> list.add(new HashMap<>(){{
-				put("supplierId", bean.getSellerId());
-				put("supplierCompanyName", bean.getCompanyName());
-			}}));
+			beans.forEach(bean -> {
+				Map<String, Object> beanMap = convertObjectToMap(bean);
+				beanMap.put("supplierId", bean.getSellerId());
+				beanMap.put("supplierCompanyName", bean.getCompanyName());
+				list.add(beanMap);
+			});
 			return list;
 		} else {
 			throw new Exception("Following list not found!");
