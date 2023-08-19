@@ -142,7 +142,7 @@ async function ecpay() {
 
 // 數據中心 Data analyze API  ------------------------------------------
 async function viewsanalyze(data) {
-    let connurl = "../analyze" + "?orderTime=" + data.orderTime + "&completeOrderTime=" + data.completeOrderTime;
+    let connurl = "../analyze" + "?orderTime=" + data.ordertime + "&completeOrderTime=" + data.completeordertime;
     let httpMethod = "get";
     return await ajaxmethod(connurl, null, httpMethod);
 }
