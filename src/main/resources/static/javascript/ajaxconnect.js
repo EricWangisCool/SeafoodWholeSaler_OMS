@@ -142,7 +142,7 @@ async function ecpay() {
 
 // 數據中心 Data analyze API  ------------------------------------------
 async function viewsanalyze(data) {
-    let connurl = "../analyze" + "?orderTime=" + data.ordertime + "&completeOrderTime=" + data.completeordertime;
+    let connurl = "../analyze" + "?orderTime=" + data.orderTime + "&completeOrderTime=" + data.completeOrderTime;
     let httpMethod = "get";
     return await ajaxmethod(connurl, null, httpMethod);
 }
@@ -231,8 +231,6 @@ function sync_ajaxmethod(connurl, data, httpMethod) {
 
 
 function isReturnObjectCorrect(returnObj) {
-    console.log(returnObj);
-    
     var body = returnObj.responseObj;
     if (body.status == "0" && returnObj.responseStatus == 200) {
         console.log(body.data);

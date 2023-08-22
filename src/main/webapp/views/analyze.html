@@ -235,130 +235,50 @@
 
         var analyzeList = [
             {
-                buyerid: 3,
-                classname: "魚類",
-                companyname: "魚吃魚海產",
-                orderqty: 30,
-                productclassification: 4,
-                unitsellprice: 700
+                buyerId: 3,
+                className: "魚類",
+                companyName: "魚吃魚海產",
+                orderQty: 30,
+                productClassification: 4,
+                unitSellPrice: 700
             },
             {
-                buyerid: 3,
-                classname: "貝類",
-                companyname: "魚吃魚海產",
-                orderqty: 20,
-                productclassification: 4,
-                unitsellprice: 700
-            },
-            {
-                buyerid: 3,
-                classname: "螃蟹類",
-                companyname: "魚吃魚海產",
-                orderqty: 80,
-                productclassification: 4,
-                unitsellprice: 700
-            },
-            {
-                buyerid: 3,
-                classname: "管魷類",
-                companyname: "魚吃魚海產",
-                orderqty: 30,
-                productclassification: 5,
-                unitsellprice: 700
-            },
-            {
-                buyerid: 3,
-                classname: "蝦類",
-                companyname: "魚吃魚海產",
-                orderqty: 20,
-                productclassification: 3,
-                unitsellprice: 700
-            },
-            {
-                buyerid: 3,
-                classname: "蝦類",
-                companyname: "王家海鮮",
-                orderqty: 30,
-                productclassification: 3,
-                unitsellprice: 700
-            },
-            {
-                buyerid: 3,
-                classname: "魚類",
-                companyname: "王家海鮮",
-                orderqty: 30,
-                productclassification: 4,
-                unitsellprice: 700
-            },
-            {
-                buyerid: 3,
-                classname: "魚類",
-                companyname: "無名海產",
-                orderqty: 30,
-                productclassification: 4,
-                unitsellprice: 700
-            },
-            {
-                buyerid: 3,
-                classname: "管魷類",
-                companyname: "無名海產",
-                orderqty: 50,
-                productclassification: 5,
-                unitsellprice: 700
+                buyerId: 3,
+                className: "貝類",
+                companyName: "魚吃魚海產",
+                orderQty: 20,
+                productClassification: 4,
+                unitSellPrice: 700
             }
         ]
 
         async function downloadAnalyzeData() {
-            // ajax兩個時間段(2022-10-01)+accountid
-
             let startDate = $("#startDate").val();
-            let byetDate = $("#byeDate").val();
+            let endDate = $("#byeDate").val();
 
-            if (startDate == "" || byetDate == "") {
+            if (startDate == "" || endDate == "") {
                 sweetalertShow(1);
                 return;
             }
 
             let data = {
-                "ordertime": startDate,
-                "completeordertime": byetDate
+                "orderTime": startDate,
+                "completeOrderTime": endDate
             }
 
             returnObj = await viewsanalyze(data);
-
-            // console.log(returnObj);
-
-            if (returnObj.responseStatus != 200) {
-                // 沒接到資料                
-                sweetalertShow(2);
-
-                console.log("orderStock getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                console.log(returnObj.responseObj);
-                return;
+            if (isReturnObjectCorrect(returnObj)) {
+                analyzeList = returnObj.responseObj.data;
+                reNewData();
             } else {
-                // 處理及判斷邏輯：
-
-
-                if (isReturnObjectCorrect(returnObj)) {
-                    analyzeList = returnObj.responseObj.data;
-
-                    reNewData();
-                }else{
-                    reNewData();
-                    console.log("analze.heml viewsanalyze method failed");
-                }
-
+                sweetalertShow(2);
+                console.log("analze.html viewsanalyze method failed");
             }
-
-
-            // reNewData();
         }
 
 
         function reNewData() {
-
             // 更新產品相關資料----------------------------------------------------------------
-
             // 先取得所有產品項目
             let allproductList = new Array(analyzeList.length);
             for (let i = 0; i < analyzeList.length; i++) {
