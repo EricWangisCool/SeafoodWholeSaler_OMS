@@ -341,23 +341,13 @@
 
         //新增廠商-----------------------------------
         async function addCooperateData(data) {
-
-            let cooperName = {
-                "companyname": data
-            }
-
-            returnObj = await viewscooperateinsert(cooperName);
-            console.log(returnObj);
-
-            if (returnObj.responseStatus != 200) {
-                // 撈完後更新畫面內容。
-                errorAlert();
-                console.log("cooperateList getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                console.log(returnObj.responseObj);
-            } else {
+            returnObj = await viewscooperateinsert(data);
+            if (isReturnObjectCorrect(returnObj)) {
                 window.location.replace(location.href);
+            } else {
+                errorAlert();
+                console.log("cooperateList addCooperateData error");
             }
-
         }
 
         function errorAlert() {
@@ -370,9 +360,8 @@
         }
 
         $(".container").on('click', '.cooSet', function () {
-
             Swal.fire({
-                title: '請輸入欲新增廠商帳號',
+                title: '請輸入欲新增廠商名稱',
                 input: 'text',
                 inputAttributes: {
                     autocapitalize: 'off'
@@ -384,9 +373,6 @@
                 cancelButtonText: '取消',
             }).then((result) => {
                 if (result.isConfirmed) {
-
-                    console.log(result.value);
-
                     if (result.value == "") {
                         Swal.fire({
                             title: '廠商帳號不得為空白',
@@ -395,7 +381,9 @@
                             timer: 1500
                         })
                     }
-                    addCooperateData(result.value);
+                    addCooperateData({
+                        "companyName": result.value
+                    });
                 }
             })
         });

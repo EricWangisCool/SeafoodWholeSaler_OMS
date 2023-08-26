@@ -441,18 +441,11 @@
         downloadCooperateData();
         async function downloadCooperateData() {
             returnObj = await viewscooperate(null);
-            console.log(returnObj);
-            if (returnObj.responseStatus != 200) {
-                // 撈完後更新畫面內容。
-                // reNewCooperateData();
-
-                console.log("cooperateList getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-                console.log(returnObj.responseObj);
-            } else {
-                // 處理及判斷邏輯：                
+            if (isReturnObjectCorrect(returnObj)) {
                 cooperateList = returnObj.responseObj.data;
-                // 撈完後更新畫面內容。
                 reNewCooperateData();
+            } else {
+                console.log("statement.html downloadCooperateData error");
             }
         }
 
@@ -483,20 +476,18 @@
             console.log(theDate)
             returnObj = await viewstatement(theDate);
             let ordertimeList = [];
-            console.log(returnObj)
             for (let i = 0; i < ordertimeList.length; i++) {
                 ordertimeList.push(returnObj.responseObj.data[i].orderTime);
             }
 
-
 			let temp = returnObj.responseObj.data;
-            if (returnObj.responseStatus != 200) {
-                console.log("cooperateProductList getServerData error:" + "(returnObj.responseStatus)" + returnObj.responseStatus);
-            } else {
+            if (isReturnObjectCorrect(returnObj)) {
                 stateList = temp;
                 for (let i = 0; i < ordertimeList.length; i++) {
                     stateList[i].fixtime = ordertimeList[i];
                 }
+            } else {
+                console.log("statement.html downloadData error");
             }
         }
 
@@ -667,9 +658,9 @@
                 }
             });
 
-            var doc2 = new jsPDF();
-            doc2.text('中文字測試', 10, 10);
-            doc2.save('helloworld.pdf');
+            // var doc2 = new jsPDF();
+            // doc2.text('中文字測試', 10, 10);
+            // doc2.save('helloworld.pdf');
         });
     </script>
 

@@ -43,18 +43,19 @@ public class CooperateService {
 		}
 	}
 
-	public List<CompanyFollowingList_Account> userFollowNewCompany(String companyName) throws Exception {
+	public void userFollowNewCompany(String companyName) throws Exception {
 		int userId = getCurrentUserId();
 		List<Account> accounts = accountRepository.findAllByCompanyName(companyName);
 		if (accounts != null && !accounts.isEmpty()) {
 			int companyId = accounts.get(0).getAccountId();
-			CompanyFollowingList newBean = new CompanyFollowingList();
-			newBean.setBuyerId(userId);
-			newBean.setSellerId(companyId);
-			companyFollowingListRepository.save(newBean);
-			return companyFollowingList_AccountRepository.findAllByCompanyName(companyName);
+			if (!companyFollowingList_AccountRepository.existsBySellerId(companyId)) {
+				CompanyFollowingList newBean = new CompanyFollowingList();
+				newBean.setBuyerId(userId);
+				newBean.setSellerId(companyId);
+				companyFollowingListRepository.save(newBean);
+			}
 		} else {
-			throw new Exception("Account not found for selected company!");
+			throw new Exception("Account not found for requested company!");
 		}
 	}
 }

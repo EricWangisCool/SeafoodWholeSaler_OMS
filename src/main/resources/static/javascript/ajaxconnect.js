@@ -233,14 +233,13 @@ function sync_ajaxmethod(connurl, data, httpMethod) {
 function isReturnObjectCorrect(returnObj) {
     var body = returnObj.responseObj;
     if (body.status == "0" && returnObj.responseStatus == 200) {
-        console.log(body.data);
         if (body.data == "Request has been processed successfully") {
             body.data = [];
         };
         return true;
-    
-    // 除了登入失敗或jwt過期不用alert以外，其他都要
-    } else if (returnObj.responseStatus == 401) { 
+    } else if (returnObj.responseStatus == 401 || // 登入失敗或jwt過期不用alert
+                body.status == 'B100-1' // 廠商加入失敗不用alert
+            ) { 
         return false;        
     } else {
         console.error(body.status, body.statusInfo);

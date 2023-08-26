@@ -262,17 +262,15 @@
                 let returnObj = await viewsordersellupdate(param);
 
                 if (isReturnObjectCorrect(returnObj)) {
-                    if (returnObj.responseText == "OK") {
-                        Swal.fire({
+                    Swal.fire({
                             title: '貨物已成功抵達買家',
                             icon: 'info',
                             confirmButtonColor: 'var(--color-marigold)'
                         }).then((result) => {
                             document.getElementById('ifrm').contentWindow.location.reload();
                         });
-                    } else {
-                        console.log("simulateArriveTime function error");
-                    }
+                } else {
+                    console.log("sysframe.html simulateArriveTime error");
                 }
             }, 3000);
         };

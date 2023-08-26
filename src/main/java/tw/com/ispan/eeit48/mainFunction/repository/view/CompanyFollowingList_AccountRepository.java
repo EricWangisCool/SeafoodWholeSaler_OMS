@@ -11,5 +11,5 @@ public interface CompanyFollowingList_AccountRepository extends PagingAndSorting
 	List<CompanyFollowingList_Account> findAllByBuyerId(int userId);
 
 	List<CompanyFollowingList_Account> findAllByCompanyName(String companyName);
-
+	boolean existsBySellerId(int sellerId);
 }
