@@ -588,7 +588,7 @@
                                 <li class="active">
                                     <span class="point d-block"></span>
                                     <span class="diplome d-block">${returnbuystatus.prev}</span>
-                                    <span class="timestamp d-block">${timeToString(finalStatusTime).replace(" ", "<br>")}</span>
+                                    <span class="timestamp d-block">${finalStatusTime == "" ? "" : timeToString(finalStatusTime).replace(" ", "<br>")}</span>
                                 </li>
                                 <li class="point">
                                     <span class="point d-block"></span>

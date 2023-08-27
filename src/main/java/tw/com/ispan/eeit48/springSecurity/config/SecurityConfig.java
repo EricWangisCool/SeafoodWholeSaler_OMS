@@ -20,8 +20,8 @@ import tw.com.ispan.eeit48.springSecurity.filter.JWTAuthenticationFilter;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private AuthService authService;
-    private JWTAuthenticationFilter jwtAuthenticationFilter;
+    private final AuthService authService;
+    private final JWTAuthenticationFilter jwtAuthenticationFilter;
 
     // 建立密碼演算的實例
     @Bean
@@ -74,6 +74,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // allow websocket
                 .antMatchers("/ws/**");
     }
-    
-
 }

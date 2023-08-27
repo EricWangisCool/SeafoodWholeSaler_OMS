@@ -36,7 +36,7 @@ JavaScript, Node.js, AJAX, Spring Mail, Tomcat, EcPay integration, Docker-compos
 ![image](etc/RolePermit.png?raw=true "RolePermit")
 
 #### ROLE_EMPLOYEE
-![image](etc/RoleDenied.png?raw=true "RoldeDenied")
+![image](etc/RoleDenied.png?raw=true "RoleDenied")
 
 ### WebSocket
 ```
@@ -65,19 +65,24 @@ JavaScript, Node.js, AJAX, Spring Mail, Tomcat, EcPay integration, Docker-compos
 Docker會幫你安裝`mysql`和`jdk`，同時匯入sql檔
 
 ### ROLE_BOSS
+廠商: 極鮮家<BR>
 帳號: foo1234<BR>
 密碼: 1234<BR>
 
+廠商: 千萬屋<BR>
 帳號: eric2345<BR>
 密碼: 2345<BR>
 
+廠商: 魚吃魚海產<BR>
 帳號: dou3456<BR>
 密碼: 3456<BR>
 
 ### ROLE_EMPLOYEE
+廠商: 無名海產<BR>
 帳號: woo4567<BR>
 密碼: 4567<BR>
 
+廠商: 陳家海鮮<BR>
 帳號: chen5678<BR>
 密碼: 5678<BR>
 
@@ -122,7 +127,7 @@ JavaScript, Node.js, AJAX, Spring Mail, Tomcat, EcPay integration, Docker-compos
 ![image](etc/RolePermit.png?raw=true "RolePermit")
 
 #### ROLE_EMPLOYEE
-![image](etc/RoleDenied.png?raw=true "RoldeDenied")
+![image](etc/RoleDenied.png?raw=true "RoleDenied")
 
 ### WebSocket
 ```
