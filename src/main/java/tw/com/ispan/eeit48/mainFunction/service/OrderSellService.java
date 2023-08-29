@@ -138,21 +138,23 @@ public class OrderSellService {
         if (product.isPresent()) {
             Product autoBuyProduct = product.get();
             String autoProductId = autoBuyProduct.getProductId();
-            int warningQty = autoBuyProduct.getWarningQty();
-            int safeQty = autoBuyProduct.getSafeQty();
             int sellableQty = productService.findSellableQtyByProductId(autoProductId);
             int requestedQty = productService.findRequestedQtyByProductId(autoProductId);
+            int sellableAndRequestedQty = sellableQty + requestedQty;
 
-            if ((sellableQty + requestedQty) < warningQty) {
-                int lackQty = safeQty - (sellableQty + requestedQty);
+            // 如果監控到(可出現貨 + 已叫現貨數) < 警示庫存，就向上游廠商叫貨
+            if (sellableAndRequestedQty < autoBuyProduct.getWarningQty()) {
+                int lackQty = autoBuyProduct.getSafeQty() - sellableAndRequestedQty;
                 Integer supplierId =
                         supplierProductForOwnerProductRepository.findOneByProductId(autoProductId).getSupplierId();
-                if (supplierId == null) return;
 
                 String supplierProductId =
                         supplierProductForOwnerProductRepository.findOneByProductId(autoProductId).getSupplierProductId();
-                int supplierProductUnitPrice =
+
+                Integer supplierProductUnitPrice =
                         productRepository.findOneByProductId(supplierProductId).getUnitSellPrice();
+
+                if (supplierId == null || supplierProductId == null || supplierProductUnitPrice == null) return;
 
                 // 新增一筆新order
                 Date today = new Date();
