@@ -17,14 +17,14 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `nsy`
+-- Database: `nsy_spitetales`
 --
 
-CREATE DATABASE `nsy`;
+-- CREATE DATABASE `nsy`;
 
-USE `nsy`;
+USE `nsy_spitetales`;
 
-GRANT ALL PRIVILEGES ON nsy.* TO 'root'@'%';
+-- GRANT ALL PRIVILEGES ON nsy.* TO 'root'@'%';
 
 -- --------------------------------------------------------
 
@@ -450,7 +450,7 @@ CREATE TABLE `v_product_order_order_details` (
 --
 DROP TABLE IF EXISTS `v_company_following_list_accounts`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_company_following_list_accounts`  AS SELECT `t_company_following_list`.`buyer_id` AS `buyer_id`, `t_company_following_list`.`seller_id` AS `seller_id`, `t_accounts`.`company_name` AS `company_name`, `t_accounts`.`company_phone` AS `company_phone`, `t_accounts`.`tax_id` AS `tax_id`, `t_accounts`.`address` AS `address`, `t_accounts`.`email` AS `email`, `t_accounts`.`contact_person` AS `contact_person`, `t_accounts`.`contact_person_num` AS `contact_person_num`, `t_accounts`.`fax` AS `fax`, `t_accounts`.`bank_account` AS `bank_account`, `t_accounts`.`bank_name` AS `bank_name`, `t_accounts`.`bank_swift_code` AS `bank_swift_code`, `t_accounts`.`line_account` AS `line_account` FROM (`t_company_following_list` left join `t_accounts` on((`t_company_following_list`.`seller_id` = `t_accounts`.`account_id`))) ;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `v_company_following_list_accounts`  AS SELECT `t_company_following_list`.`buyer_id` AS `buyer_id`, `t_company_following_list`.`seller_id` AS `seller_id`, `t_accounts`.`company_name` AS `company_name`, `t_accounts`.`company_phone` AS `company_phone`, `t_accounts`.`tax_id` AS `tax_id`, `t_accounts`.`address` AS `address`, `t_accounts`.`email` AS `email`, `t_accounts`.`contact_person` AS `contact_person`, `t_accounts`.`contact_person_num` AS `contact_person_num`, `t_accounts`.`fax` AS `fax`, `t_accounts`.`bank_account` AS `bank_account`, `t_accounts`.`bank_name` AS `bank_name`, `t_accounts`.`bank_swift_code` AS `bank_swift_code`, `t_accounts`.`line_account` AS `line_account` FROM (`t_company_following_list` left join `t_accounts` on((`t_company_following_list`.`seller_id` = `t_accounts`.`account_id`))) ;
 
 -- --------------------------------------------------------
 
@@ -459,7 +459,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_product_order_order_details`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_product_order_order_details`  AS SELECT `t_product`.`product_id` AS `product_id`, `t_accounts`.`company_name` AS `company_name`, `t_orders`.`order_id` AS `order_id`, `t_orders`.`order_status` AS `order_status`, `t_product`.`owner_id` AS `owner_id`, `t_product`.`unit_cost` AS `unit_cost`, `t_product`.`stock_qty` AS `stock_qty`, `t_product`.`warning_qty` AS `warning_qty`, `t_order_details`.`order_qty` AS `order_qty`, `t_orders`.`buyer_id` AS `buyer_id`, `t_order_details`.`unit_deal_price` AS `unit_deal_price`, `t_product`.`safe_qty` AS `safe_qty`, `t_product`.`product_name_spec` AS `product_name_spec`, `t_orders`.`delivery_order_id` AS `delivery_order_id`, `t_orders`.`delivery_order_remark` AS `delivery_order_remark`, `t_orders`.`create_time` AS `create_time`, `t_orders`.`order_time` AS `order_time`, `t_orders`.`accept_order_time` AS `accept_order_time`, `t_orders`.`export_time` AS `export_time`, `t_orders`.`arrive_order_time` AS `arrive_order_time`, `t_orders`.`complete_order_time` AS `complete_order_time`, `t_orders`.`cancel_order_time` AS `cancel_order_time`, `t_product`.`auto_order_function` AS `auto_order_function`, `t_product`.`unit_sell_price` AS `unit_sell_price`, `t_product`.`min_sell_qty` AS `min_sell_qty`, `t_product`.`product_desc` AS `product_desc`, `t_product`.`on_shelf` AS `on_shelf`, `t_product`.`auto_order_confirm_function_status` AS `auto_order_confirm_function_status`, `t_product`.`reserved_qty` AS `reserved_qty`, `t_orders`.`payment_terms` AS `payment_terms` FROM (((`t_product` left join `t_order_details` on((`t_product`.`product_id` = `t_order_details`.`seller_product_id`))) left join `t_orders` on((`t_order_details`.`order_id` = `t_orders`.`order_id`))) left join `t_accounts` on((`t_orders`.`buyer_id` = `t_accounts`.`account_id`))) ;
+CREATE ALGORITHM=UNDEFINED  SQL SECURITY DEFINER VIEW `v_product_order_order_details`  AS SELECT `t_product`.`product_id` AS `product_id`, `t_accounts`.`company_name` AS `company_name`, `t_orders`.`order_id` AS `order_id`, `t_orders`.`order_status` AS `order_status`, `t_product`.`owner_id` AS `owner_id`, `t_product`.`unit_cost` AS `unit_cost`, `t_product`.`stock_qty` AS `stock_qty`, `t_product`.`warning_qty` AS `warning_qty`, `t_order_details`.`order_qty` AS `order_qty`, `t_orders`.`buyer_id` AS `buyer_id`, `t_order_details`.`unit_deal_price` AS `unit_deal_price`, `t_product`.`safe_qty` AS `safe_qty`, `t_product`.`product_name_spec` AS `product_name_spec`, `t_orders`.`delivery_order_id` AS `delivery_order_id`, `t_orders`.`delivery_order_remark` AS `delivery_order_remark`, `t_orders`.`create_time` AS `create_time`, `t_orders`.`order_time` AS `order_time`, `t_orders`.`accept_order_time` AS `accept_order_time`, `t_orders`.`export_time` AS `export_time`, `t_orders`.`arrive_order_time` AS `arrive_order_time`, `t_orders`.`complete_order_time` AS `complete_order_time`, `t_orders`.`cancel_order_time` AS `cancel_order_time`, `t_product`.`auto_order_function` AS `auto_order_function`, `t_product`.`unit_sell_price` AS `unit_sell_price`, `t_product`.`min_sell_qty` AS `min_sell_qty`, `t_product`.`product_desc` AS `product_desc`, `t_product`.`on_shelf` AS `on_shelf`, `t_product`.`auto_order_confirm_function_status` AS `auto_order_confirm_function_status`, `t_product`.`reserved_qty` AS `reserved_qty`, `t_orders`.`payment_terms` AS `payment_terms` FROM (((`t_product` left join `t_order_details` on((`t_product`.`product_id` = `t_order_details`.`seller_product_id`))) left join `t_orders` on((`t_order_details`.`order_id` = `t_orders`.`order_id`))) left join `t_accounts` on((`t_orders`.`buyer_id` = `t_accounts`.`account_id`))) ;
 
 --
 -- Indexes for dumped tables

@@ -67,7 +67,7 @@ Docker會幫你安裝`mysql`和`jdk`，同時匯入sql檔
 ### ROLE_BOSS
 廠商: 極鮮家<BR>
 帳號: foo1234<BR>
-密碼: 1234<BR>
+密碼: 1234<BR>docker run hello-world:1.0
 
 廠商: 千萬屋<BR>
 帳號: eric2345<BR>

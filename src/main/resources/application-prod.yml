@@ -1,9 +1,9 @@
 spring:
   # DataSource
   datasource:
-    url: jdbc:mysql://localhost:3306/nsy?serverTimezone=Asia/Taipei
-    username: root
-    password: root
+    url: jdbc:mysql://33m.h.filess.io:3306/nsy_spitetales?serverTimezone=Asia/Taipei
+    username: nsy_spitetales
+    password: 2f2a35ab4fd25f944168a22acb8f6150fe437a18
     driver-class-name: com.mysql.cj.jdbc.Driver
   # SpringMail
   mail: 
