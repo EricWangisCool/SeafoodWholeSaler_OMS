@@ -15,11 +15,11 @@ Restful API + JSON 實作前後端分離開發<BR>
 
 2. **[Spring Boot](https://spring.io/projects/spring-boot)** + Spring MVC + Spring Data Jpa + Hibernate ORM 實作CRUD與前端網頁呈現<BR>
 
-3. MySQL 實作Rdbms資料庫設計 (採2NF開發，因為資料調度需求不用3NF)
+3. MySQL 實作Rdbms資料庫設計
 
 ## 其他技術
 ```
-JavaScript, Node.js, AJAX, Spring Mail, Tomcat, EcPay integration, Docker-compose, WebSocket
+Docker, WebSocket, JavaScript, AJAX, Spring Mail, Tomcat, EcPay integration
 ```
 
 ## **[前後端接口規範參照](https://github.com/f2e-journey/treasure/blob/master/api.md#%E6%8E%A5%E5%8F%A3%E8%BF%94%E5%9B%9E%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)**
@@ -29,7 +29,7 @@ JavaScript, Node.js, AJAX, Spring Mail, Tomcat, EcPay integration, Docker-compos
 1. ```以Spring Security AuthenticationManager驗證登入帳密是否正確後回傳一組加密後的JWT放在Browser的LocalStorage裡，之後呼叫API時就只需驗證此JWT便能找到對應的使用者，免除伺服記憶體佔用(Session儲存方式)，同時避免在LocalStorage裡放置重要個資以遭竊取```
 ![image](etc/JwtToken.png?raw=true "JwtToken")
 
-2. ```以Role權限驗證，區分部分頁面(如: 銷售額頁面)是否能夠讀取```
+2. ```以Role權限驗證，區分部分頁面，如銷售額頁面是否能夠讀取```
 ![image](etc/RoleSetting.png?raw=true "RoleSetting")
 
 #### ROLE_BOSS
@@ -106,11 +106,11 @@ This project is used to demonstrate what I've learned in Java.
 
 2. **[Spring Boot](https://spring.io/projects/spring-boot)** + Spring MVC + Spring Data Jpa + Hibernate ORM<BR>
 
-3. MySQL Rdbms DB design (Use 2NF design rather than 3NF as it fit more in project)
+3. MySQL Rdbms DB design
 
 ## Others
 ```
-JavaScript, Node.js, AJAX, Spring Mail, Tomcat, EcPay integration, Docker-compose, WebSocket
+Docker, WebSocket, JavaScript, AJAX, Spring Mail, Tomcat, EcPay integration 
 ```
 
 ## **[Restful Refer To](https://github.com/f2e-journey/treasure/blob/master/api.md#%E6%8E%A5%E5%8F%A3%E8%BF%94%E5%9B%9E%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)**
