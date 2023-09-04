@@ -1,9 +1,9 @@
 spring:
   # DataSource
   datasource:
-    url: jdbc:mysql://33m.h.filess.io:3306/nsy_spitetales?serverTimezone=Asia/Taipei
-    username: nsy_spitetales
-    password: 2f2a35ab4fd25f944168a22acb8f6150fe437a18
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DATABASE}?serverTimezone=Asia/Taipei
+    username: ${USER_NAME}
+    password: ${PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
   # SpringMail
   mail: 
@@ -39,7 +39,7 @@ spring:
   #       prefix: /WEB-INF/views
   #       suffix: .jsp
 jwt:
-  # This token must be encoded using Base64 with mininum 88 Bits (you can type `echo 'secret-key'|base64` on your command line)
+  # This token must be encoded using Base64 with minimum 88 Bits (you can type `echo 'secret-key'|base64` on your command line)
   base64-secret: ZmQ0ZGI5NjQ0MDQwY2I4MjMxY2Y3ZmI3MjdhN2ZmMjNhODViOTg1ZGE0NTBjMGM4NDA5NzYxMjdjOWMwYWRmZTBlZjlhNGY3ZTg4Y2U3YTE1ODVkZDU5Y2Y3OGYwZWE1NzUzNWQ2YjFjZDc0NGMxZWU2MmQ3MjY1NzJmNTE0MzI=
   # token is valid 24 hours
   token-validity-in-seconds: 86400

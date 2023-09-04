@@ -4,3 +4,5 @@ spring:
     name: SeafoodWholesaler_OMS
   profiles:
     active: prod
+  config:
+    import: optional:file:config.env[.properties]
