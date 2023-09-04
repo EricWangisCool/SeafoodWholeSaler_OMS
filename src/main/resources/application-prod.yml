@@ -1,10 +1,13 @@
 spring:
   # DataSource
   datasource:
-    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DATABASE}?serverTimezone=Asia/Taipei
-    username: ${USER_NAME}
+    url: jdbc:mysql://${HOST}:${DB_PORT}/${DATABASE}?serverTimezone=Asia/Taipei
+    username: ${HOST}
     password: ${PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
+    # My DB host cannot hold too many connections
+    hikari:
+      maximum-pool-size: 1
   # SpringMail
   mail: 
     default-encoding: UTF-8

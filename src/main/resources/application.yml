@@ -5,4 +5,5 @@ spring:
   profiles:
     active: prod
   config:
-    import: optional:file:config.env[.properties]
+    # Below path is for Render cloud deployment
+    import: optional:file:/etc/secrets/config.env[.properties]

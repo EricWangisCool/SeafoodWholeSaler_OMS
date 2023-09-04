@@ -6,7 +6,7 @@ Click here for **[Live demo](https://immargin.asuscomm.com/oms/)** or **[English
 
 ## 關於專案
 ```
-專案主要目的是展示自己在Java裡所學到的技術
+此分支主要目的是練習使用Docker雲部署
 ```
 
 ## 主要技術與框架
@@ -97,7 +97,7 @@ Docker會幫你安裝`mysql`和`jdk`，同時匯入sql檔
 
 ## About
 ```
-This project is used to demonstrate what I've learned in Java.
+This branch is used to practice using Docker to deploy on cloud.
 ```
 
 ## Main Structure
