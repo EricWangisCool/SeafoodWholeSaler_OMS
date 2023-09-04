@@ -2,7 +2,7 @@ spring:
   # DataSource
   datasource:
     url: jdbc:mysql://${HOST}:${DB_PORT}/${DATABASE}?serverTimezone=Asia/Taipei
-    username: ${HOST}
+    username: ${USER_NAME}
     password: ${PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
     # My DB host cannot hold too many connections
