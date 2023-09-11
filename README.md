@@ -50,19 +50,21 @@ Docker, WebSocket, JavaScript, AJAX, Spring Mail, Tomcat, EcPay integration
 ```
 
 ## 操作指南
-
-### 將dbContent.sql匯入MySQL
+### 一般開啟專案方式
+1. #### 將dbContent.sql匯入MySQL
 資料夾: sqls<BR>
 埠號: 3306<BR>
 帳密: root
 
-### 開啟專案
-使用Spring Boot maven plugin安裝後 (`mvn spring-boot:run`).
-專案會跑在 [http://localhost:8080](http://localhost:8080).
+2. #### 開啟專案
+使用Spring Boot maven plugin安裝後 (`mvn spring-boot:run`), 專案會跑在 [http://localhost:8080](http://localhost:8080).
 
-### Docker開啟方式
-如有安裝Docker，可直接使用終端機cd到本專案後，輸入`docker-compose up`指令，專案便會跑在 [http://localhost:8080](http://localhost:8080).<BR>
-Docker會幫你安裝`mysql`和`jdk`，同時匯入sql檔
+
+### Docker開啟專案方式
+1. #### 如果是Windows作業系統用戶，需先將腳本格式調整為CRLF，[原因點這裡](https://github.com/f2e-journey/treasure/blob/master/api.md#%E6%8E%A5%E5%8F%A3%E8%BF%94%E5%9B%9E%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
+![image](etc/ReviseBashFormat.png?raw=true "ReviseBashFormat")
+
+2. #### 在專案根目錄打開終端機，輸入`docker compose up`，Docker會自動幫你安裝`mysql`和`jdk`鏡像，同時將sql檔匯入，最後一樣跑在 [http://localhost:8080](http://localhost:8080)
 
 ### ROLE_BOSS
 廠商: 極鮮家<BR>
@@ -141,17 +143,20 @@ This project is build with Maven and Java 17.
 ```
 
 ## Guide
-### Import dbContent.sql into MySQL
+### Standard application running
+1. #### Import dbContent.sql into MySQL
 Folder: sqls<BR>
 Port: 3306<BR>
 Account & Password: root
 
-### Run the app
-Start the application with the Spring Boot maven plugin (`mvn spring-boot:run`).
-The application is running at [http://localhost:8080](http://localhost:8080).
+2. #### Run the app
+Start the application with the Spring Boot maven plugin (`mvn spring-boot:run`), the application will be running at [http://localhost:8080](http://localhost:8080).
 
-### Docker 
-If you had installed Docker, `cd` to this project by using terminal, then enter `docker-compose up`, application will be directly running at  [http://localhost:8080](http://localhost:8080).<BR>Docker will help you install `mysql` and `jdk`, then import `sql file` automatically.
+### Run application with Docker
+1. #### If you are Windows OS, please alter to CRLF format before docker composing, [here is why](https://github.com/f2e-journey/treasure/blob/master/api.md#%E6%8E%A5%E5%8F%A3%E8%BF%94%E5%9B%9E%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
+![image](etc/ReviseBashFormat.png?raw=true "ReviseBashFormat")
+
+2. #### Command `docker compose up` at application root path, Docker will pull `mysql` and `jdk` images then import `sql file` automatically. It will be running at [http://localhost:8080](http://localhost:8080) as well.
 
 ### ROLE_BOSS
 Account: foo1234<BR>
