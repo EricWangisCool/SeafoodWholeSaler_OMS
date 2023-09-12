@@ -61,7 +61,7 @@ Docker, WebSocket, JavaScript, AJAX, Spring Mail, Tomcat, EcPay integration
 
 
 ### Docker開啟專案方式
-1. #### 如果是Windows作業系統用戶，需先將腳本格式調整為CRLF，[原因點這裡](https://github.com/f2e-journey/treasure/blob/master/api.md#%E6%8E%A5%E5%8F%A3%E8%BF%94%E5%9B%9E%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
+1. #### 如果是Windows作業系統用戶，需先將腳本格式調整為CRLF，[原因點這裡](https://blog.clarence.tw/2022/06/26/%E7%99%BC%E7%94%9F-bin-bashm-bad-interpreter-no-such-file-or-directory-%E6%80%8E%E9%BA%BC%E8%A7%A3%E6%B1%BA/)
 ![image](etc/ReviseBashFormat.png?raw=true "ReviseBashFormat")
 
 2. #### 在專案根目錄打開終端機，輸入`docker compose up`，Docker會自動幫你安裝`mysql`和`jdk`鏡像，同時將sql檔匯入，最後一樣跑在 [http://localhost:8080](http://localhost:8080)
@@ -153,7 +153,7 @@ Account & Password: root
 Start the application with the Spring Boot maven plugin (`mvn spring-boot:run`), the application will be running at [http://localhost:8080](http://localhost:8080).
 
 ### Run application with Docker
-1. #### If you are Windows OS, please alter to CRLF format before docker composing, [here is why](https://github.com/f2e-journey/treasure/blob/master/api.md#%E6%8E%A5%E5%8F%A3%E8%BF%94%E5%9B%9E%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
+1. #### If you are Windows OS, please alter to CRLF format before docker composing, [here is why](https://willi.am/blog/2016/08/11/docker-for-windows-dealing-with-windows-line-endings/)
 ![image](etc/ReviseBashFormat.png?raw=true "ReviseBashFormat")
 
 2. #### Command `docker compose up` at application root path, Docker will pull `mysql` and `jdk` images then import `sql file` automatically. It will be running at [http://localhost:8080](http://localhost:8080) as well.
