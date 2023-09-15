@@ -20,3 +20,9 @@ COPY --from=build ${WORK_DIR}/target/*.war /seafood-wholesaler-oms-1.0.0.war
 
 # 此對外Port設定
 EXPOSE 8080
+
+
+# If the aiming platform is Windows and does not have ubuntu or related tools to fix CRLF issue, we can pull ubuntu image and do dos2unix, which will take a lot of time
+# FROM ubuntu:latest
+# RUN apt-get update && apt-get install -y openjdk-17-jdk dos2unix
+# RUN dos2unix /wait-for-it.sh && apt-get --purge remove -y dos2unix && rm -rf /var/lib/apt/lists/*
