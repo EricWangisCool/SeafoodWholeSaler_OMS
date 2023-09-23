@@ -1,6 +1,6 @@
 package tw.com.ispan.eeit48.mainFunction.model.table;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "t_system_notice_message")

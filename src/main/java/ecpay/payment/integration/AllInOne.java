@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -373,102 +373,102 @@ public class AllInOne extends AllInOneBase{
 	public String aioCheckOut(Object obj, InvoiceObj invoice){
 		StringBuilder out = new StringBuilder();
 		String ignoreParam = "";
-		if(obj instanceof AioCheckOutALL){
-			((AioCheckOutALL) obj).setPlatformID(PlatformID);
-			if(!PlatformID.isEmpty() && ((AioCheckOutALL) obj).getMerchantID().isEmpty()){
-				((AioCheckOutALL) obj).setMerchantID(MerchantID);
-			} else if(!PlatformID.isEmpty() && !((AioCheckOutALL) obj).getMerchantID().isEmpty()){
+		if(obj instanceof AioCheckOutALL lL){
+			lL.setPlatformID(PlatformID);
+			if(!PlatformID.isEmpty() && lL.getMerchantID().isEmpty()){
+				lL.setMerchantID(MerchantID);
+			} else if(!PlatformID.isEmpty() && !lL.getMerchantID().isEmpty()){
 			} else {
-				((AioCheckOutALL) obj).setMerchantID(MerchantID);
+				lL.setMerchantID(MerchantID);
 			}
-			((AioCheckOutALL) obj).setInvoiceMark(invoice == null? "N" : "Y");
+			lL.setInvoiceMark(invoice == null? "N" : "Y");
 			if(ignorePayment.length > 0){ 
 				ignoreParam = Arrays.toString(ignorePayment);
 				ignoreParam = ignoreParam.replaceAll(", ", "#");
 				ignoreParam = ignoreParam.substring(1, ignoreParam.length()-1);
-				((AioCheckOutALL) obj).setIgnorePayment(ignoreParam);
+				lL.setIgnorePayment(ignoreParam);
 			}
-			log.info("aioCheckOutALL params: " + ((AioCheckOutALL) obj).toString());
-		} else if(obj instanceof AioCheckOutApplePay){
-			((AioCheckOutApplePay) obj).setPlatformID(PlatformID);
-			if(!PlatformID.isEmpty() && ((AioCheckOutApplePay) obj).getMerchantID().isEmpty()){
-				((AioCheckOutApplePay) obj).setMerchantID(MerchantID);
-			} else if(!PlatformID.isEmpty() && !((AioCheckOutApplePay) obj).getMerchantID().isEmpty()){
+			log.info("aioCheckOutALL params: " + lL.toString());
+		} else if(obj instanceof AioCheckOutApplePay pay){
+			pay.setPlatformID(PlatformID);
+			if(!PlatformID.isEmpty() && pay.getMerchantID().isEmpty()){
+				pay.setMerchantID(MerchantID);
+			} else if(!PlatformID.isEmpty() && !pay.getMerchantID().isEmpty()){
 			} else {
-				((AioCheckOutApplePay) obj).setMerchantID(MerchantID);
+				pay.setMerchantID(MerchantID);
 			}
-			((AioCheckOutApplePay) obj).setInvoiceMark(invoice == null? "N" : "Y");
-			log.info("aioCheckOutOneTime params: " + ((AioCheckOutApplePay) obj).toString());
-		} else if(obj instanceof AioCheckOutATM){
-			((AioCheckOutATM) obj).setPlatformID(PlatformID);
-			if(!PlatformID.isEmpty() && ((AioCheckOutATM) obj).getMerchantID().isEmpty()){
-				((AioCheckOutATM) obj).setMerchantID(MerchantID);
-			} else if(!PlatformID.isEmpty() && !((AioCheckOutATM) obj).getMerchantID().isEmpty()){
+			pay.setInvoiceMark(invoice == null? "N" : "Y");
+			log.info("aioCheckOutOneTime params: " + pay.toString());
+		} else if(obj instanceof AioCheckOutATM tM){
+			tM.setPlatformID(PlatformID);
+			if(!PlatformID.isEmpty() && tM.getMerchantID().isEmpty()){
+				tM.setMerchantID(MerchantID);
+			} else if(!PlatformID.isEmpty() && !tM.getMerchantID().isEmpty()){
 			} else {
-				((AioCheckOutATM) obj).setMerchantID(MerchantID);
+				tM.setMerchantID(MerchantID);
 			}
-			((AioCheckOutATM) obj).setInvoiceMark(invoice == null? "N" : "Y");
-			log.info("aioCheckOutATM params: " + ((AioCheckOutATM) obj).toString());
-		} else if(obj instanceof AioCheckOutBARCODE){
-			((AioCheckOutBARCODE) obj).setPlatformID(PlatformID);
-			if(!PlatformID.isEmpty() && ((AioCheckOutBARCODE) obj).getMerchantID().isEmpty()){
-				((AioCheckOutBARCODE) obj).setMerchantID(MerchantID);
-			} else if(!PlatformID.isEmpty() && !((AioCheckOutBARCODE) obj).getMerchantID().isEmpty()){
+			tM.setInvoiceMark(invoice == null? "N" : "Y");
+			log.info("aioCheckOutATM params: " + tM.toString());
+		} else if(obj instanceof AioCheckOutBARCODE dE){
+			dE.setPlatformID(PlatformID);
+			if(!PlatformID.isEmpty() && dE.getMerchantID().isEmpty()){
+				dE.setMerchantID(MerchantID);
+			} else if(!PlatformID.isEmpty() && !dE.getMerchantID().isEmpty()){
 			} else {
-				((AioCheckOutBARCODE) obj).setMerchantID(MerchantID);
+				dE.setMerchantID(MerchantID);
 			}
-			((AioCheckOutBARCODE) obj).setInvoiceMark(invoice == null? "N" : "Y");
-			log.info("aioCheckOutBARCODE params: " + ((AioCheckOutBARCODE) obj).toString());
-		} else if(obj instanceof AioCheckOutCVS){
-			((AioCheckOutCVS) obj).setPlatformID(PlatformID);
-			if(!PlatformID.isEmpty() && ((AioCheckOutCVS) obj).getMerchantID().isEmpty()){
-				((AioCheckOutCVS) obj).setMerchantID(MerchantID);
-			} else if(!PlatformID.isEmpty() && !((AioCheckOutCVS) obj).getMerchantID().isEmpty()){
+			dE.setInvoiceMark(invoice == null? "N" : "Y");
+			log.info("aioCheckOutBARCODE params: " + dE.toString());
+		} else if(obj instanceof AioCheckOutCVS vS){
+			vS.setPlatformID(PlatformID);
+			if(!PlatformID.isEmpty() && vS.getMerchantID().isEmpty()){
+				vS.setMerchantID(MerchantID);
+			} else if(!PlatformID.isEmpty() && !vS.getMerchantID().isEmpty()){
 			} else {
-				((AioCheckOutCVS) obj).setMerchantID(MerchantID);
+				vS.setMerchantID(MerchantID);
 			}
-			((AioCheckOutCVS) obj).setInvoiceMark(invoice == null? "N" : "Y");
-			log.info("aioCheckOutCVS params: " + ((AioCheckOutCVS) obj).toString());
-		} else if(obj instanceof AioCheckOutDevide){
-			((AioCheckOutDevide) obj).setPlatformID(PlatformID);
-			if(!PlatformID.isEmpty() && ((AioCheckOutDevide) obj).getMerchantID().isEmpty()){
-				((AioCheckOutDevide) obj).setMerchantID(MerchantID);
-			} else if(!PlatformID.isEmpty() && !((AioCheckOutDevide) obj).getMerchantID().isEmpty()){
+			vS.setInvoiceMark(invoice == null? "N" : "Y");
+			log.info("aioCheckOutCVS params: " + vS.toString());
+		} else if(obj instanceof AioCheckOutDevide devide){
+			devide.setPlatformID(PlatformID);
+			if(!PlatformID.isEmpty() && devide.getMerchantID().isEmpty()){
+				devide.setMerchantID(MerchantID);
+			} else if(!PlatformID.isEmpty() && !devide.getMerchantID().isEmpty()){
 			} else {
-				((AioCheckOutDevide) obj).setMerchantID(MerchantID);
+				devide.setMerchantID(MerchantID);
 			}
-			((AioCheckOutDevide) obj).setInvoiceMark(invoice == null? "N" : "Y");
-			log.info("aioCheckOutDevide params: " + ((AioCheckOutDevide) obj).toString());
-		} else if(obj instanceof AioCheckOutOneTime){
-			((AioCheckOutOneTime) obj).setPlatformID(PlatformID);
-			if(!PlatformID.isEmpty() && ((AioCheckOutOneTime) obj).getMerchantID().isEmpty()){
-				((AioCheckOutOneTime) obj).setMerchantID(MerchantID);
-			} else if(!PlatformID.isEmpty() && !((AioCheckOutOneTime) obj).getMerchantID().isEmpty()){
+			devide.setInvoiceMark(invoice == null? "N" : "Y");
+			log.info("aioCheckOutDevide params: " + devide.toString());
+		} else if(obj instanceof AioCheckOutOneTime time){
+			time.setPlatformID(PlatformID);
+			if(!PlatformID.isEmpty() && time.getMerchantID().isEmpty()){
+				time.setMerchantID(MerchantID);
+			} else if(!PlatformID.isEmpty() && !time.getMerchantID().isEmpty()){
 			} else {
-				((AioCheckOutOneTime) obj).setMerchantID(MerchantID);
+				time.setMerchantID(MerchantID);
 			}
-			((AioCheckOutOneTime) obj).setInvoiceMark(invoice == null? "N" : "Y");
-			log.info("aioCheckOutOneTime params: " + ((AioCheckOutOneTime) obj).toString());
-		} else if(obj instanceof AioCheckOutPeriod){
-			((AioCheckOutPeriod) obj).setPlatformID(PlatformID);
-			if(!PlatformID.isEmpty() && ((AioCheckOutPeriod) obj).getMerchantID().isEmpty()){
-				((AioCheckOutPeriod) obj).setMerchantID(MerchantID);
-			} else if(!PlatformID.isEmpty() && !((AioCheckOutPeriod) obj).getMerchantID().isEmpty()){
+			time.setInvoiceMark(invoice == null? "N" : "Y");
+			log.info("aioCheckOutOneTime params: " + time.toString());
+		} else if(obj instanceof AioCheckOutPeriod period){
+			period.setPlatformID(PlatformID);
+			if(!PlatformID.isEmpty() && period.getMerchantID().isEmpty()){
+				period.setMerchantID(MerchantID);
+			} else if(!PlatformID.isEmpty() && !period.getMerchantID().isEmpty()){
 			} else {
-				((AioCheckOutPeriod) obj).setMerchantID(MerchantID);
+				period.setMerchantID(MerchantID);
 			}
-			((AioCheckOutPeriod) obj).setInvoiceMark(invoice == null? "N" : "Y");
-			log.info("aioCheckOutPeriod params: " + ((AioCheckOutPeriod) obj).toString());
-		}  else if(obj instanceof AioCheckOutWebATM){
-			((AioCheckOutWebATM) obj).setPlatformID(PlatformID);
-			if(!PlatformID.isEmpty() && ((AioCheckOutWebATM) obj).getMerchantID().isEmpty()){
-				((AioCheckOutWebATM) obj).setMerchantID(MerchantID);
-			} else if(!PlatformID.isEmpty() && !((AioCheckOutWebATM) obj).getMerchantID().isEmpty()){
+			period.setInvoiceMark(invoice == null? "N" : "Y");
+			log.info("aioCheckOutPeriod params: " + period.toString());
+		}  else if(obj instanceof AioCheckOutWebATM tM){
+			tM.setPlatformID(PlatformID);
+			if(!PlatformID.isEmpty() && tM.getMerchantID().isEmpty()){
+				tM.setMerchantID(MerchantID);
+			} else if(!PlatformID.isEmpty() && !tM.getMerchantID().isEmpty()){
 			} else {
-				((AioCheckOutWebATM) obj).setMerchantID(MerchantID);
+				tM.setMerchantID(MerchantID);
 			}
-			((AioCheckOutWebATM) obj).setInvoiceMark(invoice == null? "N" : "Y");
-			log.info("aioCheckOutWebATM params: " + ((AioCheckOutWebATM) obj).toString());
+			tM.setInvoiceMark(invoice == null? "N" : "Y");
+			log.info("aioCheckOutWebATM params: " + tM.toString());
 		} else{
 			throw new EcpayException(ErrorMessage.UNDIFINED_OBJECT);
 		}

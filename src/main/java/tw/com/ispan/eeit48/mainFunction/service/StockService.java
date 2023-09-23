@@ -96,7 +96,7 @@ public class StockService {
 			newProductId = String.valueOf(Integer.parseInt(lastProductId) + 1);
 		} else {
 			// 預設以 userId + 00001 作為第一筆productId
-			newProductId = String.format("%d%05d", userId, 1);
+			newProductId = "%d%05d".formatted(userId, 1);
 		}
 
 		if (productInfo.getOnShelf() == 0) {

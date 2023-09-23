@@ -190,10 +190,10 @@ public class OrderSellService {
                 SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String nowSimpleDate = sdFormat.format(today);
                 emailService.sendMail(autoSellerEmail, "傳送新訂單",
-                        String.format("買家%s已送出訂單編號%s，請盡快通過訂單，謝謝", autoBuyerCompanyName, newOrderId));
+                        "買家%s已送出訂單編號%s，請盡快通過訂單，謝謝".formatted(autoBuyerCompanyName, newOrderId));
 
                 emailService.sendMail(autoBuyerEmail, "傳送新訂單",
-                        String.format("您%s已自動送出一筆編號:%s新訂單，訂購商品為%s，訂購數量:%d", autoBuyerCompanyName, newOrderId, "秋刀魚", lackQty));
+                        "您%s已自動送出一筆編號:%s新訂單，訂購商品為%s，訂購數量:%d".formatted(autoBuyerCompanyName, newOrderId, "秋刀魚", lackQty));
 
                 messageService.saveNewMessage("接單管理通知" + autoBuyerCompanyName + "已送出訂單編號: " + newOrderId + "請盡快通過訂單" + nowSimpleDate,
                         supplierId);
@@ -233,6 +233,6 @@ public class OrderSellService {
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String simpleToday = sdf.format(new Date());
-        return String.format("%dD%s%04d", userId, simpleToday, serialNumber);
+        return "%dD%s%04d".formatted(userId, simpleToday, serialNumber);
     }
 }
