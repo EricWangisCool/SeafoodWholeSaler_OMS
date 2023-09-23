@@ -2,11 +2,11 @@ package tw.com.ispan.eeit48.mainFunction.model.view;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import jakarta.persistence.Table;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Immutable;
 import tw.com.ispan.eeit48.mainFunction.model.view.pk.Product_Order_OrderDetailPK;

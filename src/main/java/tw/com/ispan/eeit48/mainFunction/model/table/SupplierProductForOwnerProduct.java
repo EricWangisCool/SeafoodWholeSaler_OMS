@@ -1,7 +1,7 @@
 package tw.com.ispan.eeit48.mainFunction.model.table;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Immutable;
 import tw.com.ispan.eeit48.mainFunction.model.table.pk.SupplierProductForOwnerProductPK;

@@ -143,7 +143,7 @@ public class ExampleAllInOne {
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd");
 		String today = sdf.format(new Date());
 		String today2 = sdf2.format(new Date());
-		String treadeNo = String.format("%04d", (int) (Math.random() * 1000 + 1));
+		String treadeNo = "%04d".formatted((int) (Math.random() * 1000 + 1));
 		
 		all = new AllInOne("");
 		AioCheckOutALL obj = new AioCheckOutALL();
@@ -163,7 +163,7 @@ public class ExampleAllInOne {
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd");
 		String today = sdf.format(new Date());
 		String today2 = sdf2.format(new Date());
-		String treadeNo = String.format("%04d", (int) (Math.random() * 1000 + 1));
+		String treadeNo = "%04d".formatted((int) (Math.random() * 1000 + 1));
 		
 		all = new AllInOne("");
 		AioCheckOutALL obj = new AioCheckOutALL();
