@@ -61,10 +61,9 @@ Docker, WebSocket, JavaScript, AJAX, Spring Mail, Tomcat, EcPay integration
 
 
 ### Docker開啟專案方式
-1. #### 如果是Windows作業系統用戶，需先將腳本格式調整為CRLF，[原因點這裡](https://blog.clarence.tw/2022/06/26/%E7%99%BC%E7%94%9F-bin-bashm-bad-interpreter-no-such-file-or-directory-%E6%80%8E%E9%BA%BC%E8%A7%A3%E6%B1%BA/)
+#### 在專案根目錄打開終端機，輸入`docker compose up`，Docker會自動幫你安裝`mysql`和`jdk`鏡像，同時將sql檔匯入，最後一樣跑在 [http://localhost:8080](http://localhost:8080)
+#### 附註: 因為腳本是LF格式，我讓Docker預設使用Ubuntu鏡像並將其轉成CRLF格式以便Windows用戶也能開啟，如果想節省部署時間，非Windows用戶拉openJdk鏡像即可，Windows用戶不想用Ubuntu鏡像則需手動調整格式，[原因點這裡](https://blog.clarence.tw/2022/06/26/%E7%99%BC%E7%94%9F-bin-bashm-bad-interpreter-no-such-file-or-directory-%E6%80%8E%E9%BA%BC%E8%A7%A3%E6%B1%BA/)
 ![image](etc/ReviseBashFormat.png?raw=true "ReviseBashFormat")
-
-2. #### 在專案根目錄打開終端機，輸入`docker compose up`，Docker會自動幫你安裝`mysql`和`jdk`鏡像，同時將sql檔匯入，最後一樣跑在 [http://localhost:8080](http://localhost:8080)
 
 ### ROLE_BOSS
 廠商: 極鮮家<BR>
@@ -153,10 +152,10 @@ Account & Password: root
 Start the application with the Spring Boot maven plugin (`mvn spring-boot:run`), the application will be running at [http://localhost:8080](http://localhost:8080).
 
 ### Run application with Docker
-1. #### If you are Windows OS, please alter to CRLF format before docker composing, [here is why](https://willi.am/blog/2016/08/11/docker-for-windows-dealing-with-windows-line-endings/)
+#### Command `docker compose up` at application root path, Docker will pull `mysql` and `jdk` images then import `sql file` automatically. It will be running at [http://localhost:8080](http://localhost:8080) as well.
+#### Remark: Since the script is written in LF format, I let Docker pull Ubuntu image and turns it into CRLF automatically to support Windows user. If you want to save time, Non-Windows user only needs openJdk image, Windows user can manually change format to reduce Ubuntu image usage, [here is why](https://willi.am/blog/2016/08/11/docker-for-windows-dealing-with-windows-line-endings/)
 ![image](etc/ReviseBashFormat.png?raw=true "ReviseBashFormat")
 
-2. #### Command `docker compose up` at application root path, Docker will pull `mysql` and `jdk` images then import `sql file` automatically. It will be running at [http://localhost:8080](http://localhost:8080) as well.
 
 ### ROLE_BOSS
 Account: foo1234<BR>
