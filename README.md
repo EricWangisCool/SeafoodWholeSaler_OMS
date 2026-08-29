@@ -1,6 +1,6 @@
 # 水產商自動叫貨系統
 
-Click here for **[Live demo](https://immargin.asuscomm.com/oms/)** or **[English Desc](#seafood-wholesaler-oms)**
+Click here for **[Live demo](https://nsy.onrender.com/)** or **[English Desc](#seafood-wholesaler-oms)**
 
 ![image](etc/SystemPage.png?raw=true "JwtToken")
 
@@ -11,9 +11,9 @@ Click here for **[Live demo](https://immargin.asuscomm.com/oms/)** or **[English
 
 ## 主要技術與框架
 1. **[Spring Security](https://spring.io/projects/spring-security)** + **[JWT (JSON Web Token)](https://jwt.io)** + 
-Restful API + JSON 實作前後端分離開發<BR>
+Restful API 實作前後端分離開發<BR>
 
-2. **[Spring Boot](https://spring.io/projects/spring-boot)** + Spring MVC + Spring Data Jpa + Hibernate ORM 實作CRUD與前端網頁呈現<BR>
+2. **[Spring Boot](https://spring.io/projects/spring-boot)** + Spring Data Jpa + Hibernate ORM 實作CRUD<BR>
 
 3. MySQL 實作Rdbms資料庫設計
 
@@ -105,7 +105,7 @@ This project is used to demonstrate what I've learned in Java.
 1. **[Spring Security](https://spring.io/projects/spring-security)** + **[JWT (JSON Web Token)](https://jwt.io)** +
    Restful API + JSON<BR>
 
-2. **[Spring Boot](https://spring.io/projects/spring-boot)** + Spring MVC + Spring Data Jpa + Hibernate ORM<BR>
+2. **[Spring Boot](https://spring.io/projects/spring-boot)** + Spring Data Jpa + Hibernate ORM<BR>
 
 3. MySQL Rdbms DB design
 
